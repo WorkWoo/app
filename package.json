@@ -1,0 +1,26 @@
+{
+  "name": "workwoo-app",
+  "version": "1.1.0",
+  "description": "WorkWoo Core App",
+  "main": "workwoo-app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "body-parser": "*",
+    "passport": "0.3.2",
+    "passport-http": "0.3.0",
+    "express-session": "1.13.0",
+    "aws-sdk": "2.2.30",
+    "bcrypt": "0.8.5",
+    "connect-mongo" : "1.1.0",
+    "mongoose": "4.3.6",
+    "mongoose-pages": "0.0.3",
+    "moment": "2.11.2",
+    "i": "*",
+    "quikpaper-utils": "git+https://6304f09f5e46bd8d78d01da09c961dc45ceb7d37:x-oauth-basic@github.com/QuikPaper/utils.git"
+  },
+  "author": "Ryan Mangroo",
+  "license": "ISC"
+}

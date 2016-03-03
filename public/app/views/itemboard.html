@@ -1,0 +1,64 @@
+<span ng-include="'views/includes/alerts.html'"></span>
+
+<!-- Page Header -->
+<div class="container-fluid row noSpaceMobile">
+  <!-- Title -->
+  <div class="col-md-8 noSpaceMobile">
+    <h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
+    <div class="breadCrumb">
+      <a href="#/"><span class="fa fa-arrow-left"></span> Back to work summary</a>
+    </div>
+  </div>
+  <!-- Search -->
+  <div class="col-md-4 text-right noSpaceMobile">
+    <form ng-submit="search(searchTerm)" class="input-group">
+      <input type="text" class="form-control defaultInput" value="" ng-model="searchTerm" size="20"/>
+      <span ng-disabled="itemsLoading" ng-click="search(searchTerm)" class="input-group-addon searchIcon"><i class="fa fa-search"></i></span>
+    </form>
+  </div>
+</div>
+<!-- Page Header -->
+
+<!-- Content -->
+<div class="container-fluid noSpace">
+
+  <!-- "Create New" card -->
+  <div ng-if="!itemsLoading" class="col-md-4 text-center noSpaceMobile fadeInOut">
+    <div class="itemCardActive">
+      <a ng-href="#/{{primaryCollection}}/new" class="itemCardActiveLink">
+        <span class="itemCardActiveIcon fa fa-plus"></span>
+        <span class="itemCardActiveBreaker"></br></span>
+        <span class="itemCardActiveTitle">Create New</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Create a card for each item -->
+  <div ng-repeat="item in loadedItems" class="col-md-4 noSpaceMobile fadeInOutStagger">
+    <div class="itemCard">
+
+      <div class="col-md-12 clearfix">
+        <span class="pull-left text-left">
+          <a ng-click="openOneItem(item)" class="itemCardTitle" ng-href="#/{{primaryCollection}}/view/{{item.number}}">{{ item.number }}</a>
+        </span>
+
+        <span class="pull-right text-right">
+          <div class="itemCardState">{{ item.state }}</div>
+        </span>
+      </div>
+
+      <div class="col-md-12">
+        <span class="itemCardUpdateInfo">Updated: {{ formattedDateTime(item.updated_at) }} By: {{ item._updated_by.firstName }}</span>
+      </div>
+
+      <div class="col-md-12">
+        <div class="ellipsis">
+          <div class="itemCardContent">
+            {{ item[collections[primaryCollection].displayField] }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

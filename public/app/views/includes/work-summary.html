@@ -1,0 +1,61 @@
+<style>
+	
+	.work-summary-container {
+		position: absolute;
+  		right: 0px;
+  		left: 250px;
+  		bottom: 0px;
+  		 transition: all .2s linear;
+  		-webkit-transition: all .2s linear;
+  		-moz-transition: all .2s linear;
+	}
+
+	.work-summary-container-disabled {
+		position: absolute;
+  		right: 0px;
+  		left: 250px;
+  		bottom: 0px;
+  		background-color: #f0f0f0;
+  		box-shadow: inset 0px 5px 20px #fff;
+  		transition: all .2s linear;
+  		-webkit-transition: all .2s linear;
+  		-moz-transition: all .2s linear;
+
+	}
+
+	.work-summary-container-disabled:hover {
+		position: absolute;
+  		right: 0px;
+  		left: 250px;
+  		bottom: 0px;
+  		cursor: pointer;
+  		background-color: #fff;
+	}
+
+
+	.work-summary-title {
+		margin: 0px 0px 0px 10px;
+		padding: 5px 0px 5px 40px;
+	}
+
+	.work-summary-content {
+		padding: 40px;
+	}
+
+</style>
+
+<!-- If the item list is being shown -->
+<div ng-if="showItems" ng-click="hideItems()" class="work-summary-container-disabled" ng-style="workSummaryContainerOffset">
+	<h4 class="work-summary-title">My Work</h4>
+</div>
+
+<!-- If the item list is not being shown -->
+<div ng-if="!showItems" class="work-summary-container" ng-style="workSummaryContainerOffset">
+	<h4 class="work-summary-title">My Work</h4>
+	<div class="container-fluid work-summary-content">
+		<h4>&nbsp;</h4>
+		<h4>This page will eventually contain a summary of your personal work.</h4>
+		<h4>&nbsp;</h4>
+		<h4>For now, simply choose a collection on the left to get started.</h4>
+	</div>
+</div>

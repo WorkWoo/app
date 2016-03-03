@@ -1,0 +1,38 @@
+<!-- Login form -->
+<div ng-model="credentials" class="container login-form" style="padding-bottom:20px;">
+
+  <h4 class="text-center login-form-heading">Request password reset</h4>
+
+  <form ng-if="!forgotSubmitted" name="username" ng-submit="forgot(credentials)" novalidate>
+    
+    <!-- Username or email -->
+    <div class="form-row form-group">
+      <input ng-disabled="forgotSubmitting" class="form-control" type="text" placeholder="Email Address" ng-model="credentials.emailAddress">
+    </div>
+
+    <!-- Submit button -->
+    <div class="form-row form-group">
+      <button ng-disabled="forgotSubmitting" class="button button-default button-fill">
+        <span ng-if="!forgotSubmitting">Submit</span>
+
+        <!-- Submitting indicator -->
+        <span ng-if="forgotSubmitting" class="text-center">
+          <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+          <span>Submitting</span>
+        </span>
+      </button>
+    </div>
+  </form>
+
+  <div ng-if="forgotSubmitted" class="text-center">
+    <p class="text-left">A link to reset your password has been sent to your email address on file.</p>
+  </div>
+
+  <div class="text-center">
+    <a href="/#/login" ng-disabled="forgotSubmitting">
+      <span class="glyphicon glyphicon-log-in"></span>
+      <span>Try logging in again</span> 
+    </a>
+  </div>
+
+</div>

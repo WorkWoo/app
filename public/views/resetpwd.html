@@ -1,0 +1,39 @@
+<!-- Login form -->
+<div ng-model="pwdResetInfo" class="container login-form">
+
+  <h4 class="text-center login-form-heading">Reset your password</h4>
+
+  <form ng-if="!resetSubmitted" name="username" ng-submit="reset(pwdResetInfo)" novalidate>
+
+    <!-- New Pwd -->
+    <div class="form-row form-group">
+      <input ng-disabled="resetSubmitting" class="form-control" type="password" name="pwd" placeholder="New Password" ng-model="pwdResetInfo.newPassword">
+    </div>
+
+    <!-- New Pwd Confirm-->
+    <div class="form-row form-group">
+      <input ng-disabled="resetSubmitting" class="form-control" type="password" name="pwd" placeholder="Confirm New Password" ng-model="pwdResetInfo.confirmPassword">
+    </div>
+
+    <!-- Submit button -->
+    <div class="form-row form-group">
+      <button ng-disabled="resetSubmitting" id="loginSubmitButton" class="button button-default button-fill">
+        <span ng-if="!resetSubmitting">Submit</span>
+
+        <!-- Submitting indicator -->
+        <span ng-if="resetSubmitting" class="text-center">
+          <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+          <span>Submitting</span>
+        </span>
+      </button>
+    </div>
+  </form>
+
+  <div ng-if="resetSubmitted" class="text-center">
+    <p class="text-left">Your password has been reset.</p>
+    <a ng-disabled="resetSubmitting" ng-href="/#/login">Try logging in again <span class="glyphicon glyphicon-log-in"></span></a>
+  </div>
+
+
+
+</div>

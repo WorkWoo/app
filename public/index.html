@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Fonts, jQuery, and Bootstrap -->
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- Angular -->
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-animate.js"></script>
+    <script src="js/angular-route.js"></script>
+
+    <!-- Custom scripts -->
+    <script src="/js/utils.js"></script>
+    <script src="config.js"></script>
+    <script src="controllers/maincontroller.js"></script>
+    <script src="controllers/logincontroller.js"></script>
+    <script src="controllers/forgotcontroller.js"></script>
+    <script src="controllers/resetcontroller.js"></script>
+    <script src="factories.js"></script>
+    <script src="auth.js"></script>
+
+  </head>
+  
+  <body ng-app="auth" ng-controller="mainController" style="margin:0px;padding:0px;color:#777;">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-title-logo">
+        <span class="glyphicon glyphicon-send"></span>
+        <span class="header-title" style="margin-left: 5px;">
+          QuikPaper
+        </span>
+      </div>
+    </div>
+    <!-- Header -->
+
+    <!-- Content will be injected here -->
+    <div style="margin-top: 80px;" ng-view></div>
+    
+  </body>
+</html>

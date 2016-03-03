@@ -1,0 +1,135 @@
+@media only screen and (max-width : 992px) {
+
+  /****************************** GLOBAL GENERIC THINGS ******************************/
+
+  .pageHeading {
+    margin-top: 0px;
+    padding-top: 0px;
+    text-align: center;
+  }
+
+  .contentPage {
+    position: absolute;
+    padding: 10px;
+    top: 25px;
+    left: 0px;
+    right: 0px;
+  }
+
+  .breadCrumb {
+    padding: 0px 10px 10px 10px;
+    text-align: center;
+  }
+
+  /****************************** LINKS ******************************/
+
+  .noSpaceMobile {
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .smallContextLink {
+    text-align: center;
+    padding: 10px;
+  }
+
+  /****************************** ITEM CARD BOARD ******************************/
+
+  .itemCardActiveBreaker {
+    display: none;
+  }
+
+  .itemCard {
+    border-radius: 5px;
+    background-color: #fcfcfc;
+    border: 1px dotted #d8d8d8;
+    margin: 10px 0px 10px 0px;
+    padding: 5px;
+    height: 110px;
+    transition: all .15s linear;
+    -webkit-transition: all .15s linear;
+    -moz-transition: all .15s linear;
+  }
+
+  .itemCardActive {
+    height: auto;
+    border-radius: 5px;
+    background-color: #d9e9e2;
+    padding: 5px;
+    border: 1px dotted #d8d8d8;
+    margin: 10px 0px 0px 0px;
+  }
+
+  .itemCardActiveTitle {
+    position: relative;
+    top: -10px;
+    margin-left: 10px;
+  }
+
+
+  /****************************** LEFT MENU ******************************/
+
+
+  .leftMenuContainer {
+    background-color: #67A88C;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    padding: 5px;
+    z-index: 100;
+    text-align: center;
+  }
+
+  .leftMenuIcon {
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 10px;
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid #d9e9e2;
+    transition: all .1s linear;
+    -webkit-transition: all .1s linear;
+    -moz-transition: all .1s linear;
+  }
+
+  .leftMenuIcon:hover {
+    background-color: #87bba5;
+  }
+
+  .leftMenuIconActive {
+    border-radius: 5px;
+    color: #67A88C;
+    border: 1px solid #fff;
+    background-color: #fff;
+    padding: 10px;
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+    cursor: default;
+  }
+
+  .leftMenuIconActiveTop {
+    border-radius: 5px;
+    color: #67A88C;
+    border: 1px solid #fff;
+    background-color: #fff;
+    padding: 10px;
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+    cursor: default;
+  }
+
+
+  /****************************** SINGLE ITEM ******************************/
+
+
+  .itemDisplayTitle {
+    display: none;
+  }
+
+}

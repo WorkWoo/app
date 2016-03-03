@@ -1,0 +1,72 @@
+<!-- Modal Multiple Reference Selector -->
+<div id="multiReferenceSelectPopup" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content modalContent">
+      <!-- Header -->
+      <div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center">Select {{ collections[referenceCollection].pluralLabel }} for {{ collections[collection].singleLabel }}</h4>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <!-- Begin List Container -->
+        <div class="container-fluid" style="margin:0px;padding:0px;max-height:300px;overflow-y:scroll;overflow-x:hidden;">
+          <table class="table table-hover table-striped reference-table table-condensed">
+
+            <thead>
+              <tr class="listHeader">
+                <th>{{ collections[referenceCollection].singleLabel }}</th>
+                <th>Quantity</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <!-- Table Body -->
+            <tbody style="padding: 10px;">
+              <!-- If 1 or more references exist -->
+              <tr ng-repeat="item in referenceItems" ng-model="item">
+                <td>{{item[collections[referenceCollection].displayField]}}</td>
+                
+                <!-- Qty input -->
+                <td>
+                  <input type="number" style="width:75px;" class="form-control input-sm" ng-model="item.qty">
+                </td>
+                
+                <!-- Checkbox-->
+                <td>
+                  <input ng-attr-id="{{item._id}}" type="checkbox" name="checkbox" ng-checked="selectedReferences.indexOf(item._id) > -1" ng-click="toggleSelectedReferences(item._id)">
+                  <label for="{{item._id}}"><span><span></span></span></label>
+                </td>
+              </tr>
+              
+              <!-- If no references exist -->
+              <tr ng-if="referenceItems.length == 0 && !referencesLoading">
+                <td class="text-center">No {{ collections[referenceCollection].pluralLabel }} found</td>
+              </tr>
+              
+              <!-- If references are loading -->
+              <tr ng-if="referencesLoading">
+                <td colspan="3" class="text-center">
+                  <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                  <span>Loading choices</span>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <!-- End List Container -->
+      </div>
+      <!-- Footer -->
+      <div class="container-fluid modalFooter">
+        <span class="col-md-6">
+          <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Cancel</button>
+        </span>
+        <span class="col-md-6">
+          <button type="button" class="btn btn-primary btn-block" ng-click="addSelectedReferences('update')">Add selected </button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<!-- Success alert -->
+<div ng-if="successAlertVisible" class="alert alert-success list-alert text-center fade-expand-down">
+  <span ng-click="toggleAlert('success', false, '')" class="pull-right alert-close glyphicon glyphicon-remove"></span>
+  <span class="glyphicon glyphicon-ok"></span> <span ng-bind-html="trustAsHtml(successAlertText)"></span>
+</div>
+
+<!-- Danger alert -->
+<div ng-if="dangerAlertVisible" class="alert alert-danger list-alert text-center fade-expand-down">
+  <span ng-click="toggleAlert('danger', false, '')" class="pull-right alert-close glyphicon glyphicon-remove"></span>
+  <span ng-bind-html="trustAsHtml(dangerAlertText)"></span>
+</div>

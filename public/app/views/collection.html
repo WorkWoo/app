@@ -1,0 +1,199 @@
+<style>
+	
+	.current-collection-icon {
+  		color: #67A88C;
+  		padding: 15px;
+  		border-radius: 5px;
+  		border: 1px solid #d8d8d8;
+	}
+
+	.current-collection-icon:hover {
+		cursor: pointer;
+		color: #777;
+		background-color: #f0f0f0;
+	}
+
+	.possible-collection-icon {
+		padding: 10px;
+		border-radius: 10px;
+		margin: 5px;
+		background-color: #fff;
+		border: 1px solid #d8d8d8;
+	}
+
+	.possible-collection-icon:hover {
+		cursor: pointer;
+		background-color: #d8d8d8;
+	}
+
+</style>
+
+<!-- Page Header -->
+<a href="#/account/collections"><span class="glyphicon glyphicon-menu-left"></span><span>Back to Work Settings</span></a>
+<h2 class="collection-title">
+	<!-- Current icon -->
+	<span ng-disabled="collectionsLoading" ng-click="toggleIconSelection()" class="current-collection-icon glyphicon" ng-class="getCollectionIconClass(selectedCollection.icon)"></span>
+	<span ng-if="currentAction == 'create'">New Collection</span>
+	<span ng-if="currentAction == 'update'">{{ selectedCollection.pluralLabel }}</span>
+	<!-- Icon choices -->
+	<div ng-if="showIconSelection" class="fade-expand-down">
+		<span ng-repeat="icon in collectionIcons" ng-if="icon != selectedCollection.icon" ng-click="selectIcon(icon)" class="possible-collection-icon glyphicon" ng-class="icon"></span>
+	</div>
+</h2>
+<!-- Page Header -->
+
+<!-- Page Content -->
+<div class="container-fluid">
+	<form ng-model="selectedCollection" novalidate>
+		<!-- Basic Settings -->
+		<div class="col-lg-12 container-fluid" style="margin-bottom:20px;">
+			<!-- Text fields -->
+			<div class="container-fluid">
+				<!-- Plural Label -->
+				<div class="col-lg-3">
+					<label for="singleLabel">Collection name:</label>
+					<input ng-disabled="collectionsLoading" type="text" id="singleLabel" name="singleLabel" class="form-control default-input" value="" ng-model="selectedCollection.pluralLabel" size="20"/>
+				</div>
+				<!-- Collection Type -->
+				<div class="col-lg-3">
+					<label for="collectionType">Type:</label>
+	            	<select ng-disabled="currentAction == 'update' || collectionsLoading" ng-change="collectionTypeChanged()" class="form-control default-input" id="collectionType" name="collectionType" ng-model="selectedCollection.collectionType">
+	            		<option value="workable">Workable</option>
+	            		<option value="static-revisionable">Revisionable</option>
+	            	</select>
+				</div>
+
+				<!-- Number prefix -->
+				<div class="col-lg-3">
+					<label for="numberPrefix">Number prefix:</label>
+					<input ng-disabled="collectionsLoading" type="text" id="numberPrefix" name="numberPrefix" class="form-control default-input" value="" ng-model="selectedCollection.numberPrefix" size="20"/>
+				</div>
+
+				<!-- Display Field -->
+				<div class="col-lg-3">
+					<label for="collectionType">Display Field:</label>
+	            	<select ng-disabled="collectionsLoading" class="form-control default-input" id="collectionType" name="collectionType" ng-model="selectedCollection.displayField">
+	            		<option ng-repeat="field in selectedCollection.fields" value="{{ field.name }}">{{ field.label }}</option>
+	            	</select>
+				</div>
+
+			</div>
+
+			<!-- Custom fields -->
+			<h3 style="margin-top:25px;margin-bottom:25px;" class="no-space">Fields:</h3>
+			<!-- Field List Header -->
+			<div class="row column-header-container">
+				<div class="col-md-4">
+					<span class="column-title">Name</span>
+				</div>
+				<div class="col-md-3">
+					<span class="column-title">Type</span>
+				</div>
+				<div class="col-md-2 text-center">
+					<span class="column-title">Required</span>
+				</div>
+				<div class="col-md-2 text-center">
+					<span class="column-title">Show on lists</span>
+				</div>
+				<div class="col-md-1">
+					<span class="column-title">&nbsp;</span>
+				</div>
+			</div>
+
+			<!-- Each field -->
+			<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" class="row field-list-row fade-in-out">
+				<!-- Field name -->
+				<div class="col-md-4">
+					<input ng-disabled="field.sysProvided || collectionsLoading" type="text" ng-model="field.label" ng-change="field.name = lowerAndRemoveSpace(field.label)" ng-init="field.name = lowerAndRemoveSpace(field.label)" class="form-control default-input" size="20">
+				</div>
+				<!-- Field type -->
+				<div class="col-md-3">
+					<!-- Disabled input for built-in field types -->
+					<input ng-disabled="true" ng-if="field.sysProvided" type="text" class="form-control default-input" value="Built in">
+	            	<!-- State options, if the type is state -->
+	            	<div ng-if="field.displayType == 'state'" class="fade-in-out">
+		            	<button ng-disabled="collectionsLoading" data-toggle="collapse" data-target="#{{fieldIndex}}_state_choices" class="button button-fill edit-choices-button">Edit States</button>
+		            	<ul ng-attr-id="{{fieldIndex}}_state_choices" class="collapse choice-option-container clearfix">
+		            		<li ng-repeat="(stateChoiceIndex, stateChoice) in field.choices track by $index">
+		            			<div class="input-group" style="margin-bottom:3px;">
+		            				<input ng-disabled="collectionsLoading" class="form-control default-input" ng-model="field.choices[$index]" style="border-right:none;" type="text">
+		            				<span ng-click="removeOption(fieldIndex, stateChoiceIndex)" class="input-group-addon remove-choice-icon" style="border-left:none;">
+		            					<i class="glyphicon glyphicon glyphicon-remove"></i>
+		            				</span>
+		            			</div>
+		            		</li>
+		              		<button ng-disabled="collectionsLoading" ng-click="field.choices.push('- New state -')"class="button button-default button-fill add-choice-button">Add State</button>
+		              	<ul>
+	              	</div>
+
+	              	<!-- If a custom field, allow different types -->
+					<select ng-disabled="collectionsLoading" ng-if="!field.sysProvided" class="form-control default-input" ng-model="field.displayType">
+	            		<option value="text">Short Text</option>
+	            		<option value="textarea">Long Text</option>
+	            		<option value="checkbox">Checkbox</option>
+	            		<option value="datetime">Date/Time</option>
+	            		<option value="choice">Dropdown with choices</option>
+	            		<option value="SingleReference">Another Item</option>
+	            		<option value="ReferenceList">Many other Items</option>
+	            	</select>
+
+	            	<!-- If the field is a reference, show the collections dropdown -->
+	            	<span ng-if="field.displayType == 'SingleReference' || field.displayType == 'ReferenceList'" class="fade-in-out">
+						<label>Collection:</label>
+						<select ng-disabled="collectionsLoading" class="form-control default-input" ng-model="field.referenceTo">
+		            		<option ng-repeat="collection in collections" value="{{ collection.name }}">{{ collection.pluralLabel }}</option>
+		            	</select>
+	              	</span>
+
+	            	<!-- If the field is a choice type, show the choices editor -->
+	            	<span ng-if="field.displayType == 'choice'" class="fade-in-out">
+		            	<button ng-disabled="collectionsLoading" data-toggle="collapse" data-target="#{{fieldIndex}}_choices" class="button button-fill edit-choices-button">Edit Choices</button>
+		            	<ul ng-attr-id="{{fieldIndex}}_choices" class="collapse choice-option-container clearfix">
+
+		            		<li ng-repeat="(choiceIndex, choice) in field.choices track by $index">
+		            			<div class="input-group" style="margin-bottom:3px;">
+		            				<input ng-disabled="collectionsLoading" class="form-control default-input" ng-model="field.choices[$index]" style="border-right:none;" type="text">
+		            				<span ng-disabled="collectionsLoading" ng-click="removeOption(fieldIndex, choiceIndex)" class="input-group-addon remove-choice-icon" style="border-left:none;">
+		            					<i class="glyphicon glyphicon glyphicon-remove"></i>
+		            				</span>
+		            			</div>
+		            		</li>
+		              		<button ng-disabled="collectionsLoading" ng-click="field.choices.push('- New choice -')"class="button button-default button-fill add-choice-button">Add choice</button>
+		              	<ul>
+	              	</span>
+				</div>
+
+				<!-- Is required (T/F) -->
+				<div class="col-md-2 text-center">
+					<input ng-disabled="collectionsLoading" ng-disabled="field.sysProvided" type="checkbox" name="checkbox" ng-model="field.required">
+				</div>
+
+				<!-- Show on lists (T/F) -->
+				<div class="col-md-2 text-center">
+					<input ng-disabled="collectionsLoading" type="checkbox" name="checkbox" ng-model="field.showOnList">
+				</div>
+
+				<!-- Remove field button -->
+				<div class="col-md-1 text-right">
+    				<span ng-disabled="collectionsLoading" ng-if="!field.sysProvided" ng-click="removeField(fieldIndex)" class="remove-field-icon glyphicon glyphicon glyphicon-remove"></span>
+				</div>
+			</div>
+
+			<!-- Button Container -->
+			<div class="container-fluid row">
+				<!-- Add field button -->
+				<div class="col-md-3" style="padding:20px;">
+					<button ng-disabled="collectionsLoading" ng-click="addNewField()" class="btn btn-success btn-block">Add field</button>
+				</div>
+				<!-- Spacer -->
+				<div class="col-md-6" style="padding:0px;"></div>
+				<!-- Submit buttons -->
+				<div class="col-md-3" style="padding:20px;">
+					<button ng-disabled="collectionsLoading" ng-if="currentAction == 'update'" ng-click="updateCollection()" class="btn btn-primary btn-block">Save collection</button>
+					<button ng-disabled="collectionsLoading" ng-if="currentAction == 'create'" ng-click="createCollection()" class="btn btn-primary btn-block">Create collection</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<!-- Page Content -->

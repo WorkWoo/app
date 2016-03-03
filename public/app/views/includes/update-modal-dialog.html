@@ -1,0 +1,44 @@
+<!--  USED ON VIEW, FOR UPDATING EXISTING DOCUMENTS -->
+<!-- Modal Save Indicator -->
+<div id="modalRevisionDialog" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div>
+        <!-- Close button -->
+        <span type="button" class="close glyphicon glyphicon-remove" data-dismiss="modal" aria-label="Close"></span>
+        
+        <!-- Title -->
+        <h4 class="modal-title text-center">Updating {{ collections[baseCollection].singleLabel }}</h4>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <div class="text-center" ng-if="collections[baseCollection].collectionType == 'static-revisionable'">
+          <p>{{ collections[baseCollection].pluralLabel }} are under revision control.</p>
+          <p>How would you like to save your changes to this {{ collections[baseCollection].singleLabel }}?</p>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="container-fluid">
+        <!-- Cancel Button -->
+        <span class="col-md-4">
+          <button type="button" style="margin-bottom:5px;" class="button button-danger button-fill" data-dismiss="modal">Cancel</button>
+        </span>
+
+        <!-- Create new revision button -->
+        <span class="col-md-4">
+          <button type="button" style="margin-bottom:5px;" ng-click="submit(selectedItem, true)" class="button button-default button-fill">Create new revision</button>
+        </span>
+
+        <!-- Save to existing version button -->
+        <span class="col-md-4">
+          <button type="button" style="margin-bottom:5px;" ng-click="submit(selectedItem, false)" class="button button-default button-fill">Save to this version</button>
+        </span>
+
+      </div>
+    </div>
+  </div>
+</div>

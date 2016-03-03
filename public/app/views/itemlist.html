@@ -1,0 +1,111 @@
+<span ng-include="'views/includes/alerts.html'"></span>
+
+<!-- Page Header -->
+<div class="row container-fluid">
+  <div class="col-md-8">
+    <h3 class="no-space">{{ collections[primaryCollection].pluralLabel }}</h3>
+  </div>
+
+  <!-- Delete button -->
+  <div class="col-md-2 fade-in-out">
+    <button ng-disabled="itemsLoading || selectedItems.length == 0" ng-click="deleteMultiple()" class="btn btn-danger btn-block" >Delete Selected</button>
+  </div>
+
+  <!-- Create new button -->
+  <div class="col-md-2">
+    <a ng-disabled="itemsLoading" ng-href="#/{{primaryCollection}}/new" class="btn btn-success btn-block">
+      <span class="glyphicon glyphicon-plus"></span>
+      <span> New {{ collections[primaryCollection].singleLabel }}</span>
+    </a>
+  </div>
+</div>
+<!-- Page Header -->
+
+<!-- List Header -->
+<div class="row column-header-row no-space">
+
+  <div class="row">
+    <div class="col-md-3">
+      <!-- Search -->
+      <form ng-submit="search(searchTerm)" class="input-group fade-in-out">
+        <input type="text" class="form-control default-input" value="" ng-model="searchTerm" size="20"/>
+        <span ng-disabled="itemsLoading" ng-click="search(searchTerm)" class="input-group-addon search-icon"><i class="glyphicon glyphicon glyphicon-search"></i></span>
+      </form>
+    </div>
+  </div>
+
+  <!-- Column Header -->
+  <div class="row" style="margin-top:10px;">
+    <!-- Select all checkbox -->
+    <div class="col-md-1 text-left">
+      <input ng-disabled="loadedItems.length == 0 || listLoading" id="selectAllCheckbox" type="checkbox" name="checkbox" ng-click="toggleAll()">
+    </div>
+
+    <!-- Column titles -->
+    <div ng-repeat="field in collections[primaryCollection].fields" ng-if="field.showOnList" ng-class="cellClassInfo.value[collections[primaryCollection].listColumnCount]">
+      <!-- Sort buttons -->
+      <span class="sort-button-container">
+        <span ng-click="reSort(field.name, 'asc')" ng-attr-id="{{field.name}}_asc" class="glyphicon glyphicon-triangle-top sort-asc-button"></span>
+        <span ng-click="reSort(field.name, 'desc')" ng-attr-id="{{field.name}}_desc" class="glyphicon glyphicon-triangle-bottom sort-desc-button"></span>
+      </span>
+      <!-- Title of the field -->
+      <span class="column-header-title">{{ field.label }}</span>
+    </div>
+  </div>
+  <!-- Column Header -->
+
+</div>
+<!-- List Header -->
+
+
+<!-- List Content -->
+<div class=" container-fluid no-space">
+  
+  <!-- Loop through each item -->
+  <div ng-repeat="item in loadedItems" class="row list-row animated-list">
+    <!-- Select checkbox -->
+    <div class="col-md-1 no-space text-left checkbox-container">
+      <div style="margin-left:4px;">
+        <input ng-attr-id="{{item._id}}" type="checkbox" name="checkbox" ng-checked="selectedItems.indexOf(item._id) > -1" ng-click="toggleSelectedItem($event, item._id)">
+        <label for="{{item._id}}"><span><span></span></span></label>
+      </div>
+    </div>
+
+    <!-- Loop through each field -->
+    <div ng-repeat="field in collections[primaryCollection].fields" ng-if="field.showOnList"  ng-class="cellClassInfo.value[collections[primaryCollection].listColumnCount]">
+      <!-- Make the number field a link -->
+      <span class="list-item-number" ng-if="field.name == 'number'">
+
+        <a ng-click="openOneItem(item)" ng-href="#/{{primaryCollection}}/view/{{item.number}}">{{ item.number }}</a>
+
+      </span>
+
+      <!-- For other fields, make it plain text -->
+      <span ng-if="field.name != 'number'">
+        <span class="list-item-fieldname">
+          <strong>{{ field.label }}:</strong>
+        </span>
+
+        <span ng-if="field.displayType == 'SingleReference'">{{ item[field.name][collections[field.referenceTo].displayField] }}</span>
+        <span ng-if="field.displayType != 'SingleReference'">{{ item[field.name] }}</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- End of list indicator -->
+  <div ng-if="!itemsLoading && loadedItems.length > 0 && loadedItems.length == totalItems" class="row list-row-no-hover text-center">
+    End of list
+  </div>
+
+  <!-- End of list indicator -->
+  <div ng-if="!itemsLoading && totalItems == 0" class="row list-row-no-hover text-center">
+    No items found
+  </div>
+
+  <!-- Loading indicator -->
+  <div ng-if="itemsLoading" class="text-center">
+    <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate refresh-xl"></span>
+  </div>
+
+</div>
+<!-- List Content -->

@@ -1,0 +1,25 @@
+<!-- Page Header -->
+<div class="row container-fluid">
+  <div class="col-md-12">
+  	<h3 class="page-heading">Work Settings</h3>
+  	<a href="#/account"><span class="fa fa-arrow-left"></span> Back to account home</a>
+  </div>
+</div>
+<!-- Page Header -->
+
+<!-- Page Content -->
+<div ng-if="!collectionsLoading" class="container-fluid fade-in-out">
+	<!-- Create a box for each collection -->
+	<div ng-repeat="collection in loadedCollections" class="col-md-3 text-center">
+		<div class="large-context-button" ng-click="openEditCollection(collection)">
+			<span class="fa" ng-class="collections[primaryCollection].icon"></span>
+			<h4 class="large-context-button-title">{{collection.pluralLabel}}</h4>
+		</div>
+	</div>
+</div>
+
+<!-- Loading indicator -->
+<div ng-if="collectionsLoading" class="fade-in-out text-center">
+  <span class="refresh-xl"><span style="margin-top: 100px;" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading collections</span>
+</div>
+<!-- Page Content -->

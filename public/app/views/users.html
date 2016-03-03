@@ -1,0 +1,35 @@
+<!-- Page Header -->
+<div class="container-fluid row noSpaceMobile">
+  <!-- Title -->
+  <div class="col-md-8 noSpaceMobile">
+    <h3 class="pageHeading">Users</h3>
+    <div class="breadCrumb">
+      <a href="#/account"><span class="fa fa-arrow-left"></span> Back to Settings</a>
+    </div>
+  </div>
+</div>
+<!-- Page Header -->
+
+<!-- Page Content -->
+
+<div class="container-fluid noSpace">
+	<!-- Create new button -->
+	<div ng-if="!usersLoading" class="col-md-3 noSpaceMobile fadeInOut">
+      <a href="#/account/users/new" class="menuCardContainer">
+        <span class="menuCardIcon fa fa-plus"></span><br/>
+        <span class="menuCardTitle">New User</span>
+      </a>
+    </div>
+
+    <!-- One card for each user -->
+    <div ng-repeat="user in loadedUsers" class="col-md-3 noSpaceMobile fadeInOutStagger">
+      <a ng-href="#/account/users/view/" class="menuCardContainer">
+        <span class="menuCardIcon fa fa-user"></span><br/>
+        <span class="menuCardTitle">{{ user.firstName }} {{ user.lastName }}</span>
+      </a>
+    </div>
+
+
+</div>
+
+<!-- Page Content -->
