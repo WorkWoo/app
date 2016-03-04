@@ -19,6 +19,14 @@ body {
   }
 }
 
+.breadCrumb {
+  padding-bottom: 10px;
+}
+
+.iconXL {
+  font-size: 40px;
+}
+
 /****************************** LINKS ******************************/
 
 
@@ -211,7 +219,7 @@ a:hover {
 /****************************** PAGE STYLING ******************************/
 
 
-.menuCardContainer, .menuCardContainerActive {
+.menuCardContainer, .menuCardContainerActive, .menuCardContainerDisabled {
   padding: 20px;
   margin: 5px;
   text-align: center;
@@ -228,7 +236,12 @@ a:hover {
   background-color: #d9e9e2;
 }
 
+.menuCardContainerDisabled {
+  background-color: #f0f0f0;
+}
+
 .menuCardContainer:hover, .menuCardContainerActive:hover {
+  text-decoration: none;
   box-shadow:
     1px 1px 1px #67A88C,
     -1px -1px 1px #67A88C,
@@ -245,7 +258,18 @@ a:hover {
   color: #67A88C;
 }
 
+.menuCardIconDisabled {
+  font-size: 40px;
+  color: #d8d8d8;
+}
+
 .menuCardTitle {
+  font-size: 18px;
+  display: inline-block;
+}
+
+.menuCardTitleDisabled {
+  color: #d8d8d8;
   font-size: 18px;
   display: inline-block;
 }
@@ -380,21 +404,27 @@ a:hover {
 
 /****************************** ALERTS ******************************/
 
-
-.list-alert {
-  padding: 5px;
-  margin: 0px 10px 10px 10px;
+.upgradeAlert {
+  margin: 5px;
+  color: #fff;
+  background-color: #879dbb;
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.alert-close, .alert-close:hover {
-  margin-right: 5px;
-  cursor: pointer;
+.upgradeAlertIcon {
+  float: left;
+  margin-right: 10px;
 }
 
-.alert-close:hover {
-  color: #999;
+.upgradeAlertText {
+  float: left;
 }
 
+.upgradeAlertButton {
+  margin: 5px 5px 0px 0px;
+  float: right;
+}
 
 /****************************** LISTS ******************************/
 
@@ -700,18 +730,18 @@ a:hover {
 
 /* Fade in and fade out staggered */
 .fadeInOutStagger.ng-enter {
-  transition: .25s;
+  transition: .5s;
   opacity: 0;
 }
 .fadeInOutStagger.ng-enter-stagger {
-  transition-delay: 0.05s;
+  transition-delay: 0.1s;
   transition-duration: 0s;
 }
 .fadeInOutStagger.ng-enter-active {
   opacity: 1;
 }
 .fadeInOutStagger.ng-leave {
-  transition: .25s;
+  transition: .5s;
   opacity: 1;
 }
 .fadeInOutStagger.ng-leave-active {

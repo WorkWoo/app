@@ -6,12 +6,12 @@ function mainController($scope, $location, $sce) {
   $scope.successAlertText = null;
   $scope.dangerAlertVisible = false;
   $scope.dangerAlertText = null;
+
   $scope.authenticated = AUTHENTICATED;
   $scope.currentUser = USER_PROFILE;
   $scope.collections = COLLECTIONS;
-  $scope.workSummaryContainerOffset = {'top':'0px'};
-  $scope.workContentContainerOffset = {'top':'30px'};
 
+  $scope.accountType = $scope.currentUser.org.accountType;
   $scope.primaryCollection = $scope.currentUser.org.primaryCollection;
 
   $scope.changeView = function(viewName) {

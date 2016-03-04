@@ -1,7 +1,7 @@
 <span ng-include="'views/includes/alerts.html'"></span>
 
 <!-- Page Header -->
-<div class="container-fluid row noSpaceMobile">
+<div class="container-fluid noSpaceMobile">
   <!-- Title -->
   <div class="col-md-8 noSpaceMobile">
     <h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
@@ -27,8 +27,8 @@
     <div class="itemCardActive">
       <a ng-href="#/{{primaryCollection}}/new" class="itemCardActiveLink">
         <span class="itemCardActiveIcon fa fa-plus"></span>
-        <span class="itemCardActiveBreaker"></br></span>
-        <span class="itemCardActiveTitle">Create New</span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="itemCardActiveTitle">New {{ collections[primaryCollection].singleLabel }}</span>
       </a>
     </div>
   </div>

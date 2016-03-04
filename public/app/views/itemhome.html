@@ -1,50 +1,51 @@
-<div class="container-fluid">
+<!-- Page Header -->
+<div class="container-fluid noSpaceMobile">
+  <div class="col-md-8 noSpaceMobile">
+    <h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
+  </div>
+</div>
+<!-- Page Header -->
 
-  <!-- Page Header -->
-  <div class="row">
-    <div class="col-md-10">
-      <h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
+<!-- Page Content -->
+<div class="container-fluid noSpace">
+
+  <div class="col-md-3 noSpaceMobile">
+    <a ng-href="#/{{primaryCollection}}/new" class="menuCardContainerActive">
+      <span class="menuCardIcon fa fa-plus"></span>
+      <span class="cardTitleBreaker"></br></span>
+      <span class="menuCardTitle">Create New</span>
+    </a>
+  </div>
+
+  <div class="col-md-3 noSpaceMobile">
+    <a ng-href="#/{{primaryCollection}}/search?state=Open" class="menuCardContainer">
+      <span class="menuCardIcon fa fa-inbox"></span>
+      <span class="cardTitleBreaker"></br></span>
+      <span class="menuCardTitle">Open</span>
+    </a>
+  </div>
+
+  <div class="col-md-3 noSpaceMobile">
+    <a ng-href="#/{{primaryCollection}}/search?state=In%20Progress" class="menuCardContainer">
+      <span class="menuCardIcon fa fa-refresh"></span>
+      <span class="cardTitleBreaker"></br></span>
+      <span class="menuCardTitle">In Progress</span>
+    </a>
+  </div>
+
+  <div class="col-md-3 noSpaceMobile">
+    <a ng-href="#/{{primaryCollection}}/search?state=Complete" class="menuCardContainer">
+      <span class="menuCardIcon fa fa-check-square-o"></span>
+      <span class="cardTitleBreaker"></br></span>
+      <span class="menuCardTitle">Complete</span>
+    </a>
+  </div>
+
+  <div class="col-md-12">
+    <div class="smallContextLink">
+      <a ng-href="#/{{primaryCollection}}"> See all {{ collections[primaryCollection].pluralLabel }} <span class="fa fa-arrow-right"></span></a>
     </div>
   </div>
-  <!-- Page Header -->
-
-  <!-- Page Content -->
-  <div class="row" style="padding-top:10px;padding-bottom:10px;">
-    <div class="col-md-3 noSpaceMobile">
-      <a ng-href="#/{{primaryCollection}}/new" class="menuCardContainerActive">
-        <span class="menuCardIcon fa fa-plus"></span><br/>
-        <span class="menuCardTitle">Create New</span>
-      </a>
-    </div>
-
-    <div class="col-md-3 noSpaceMobile">
-      <a ng-href="#/{{primaryCollection}}/search?state=Open" class="menuCardContainer">
-        <span class="menuCardIcon fa fa-inbox"></span><br/>
-        <span class="menuCardTitle">Open</span>
-      </a>
-    </div>
-
-    <div class="col-md-3 noSpaceMobile">
-      <a ng-href="#/{{primaryCollection}}/search?state=In%20Progress" class="menuCardContainer">
-        <span class="menuCardIcon fa fa-refresh"></span><br/>
-        <span class="menuCardTitle">In Progress</span>
-      </a>
-    </div>
-
-    <div class="col-md-3 noSpaceMobile">
-      <a ng-href="#/{{primaryCollection}}/search?state=Complete" class="menuCardContainer">
-        <span class="menuCardIcon fa fa-check-square-o"></span><br/>
-        <span class="menuCardTitle">Complete</span>
-      </a>
-    </div>
-
-    <div class="col-md-12">
-      <div class="smallContextLink">
-        <a ng-href="#/{{primaryCollection}}"> See all {{ collections[primaryCollection].pluralLabel }} <span class="fa fa-arrow-right"></span></a>
-      </div>
-    </div>
-
-  </div>
-  <!-- Page Content -->
 
 </div>
+<!-- Page Content -->

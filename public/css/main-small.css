@@ -10,7 +10,7 @@
 
   .contentPage {
     position: absolute;
-    padding: 10px;
+    padding: 10px 10px 60px 10px;
     top: 25px;
     left: 0px;
     right: 0px;
@@ -35,7 +35,7 @@
 
   /****************************** ITEM CARD BOARD ******************************/
 
-  .itemCardActiveBreaker {
+  .cardTitleBreaker {
     display: none;
   }
 
@@ -61,6 +61,12 @@
   }
 
   .itemCardActiveTitle {
+    position: relative;
+    top: -10px;
+    margin-left: 10px;
+  }
+
+    .menuCardTitle {
     position: relative;
     top: -10px;
     margin-left: 10px;
@@ -130,6 +136,41 @@
 
   .itemDisplayTitle {
     display: none;
+  }
+
+
+  /****************************** MENU CARDS ******************************/
+
+
+  .menuCardContainer, .menuCardContainerActive, .menuCardContainerDisabled {
+    padding: 10px 20px 10px 20px;
+    margin: 5px;
+    text-align: center;
+    background-color: #fcfcfc;
+    border: 1px dotted #d8d8d8;
+    border-radius: 5px;
+    display: block;
+    transition: all .15s linear;
+    -webkit-transition: all .15s linear;
+    -moz-transition: all .15s linear;
+    text-align: left;
+  }
+
+  .menuCardTitleDisabled {
+    position: relative;
+    top: -10px;
+    left: 5px;
+  }
+
+
+
+  /****************************** ALERTS ******************************/
+
+
+
+
+  .upgradeAlertIcon {
+    display:none;
   }
 
 }
