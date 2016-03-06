@@ -22,10 +22,10 @@ function mainController($scope, $location, $sce) {
     // First, deactivate any other active sections
     $('#workMenuItem').removeClass('leftMenuIconActiveTop');
     $('#accountMenuItem').removeClass('leftMenuIconActive');
-    $('#helpMenuItem').removeClass('leftMenuIconActive');
+    $('#supportMenuItem').removeClass('leftMenuIconActive');
     $('#workMenuItem').addClass('leftMenuIcon');
     $('#accountMenuItem').addClass('leftMenuIcon');
-    $('#helpMenuItem').addClass('leftMenuIcon');
+    $('#supportMenuItem').addClass('leftMenuIcon');
 
     // Then, set the given section as active
     $('#' + sectionID + 'MenuItem').removeClass('leftMenuIcon');
@@ -77,8 +77,8 @@ function mainController($scope, $location, $sce) {
     var currentView = $location.path();
     if (currentView.indexOf('/account') >= 0) {
       $scope.setActiveSection('account');
-    } else if(currentView.indexOf('/help') >= 0) {
-      $scope.setActiveSection('help');
+    } else if(currentView.indexOf('/support') >= 0) {
+      $scope.setActiveSection('support');
     } else {
       $scope.setActiveSection('work');
     }

@@ -158,6 +158,10 @@
     text-align: left;
   }
 
+  .menuCardContainerActive {
+    background-color: #d9e9e2;
+  }
+
   .menuCardTitleDisabled {
     position: relative;
     top: -10px;

@@ -392,6 +392,7 @@ function itemController($scope, $location, $routeParams, Item) {
     // Grab the current URL so we can determine what the user is trying to do
     var currentURL = $location.url();
     log.info('|itemController| Current URL -> ' + currentURL);
+    $scope.setActiveSection('work');
 
     // Searching
     var searching = currentURL.indexOf('/search?') > 0;

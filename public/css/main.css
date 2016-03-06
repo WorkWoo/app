@@ -754,13 +754,13 @@ a:hover {
 .btn-primary {
   border-color: #6783a8;
   background-color: #6783a8;
-  box-shadow: 1px 1px 1px #2b394b;
+  box-shadow: 1px 1px 1px #000;
 }
 
 .btn-primary:hover {
   border-color: #59769c;
   background-color: #59769c;
-  box-shadow: 1px 1px 1px #2b394b;
+  box-shadow: 1px 1px 1px #000;
 }
 
 
