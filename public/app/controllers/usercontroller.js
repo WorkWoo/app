@@ -5,21 +5,32 @@ function userController($scope, $location, User, SelectedUser) {
   $scope.loadedUsers = [];
   $scope.selectedUser = SelectedUser;
 
-  $scope.usersLoading = false;
+  $scope.usersLoading = true;
 
 
   $scope.getAllUsers = function() {
-    log.info('|userController|.getAllUsers');
     $scope.usersLoading = true;
-
     User.getAll(
       function(users){
       	log.info('Success');
-
-      	log.info('Users found: ' + users.length);
-
         $scope.usersLoading = false;
-      	$scope.loadedUsers = users;
+      	$scope.loadedUsers = $scope.loadedUsers.concat(users);
+      },
+      function() {
+        log.error('Failed');
+        $scope.usersLoading = false;
+      }
+    );
+  };
+
+
+  $scope.getOneUser = function(userNumber) {
+    log.info('|userController|.getOneUser');
+    $scope.usersLoading = true;
+    User.getOne(userNumber, 
+      function(user){
+        $scope.usersLoading = false;
+        $scope.selectedUser = user;
       },
       function() {
         log.error('Failed');
@@ -69,31 +80,6 @@ function userController($scope, $location, User, SelectedUser) {
   };
 
 
-  $scope.openCreateNewUser = function() {
-    log.info('Opening form to create new user');
-    
-    // Clear out any previously selected user
-    for (var prop in $scope.selectedUser) {
-      $scope.selectedUser[prop] = null;
-    }
-
-    var blankUser = {
-      firstName: '',
-      lastName: '',
-      role: 'user',
-      emailAddress: '',
-      phone: ''
-    };
-
-    for (var prop in blankUser) {
-      $scope.selectedUser[prop] = blankUser[prop];
-    }
-
-    $scope.currentAction = 'create';
-    $location.path('account/users/new');
-  };
-
-
   $scope.openEditUser = function(user) {
     log.info('User to load: ' + user.firstName + ' ' + user.lastName);
     $scope.currentAction = 'update';
@@ -107,26 +93,43 @@ function userController($scope, $location, User, SelectedUser) {
 
 
   $scope.initializeUserController = function() {
-  	log.info('|userController.initializeUserController|');
+    // Grab the current URL so we can determine what the user is trying to do
+    var currentURL = $location.url().replace('/account/users', '');
+    log.info('|initializeUserController| Current URL -> ' + currentURL);
 
-  	// Grab the current URL so we can determine what the user is trying to do
-    var currentURL = $location.url();
+    // Creating New
+    var creatingNew = currentURL.indexOf('/new') >= 0;
+    log.info(creatingNew);
 
-    // Editing User
-    var editingUser = (currentURL.indexOf('/edit') > 0);
-    if (editingUser) {
-      $scope.currentAction = 'update';
-      return;
-    }
-
-    // Creating User
-    var creatingUser = (currentURL.indexOf('/new') > 0);
-    if (creatingUser) {
+    if (creatingNew) {
+      log.info('|initializeUserController| Creating new');
+      // Now, extract the collection name
+      currentURL = currentURL.slice(0, currentURL.indexOf('/new'));
+      $scope.baseCollection = currentURL.slice(1);
       $scope.currentAction = 'create';
+      $scope.selectedItem = { collectionName: $scope.primaryCollection };
+      $scope.itemsLoading = false;
       return;
     }
 
+    // Viewing One
+    var viewingOne = currentURL.indexOf('/view') >= 0;
+    if (viewingOne) {
+      var userNumber = currentURL.slice(currentURL.indexOf('/view') + 6, currentURL.length); // The item number will be after "/view"
+      if (userNumber) {
+        log.info('|initializeUserController| Viewing one');
+
+        $scope.currentAction = 'update';
+        if (!$scope.selectedUser || $scope.selectedUser.number != userNumber) {
+          $scope.getOneUser(userNumber);
+        } else {
+          $scope.usersLoading = false;
+        }
+        return;
+      }
+    }
     $scope.getAllUsers();
+    log.info('|initializeUserController| showing list');
 
   };
 

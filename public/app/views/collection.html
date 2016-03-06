@@ -1,199 +1,192 @@
-<style>
-	
-	.current-collection-icon {
-  		color: #67A88C;
-  		padding: 15px;
-  		border-radius: 5px;
-  		border: 1px solid #d8d8d8;
-	}
+<form ng-model="selectedCollection" novalidate>
 
-	.current-collection-icon:hover {
-		cursor: pointer;
-		color: #777;
-		background-color: #f0f0f0;
-	}
-
-	.possible-collection-icon {
-		padding: 10px;
-		border-radius: 10px;
-		margin: 5px;
-		background-color: #fff;
-		border: 1px solid #d8d8d8;
-	}
-
-	.possible-collection-icon:hover {
-		cursor: pointer;
-		background-color: #d8d8d8;
-	}
-
-</style>
-
-<!-- Page Header -->
-<a href="#/account/collections"><span class="glyphicon glyphicon-menu-left"></span><span>Back to Work Settings</span></a>
-<h2 class="collection-title">
-	<!-- Current icon -->
-	<span ng-disabled="collectionsLoading" ng-click="toggleIconSelection()" class="current-collection-icon glyphicon" ng-class="getCollectionIconClass(selectedCollection.icon)"></span>
-	<span ng-if="currentAction == 'create'">New Collection</span>
-	<span ng-if="currentAction == 'update'">{{ selectedCollection.pluralLabel }}</span>
-	<!-- Icon choices -->
-	<div ng-if="showIconSelection" class="fade-expand-down">
-		<span ng-repeat="icon in collectionIcons" ng-if="icon != selectedCollection.icon" ng-click="selectIcon(icon)" class="possible-collection-icon glyphicon" ng-class="icon"></span>
+	<!-- Page Header -->
+	<div class="container-fluid noSpaceMobile">
+	  <div class="col-md-12">
+	  	<!-- Title -->
+	  	<h3 class="pageHeading">
+	  		<span ng-if="collectionsLoading" class="fadeInOut">Loading...</span>
+	  		<!--<span ng-if="!collectionsLoading && currentAction == 'create'" class="fadeInOut">New User</span>-->
+	  		<span ng-if="!collectionsLoading && currentAction == 'update'" class="fadeInOut">{{ collections[primaryCollection].pluralLabel }}</span>
+	  	</h3>
+	  	<!-- Breadcrumb -->
+	  	<div class="breadCrumb">
+	    	<a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> Back to all settings</a>
+	  	</div>
+	  </div>
 	</div>
-</h2>
-<!-- Page Header -->
+	<!-- Page Header -->
 
-<!-- Page Content -->
-<div class="container-fluid">
-	<form ng-model="selectedCollection" novalidate>
-		<!-- Basic Settings -->
-		<div class="col-lg-12 container-fluid" style="margin-bottom:20px;">
-			<!-- Text fields -->
-			<div class="container-fluid">
-				<!-- Plural Label -->
-				<div class="col-lg-3">
-					<label for="singleLabel">Collection name:</label>
-					<input ng-disabled="collectionsLoading" type="text" id="singleLabel" name="singleLabel" class="form-control default-input" value="" ng-model="selectedCollection.pluralLabel" size="20"/>
-				</div>
-				<!-- Collection Type -->
-				<div class="col-lg-3">
-					<label for="collectionType">Type:</label>
-	            	<select ng-disabled="currentAction == 'update' || collectionsLoading" ng-change="collectionTypeChanged()" class="form-control default-input" id="collectionType" name="collectionType" ng-model="selectedCollection.collectionType">
-	            		<option value="workable">Workable</option>
-	            		<option value="static-revisionable">Revisionable</option>
-	            	</select>
-				</div>
+	<!-- Upgrade indicator -->
+	<div class="container-fluid noSpaceMobile">
+		<div class="upgradeAlert clearfix">
+			<span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
+			<span class="upgradeAlertText"><strong>Take your work to the next level!</strong><br/> With WorkWoo pro, import and track items that relate to {{ collections[primaryCollection].pluralLabel }}, like documents, employees, or inventory</span>
+			<span class="upgradeAlertButton">
+				<a href="#/upgrade" class="btn btn-success">Upgrade Today</a>
+			</span>
+		</div>
+	</div>
+	<!-- Upgrade indicator -->
 
-				<!-- Number prefix -->
-				<div class="col-lg-3">
-					<label for="numberPrefix">Number prefix:</label>
-					<input ng-disabled="collectionsLoading" type="text" id="numberPrefix" name="numberPrefix" class="form-control default-input" value="" ng-model="selectedCollection.numberPrefix" size="20"/>
-				</div>
+	<!-- Page Content -->
+	<div class="container-fluid noSpaceMobile singleItemContainer">
 
-				<!-- Display Field -->
-				<div class="col-lg-3">
-					<label for="collectionType">Display Field:</label>
-	            	<select ng-disabled="collectionsLoading" class="form-control default-input" id="collectionType" name="collectionType" ng-model="selectedCollection.displayField">
-	            		<option ng-repeat="field in selectedCollection.fields" value="{{ field.name }}">{{ field.label }}</option>
-	            	</select>
-				</div>
+		<!-- Basic settings & state choices -->
+		<div class="col-md-6">
 
+			<!-- Collection name -->
+			<div class="col-md-12 noSpace">
+				<label>Your items:</label>
+				<input ng-disabled="collectionsLoading" type="text" id="collectionName" name="singleLabel" class="form-control defaultInput" value="" ng-model="selectedCollection.pluralLabel" size="20"/>
 			</div>
 
-			<!-- Custom fields -->
-			<h3 style="margin-top:25px;margin-bottom:25px;" class="no-space">Fields:</h3>
-			<!-- Field List Header -->
-			<div class="row column-header-container">
-				<div class="col-md-4">
-					<span class="column-title">Name</span>
-				</div>
-				<div class="col-md-3">
-					<span class="column-title">Type</span>
-				</div>
-				<div class="col-md-2 text-center">
-					<span class="column-title">Required</span>
-				</div>
-				<div class="col-md-2 text-center">
-					<span class="column-title">Show on lists</span>
-				</div>
-				<div class="col-md-1">
-					<span class="column-title">&nbsp;</span>
-				</div>
+			<!-- Number prefix -->
+			<div class="col-md-12 noSpace">
+				<label>Number prefix:</label>
+				<input ng-disabled="collectionsLoading" type="text" id="numberPrefix" name="numberPrefix" class="form-control defaultInput" value="" ng-model="selectedCollection.numberPrefix" size="20"/>
 			</div>
 
-			<!-- Each field -->
-			<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" class="row field-list-row fade-in-out">
-				<!-- Field name -->
-				<div class="col-md-4">
-					<input ng-disabled="field.sysProvided || collectionsLoading" type="text" ng-model="field.label" ng-change="field.name = lowerAndRemoveSpace(field.label)" ng-init="field.name = lowerAndRemoveSpace(field.label)" class="form-control default-input" size="20">
+			<!-- State choices -->
+			<div class="col-md-12 noSpace">
+				<label>State Choices:</label>
+				<div id="stateChoices" class="choiceOptionContainer clearfix">
+					<!-- Create a row for each state -->
+					<div ng-repeat="choice in selectedCollection.stateChoices track by $index" ng-if="!field.sysProvided" class="col-md-12 noSpace">
+            			<div class="input-group" style="margin-bottom:3px;">
+            				<input ng-disabled="collectionsLoading" class="form-control defaultInput" ng-model="selectedCollection.stateChoices[$index]" style="border-right:none;" type="text">
+            				<span ng-click="removeState($index)" class="input-group-addon removeChoiceIcon" style="border-left:none;">
+            					<i class="fa fa-remove"></i>
+            				</span>
+            			</div>
+					</div>
+					<!-- Add state button -->
+					<div class="col-md-12 noSpace">
+						<button ng-disabled="collectionsLoading" ng-click="selectedCollection.stateChoices.push('- New state -')" class="btn btn-primary btn-block">
+              				<span class="fa fa-plus"></span>
+              				<span> Add State</span>
+              			</button>
+					</div>
 				</div>
-				<!-- Field type -->
-				<div class="col-md-3">
-					<!-- Disabled input for built-in field types -->
-					<input ng-disabled="true" ng-if="field.sysProvided" type="text" class="form-control default-input" value="Built in">
-	            	<!-- State options, if the type is state -->
-	            	<div ng-if="field.displayType == 'state'" class="fade-in-out">
-		            	<button ng-disabled="collectionsLoading" data-toggle="collapse" data-target="#{{fieldIndex}}_state_choices" class="button button-fill edit-choices-button">Edit States</button>
-		            	<ul ng-attr-id="{{fieldIndex}}_state_choices" class="collapse choice-option-container clearfix">
-		            		<li ng-repeat="(stateChoiceIndex, stateChoice) in field.choices track by $index">
-		            			<div class="input-group" style="margin-bottom:3px;">
-		            				<input ng-disabled="collectionsLoading" class="form-control default-input" ng-model="field.choices[$index]" style="border-right:none;" type="text">
-		            				<span ng-click="removeOption(fieldIndex, stateChoiceIndex)" class="input-group-addon remove-choice-icon" style="border-left:none;">
-		            					<i class="glyphicon glyphicon glyphicon-remove"></i>
-		            				</span>
-		            			</div>
-		            		</li>
-		              		<button ng-disabled="collectionsLoading" ng-click="field.choices.push('- New state -')"class="button button-default button-fill add-choice-button">Add State</button>
-		              	<ul>
-	              	</div>
+            </div>
+            <!-- State choices -->
 
-	              	<!-- If a custom field, allow different types -->
-					<select ng-disabled="collectionsLoading" ng-if="!field.sysProvided" class="form-control default-input" ng-model="field.displayType">
-	            		<option value="text">Short Text</option>
-	            		<option value="textarea">Long Text</option>
-	            		<option value="checkbox">Checkbox</option>
-	            		<option value="datetime">Date/Time</option>
-	            		<option value="choice">Dropdown with choices</option>
-	            		<option value="SingleReference">Another Item</option>
-	            		<option value="ReferenceList">Many other Items</option>
-	            	</select>
+		</div>
+		<!-- Basic settings & state choices -->
 
-	            	<!-- If the field is a reference, show the collections dropdown -->
-	            	<span ng-if="field.displayType == 'SingleReference' || field.displayType == 'ReferenceList'" class="fade-in-out">
-						<label>Collection:</label>
-						<select ng-disabled="collectionsLoading" class="form-control default-input" ng-model="field.referenceTo">
-		            		<option ng-repeat="collection in collections" value="{{ collection.name }}">{{ collection.pluralLabel }}</option>
+		<!-- Custom fields -->
+		<div class="col-md-6">
+			<label>Custom fields:</label>
+			<div class="choiceOptionContainer clearfix">
+				<!-- Column header -->
+				<div class="col-md-5 hideInMobile">
+					<span class="customFieldColumnTitle">Field Name</span>
+				</div>
+				<div class="col-md-5 hideInMobile">
+					<span class="customFieldColumnTitle">Type</span>
+				</div>
+
+				<!-- Loop through each field -->
+				<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" ng-if="!field.sysProvided" class="col-md-12 noSpace customFieldRow">
+					<!-- Field name -->
+					<div class="col-md-5" style="margin-bottom:5px;">
+						<input ng-disabled="collectionsLoading" type="text" ng-model="field.label" ng-change="field.name = lowerAndRemoveSpace(field.label)" ng-init="field.name = lowerAndRemoveSpace(field.label)" class="form-control defaultInput" size="20">
+					</div>
+					<!-- Field type -->
+					<div class="col-md-5" style="margin-bottom:5px;">
+		              	<!-- If a custom field, allow different types -->
+						<select ng-disabled="collectionsLoading" class="form-control defaultInput" ng-model="field.displayType">
+		            		<option value="text">Text Input</option>
+		            		<option value="textarea">Text Area</option>
+		            		<option value="checkbox">Checkbox</option>
+		            		<option value="datetime">Date/Time</option>
+		            		<option value="choice">Dropdown with options</option>
+		            		<option disabled="true" value="SingleReference">One User (Pro only)</option>
+		            		<option disabled="true" value="ReferenceList">List of Users (Pro only)</option>
+		            		<option disabled="true" value="SingleReference">One Item (Pro only)</option>
+		            		<option disabled="true" value="ReferenceList">List of Items (Pro only)</option>
 		            	</select>
-	              	</span>
 
-	            	<!-- If the field is a choice type, show the choices editor -->
-	            	<span ng-if="field.displayType == 'choice'" class="fade-in-out">
-		            	<button ng-disabled="collectionsLoading" data-toggle="collapse" data-target="#{{fieldIndex}}_choices" class="button button-fill edit-choices-button">Edit Choices</button>
-		            	<ul ng-attr-id="{{fieldIndex}}_choices" class="collapse choice-option-container clearfix">
+		            	<!-- If the field is a choice type, show the choices editor -->
+		            	<span ng-if="field.displayType == 'choice'" class="fade-in-out">
+			            	<button ng-disabled="collectionsLoading" data-toggle="collapse" data-target="#{{fieldIndex}}_choices" class="btn btn-primary btn-block" style="margin-bottom:3px;">
+			            		<i class="fa fa-bars"></i>
+			            		<span>Show options</span>
+			            	</button>
+			            	
+			            	<div ng-attr-id="{{fieldIndex}}_choices" class="collapse">
+			            		
+			            		<!-- No options -->
+			            		<div ng-if="field.choices.length == 0" class="col-md-12 noSpace">
+			            			<input disabled="true" class="form-control defaultInput" value="No options added" style="border-right:none;" type="text">
+			            		</div>
 
-		            		<li ng-repeat="(choiceIndex, choice) in field.choices track by $index">
-		            			<div class="input-group" style="margin-bottom:3px;">
-		            				<input ng-disabled="collectionsLoading" class="form-control default-input" ng-model="field.choices[$index]" style="border-right:none;" type="text">
-		            				<span ng-disabled="collectionsLoading" ng-click="removeOption(fieldIndex, choiceIndex)" class="input-group-addon remove-choice-icon" style="border-left:none;">
-		            					<i class="glyphicon glyphicon glyphicon-remove"></i>
-		            				</span>
-		            			</div>
-		            		</li>
-		              		<button ng-disabled="collectionsLoading" ng-click="field.choices.push('- New choice -')"class="button button-default button-fill add-choice-button">Add choice</button>
-		              	<ul>
-	              	</span>
-				</div>
+			            		<!-- One row for each option -->
+			            		<div ng-repeat="(choiceIndex, choice) in field.choices track by $index" class="col-md-12 noSpace">
+			            			<div class="input-group" style="margin-bottom:3px;">
+			            				<input ng-disabled="collectionsLoading" class="form-control defaultInput" ng-model="field.choices[$index]" style="border-right:none;" type="text">
+			            				<span ng-disabled="collectionsLoading" ng-click="removeOption(fieldIndex, choiceIndex)" class="input-group-addon removeChoiceIcon" style="border-left:none;">
+			            					<i class="fa fa-remove"></i>
+			            				</span>
+			            			</div>
+			            		</div>
 
-				<!-- Is required (T/F) -->
-				<div class="col-md-2 text-center">
-					<input ng-disabled="collectionsLoading" ng-disabled="field.sysProvided" type="checkbox" name="checkbox" ng-model="field.required">
-				</div>
+			            		<div class="col-md-12 noSpace">
+				              		<button ng-disabled="collectionsLoading" ng-click="field.choices.push('- New choice -')" class="btn btn-primary btn-block">
+				              			<span class="fa fa-plus"></span>
+				              			<span> Add option</span>
+				              		</button>
+			              		</div>
+			              	</div>
+		              	</span>
+					</div>
 
-				<!-- Show on lists (T/F) -->
-				<div class="col-md-2 text-center">
-					<input ng-disabled="collectionsLoading" type="checkbox" name="checkbox" ng-model="field.showOnList">
+					<!-- Remove field button -->
+					<div class="col-md-2 text-right">
+						<span ng-disabled="collectionsLoading" ng-click="removeField(fieldIndex)" class="hideInMobile customFieldRemoveIcon fa fa-remove"></span>
+						<button ng-click="removeField(fieldIndex)" class="btn btn-default btn-block hideInDesktop">
+							<span class="fa fa-remove" style="color:#a86c67;"></span>
+							<span>Remove field</span>
+						</button>
+					</div>
 				</div>
+				<!-- End loop through each field -->
 
-				<!-- Remove field button -->
-				<div class="col-md-1 text-right">
-    				<span ng-disabled="collectionsLoading" ng-if="!field.sysProvided" ng-click="removeField(fieldIndex)" class="remove-field-icon glyphicon glyphicon glyphicon-remove"></span>
-				</div>
-			</div>
-
-			<!-- Button Container -->
-			<div class="container-fluid row">
-				<!-- Add field button -->
-				<div class="col-md-3" style="padding:20px;">
-					<button ng-disabled="collectionsLoading" ng-click="addNewField()" class="btn btn-success btn-block">Add field</button>
-				</div>
-				<!-- Spacer -->
-				<div class="col-md-6" style="padding:0px;"></div>
-				<!-- Submit buttons -->
-				<div class="col-md-3" style="padding:20px;">
-					<button ng-disabled="collectionsLoading" ng-if="currentAction == 'update'" ng-click="updateCollection()" class="btn btn-primary btn-block">Save collection</button>
-					<button ng-disabled="collectionsLoading" ng-if="currentAction == 'create'" ng-click="createCollection()" class="btn btn-primary btn-block">Create collection</button>
-				</div>
+				<!-- Add new field button-->
+				<div class="col-md-12 noSpace">
+					<button ng-disabled="collectionsLoading" ng-click="addNewField()" class="btn btn-primary btn-block">
+						<span class="fa fa-plus"></span>
+						<span> Add new field</span>
+					</button>
+				</div>	
 			</div>
 		</div>
-	</form>
-</div>
-<!-- Page Content -->
+		<!-- Custom fields -->
+
+		<!-- Buttons -->
+		<div class="col-md-12" style="margin-bottom:10px;">
+			<!-- Spacer -->
+			<div class="col-md-9"></div>
+			<div class="col-md-3">
+				<button ng-disabled="collectionsLoading" ng-if="currentAction == 'update'" ng-click="updateCollection()" class="btn btn-success btn-block">
+					<!-- Loading -->
+					<span ng-if="collectionsLoading && !selectedCollection">
+						<i class="fa fa-refresh fa-spin"></i>
+						<span> Loading</span>
+					</span>
+					<!-- Not loading -->
+					<span ng-if="!collectionsLoading">Save changes</span>
+					<!-- Submitting -->
+					<span ng-if="collectionsLoading && selectedCollection">
+						<i class="fa fa-refresh fa-spin"></i>
+						<span> Saving</span>
+					</span>
+				</button>
+			</div>
+			<div class="col-md-12 text-right">
+				<span style="font-style:italic;">Saving may take a few seconds. Once this is done, your browser will reload</span>
+			</div>
+		</div>
+	</div>
+	<!-- Page Content -->
+</form>

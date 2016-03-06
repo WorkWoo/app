@@ -1,94 +1,104 @@
-<!-- Page Header -->
-<div class="row container-fluid">
-  <div class="col-md-12">
-  	<h3 class="page-heading">
-  		<span ng-if="currentAction == 'create'">New User</span>
-  		<span ng-if="currentAction == 'update'">{{ selectedUser.firstName }} {{ selectedUser.lastName }}</span>
-  	</h3>
-  	<a href="#/account/users"><span class="glyphicon glyphicon-menu-left"></span><span>Back to all Users</span></a>
-  </div>
-</div>
-<!-- Page Header -->
+<form ng-model="selectedUser" novalidate>
 
-<!-- Page Content -->
-<div class="container-fluid page-content">
-	<form ng-model="selectedUser" novalidate>
+	<!-- Page Header -->
+	<div class="container-fluid noSpaceMobile">
+	  <div class="col-md-12">
+	  	<!-- Title -->
+	  	<h3 class="pageHeading">
+	  		<span ng-if="usersLoading" class="fadeInOut">Loading...</span>
+	  		<span ng-if="!usersLoading && currentAction == 'create'" class="fadeInOut">New User</span>
+	  		<span ng-if="!usersLoading && currentAction == 'update'" class="fadeInOut">{{ selectedUser.firstName }} {{ selectedUser.lastName }}</span>
+	  	</h3>
+	  	<!-- Breadcrumb -->
+	  	<div class="breadCrumb">
+	    	<a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> Back to all users</a>
+	  	</div>
+	  </div>
+	</div>
+	<!-- Page Header -->
+
+	<!-- Page Content -->
+	<div class="container-fluid noSpace singleItemContainer">
+		<!-- Hidden pwd fields to trick chromc into not auto completing -->
 		<input type='password' style="display:none;">
+		
 		<!-- Row 1 -->
-		<div class="container-fluid row" style="margin-top:25px;">
+		<div class="row">
 			<!-- First Name -->
 			<div class="col-lg-4">
 				<label for="firstName">First name:</label>
-				<input ng-disabled="usersLoading" type="text" id="firstName" name="firstName" class="form-control default-input" value="" ng-model="selectedUser.firstName" size="20"/>
+				<input ng-disabled="usersLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="selectedUser.firstName" size="20"/>
 			</div>
-
 			<!-- Last Name -->
 			<div class="col-lg-4">
 				<label for="lastName">Last name:</label>
-				<input ng-disabled="usersLoading" type="text" id="lastName" name="lastName" class="form-control default-input" value="" ng-model="selectedUser.lastName" size="20"/>
+				<input ng-disabled="usersLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="selectedUser.lastName" size="20"/>
 			</div>
-
 			<!-- Role -->
 			<div class="col-lg-4">
 				<label for="role">Responsibility:</label>
-				<select ng-disabled="usersLoading" class="form-control default-input" id="role" name="role" ng-model="selectedUser.role">
+				<select ng-disabled="usersLoading" class="form-control defaultInput" id="role" name="role" ng-model="selectedUser.role">
 					<option value="admin">Admin</option>
 					<option value="user">Normal user</option>
 				</select>
-
-
 			</div>
 		</div>
+		<!-- Row 1 -->
 
 		<!-- Row 2 -->
-		<div class="container-fluid row">
+		<div class="row">
 			<!-- Email -->
 			<div class="col-lg-4">
 				<label for="emailAddress">Email Address:</label>
-				<input ng-disabled="usersLoading" type="text" id="emailAddress" name="emailAddress" class="form-control default-input" value="" ng-model="selectedUser.emailAddress" size="20"/>
+				<input ng-disabled="usersLoading" type="text" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="selectedUser.emailAddress" size="20"/>
 			</div>
 			<!-- Phone number -->
 			<div class="col-lg-4">
 				<label for="phoneNumber">Phone Number:</label>
-				<input ng-disabled="usersLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control default-input" value="" ng-model="selectedUser.phone" size="20"/>
+				<input ng-disabled="usersLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="selectedUser.phone" size="20"/>
 			</div>
 		</div>
+		<!-- Row 2 -->
 
 		<!-- Row 3 -->
-		<div ng-if="currentAction == 'create'" class="container-fluid row">
+		<div ng-if="currentAction == 'create'" class="row">
 			<h4>Password</h4>
 		</div>
+		<!-- Row 3 -->
 
 		<!-- Row 4 -->
-		<div ng-if="currentAction == 'create'" class="container-fluid row">
+		<div ng-if="currentAction == 'create'" class="row">
 			<!-- Password -->
 			<div class="col-lg-4">
 				<label for="password">Password:</label>
-				<input ng-disabled="usersLoading" type="password" id="password" name="password" class="form-control default-input" value="" ng-model="selectedUser.password" size="20"/>
+				<input ng-disabled="usersLoading" type="password" id="password" name="password" class="form-control defaultInput" value="" ng-model="selectedUser.password" size="20"/>
 			</div>
 		</div>
+		<!-- Row 4 -->
 
-	</form>
-</div>
-<!-- End User Form -->
+		<!-- Button row -->
+		<div class="col-md-12">
+			<!-- Spacer -->
+			<div class="col-md-10"></div>
+		
+			<!-- If updating -->
+			<div ng-if="currentAction == 'update'" class="col-md-2" style="padding:5px;">
+				<button ng-disabled="usersLoading" ng-click="updateUser()" class="btn btn-primary btn-block">
+					<span ng-if="!usersLoading">Save Changes</span>
+					<span ng-if="usersLoading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Saving</span>
+				</button>
+			</div>
+			<!-- If creating new -->
+			<div ng-if="currentAction == 'create'" class="col-md-2" style="padding:5px;">
+				<button ng-disabled="usersLoading" ng-click="createUser()" class="btn btn-primary btn-block">
+					<span ng-if="!usersLoading">Create User</span>
+					<span ng-if="usersLoading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Saving</span>
+				</button>
+			</div>
+		</div>
+		<!-- Button row -->
 
-<!-- Button container -->
-<div class="container-fluid row text-right button-container">
-	<!-- Spacer -->
-	<div class="col-md-10"></div>
-	<!-- If updating -->
-	<div ng-if="currentAction == 'update'" class="col-md-2">
-		<button ng-disabled="usersLoading" ng-click="updateUser()" class="btn btn-primary btn-block">
-			<span ng-if="!usersLoading">Save Changes</span>
-			<span ng-if="usersLoading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Saving</span>
-		</button>
 	</div>
-	<!-- If creating new -->
-	<div ng-if="currentAction == 'create'" class="col-md-2">
-		<button ng-disabled="usersLoading" ng-click="createUser()" class="btn btn-primary btn-block">
-			<span ng-if="!usersLoading">Create User</span>
-			<span ng-if="usersLoading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Saving</span>
-		</button>
-	</div>
-</div>
-<!-- Page Content -->
+	<!-- Page Content -->
+
+</form>

@@ -388,7 +388,7 @@ function itemController($scope, $location, $routeParams, Item) {
   };
 
 
-  $scope.initializeController = function() {
+  $scope.initializeItemController = function() {
     // Grab the current URL so we can determine what the user is trying to do
     var currentURL = $location.url();
     log.info('|itemController| Current URL -> ' + currentURL);
@@ -473,6 +473,6 @@ function itemController($scope, $location, $routeParams, Item) {
 
   };
 
-  $scope.initializeController();
+  $scope.initializeItemController();
 
 }

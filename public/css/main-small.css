@@ -10,7 +10,7 @@
 
   .contentPage {
     position: absolute;
-    padding: 10px 10px 60px 10px;
+    padding: 10px 10px 75px 10px;
     top: 25px;
     left: 0px;
     right: 0px;
@@ -21,8 +21,6 @@
     text-align: center;
   }
 
-  /****************************** LINKS ******************************/
-
   .noSpaceMobile {
     margin: 0px;
     padding: 0px;
@@ -31,6 +29,10 @@
   .smallContextLink {
     text-align: center;
     padding: 10px;
+  }
+
+  .hideInMobile {
+    display: none;
   }
 
   /****************************** ITEM CARD BOARD ******************************/

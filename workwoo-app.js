@@ -124,10 +124,10 @@ function initializeApp() {
 			done(null, id);
 		});
 		
-		// Global-use routes
+		// Global routes
 		app.route('/getUserProfile').get(validateRequest(), user.getUserProfile);
 
-		// Item CRUD routes
+		// Item routes
 		app.route('/getCollections').get(validateRequest(), item.getCollections);
 		app.route('/getItems').get(validateRequest(), item.getItems);
 		app.route('/getOneItem').get(validateRequest(), item.getOneItem);
@@ -136,12 +136,13 @@ function initializeApp() {
 		app.route('/deleteItems').post(validateRequest(), item.deleteItems);
 		app.route('/searchItems').get(validateRequest(), item.search);
 
-		// Collection CRUD routes
+		// Collection routes
 		app.route('/getAllCollections').get(validateRequest(), collection.getAll);
+		app.route('/getOneCollection').get(validateRequest(), collection.getOne);
 		app.route('/updateCollection').post(validateRequest(), collection.update);
 		app.route('/createCollection').post(validateRequest(), collection.create);
 
-		// Routes for user CRUD operations
+		// User routes
 		app.route('/createUser').post(validateRequest(), user.create);
 		app.route('/updateUser').post(validateRequest(), user.update);
 		app.route('/deleteUsers').post(validateRequest(), user.deleteMultiple);

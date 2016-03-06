@@ -35,18 +35,18 @@ mainApp.config(function($routeProvider) {
 
   // Then, define the permanant, hard-coded routes.
   $routeProvider.when('/help', { templateUrl: 'views/help.html', controller: 'supportController'});
-
   $routeProvider.when('/account', { templateUrl: 'views/account.html', controller: 'accountController'});
-
   $routeProvider.when('/account/summary', { templateUrl: 'views/accountsummary.html', controller: 'accountController'});
 
   $routeProvider.when('/account/collections', { templateUrl: 'views/collections.html', controller: 'collectionController'});
-  $routeProvider.when('/account/collections/edit', { templateUrl: 'views/collection.html', controller: 'collectionController'});
-  $routeProvider.when('/account/collections/new', { templateUrl: 'views/collection.html', controller: 'collectionController'});
+  $routeProvider.when('/account/collections/new', { templateUrl: 'views/collections.html', controller: 'collectionController'});
+  $routeProvider.when('/account/collections/view', { templateUrl: 'views/collection.html', controller: 'collectionController'});
+  $routeProvider.when('/account/collections/view/:collectionName', { templateUrl: 'views/collection.html', controller: 'collectionController'});
 
   $routeProvider.when('/account/users', { templateUrl: 'views/users.html', controller: 'userController'});
-  $routeProvider.when('/account/users/edit', { templateUrl: 'views/user.html', controller: 'userController'});
   $routeProvider.when('/account/users/new', { templateUrl: 'views/user.html', controller: 'userController'});
+  $routeProvider.when('/account/users/view', { templateUrl: 'views/users.html', controller: 'userController'});
+  $routeProvider.when('/account/users/view/:user', { templateUrl: 'views/user.html', controller: 'userController'});
 
   $routeProvider.when('/mysettings', { templateUrl: 'views/mysettings.html', controller: 'supportController'});
 

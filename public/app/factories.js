@@ -129,6 +129,17 @@ function Collection($http) {
     );
   };
 
+  Collection.getOne = function(collectionName, onSuccess, onFail) {
+    $http({ url: '/getOneCollection', method: 'GET', params: { collectionName: collectionName } })
+      .then(function success(response) {
+        onSuccess(response.data.collection);
+      },
+      function fail(response) {
+        onFail();
+      }
+    );
+  };
+
   Collection.update = function (collection, onSuccess, onFail) {
     $http({ url: '/updateCollection', method: 'POST', data: {collection: collection } })
       .then(function success(response) {
@@ -183,10 +194,10 @@ function User($http) {
     );
   };
 
-  User.one = function(query, onSuccess, onFail) {
-    $http({ url: '/getUser', method: 'GET', params: query })
+  User.getOne = function(userNumber, onSuccess, onFail) {
+    $http({ url: '/getUser', method: 'GET', params: { userNumber: userNumber } })
       .then(function success(response) {
-        onSuccess(response.data);
+        onSuccess(response.data.user);
       },
       function fail(response) {
         onFail();

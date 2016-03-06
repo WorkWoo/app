@@ -119,7 +119,7 @@ exports.getUser = function(req, res) {
 		log.info('|user.getUser|', widget);
 
 		// TODO: Scrub request body
-		var userNumber = req.query.number;
+		var userNumber = req.query.userNumber;
 		log.info('|user.getUser| Getting user -> ' + userNumber, widget);
 
 		if (!userNumber) {
@@ -131,6 +131,11 @@ exports.getUser = function(req, res) {
 			_org: req.session.userprofile.org._id,
 			number: userNumber
 		};
+
+		// Need to exclude??
+		//resetPwdToken
+		//resetPwd
+		//resetPwdExpiration,
 
 		User.findOne(query, '-password')
 			.populate('_org _created_by _updated_by')

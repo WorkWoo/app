@@ -1,7 +1,7 @@
 <!-- Page Header -->
 <div class="container-fluid noSpaceMobile">
   <!-- Title -->
-  <div class="col-md-8 noSpaceMobile">
+  <div class="col-md-12 noSpaceMobile">
     <h3 class="pageHeading">Users</h3>
     <div class="breadCrumb">
       <a href="#/account"><span class="fa fa-arrow-left"></span> Back to Settings</a>
@@ -14,41 +14,44 @@
 
 <div class="container-fluid noSpace">
 
-  <!-- One card for each user -->
-  <div ng-repeat="user in loadedUsers" class="col-md-4 noSpaceMobile fadeInOutStagger">
-    <a ng-href="#/account/users/view/" class="menuCardContainer">
-      <span class="menuCardIcon fa fa-user"></span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">{{ user.firstName }} {{ user.lastName }}</span>
-    </a>
-  </div>
-
- <!-- Create new button -->
- <div ng-if="!usersLoading" class="col-md-4 noSpaceMobile fadeInOut">
+   <!-- Create new button -->
+ <div class="col-md-4 noSpaceMobile fadeInOut">
     <!-- Free users -->
-    <span ng-if="accountType == '0'" class="menuCardContainerDisabled">
+    <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
       <span class="menuCardIconDisabled fa fa-plus"></span>
       <span class="cardTitleBreaker"></br></span>
       <span class="menuCardTitleDisabled">Add New User</span>
     </span>
     <!-- Free users -->
-    <a ng-if="accountType != '0'" href="#/account/users/new" class="menuCardContainerActive">
+    <a ng-if="accountType != '0'" href="#/account/users/new" class="menuCardContainerActive fadeInOut">
       <span class="menuCardIcon fa fa-plus"></span>
       <span class="cardTitleBreaker"></br></span>
       <span class="menuCardTitle">Add New User</span>
     </a>
   </div>
 
+
+  <!-- One card for each user -->
+  <div class="col-md-4 noSpaceMobile fadeInOutStagger" ng-repeat="user in loadedUsers">
+    <a ng-href="#/account/users/view/{{user.number}}" class="menuCardContainer">
+      <span class="menuCardIcon fa fa-user"></span>
+      <span class="cardTitleBreaker"></br></span>
+      <span class="menuCardTitle">{{ user.firstName }} {{ user.lastName }}</span>
+    </a>
+  </div>
+
   <!-- Upgrade indicator -->
-  <div ng-if="accountType == '0'" class="col-md-12 noSpaceMobile">
+  <div ng-if="accountType == '0'" class="col-md-12 noSpaceMobile fadeInOut">
     <div class="upgradeAlert clearfix">
       <span class="upgradeAlertIcon"><i class="fa fa-users iconXL"></i></span>
-      <span class="upgradeAlertText"><strong>Want to add employees?</strong><br/> Your free account includes 1 user. Upgrade now to add additional users for only $10 a month per user</span>
+      <span class="upgradeAlertText"><strong>Empower your employees!</strong><br/> Your free account includes 1 user. Upgrade now to add additional users for only $10 a month per user</span>
       <span class="upgradeAlertButton">
         <a href="#/upgrade" class="btn btn-success">Upgrade Today</a>
       </span>
     </div>
   </div>
+
+  
 
 </div>
 

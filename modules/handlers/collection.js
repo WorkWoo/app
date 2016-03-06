@@ -169,7 +169,6 @@ exports.getAll = function(req, res) {
 		var orgID = req.session.userprofile.org._id;
 		
 		Collection.find({ _org: orgID })
-			.populate('_org')
 			.exec(
 			function (error, collections) {
 				if (error) {
@@ -185,3 +184,28 @@ exports.getAll = function(req, res) {
 	}
 };
 
+
+exports.getOne = function(req, res) {
+	try {
+		log.info('|collection.getOne|', widget);
+
+		// TODO: Scrub request body
+		var collectionName = req.query.collectionName;
+
+		var orgID = req.session.userprofile.org._id;
+		
+		Collection.find({ _org: orgID, name: collectionName })
+			.exec(
+			function (error, collections) {
+				if (error) {
+					log.error('|collection.getOne| Unknown -> ' + error, widget);
+					utility.errorResponseJSON(res, 'Unknown error getting collection');
+				} else {
+					res.send(JSON.stringify({ collection: collections[0] }));
+				}
+			});
+	} catch (error) {
+		log.error('|collection.getOne| Unknown -> ' + error, widget);
+		utility.errorResponseJSON(res, 'Unknown error getting collection');
+	}
+};

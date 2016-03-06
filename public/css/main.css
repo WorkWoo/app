@@ -1,6 +1,13 @@
 /****************************** GLOBAL GENERIC THINGS ******************************/
 
+@media only screen and (min-width : 992px) {
+  .hideInDesktop {
+    display: none;
+  }
+}
+
 body {
+  font-family: 'Open Sans', sans-serif;
   font-size: 16px;
 }
 
@@ -390,6 +397,7 @@ a:hover {
   border-radius: 5px;
   padding: 10px;
   margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .defaultInput {
@@ -407,7 +415,7 @@ a:hover {
 .upgradeAlert {
   margin: 5px;
   color: #fff;
-  background-color: #879dbb;
+  background-color: #6783a8;
   padding: 10px;
   border-radius: 5px;
 }
@@ -502,120 +510,6 @@ a:hover {
 
 
 
-/****************************** REFERENCE LISTS ******************************/
-
-
-.reference-list-content {
-  max-height: 300px;
-  overflow: auto;
-}
-
-
-/****************************** BUTTONS ******************************/
-
-
-.button {
-  padding: 5px 10px 5px 10px;
-  border-radius: 5px;
-  border: none;
-  width: 125px;
-  box-shadow:
-    1px 1px 1px #555;
-}
-
-.button-sharp-left {
-  border-radius: 0px 5px 5px 0px;
-}
-
-.button:disabled {
-  background-color: #d0d0d0;
-  box-shadow: 1px 1px 1px #999;
-  color: #999;
-}
-
-.button:focus {
-  outline: none;
-}
-
-.button-fill {
-  width: 100%;
-}
-
-
-/* Default  */
-
-
-.button-default:enabled {
-  background-color: #67A88C;
-  color: #fff;
-}
-
-.button-default:hover:enabled {
-  background-color: #87bba5;
-  color: #fff;
-}
-
-.button-default:active:enabled {
-  background-color: #999;
-  color: #fff;
-}
-
-
-/* Blank */
-
-
-.button-blank:enabled {
-  background-color: #a6a6a6;
-  color: #fff;
-}
-
-.button-blank:hover:enabled {
-  background-color: #b3b3b3;
-  color: #fff;
-}
-
-.button-blank:active:enabled {
-  background-color: #888;
-  color: #fff;
-}
-
-
-/* Danger */
-
-.button-danger:enabled {
-  background-color: #b17c77;
-  color: #fff;
-}
-
-.button-danger:hover:enabled {
-  background-color: #bb8b87;
-  color: #fff;
-}
-
-.button-danger:active:enabled {
-  background-color: #999;
-  color: #fff;
-}
-
-
-/* Warning */
-
-.button-warning:enabled {
-  background-color: #c4bc78;
-  color: #fff;
-}
-
-.button-warning:hover:enabled {
-  background-color: #bb8b87;
-  color: #fff;
-}
-
-.button-warning:active:enabled {
-  background-color: #999;
-  color: #fff;
-}
-
-
 /****************************** INPUTS ******************************/
 
 .ref-info-icon, .ref-info-icon:hover {
@@ -690,12 +584,8 @@ a:hover {
 }
 
 /* Spinning  animation */
-.glyphicon-refresh-animate {
+.glyphicon-refresh-animate, .fa-refresh-animate {
   -webkit-animation: spin1 1.5s infinite linear;
-}
-
-.glyphicon-cog-animate {
-  -webkit-animation: spin1 2s infinite linear;
 }
 
 @-webkit-keyframes spin1 {
@@ -734,7 +624,7 @@ a:hover {
   opacity: 0;
 }
 .fadeInOutStagger.ng-enter-stagger {
-  transition-delay: 0.1s;
+  transition-delay: 0.05s;
   transition-duration: 0s;
 }
 .fadeInOutStagger.ng-enter-active {
@@ -777,76 +667,119 @@ a:hover {
 
 /****************************** MANAGE COLLECTIONS ******************************/
 
-.choice-option-input {
-  border-radius: 5px;
-  border: 1px dotted #c4c4c4;
-  padding: 0px 5px 0px 5px;
-  font-size: 12px;
+.current-collection-icon {
+    color: #67A88C;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #d8d8d8;
 }
 
-.choice-option-container {
+.current-collection-icon:hover {
+  cursor: pointer;
+  color: #777;
   background-color: #f0f0f0;
-  margin-top: 5px;
+}
+
+.possible-collection-icon {
   padding: 10px;
+  border-radius: 10px;
+  margin: 5px;
+  background-color: #fff;
+  border: 1px solid #d8d8d8;
+}
+
+.possible-collection-icon:hover {
+  cursor: pointer;
+  background-color: #d8d8d8;
+}
+
+.choiceOptionContainer {
+  background-color: #fff;
+  padding: 10px;
+  margin: 5px;
   border-radius: 5px;
   list-style-type: none;
 }
 
-.add-choice-button {
-  border-radius: 4px;
-  font-size: 14px;
-  padding: 5px 0px 5px 0px;
-  margin-top: 5px;
-}
-
-.edit-choices-button {
-  color: #777;
-  box-shadow: 1px 1px 1px #999;
-  background-color: #f0f0f0;
-  border-radius: 4px;
-  font-size: 14px;
-  padding: 5px 0px 5px 0px;
-  margin-top: 5px;
-}
-
-.edit-choices-button:hover {
-  color: #777;
-  box-shadow: 1px 1px 1px #999;
-  background-color: #d8d8d8;
-  border-radius: 4px;
-  font-size: 14px;
-  padding: 5px 0px 5px 0px;
-  margin-top: 5px;
-}
-
-.remove-choice-icon {
-  color: #b17c77;
+.removeChoiceIcon {
+  color: #a86c67;
   background-color: #f0f0f0;
   border: 1px dotted #c4c4c4;
-  box-shadow: inset 1px 1px 3px #ececec;
+  box-shadow: inset 1px 1px 3px #f0f0f0;
 }
 
-.remove-choice-icon:hover {
-  color: #b17c77;
+.removeChoiceIcon:hover {
   background-color: #fcfcfc;
-  border: 1px dotted #c4c4c4;
-  box-shadow: inset 1px 1px 3px #ececec;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 3px #f0f0f0;
+}
+
+.customFieldRow {
+  padding: 7px;
+  border-top: 1px dashed #d8d8d8;
+}
+
+.customFieldColumnTitle {
+  padding-left: 10px;
+  font-weight: bold;
+}
+
+.customFieldRemoveIcon {
+  color: #a86c67;
+  font-size: 20px;
+  padding-top: 5px;
+}
+
+.customFieldRemoveIcon:hover {
+  color: #999;
   cursor: pointer;
 }
 
-.remove-field-icon {
-  color: #b17c77;
-  font-size: 20px;
+
+/****************************** BUTTONS ******************************/
+
+.btn-success {
+  border-color: #67A88C;
+  background-color: #67A88C;
+  box-shadow: 1px 1px 1px #2b4b3d;
 }
 
-.remove-field-icon:hover {
-  color: #777;
-  font-size: 20px;
-  cursor: pointer;
+.btn-success:hover {
+  border-color: #599c7f;
+  background-color: #599c7f;
+  box-shadow: 1px 1px 1px #2b4b3d;
 }
 
-.field-list-row {
-  background-color: #fff;
-  padding: 10px;
-  border-bottom: 1px dotted #d8d8d8;
+
+.btn-primary {
+  border-color: #6783a8;
+  background-color: #6783a8;
+  box-shadow: 1px 1px 1px #2b394b;
 }
+
+.btn-primary:hover {
+  border-color: #59769c;
+  background-color: #59769c;
+  box-shadow: 1px 1px 1px #2b394b;
+}
+
+
+.btn-danger {
+  border-color: #a86c67;
+  background-color: #a86c67;
+  box-shadow: 1px 1px 1px #4b2e2b;
+}
+
+.btn-danger:hover {
+  border-color: #9c5f59;
+  background-color: #9c5f59;
+  box-shadow: 1px 1px 1px #4b2e2b;
+}
+
+
+
+
+
+
+
+

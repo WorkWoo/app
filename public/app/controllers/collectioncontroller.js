@@ -1,9 +1,9 @@
-function collectionController($scope, Collection, $location, SelectedCollection, COLLECTION_ICONS) {
+function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
   log.info('|collectionController|');
 
   $scope.currentAction = null;
   $scope.loadedCollections = [];
-  $scope.selectedCollection = SelectedCollection;
+  $scope.selectedCollection = null;
 
   $scope.showIconSelection = false;
   $scope.collectionIcons = COLLECTION_ICONS;
@@ -37,6 +37,22 @@ function collectionController($scope, Collection, $location, SelectedCollection,
   };
 
 
+  $scope.getOneCollection = function(collectionName) {
+    $scope.collectionsLoading = true;
+    Collection.getOne(collectionName,
+      function(collection){
+        log.info('Success');
+        $scope.collectionsLoading = false;
+        $scope.selectedCollection = collection;
+      },
+      function() {
+        log.error('Failed');
+        $scope.collectionsLoading = false;
+      }
+    );
+  };
+
+
   $scope.updateCollection = function() {
     $scope.collectionsLoading = true;
     Collection.update($scope.selectedCollection,
@@ -47,7 +63,7 @@ function collectionController($scope, Collection, $location, SelectedCollection,
         $scope.selectedCollection = {};
         $scope.currentAction = null;
         $scope.collectionsLoading = false;
-        $scope.changeView('account/collections');
+        $scope.changeView('account/');
         location.reload();
       },
       function() {
@@ -169,6 +185,11 @@ function collectionController($scope, Collection, $location, SelectedCollection,
   };
 
 
+  $scope.removeState = function(stateIndex) {
+    $scope.selectedCollection.stateChoices.splice(stateIndex, 1);
+  };
+
+
   $scope.removeField = function(fieldIndex) {
     $scope.selectedCollection.fields.splice(fieldIndex, 1);
   };
@@ -201,23 +222,33 @@ function collectionController($scope, Collection, $location, SelectedCollection,
 
   $scope.initializeCollectionController = function() {
     // Grab the current URL so we can determine what the user is trying to do
-    var currentURL = $location.url();
+    var currentURL = $location.url().replace('/account/collections', '');
 
-    // Editing collection
-    var editingCollection = (currentURL.indexOf('/edit') > 0);
-    if (editingCollection) {
-      $scope.currentAction = 'update';
-      return;
-    }
+    log.info('current URL: ' + currentURL);
 
     // Creating collection
+    /*
     var creatingCollection = (currentURL.indexOf('/new') > 0);
     if (creatingCollection) {
       $scope.currentAction = 'create';
       return;
     }
+    */
 
-    $scope.getAllCollections();
+    // Viewing One
+    var viewingOne = currentURL.indexOf('/view') >= 0;
+    if (viewingOne) {
+      var collectionName = currentURL.slice(currentURL.indexOf('/view') + 6, currentURL.length); // The item number will be after "/view"
+      if (collectionName) {
+        log.info('|initializeCollectionController| Viewing one');
+        $scope.currentAction = 'update';
+        $scope.getOneCollection(collectionName);
+        return;
+      }
+    }
+
+    // Get all
+    //$scope.getAllCollections();
   };
 
   $scope.initializeCollectionController();
