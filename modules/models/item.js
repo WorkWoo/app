@@ -2,9 +2,9 @@
 var cfg = require('../config/config');
 
 var mongoose = require('mongoose');
-var qpcache = require('quikpaper-utils').qpCache;
-var utility = require('quikpaper-utils').qpUtility;
-var log = require('quikpaper-utils').qpLogger;
+var qpcache = require('workwoo-utils').cache;
+var utility = require('workwoo-utils').utility;
+var log = require('workwoo-utils').logger;
 
 var Counter = require('../models/counter');
 var Collection = require('../models/collection');

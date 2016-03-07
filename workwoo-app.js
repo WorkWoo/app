@@ -19,9 +19,9 @@ var collection = require('./modules/handlers/collection.js');
 var user = require('./modules/handlers/user.js');
 
 
-var utility = require('quikpaper-utils').qpUtility;
-var log = require('quikpaper-utils').qpLogger;
-var widget = 'quikpaper-app';
+var utility = require('workwoo-utils').utility;
+var log = require('workwoo-utils').logger;
+var widget = 'workwoo-app';
 log.registerWidget(widget);
 
 

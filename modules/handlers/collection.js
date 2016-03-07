@@ -9,9 +9,9 @@ var Item = require('../models/item');
 var inflect = require('i')(true);
 
 // Custom modules
-var qpcache = require('quikpaper-utils').qpCache;
-var utility = require('quikpaper-utils').qpUtility;
-var log = require('quikpaper-utils').qpLogger;
+var qpcache = require('workwoo-utils').cache;
+var utility = require('workwoo-utils').utility;
+var log = require('workwoo-utils').logger;
 var widget = 'Collection Handler';
 log.registerWidget(widget);
 

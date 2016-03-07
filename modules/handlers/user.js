@@ -6,9 +6,9 @@ var User = require('../models/user');
 var Org = require('../models/org');
 
 // Custom modules
-var mailer = require('quikpaper-utils').qpMailer;
-var utility = require('quikpaper-utils').qpUtility;
-var log = require('quikpaper-utils').qpLogger;
+var mailer = require('workwoo-utils').mailer;
+var utility = require('workwoo-utils').utility;
+var log = require('workwoo-utils').logger;
 var widget = 'user-management';
 log.registerWidget(widget);
 

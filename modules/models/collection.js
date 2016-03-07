@@ -2,7 +2,7 @@
 var cfg = require('../config/config');
 
 // Logging
-var log = require('quikpaper-utils').qpLogger;
+var log = require('workwoo-utils').logger;
 var widget = 'Collection Model';
 log.registerWidget(widget);
 

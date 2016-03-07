@@ -19,7 +19,7 @@
     "mongoose-pages": "0.0.3",
     "moment": "2.11.2",
     "i": "*",
-    "quikpaper-utils": "git+https://6304f09f5e46bd8d78d01da09c961dc45ceb7d37:x-oauth-basic@github.com/QuikPaper/utils.git"
+    "workwoo-utils": "git+https://6304f09f5e46bd8d78d01da09c961dc45ceb7d37:x-oauth-basic@github.com/WorkWoo/utils.git"
   },
   "author": "Ryan Mangroo",
   "license": "ISC"
