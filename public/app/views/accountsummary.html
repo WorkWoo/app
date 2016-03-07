@@ -1,17 +1,74 @@
-<!-- Page Header -->
-<div class="container-fluid noSpaceMobile">
-  <!-- Title -->
-  <div class="col-md-8 noSpaceMobile">
-    <h3 class="pageHeading">Account & Billing</h3>
-    <div class="breadCrumb">
-      <a href="#/account"><span class="fa fa-arrow-left"></span> Back to Settings</a>
-    </div>
-  </div>
-</div>
-<!-- Page Header -->
+<div class="container">
+	<!-- Page Header -->
+	<div class="container-fluid noSpaceMobile">
+	  <div class="col-md-12">
+	  	<!-- Title -->
+	  	<h3 class="pageHeading">
+	  		<span class="fadeInOut">My Account</span>
+	  	</h3>
+	  	<!-- Breadcrumb -->
+	  	<div class="breadCrumb">
+	    	<a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> Back to all settings</a>
+	  	</div>
+	  </div>
+	</div>
+	<!-- Page Header -->
 
-<!-- Page Content -->
-<div class="container-fluid noSpace">
-	<div class="col-md-12">Nothing here yet!</div>
+	<!-- Form -->	
+	<div class="container noSpaceMobile singleItemContainer">
+		<!-- First Name -->
+		<div class="col-sm-4">
+			<label for="firstName">First name:</label>
+			<input ng-disabled="usersLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="selectedUser.firstName" size="20"/>
+		</div>
+
+		<!-- Last Name -->
+		<div class="col-sm-4">
+			<label for="lastName">Last name:</label>
+			<input ng-disabled="usersLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="selectedUser.lastName" size="20"/>
+		</div>
+
+		<!-- Company Name -->
+		<div class="col-sm-4">
+			<label for="lastName">Company Name:</label>
+			<input ng-disabled="usersLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="selectedUser.lastName" size="20"/>
+		</div>
+
+		<!-- Email -->
+		<div class="col-sm-8">
+			<label for="emailAddress">Email Address:</label>
+			<input ng-disabled="usersLoading" type="text" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="selectedUser.emailAddress" size="20"/>
+		</div>
+
+		<!-- Phone number -->
+		<div class="col-sm-4">
+			<label for="phoneNumber">Phone Number:</label>
+			<input ng-disabled="usersLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="selectedUser.phone" size="20"/>
+		</div>
+
+		<!-- Spacer -->
+		<div class="col-sm-9"></div>
+
+		<!-- Submit button -->
+		<div class="col-sm-3">
+			<button style="margin: 10px 0px 5px 0px;"class="btn btn-primary btn-block">Save updated info</button>
+		</div>
+
+	</div>
+	<!-- Form -->
+
+	<!-- Upgrade message -->
+	<div class="container noSpace">
+		<div class="col-sm-12 noSpace">
+			<div class="upgradeAlert clearfix">
+				<span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
+				<span class="upgradeAlertText"><strong>Take your work to the next level!</strong><br/> With WorkWoo Pro, import and track items that relate to {{ collections[primaryCollection].pluralLabel }}, like documents, employees, or inventory</span>
+				<span class="upgradeAlertButton">
+					<a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
+				</span>
+			</div>
+		</div>
+	</div>
+	<!-- Upgrade message -->
+
 </div>
-<!-- Page Content -->

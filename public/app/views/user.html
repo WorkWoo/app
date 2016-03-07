@@ -1,104 +1,62 @@
-<form ng-model="selectedUser" novalidate>
+<div class="container">
+	<form ng-model="selectedUser" novalidate>
 
-	<!-- Page Header -->
-	<div class="container-fluid noSpaceMobile">
-	  <div class="col-md-12">
-	  	<!-- Title -->
-	  	<h3 class="pageHeading">
-	  		<span ng-if="usersLoading" class="fadeInOut">Loading...</span>
-	  		<span ng-if="!usersLoading && currentAction == 'create'" class="fadeInOut">New User</span>
-	  		<span ng-if="!usersLoading && currentAction == 'update'" class="fadeInOut">{{ selectedUser.firstName }} {{ selectedUser.lastName }}</span>
-	  	</h3>
-	  	<!-- Breadcrumb -->
-	  	<div class="breadCrumb">
-	    	<a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> Back to all users</a>
-	  	</div>
-	  </div>
-	</div>
-	<!-- Page Header -->
+		<!-- Page Header -->
+		<div class="container-fluid noSpaceMobile">
+		  <div class="col-md-12">
+		  	<!-- Title -->
+		  	<h3 class="pageHeading">
+		  		<span ng-if="!usersLoading && currentAction == 'create'" class="fadeInOut">New User</span>
+		  		<span ng-if="!usersLoading && currentAction == 'update'" class="fadeInOut">{{ selectedUser.firstName }} {{ selectedUser.lastName }}</span>
+		  	</h3>
+		  	<!-- Breadcrumb -->
+		  	<div class="breadCrumb">
+		    	<a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> Back to all users</a>
+		  	</div>
+		  </div>
+		</div>
+		<!-- Page Header -->
 
-	<!-- Page Content -->
-	<div class="container-fluid noSpace singleItemContainer">
-		<!-- Hidden pwd fields to trick chromc into not auto completing -->
-		<input type='password' style="display:none;">
-		
-		<!-- Row 1 -->
-		<div class="row">
+		<!-- Page Content -->
+		<div class="container noSpaceMobile singleItemContainer">
+			<!-- Hidden pwd fields to trick chromc into not auto completing -->
+			<input type='password' style="display:none;">
+			
 			<!-- First Name -->
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<label for="firstName">First name:</label>
 				<input ng-disabled="usersLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="selectedUser.firstName" size="20"/>
 			</div>
 			<!-- Last Name -->
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<label for="lastName">Last name:</label>
 				<input ng-disabled="usersLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="selectedUser.lastName" size="20"/>
 			</div>
-			<!-- Role -->
-			<div class="col-lg-4">
-				<label for="role">Responsibility:</label>
-				<select ng-disabled="usersLoading" class="form-control defaultInput" id="role" name="role" ng-model="selectedUser.role">
-					<option value="admin">Admin</option>
-					<option value="user">Normal user</option>
-				</select>
-			</div>
-		</div>
-		<!-- Row 1 -->
-
-		<!-- Row 2 -->
-		<div class="row">
-			<!-- Email -->
-			<div class="col-lg-4">
-				<label for="emailAddress">Email Address:</label>
-				<input ng-disabled="usersLoading" type="text" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="selectedUser.emailAddress" size="20"/>
-			</div>
 			<!-- Phone number -->
-			<div class="col-lg-4">
+			<div class="col-sm-4">
 				<label for="phoneNumber">Phone Number:</label>
 				<input ng-disabled="usersLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="selectedUser.phone" size="20"/>
 			</div>
-		</div>
-		<!-- Row 2 -->
-
-		<!-- Row 3 -->
-		<div ng-if="currentAction == 'create'" class="row">
-			<h4>Password</h4>
-		</div>
-		<!-- Row 3 -->
-
-		<!-- Row 4 -->
-		<div ng-if="currentAction == 'create'" class="row">
-			<!-- Password -->
-			<div class="col-lg-4">
-				<label for="password">Password:</label>
-				<input ng-disabled="usersLoading" type="password" id="password" name="password" class="form-control defaultInput" value="" ng-model="selectedUser.password" size="20"/>
+	
+			<!-- Email -->
+			<div class="col-lg-8">
+				<label for="emailAddress">Email Address:</label>
+				<input ng-disabled="usersLoading" type="text" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="selectedUser.emailAddress" size="20"/>
 			</div>
-		</div>
-		<!-- Row 4 -->
 
-		<!-- Button row -->
-		<div class="col-md-12">
 			<!-- Spacer -->
-			<div class="col-md-10"></div>
-		
-			<!-- If updating -->
-			<div ng-if="currentAction == 'update'" class="col-md-2" style="padding:5px;">
+			<div class="col-md-9"></div>
+			
+			<div  class="col-md-3">
 				<button ng-disabled="usersLoading" ng-click="updateUser()" class="btn btn-primary btn-block">
 					<span ng-if="!usersLoading">Save Changes</span>
 					<span ng-if="usersLoading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Saving</span>
 				</button>
 			</div>
-			<!-- If creating new -->
-			<div ng-if="currentAction == 'create'" class="col-md-2" style="padding:5px;">
-				<button ng-disabled="usersLoading" ng-click="createUser()" class="btn btn-primary btn-block">
-					<span ng-if="!usersLoading">Create User</span>
-					<span ng-if="usersLoading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Saving</span>
-				</button>
-			</div>
+
+
 		</div>
-		<!-- Button row -->
+		<!-- Page Content -->
 
-	</div>
-	<!-- Page Content -->
-
-</form>
+	</form>
+</div>

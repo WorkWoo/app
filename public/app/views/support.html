@@ -1,31 +1,24 @@
-<form ng-model="helpSubmission" ng-submit="submit(helpSubmission)" novalidate>
+<div class="container">
+  <form ng-model="helpSubmission" ng-submit="submit(helpSubmission)" novalidate>
 
-  <!-- Page Header -->
-  <div class="container-fluid noSpaceMobile">
-    <!-- Title -->
-    <div class="col-md-12 noSpaceMobile">
-      <h3 class="pageHeading">Get help or ask a question</h3>
+    <!-- Page Header -->
+    <div class="container-fluid noSpaceMobile">
+      <!-- Title -->
+      <div class="col-md-12 noSpaceMobile">
+        <h3 class="pageHeading">Get help or ask a question</h3>
+      </div>
     </div>
-  </div>
-  <!-- Page Header -->
+    <!-- Page Header -->
 
-  <!-- Page Content -->
-  <div class="container-fluid singleItemContainer">
-
-    <!-- Issue -->
-    <div ng-if="!loading && !formSubmitSuccess" class="row fadeInOut">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
+    <!-- Form Content -->
+    <div class="container-fluid singleItemContainer">
+      <!-- Issue -->
+      <div class="col-md-12">
         <label for="description">How may we help you?</label>
         <textarea ng-disabled="formSubmitting" style="resize:vertical;" rows="5" id="description" name="description" class="form-control defaultInput" value="" ng-model="helpSubmission.description" size="20"/>
       </div>
-      <div class="col-md-3"></div>
-    </div>
-
-    <!-- Urgency -->
-    <div ng-if="!loading && !formSubmitSuccess" class="row fadeInOut">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
+      <!-- Urgency -->
+      <div class="col-md-12">
         <label for="urgency">How urgent is this?</label>
         <select id="urgency" name="urgency" ng-disabled="formSubmitting" class="form-control defaultInput" value="" ng-model="helpSubmission.urgency">
           <option value="Right Now">Right now</option>
@@ -33,42 +26,30 @@
           <option value="Within the next week">Within the next week</option>
         </select>
       </div>
-      <div class="col-md-3"></div>
-    </div>
-
-    <!-- Submit button -->
-    <div ng-if="!loading && !formSubmitSuccess" class="row fadeInOut">
-      <div class="col-md-6"></div>
+      <!-- Spacer -->
+      <div class="col-md-9"></div>
       <div class="col-md-3">
         <button type="submit" ng-disabled="formSubmitting" class="btn btn-primary btn-block" style="margin: 10px 0px 5px 0px">
           <span ng-if="formSubmitting"><i class="fa fa-refresh fa-spin"></i> Submitting</span>
           <span ng-if="!formSubmitting">Submit</span>
         </button>
       </div>
-      <div class="col-md-3"></div>
-    </div>
 
-    <div ng-if="formSubmitSuccess" class="row fadeInOutStagger">
-      <div class="col-md-3"></div>
-      <div class="col-md-6 text-center">
-        <div style="padding: 100px 0px 100px 0px">Thank you. We'll be getting in touch with you soon.</div>
+    </div>
+    <!-- Form Content -->
+
+    <!-- Upgrade indicator -->
+    <div ng-if="!loading && !formSubmitSuccess" class="container-fluid noSpaceMobile fadeInOut">
+      <div class="upgradeAlert clearfix">
+        <span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
+        <span class="upgradeAlertText"><strong>Want to go Pro?</strong><br/> Supercharge your {{ collections[primaryCollection].pluralLabel }} by importing and tracking related items like inventory, documentation, and employees</span>
+        <span class="upgradeAlertButton">
+          <a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
+        </span>
       </div>
-      <div class="col-md-3"></div>
     </div>
+    <!-- Upgrade indicator -->
 
-  </div>
-  <!-- Page Content -->
+  </form>
 
-  <!-- Upgrade indicator -->
-  <div ng-if="!loading && !formSubmitSuccess" class="container-fluid noSpaceMobile fadeInOut">
-    <div class="upgradeAlert clearfix">
-      <span class="upgradeAlertIcon"><i class="fa fa-bolt iconXL"></i></span>
-      <span class="upgradeAlertText"><strong>Upgrading to Pro?</strong><br/> Supercharge your {{ collections[primaryCollection].pluralLabel }} by importing and tracking related items like inventory, documentation, and employees</span>
-      <span class="upgradeAlertButton">
-        <a href="#/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
-      </span>
-    </div>
-  </div>
-  <!-- Upgrade indicator -->
-
-</form>
+</div>

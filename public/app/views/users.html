@@ -18,9 +18,9 @@
  <div class="col-md-4 noSpaceMobile fadeInOut">
     <!-- Free users -->
     <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
-      <span class="menuCardIconDisabled fa fa-plus"></span>
+      <span class="menuCardIconDisabled fa fa-user-plus"></span>
       <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitleDisabled">Add New User</span>
+      <span class="menuCardTitleDisabled">New User</span>
     </span>
     <!-- Free users -->
     <a ng-if="accountType != '0'" href="#/account/users/new" class="menuCardContainerActive fadeInOut">
@@ -46,7 +46,7 @@
       <span class="upgradeAlertIcon"><i class="fa fa-users iconXL"></i></span>
       <span class="upgradeAlertText"><strong>Empower your employees!</strong><br/> Your free account includes 1 user. Upgrade now to add additional users for only $10 a month per user</span>
       <span class="upgradeAlertButton">
-        <a href="#/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
+        <a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
       </span>
     </div>
   </div>
