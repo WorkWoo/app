@@ -16,7 +16,6 @@ function Request($http, BASE_AUTH_URL) {
     );
   };
   
-
   Request.login = function (credentials, onSuccess, onFail) {
     log.info('| Request.login |');
     $http.defaults.headers.common.Authorization = 'Basic ' + window.btoa(credentials.emailAddress + ':' + credentials.password);
@@ -34,6 +33,18 @@ function Request($http, BASE_AUTH_URL) {
   Request.signup = function (signupInfo, onSuccess, onFail) {
     log.info('| Request.forgot |');
     $http({ url: BASE_AUTH_URL + '/signup', method: 'POST', data: signupInfo })
+      .then(function success(response) {
+        onSuccess(response);
+      },
+      function fail(response) {
+        onFail();
+      }
+    );
+  };
+
+  Request.verify = function (token, onSuccess, onFail) {
+    log.info('| Request.verify |');
+    $http({ url: BASE_AUTH_URL + '/verify', method: 'POST', data: {token: token} })
       .then(function success(response) {
         onSuccess(response);
       },

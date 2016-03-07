@@ -5,7 +5,7 @@
 
       <h4 class="text-center signup-form-heading">Sign Up Now!</h4>
 
-      <form ng-if="!signupSubmitted" name="userSignupInfo" ng-submit="signup(signupInfo)" novalidate>
+      <form ng-if="!signupSubmitted" name="userSignupInfo" ng-submit="signup(signupInfo)">
         
         <!-- Name -->
         <div class="row form-group">
@@ -24,12 +24,12 @@
 
         <!-- Email Address -->
         <div class="form-row form-group">
-          <input ng-disabled="signupSubmitting" class="form-control" type="text" name="newEmailAddress" placeholder="Email Address" ng-model="signupInfo.newEmailAddress">
+            <input ng-disabled="signupSubmitting" class="form-control" type="email" name="newEmailAddress" placeholder="Email Address" ng-model="signupInfo.newEmailAddress" required>
         </div>
 
          <!-- Confirm Email Address -->
         <div class="form-row form-group">
-          <input ng-disabled="signupSubmitting" class="form-control" type="text" name="confirmEmailAddress" placeholder="Confirm Email Address" ng-model="signupInfo.confirmEmailAddress">
+          <input ng-disabled="signupSubmitting" class="form-control" type="email" name="confirmEmailAddress" placeholder="Confirm Email Address" ng-model="signupInfo.confirmEmailAddress" required>
         </div>
 
         <!-- Pwd -->
@@ -76,7 +76,7 @@
 
         <!-- Pwd -->
         <div class="form-row form-group">
-          <input ng-disabled="loginSubmitting" class="form-control" type="password" name="pass" placeholder="Password" ng-model="credentials.password">
+          <input ng-disabled="loginSubmitting" class="form-control" type="password" name="pass" placeholder="Password" ng-model="credentials.password" autocomplete="new-password">
         </div>
 
         <!-- Submit button -->

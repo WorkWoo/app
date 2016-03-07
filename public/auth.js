@@ -5,6 +5,7 @@ auth.controller('mainController', mainController);
 auth.controller('loginController', loginController);
 auth.controller('forgotController', forgotController);
 auth.controller('resetController', resetController);
+auth.controller('verifyController', verifyController);
 
 // Factories
 auth.factory('Request', Request);
@@ -17,5 +18,6 @@ auth.config(function($routeProvider) {
   $routeProvider.when('/', { templateUrl : '/views/login.html', controller  : 'loginController'});
   $routeProvider.when('/login', { templateUrl : '/views/login.html', controller  : 'loginController'});  
   $routeProvider.when('/forgot', { templateUrl : '/views/forgotpwd.html', controller  : 'forgotController'}); 
-  $routeProvider.when('/reset', { templateUrl : '/views/resetpwd.html', controller  : 'resetController'}); 
+  $routeProvider.when('/reset', { templateUrl : '/views/resetpwd.html', controller  : 'resetController'});
+  $routeProvider.when('/verify', { templateUrl : '/views/verify.html', controller  : 'verifyController'});
 });
