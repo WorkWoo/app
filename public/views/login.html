@@ -1,87 +1,40 @@
-<!-- Login form -->
 <div class="container">
-  <div class = "row">
-    <div ng-if="!initializing" ng-model="signupInfo" class="col-lg-6 signup-form">
+  <form ng-model="credentials" ng-submit="login(credentials)" novalidate>
 
-      <h4 class="text-center signup-form-heading">Sign Up Now!</h4>
-
-      <form ng-if="!signupSubmitted" name="userSignupInfo" ng-submit="signup(signupInfo)" novalidate>
-        
-        <!-- Name -->
-        <div class="row form-group">
-          <div class="col-lg-6">
-            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="firstName" placeholder="First Name" ng-model="signupInfo.firstName">
-          </div>
-          <div class="col-lg-6">          
-            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="lastName" placeholder="Last Name" ng-model="signupInfo.lastName">
-          </div>
+    <div class="container singleItemContainer" style="max-width:600px;">
+  
+      <!-- Title -->
+      <div class="col-md-6">
+        <div style="padding:5px;">
+          <h4 class="text-left"><strong>WorkWoo Login</strong></h4>
         </div>
-
-        <!-- Organization Name -->
-        <div class="form-row form-group">
-          <input ng-disabled="signupSubmitting" class="form-control" type="text" name="orgName" placeholder="Company Name" ng-model="signupInfo.orgName">
-        </div>
-
-        <!-- Email Address -->
-        <div class="form-row form-group">
-          <input ng-disabled="signupSubmitting" class="form-control" type="text" name="newEmailAddress" placeholder="Email Address" ng-model="signupInfo.newEmailAddress">
-        </div>
-
-         <!-- Confirm Email Address -->
-        <div class="form-row form-group">
-          <input ng-disabled="signupSubmitting" class="form-control" type="text" name="confirmEmailAddress" placeholder="Confirm Email Address" ng-model="signupInfo.confirmEmailAddress">
-        </div>
-
-        <!-- Pwd -->
-        <div class="form-row form-group">
-          <input ng-disabled="signupSubmitting" class="form-control" type="password" name="newPassword" placeholder="New Password" ng-model="signupInfo.newPassword" autocomplete="new-password">
-        </div>
-
-        <!-- Submit button -->
-        <div class="form-row form-group">
-          <button ng-disabled="signupSubmitting" class="button button-default button-fill">
-            <span ng-if="!signupSubmitting">Sign Up</span>
-
-            <!-- Submitting indicator -->
-            <span ng-if="signupSubmitting" class="text-center">
-              <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-              <span id="loginSubmittingText">Submitting</span>
-            </span>
-          </button>
-
-        </div>
-
-      </form>
-
-      <!-- Login fail indicator -->
-      <div ng-if="signupFailed" class="text-center signup-fail-indicator">Sign up failed</div>
-
-      <div ng-if="signupSubmitted" class="text-center">
-        <p class="text-left">Almost there! A verification email has been sent to {{signupInfo.newEmailAddress}}. Follow the link in your verification email to finish the sign up process.</p>
       </div>
 
+      <!-- Sign up link -->
+      <div class="col-md-6 text-right">
+        <div style="padding:5px;">
+          <h4 class="text-center">Not registered? <a href="#/signup">Get started <span class="fa fa-arrow-right"></span></a></h4>
+        </div>
+      </div>
 
-    </div>
-
-    <div ng-if="!initializing" ng-model="credentials" class="col-lg-6 login-form">
-
-      <h4 class="text-center login-form-heading">Already have an account?</h4>
-
-      <form name="userCredentials" ng-submit="login(credentials)" novalidate>
-        
-        <!-- Username -->
-        <div class="form-row form-group">
+      <!-- Email -->
+      <div class="col-md-12">
+        <div style="padding:5px;">
           <input ng-disabled="loginSubmitting" class="form-control" type="text" name="user" placeholder="Email Address" ng-model="credentials.emailAddress">
         </div>
+      </div>
 
-        <!-- Pwd -->
-        <div class="form-row form-group">
+      <!-- Password -->
+      <div class="col-md-12">
+        <div style="padding:5px;">
           <input ng-disabled="loginSubmitting" class="form-control" type="password" name="pass" placeholder="Password" ng-model="credentials.password">
         </div>
+      </div>
 
-        <!-- Submit button -->
-        <div class="form-row form-group">
-          <button ng-disabled="loginSubmitting" class="button button-default button-fill">
+      <!-- Button -->
+      <div class="col-md-12">
+        <div style="padding:5px;">
+          <button type="submit" ng-disabled="loginSubmitting" class="btn btn-primary btn-block">
             <span ng-if="!loginSubmitting">Login</span>
 
             <!-- Submitting indicator -->
@@ -90,28 +43,24 @@
               <span id="loginSubmittingText">Logging in...</span>
             </span>
           </button>
-
         </div>
-
-      </form>
-
-      <div class="container-fluid text-center" style="margin-top:10px;">
-        <a ng-href="/#/forgot">Forgot your password?</a>
       </div>
 
-      <!-- Login fail indicator -->
-      <div ng-if="loginFailed" class="text-center login-fail-indicator">Email Address or Password incorrect</div>
+      <!-- Forgot password link -->
+      <div class="col-md-12 text-center">
+        <div style="padding:5px;">
+          <a ng-href="/#/forgot">Forgot your password?</a>
+        </div>
+      </div>
+
+      <!-- Fail indicator -->
+      <div class="col-md-12 text-center">
+        <div style="padding:5px;">
+          <div ng-if="loginFailed" class="errorText"><strong>Email Address or Password incorrect</strong></div>
+        </div>
+      </div>
+
 
     </div>
-  </div>
-</div>
-
-<!-- Loading indicator -->
-<div ng-if="initializing" style="margin-top: 65px;">
-  <div class="container-fluid text-center" style="font-size:18px;margin-top:20px;">
-    <span class="text-center">
-      <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-      <span id="init-text">Loading</span>
-    </span>
-  </div>
+  </form>
 </div>

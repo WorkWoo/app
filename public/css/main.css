@@ -34,6 +34,10 @@ body {
   font-size: 40px;
 }
 
+.errorText {
+  color: #a86c67;
+}
+
 /****************************** LINKS ******************************/
 
 
@@ -72,6 +76,13 @@ a:hover {
   padding: 0px 5px 0px 15px;
   background-color: #67A88C;
   z-index: 100;
+}
+
+.loginHeader {
+  color: #fff;
+  padding: 0px 5px 0px 15px;
+  background-color: #67A88C;
+  width: 100%;
 }
 
 .headerTitle {
@@ -120,51 +131,6 @@ a:hover {
   color: #777;
   cursor: pointer;
   text-decoration: underline;
-}
-
-
-/****************************** LOGIN FORMS ******************************/
-
-
-.login-form {
-  width: 400px;
-  border-radius: 10px;
-  border: 1px dotted #d8d8d8;
-  padding: 20px 50px 20px 50px;
-  background-color: #fff;
-  box-shadow: 0px 0px 10px #f0f0f0;
-}
-
-.login-form-heading {
-  color: #a6a6a6;
-  margin: 0px 0px 20px 0px;
-}
-
-.login-fail-indicator {
-  margin-top: 10px;
-  color: #ba5c55;
-}
-
-/****************************** SIGNUP FORMS ******************************/
-
-
-.signup-form {
-  width: 400px;
-  border-radius: 10px;
-  border: 1px dotted #d8d8d8;
-  padding: 20px 50px 20px 50px;
-  background-color: #fff;
-  box-shadow: 0px 0px 10px #f0f0f0;
-}
-
-.signup-form-heading {
-  color: #a6a6a6;
-  margin: 0px 0px 20px 0px;
-}
-
-.signup-fail-indicator {
-  margin-top: 10px;
-  color: #ba5c55;
 }
 
 
