@@ -1,6 +1,7 @@
 var cfg = require('../config/config');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var crypto = require('crypto');
 var Counter = require('../models/counter');
 
 var Schema = mongoose.Schema;
@@ -18,6 +19,9 @@ var userSchema = new Schema({
 	resetPwdToken: String,
     resetPwd: Boolean,
     resetPwdExpiration: Date,
+	verified: Boolean,
+    verifyToken: String,
+    newUser: Boolean,
 	_created_by: { type: Schema.Types.ObjectId, ref: 'User' },
     _updated_by: { type: Schema.Types.ObjectId, ref: 'User' }
 }, cfg.mongoose.options);
@@ -33,6 +37,9 @@ userSchema.pre('save', function(next) {
 	    		user.resetPwdToken = '';
 				user.resetPwd = false;
 				user.resetPwdExpiration = '';
+				user.verified = false;
+				user.newUser = true;
+				user.verifyToken = crypto.randomBytes(64).toString('hex');
 				next();		
 	    	});
 		});
@@ -59,6 +66,7 @@ userSchema.pre('save', function(next) {
 userSchema.post('save', function(user, next) {
 	user.password = '';
 	user.resetPwdToken = '';
+	user.verifyToken = '';
     next();
 });
 

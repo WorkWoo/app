@@ -1,0 +1,18 @@
+<!-- Login form -->
+<div class="container login-form">
+
+  <h4 class="text-center login-form-heading">Verify your email address</h4>
+
+  <div ng-if="verifySubmitting" class="text-center">
+    <p class="text-left">We are verifying your email address...</p>
+  </div>
+
+  <div ng-if="verifySucceeded" class="text-center">
+    <p class="text-left">Thank you for verifying your email address. Please click <a ng-href="/#/login">here <span class="glyphicon glyphicon-log-in"></span></a> to login.</p>
+  </div>
+
+  <div ng-if="verifyFailed" class="text-center">
+    <p class="text-left">An error has occurred while verifying your email address. Please contact us.</p>
+  </div>
+
+</div>
