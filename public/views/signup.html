@@ -1,77 +1,83 @@
 <div class="container singleItemOuterContainer" style="margin-top:25px;">
-  <form ng-model="signupInfo" ng-submit="signup(signupInfo)" novalidate>
-    <div class="container smallForm singleItemInnerContainer" style="padding: 25px;">
 
-      <!-- Title & login link-->
-      <div class="row">
-        <div class="col-md-6 text-left">
-          <div style="padding:5px;">
-            <h4><strong>Sign up for WorkWoo!</strong></h4>
-          </div>
-        </div>
+  <div class="row text-center noSpaceMobile" style="padding:5px;">
+    <h3 class="noSpace text-center">Sign up for WorkWoo!</h4>
+  </div>
 
-        <div class="col-md-6 text-right">
-          <div style="padding:5px;">
-            <h4>Already registered? <a href="#/login">Login <span class="fa fa-arrow-right"></span></a></h4>
-          </div>
-        </div>
-      </div>
+  <form name="signupForm" ng-model="signupInfo" ng-submit="signup(signupInfo)" novalidate>
+    <div class="container smallForm singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
       <!-- First & Last Name -->
-      <div class="row">
-        <div class="col-md-6">
+      <div class="row noSpaceMobile">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
           <div style="padding:5px;">
-            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="firstName" placeholder="First Name" ng-model="signupInfo.firstName">
+            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="firstName" placeholder="First Name" ng-model="signupInfo.firstName" required>
+            <span ng-if="signupForm.firstName.$invalid && signupForm.firstName.$touched" ng-init="initInvalidPopover('firstNameRequired','Tell us who you are!')" id="firstNameRequired" class="inputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
           <div style="padding:5px;">
-            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="lastName" placeholder="Last Name" ng-model="signupInfo.lastName">
+            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="lastName" placeholder="Last Name" ng-model="signupInfo.lastName" required>
+            <span ng-if="signupForm.lastName.$invalid && signupForm.lastName.$touched" ng-init="initInvalidPopover('lastNameRequired','Tell us who you are!')" id="lastNameRequired" class="inputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
+        <div class="col-md-1"></div>
       </div>
 
       <!-- Org Name -->
-      <div class="row">
-        <div class="col-md-12">
+      <div class="row noSpaceMobile">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
           <div style="padding:5px;">
-            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="orgName" placeholder="Company Name" ng-model="signupInfo.orgName">
+            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="orgName" placeholder="Company Name" ng-model="signupInfo.orgName" required>
+            <span ng-if="signupForm.orgName.$invalid && signupForm.orgName.$touched" ng-init="initInvalidPopover('orgNameRequired','We need to know your company')" id="orgNameRequired" class="inputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
+        <div class="col-md-1"></div>
       </div>
 
       <!-- Email -->
-      <div class="row">
-        <div class="col-md-12">
+      <div class="row noSpaceMobile">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
           <div style="padding:5px;">
-            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="newEmailAddress" placeholder="Email Address" ng-model="signupInfo.newEmailAddress">
+            <input ng-disabled="signupSubmitting" class="form-control" type="email" name="newEmailAddress" placeholder="Email Address" ng-model="signupInfo.newEmailAddress" required>
+            <span ng-if="signupForm.newEmailAddress.$invalid && signupForm.newEmailAddress.$touched" ng-init="initInvalidPopover('newEmailAddressRequired','We need to send you stuff!')" id="newEmailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
+        <div class="col-md-1"></div>
       </div>
 
       <!-- Email confirm -->
-      <div class="row">
-        <div class="col-md-12">
+      <div class="row noSpaceMobile">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
           <div style="padding:5px;">
-            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="confirmEmailAddress" placeholder="Confirm Email Address" ng-model="signupInfo.confirmEmailAddress">
+            <input ng-disabled="signupSubmitting" class="form-control" type="email" name="confirmEmailAddress" placeholder="Confirm Email Address" ng-model="signupInfo.confirmEmailAddress" required>
           </div>
         </div>
+        <div class="col-md-1"></div>
       </div>
 
       <!-- Password -->
-      <div class="row">
-        <div class="col-md-12">
+      <div class="row noSpaceMobile">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
           <div style="padding:5px;">
-            <input ng-disabled="signupSubmitting" class="form-control" type="password" name="newPassword" placeholder="New Password" ng-model="signupInfo.newPassword" autocomplete="new-password">
+            <input ng-disabled="signupSubmitting" class="form-control" type="password" name="newPassword" placeholder="New Password" ng-model="signupInfo.newPassword" autocomplete="new-password" required>
+            <span ng-if="signupForm.newPassword.$invalid && signupForm.newPassword.$touched" ng-init="initInvalidPopover('newPasswordRequired','You will need to log in!')" id="newPasswordRequired" class="inputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
+        <div class="col-md-1"></div>
       </div>
 
       <!-- Button -->
-      <div class="row">
-        <div class="col-md-12">
+      <div class="row noSpaceMobile">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
           <div style="padding:5px;">
-            <button ng-disabled="signupSubmitting" class="btn btn-primary btn-block">
+            <button ng-disabled="signupSubmitting || signupForm.$invalid" class="btn btn-primary btn-block">
               <span ng-if="!signupSubmitting">Sign Up</span>
               <!-- Submitting indicator -->
               <span ng-if="signupSubmitting" class="text-center">
@@ -81,10 +87,11 @@
             </button>
           </div>
         </div>
+        <div class="col-md-1"></div>
       </div>
 
       <!-- Fail indicator -->
-      <div class="row">
+      <div class="row noSpaceMobile">
         <div class="col-md-12 text-center">
           <div style="padding:5px;">
             <div ng-if="signupFailed" class="errorText">Sign up failed</div>
@@ -93,7 +100,7 @@
       </div>
 
       <!-- Success indicator -->
-      <div class="row">
+      <div class="row noSpaceMobile">
         <div class="col-md-12 text-left">
           <div style="padding:5px;">
             <div ng-if="signupSubmitted" class="errorText">Almost there! A verification email has been sent to {{signupInfo.newEmailAddress}}. Follow the link in your verification email to finish the sign up process.</div>
@@ -103,4 +110,9 @@
 
     </div>
   </form>
+
+  <div class="row text-center noSpaceMobile" style="padding:5px;">
+    <span>Already registered? <a href="#/login"> Login now</span></a></span>
+  </div>
+
 </div>

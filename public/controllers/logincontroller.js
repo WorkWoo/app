@@ -14,6 +14,8 @@ function loginController($scope, Request) {
 			return;
 		}
 
+		$scope.credentials.emailAddress = $scope.credentials.emailAddress.toLowerCase();
+
 	  	$scope.loginSubmitting = true;
 	  	$scope.loginFailed = false;
 
@@ -28,26 +30,6 @@ function loginController($scope, Request) {
 	        	// On fail
 	        	$scope.loginSubmitting = false;
 	        	$scope.loginFailed = true;
-	    	}
-	    );
-	};
-
-	$scope.signup = function(signupInfo) {
-	  	$scope.signupSubmitting = true;
-	  	$scope.signupFailed = false;
-
-		Request.signup(signupInfo,
-			function(response){
-	        	// On success
-	        	$scope.signupSubmitting = false;
-	        	$scope.signupFailed = false;
-	        	$scope.signupSubmitted = true;
-	    	},
-			function() {
-	        	// On fail
-	        	$scope.signupSubmitting = false;
-	        	$scope.signupFailed = true;
-	        	$scope.signupSubmitted = false;
 	    	}
 	    );
 	};

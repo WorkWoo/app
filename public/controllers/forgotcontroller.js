@@ -7,6 +7,7 @@ function forgotController($scope, Request) {
 
 	$scope.forgot = function(credentials) {
 	  	$scope.forgotSubmitting = true;
+	  	credentials.emailAddress = credentials.emailAddress.toLowerCase();
 
 		Request.forgot(credentials.emailAddress,
 			function(response){

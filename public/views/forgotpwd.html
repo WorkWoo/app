@@ -1,18 +1,14 @@
 <div class="container singleItemOuterContainer" style="margin-top:25px;">
-  <form name="forgotForm" ng-model="credentials" ng-submit="forgot(credentials)" novalidate>
-    <div class="container smallForm singleItemInnerContainer">
+  
+  <div class="row text-center noSpaceMobile" style="padding:5px;">
+    <h3 class="noSpace text-center">Forgot password</h3>
+  </div>
 
-      <!-- Title -->
-      <div class="row">
-        <div class="col-md-12">
-          <div style="padding:5px;">
-            <h3 class="noSpace text-center"><strong>Forgot password</strong></h3>
-          </div>
-        </div>
-      </div>
+  <form name="forgotForm" ng-model="credentials" ng-submit="forgot(credentials)" novalidate>
+    <div class="container smallForm singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
       <!-- Email address -->
-      <div class="row">
+      <div class="row noSpaceMobile">
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <div style="padding:5px;">
@@ -24,7 +20,7 @@
       </div>
 
       <!-- Button -->
-      <div class="row">
+      <div class="row noSpaceMobile">
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <div style="padding:5px;">
@@ -41,14 +37,15 @@
         <div class="col-md-2"></div>
       </div>
 
-      <div class="row text-center" style="padding:5px;">
-        <a ng-href="/#/login"><span class="fa fa-arrow-left"></span> Try logging in again</a>
-      </div>
-
-      <div class="row text-center" style="padding:5px;">
-        <span>Not registered? <a href="#/signup">Get started <span class="fa fa-arrow-right"></span></a></span>
-      </div>
-
     </div>
   </form>
+
+  <div class="row text-center noSpaceMobile" style="padding:5px;">
+    <a ng-href="/#/login">Try logging in again</a>
+  </div>
+
+  <div class="row text-center noSpaceMobile" style="padding:5px;">
+    <span>Not registered? <a href="#/signup">Get started</a></span>
+  </div>
+  
 </div>

@@ -1,26 +1,17 @@
-<script>
-  $('[data-toggle="popover"]').popover();
-  
-</script>
+<div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
 
-<div class="container singleItemOuterContainer" style="margin-top:25px;">
+  <div class="row text-center noSpaceMobile" style="padding:5px;">
+    <h3 class="noSpace text-center">WorkWoo</h3>
+  </div>
+
   <form name="loginForm" ng-model="credentials" ng-submit="login(credentials)" novalidate>
-    <div class="container smallForm singleItemInnerContainer">
-      
-      <!-- Title -->
-      <div class="row">
-        <div class="col-md-12">
-          <div style="padding:5px;">
-            <h3 class="noSpace text-center"><strong>WorkWoo</strong></h3>
-          </div>
-        </div>
-      </div>
+    <div class="container smallForm singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
       <!-- Email -->
-      <div class="row">
+      <div class="row noSpaceMobile">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-          <div style="padding:5px;">
+          <div style="padding: 5px;">
             <input ng-disabled="loginSubmitting" class="form-control" type="email" name="emailAddress" placeholder="Email Address" ng-model="credentials.emailAddress" required>
             <span ng-if="loginForm.emailAddress.$invalid && loginForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','Required for login')" id="emailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
           </div>
@@ -29,7 +20,7 @@
       </div>
 
       <!-- Password -->
-      <div class="row">
+      <div class="row noSpaceMobile">
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <div style="padding:5px;">
@@ -40,7 +31,7 @@
       </div>
 
       <!-- Submit Button -->
-      <div class="row">
+      <div class="row noSpaceMobile">
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <div style="padding:5px;">
@@ -59,10 +50,10 @@
       </div>
 
       <!-- Fail indicator -->
-      <div class="row">
+      <div ng-if="loginFailed"class="row noSpaceMobile">
         <div class="col-md-12 text-center">
           <div style="padding:5px;">
-            <div ng-if="loginFailed" class="errorText"><strong>Email Address or Password incorrect</strong></div>
+            <div class="errorText"><strong>Email Address or Password incorrect</strong></div>
           </div>
         </div>
       </div>
@@ -70,12 +61,12 @@
     </div>
   </form>
 
-  <div class="row text-center" style="padding:5px;">
+  <div class="row text-center noSpaceMobile" style="padding:5px;">
     <a ng-href="/#/forgot">Forgot your password?</a>
   </div>
 
-  <div class="row text-center" style="padding:5px;">
-    <span>Not registered? <a href="#/signup">Get started <span class="fa fa-arrow-right"></span></a></span>
+  <div class="row text-center noSpaceMobile" style="padding:5px;">
+    <span>Not registered? <a href="#/signup">Get started</a></span>
   </div>
 
 </div>
