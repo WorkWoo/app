@@ -10,6 +10,10 @@ function loginController($scope, Request) {
 	$scope.signupInfo = {};
 
 	$scope.login = function(credentials) {
+		if(!$scope.loginForm.$valid) {
+			return;
+		}
+
 	  	$scope.loginSubmitting = true;
 	  	$scope.loginFailed = false;
 

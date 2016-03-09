@@ -35,6 +35,18 @@
     display: none;
   }
 
+  .singleItemOuterContainer {
+    padding: 0px;
+    width: 100%;
+  }
+
+  .singleItemInnerContainer {
+    width: 100%;
+    border-radius: 0px;
+    border-left: none;
+    border-right: none;
+  }
+
   /****************************** ITEM CARD BOARD ******************************/
 
   .cardTitleBreaker {

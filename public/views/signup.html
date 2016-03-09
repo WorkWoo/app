@@ -1,83 +1,104 @@
-<div class="container">
+<div class="container singleItemOuterContainer" style="margin-top:25px;">
   <form ng-model="signupInfo" ng-submit="signup(signupInfo)" novalidate>
-    <div class="container singleItemContainer" style="max-width:600px;padding:25px;">
-      
-      <!-- Title -->
-      <div class="col-md-6 text-left">
-        <div style="padding:5px;">
-          <h4><strong>Sign up for WorkWoo!</strong></h4>
+    <div class="container smallForm singleItemInnerContainer" style="padding: 25px;">
+
+      <!-- Title & login link-->
+      <div class="row">
+        <div class="col-md-6 text-left">
+          <div style="padding:5px;">
+            <h4><strong>Sign up for WorkWoo!</strong></h4>
+          </div>
+        </div>
+
+        <div class="col-md-6 text-right">
+          <div style="padding:5px;">
+            <h4>Already registered? <a href="#/login">Login <span class="fa fa-arrow-right"></span></a></h4>
+          </div>
         </div>
       </div>
 
-      <!-- Sign up link -->
-      <div class="col-md-6 text-right">
-        <div style="padding:5px;">
-          <h4>Already registered? <a href="#/login">Login <span class="fa fa-arrow-right"></span></a></h4>
+      <!-- First & Last Name -->
+      <div class="row">
+        <div class="col-md-6">
+          <div style="padding:5px;">
+            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="firstName" placeholder="First Name" ng-model="signupInfo.firstName">
+          </div>
         </div>
-      </div>
-
-      <!-- First Name -->
-      <div class="col-md-6">
-        <div style="padding:5px;">
-          <input ng-disabled="signupSubmitting" class="form-control" type="text" name="firstName" placeholder="First Name" ng-model="signupInfo.firstName">
-        </div>
-      </div>
-
-      <!-- Last Name -->
-      <div class="col-md-6">
-        <div style="padding:5px;">
-          <input ng-disabled="signupSubmitting" class="form-control" type="text" name="lastName" placeholder="Last Name" ng-model="signupInfo.lastName">
+        <div class="col-md-6">
+          <div style="padding:5px;">
+            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="lastName" placeholder="Last Name" ng-model="signupInfo.lastName">
+          </div>
         </div>
       </div>
 
       <!-- Org Name -->
-      <div class="col-md-12">
-        <div style="padding:5px;">
-          <input ng-disabled="signupSubmitting" class="form-control" type="text" name="orgName" placeholder="Company Name" ng-model="signupInfo.orgName">
+      <div class="row">
+        <div class="col-md-12">
+          <div style="padding:5px;">
+            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="orgName" placeholder="Company Name" ng-model="signupInfo.orgName">
+          </div>
         </div>
       </div>
 
       <!-- Email -->
-      <div class="col-md-12">
-        <div style="padding:5px;">
-          <input ng-disabled="signupSubmitting" class="form-control" type="text" name="newEmailAddress" placeholder="Email Address" ng-model="signupInfo.newEmailAddress">
+      <div class="row">
+        <div class="col-md-12">
+          <div style="padding:5px;">
+            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="newEmailAddress" placeholder="Email Address" ng-model="signupInfo.newEmailAddress">
+          </div>
         </div>
       </div>
 
       <!-- Email confirm -->
-      <div class="col-md-12">
-        <div style="padding:5px;">
-          <input ng-disabled="signupSubmitting" class="form-control" type="text" name="confirmEmailAddress" placeholder="Confirm Email Address" ng-model="signupInfo.confirmEmailAddress">
+      <div class="row">
+        <div class="col-md-12">
+          <div style="padding:5px;">
+            <input ng-disabled="signupSubmitting" class="form-control" type="text" name="confirmEmailAddress" placeholder="Confirm Email Address" ng-model="signupInfo.confirmEmailAddress">
+          </div>
         </div>
       </div>
 
       <!-- Password -->
-      <div class="col-md-12">
-        <div style="padding:5px;">
-          <input ng-disabled="signupSubmitting" class="form-control" type="password" name="newPassword" placeholder="New Password" ng-model="signupInfo.newPassword" autocomplete="new-password">
+      <div class="row">
+        <div class="col-md-12">
+          <div style="padding:5px;">
+            <input ng-disabled="signupSubmitting" class="form-control" type="password" name="newPassword" placeholder="New Password" ng-model="signupInfo.newPassword" autocomplete="new-password">
+          </div>
         </div>
       </div>
 
       <!-- Button -->
-      <div class="col-md-12">
-        <div style="padding:5px;">
-          <button ng-disabled="signupSubmitting" class="btn btn-primary btn-block">
-            <span ng-if="!signupSubmitting">Sign Up</span>
-            <!-- Submitting indicator -->
-            <span ng-if="signupSubmitting" class="text-center">
-              <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-              <span id="loginSubmittingText">Submitting</span>
-            </span>
-          </button>
+      <div class="row">
+        <div class="col-md-12">
+          <div style="padding:5px;">
+            <button ng-disabled="signupSubmitting" class="btn btn-primary btn-block">
+              <span ng-if="!signupSubmitting">Sign Up</span>
+              <!-- Submitting indicator -->
+              <span ng-if="signupSubmitting" class="text-center">
+                <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                <span id="loginSubmittingText">Submitting</span>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Login fail indicator -->
-      <div ng-if="signupFailed" class="text-center signup-fail-indicator">Sign up failed</div>
+      <!-- Fail indicator -->
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div style="padding:5px;">
+            <div ng-if="signupFailed" class="errorText">Sign up failed</div>
+          </div>
+        </div>
+      </div>
 
       <!-- Success indicator -->
-      <div ng-if="signupSubmitted" class="text-center">
-        <p class="text-left">Almost there! A verification email has been sent to {{signupInfo.newEmailAddress}}. Follow the link in your verification email to finish the sign up process.</p>
+      <div class="row">
+        <div class="col-md-12 text-left">
+          <div style="padding:5px;">
+            <div ng-if="signupSubmitted" class="errorText">Almost there! A verification email has been sent to {{signupInfo.newEmailAddress}}. Follow the link in your verification email to finish the sign up process.</div>
+          </div>
+        </div>
       </div>
 
     </div>

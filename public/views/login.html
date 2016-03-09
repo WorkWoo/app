@@ -1,64 +1,81 @@
-<div class="container">
-  <form ng-model="credentials" ng-submit="login(credentials)" novalidate>
-    <div class="container singleItemContainer" style="max-width:600px;">
+<script>
+  $('[data-toggle="popover"]').popover();
   
-      <!-- Title -->
-      <div class="col-md-6">
-        <div style="padding:5px;">
-          <h4 class="text-left"><strong>WorkWoo Login</strong></h4>
-        </div>
-      </div>
+</script>
 
-      <!-- Sign up link -->
-      <div class="col-md-6 text-right">
-        <div style="padding:5px;">
-          <h4 class="text-center">Not registered? <a href="#/signup">Get started <span class="fa fa-arrow-right"></span></a></h4>
+<div class="container singleItemOuterContainer" style="margin-top:25px;">
+  <form name="loginForm" ng-model="credentials" ng-submit="login(credentials)" novalidate>
+    <div class="container smallForm singleItemInnerContainer">
+      
+      <!-- Title -->
+      <div class="row">
+        <div class="col-md-12">
+          <div style="padding:5px;">
+            <h3 class="noSpace text-center"><strong>WorkWoo</strong></h3>
+          </div>
         </div>
       </div>
 
       <!-- Email -->
-      <div class="col-md-12">
-        <div style="padding:5px;">
-          <input ng-disabled="loginSubmitting" class="form-control" type="text" name="user" placeholder="Email Address" ng-model="credentials.emailAddress">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div style="padding:5px;">
+            <input ng-disabled="loginSubmitting" class="form-control" type="email" name="emailAddress" placeholder="Email Address" ng-model="credentials.emailAddress" required>
+            <span ng-if="loginForm.emailAddress.$invalid && loginForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','Required for login')" id="emailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+          </div>
         </div>
+        <div class="col-md-2"></div>
       </div>
 
       <!-- Password -->
-      <div class="col-md-12">
-        <div style="padding:5px;">
-          <input ng-disabled="loginSubmitting" class="form-control" type="password" name="pass" placeholder="Password" ng-model="credentials.password" autocomplete="new-password">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div style="padding:5px;">
+            <input ng-disabled="loginSubmitting" class="form-control" type="password" name="password" placeholder="Password" ng-model="credentials.password" required autocomplete="new-password">
+            <span ng-if="loginForm.password.$invalid && loginForm.password.$touched" ng-init="initInvalidPopover('passwordRequired','Required for login')" id="passwordRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+          </div>
         </div>
       </div>
 
-      <!-- Button -->
-      <div class="col-md-12">
-        <div style="padding:5px;">
-          <button type="submit" ng-disabled="loginSubmitting" class="btn btn-primary btn-block">
-            <span ng-if="!loginSubmitting">Login</span>
+      <!-- Submit Button -->
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div style="padding:5px;">
+            <button type="submit" ng-disabled="loginSubmitting || loginForm.$invalid" class="btn btn-primary btn-block">
+              <span ng-if="!loginSubmitting">Login</span>
 
-            <!-- Submitting indicator -->
-            <span ng-if="loginSubmitting" class="text-center">
-              <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-              <span id="loginSubmittingText">Logging in...</span>
-            </span>
-          </button>
+              <!-- Submitting indicator -->
+              <span ng-if="loginSubmitting" class="text-center">
+                <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                <span id="loginSubmittingText">Logging in...</span>
+              </span>
+            </button>
+          </div>
         </div>
-      </div>
-
-      <!-- Forgot password link -->
-      <div class="col-md-12 text-center">
-        <div style="padding:5px;">
-          <a ng-href="/#/forgot">Forgot your password?</a>
-        </div>
+        <div class="col-md-2"></div>
       </div>
 
       <!-- Fail indicator -->
-      <div class="col-md-12 text-center">
-        <div style="padding:5px;">
-          <div ng-if="loginFailed" class="errorText"><strong>Email Address or Password incorrect</strong></div>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div style="padding:5px;">
+            <div ng-if="loginFailed" class="errorText"><strong>Email Address or Password incorrect</strong></div>
+          </div>
         </div>
       </div>
 
     </div>
   </form>
+
+  <div class="row text-center" style="padding:5px;">
+    <a ng-href="/#/forgot">Forgot your password?</a>
+  </div>
+
+  <div class="row text-center" style="padding:5px;">
+    <span>Not registered? <a href="#/signup">Get started <span class="fa fa-arrow-right"></span></a></span>
+  </div>
+
 </div>

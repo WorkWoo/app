@@ -1,50 +1,52 @@
-<div class="container">
-  <form ng-model="credentials" ng-submit="forgot(credentials)" novalidate>
+<div class="container singleItemOuterContainer" style="margin-top:25px;">
+  <form name="forgotForm" ng-model="credentials" ng-submit="forgot(credentials)" novalidate>
+    <div class="container smallForm singleItemInnerContainer">
 
-    <div class="container singleItemContainer" style="max-width:600px;">
-  
       <!-- Title -->
-      <div class="col-md-6">
-        <div style="padding:5px;">
-          <h4 class="text-left"><strong>Forgot password</strong></h4>
-        </div>
-      </div>
-
-      <!-- Sign up link -->
-      <div class="col-md-6 text-right">
-        <div style="padding:5px;">
-          <h4 class="text-center">Not registered? <a href="#/signup">Get started <span class="fa fa-arrow-right"></span></a></h4>
+      <div class="row">
+        <div class="col-md-12">
+          <div style="padding:5px;">
+            <h3 class="noSpace text-center"><strong>Forgot password</strong></h3>
+          </div>
         </div>
       </div>
 
       <!-- Email address -->
-      <div class="col-md-12">
-        <div style="padding:5px;">
-          <input ng-disabled="forgotSubmitting" class="form-control" type="text" placeholder="Email Address" ng-model="credentials.emailAddress">
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div style="padding:5px;">
+            <input name="emailAddress" ng-disabled="forgotSubmitting" class="form-control" type="email" placeholder="Email Address" ng-model="credentials.emailAddress" required>
+            <span ng-if="forgotForm.emailAddress.$invalid && forgotForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We need to send you a reset link!')" id="emailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+          </div>
         </div>
+        <div class="col-md-2"></div>
       </div>
 
       <!-- Button -->
-      <div class="col-md-12">
-        <div style="padding:5px;">
-          <button ng-disabled="forgotSubmitting" class="btn btn-primary btn-block">
-            <span ng-if="!forgotSubmitting">Submit</span>
-            <!-- Submitting indicator -->
-            <span ng-if="forgotSubmitting" class="text-center">
-              <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-              <span>Submitting</span>
-            </span>
-          </button>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div style="padding:5px;">
+            <button ng-disabled="forgotSubmitting || forgotForm.$invalid" class="btn btn-primary btn-block">
+              <span ng-if="!forgotSubmitting">Submit</span>
+              <!-- Submitting indicator -->
+              <span ng-if="forgotSubmitting" class="text-center">
+                <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                <span>Submitting</span>
+              </span>
+            </button>
+          </div>
         </div>
+        <div class="col-md-2"></div>
       </div>
 
-      <!-- Forgot password link -->
-      <div class="col-md-12 text-center">
-        <div style="padding:5px;">
-          <a href="/#/login" ng-disabled="forgotSubmitting">
-            <span class="fa fa-arrow-left"></span> Try logging in again
-          </a>
-        </div>
+      <div class="row text-center" style="padding:5px;">
+        <a ng-href="/#/login"><span class="fa fa-arrow-left"></span> Try logging in again</a>
+      </div>
+
+      <div class="row text-center" style="padding:5px;">
+        <span>Not registered? <a href="#/signup">Get started <span class="fa fa-arrow-right"></span></a></span>
       </div>
 
     </div>
