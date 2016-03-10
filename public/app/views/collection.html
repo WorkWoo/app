@@ -37,19 +37,19 @@
 			<div class="col-md-6">
 
 				<!-- Collection name -->
-				<div class="col-md-12 noSpace">
+				<div id='collectionNameContainer' class="col-md-12 noSpace">
 					<label>Your items:</label>
 					<input ng-disabled="collectionsLoading" type="text" id="collectionName" name="singleLabel" class="form-control defaultInput" value="" ng-model="selectedCollection.pluralLabel" size="20"/>
 				</div>
 
 				<!-- Number prefix -->
-				<div class="col-md-12 noSpace">
+				<div id='numberPrefixContainer' class="col-md-12 noSpace">
 					<label>Number prefix:</label>
 					<input ng-disabled="collectionsLoading" type="text" id="numberPrefix" name="numberPrefix" class="form-control defaultInput" value="" ng-model="selectedCollection.numberPrefix" size="20"/>
 				</div>
 
 				<!-- State choices -->
-				<div class="col-md-12 noSpace">
+				<div id='stateContainer' class="col-md-12 noSpace">
 					<label>State Choices:</label>
 					<div id="stateChoices" class="choiceOptionContainer clearfix">
 						<!-- Create a row for each state -->
