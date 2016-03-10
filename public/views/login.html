@@ -13,7 +13,12 @@
         <div class="col-md-8">
           <div style="padding: 5px;">
             <input ng-disabled="loginSubmitting" class="form-control" type="email" name="emailAddress" placeholder="Email Address" ng-model="credentials.emailAddress" required>
-            <span ng-if="loginForm.emailAddress.$invalid && loginForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','Required for login')" id="emailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+
+            <span ng-if="loginForm.emailAddress.$touched && loginForm.emailAddress.$error.required" ng-init="initInvalidPopover('emailAddressRequired','Required for login')" id="emailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="loginForm.emailAddress.$touched && loginForm.emailAddress.$error.email" ng-init="initInvalidPopover('emailAddressInvalidFormat','Not correct format')" id="emailAddressInvalidFormat" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="loginForm.emailAddress.$valid" ng-init="destroyInvalidPopover('emailAddressRequired')"></span>
+            <span ng-if="loginForm.emailAddress.$valid" ng-init="destroyInvalidPopover('emailAddressInvalidFormat')"></span>  
+
           </div>
         </div>
         <div class="col-md-2"></div>
@@ -25,7 +30,7 @@
         <div class="col-md-8">
           <div style="padding:5px;">
             <input ng-disabled="loginSubmitting" class="form-control" type="password" name="password" placeholder="Password" ng-model="credentials.password" required autocomplete="new-password">
-            <span ng-if="loginForm.password.$invalid && loginForm.password.$touched" ng-init="initInvalidPopover('passwordRequired','Required for login')" id="passwordRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="loginForm.password.$invalid && loginForm.password.$touched" ng-init="initInvalidPopover('passwordRequired','Required')" id="passwordRequired" class="inputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
       </div>
@@ -35,7 +40,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <div style="padding:5px;">
-            <button type="submit" ng-disabled="loginSubmitting || loginForm.$invalid" class="btn btn-primary btn-block">
+            <button type="submit" ng-disabled="loginSubmitting" class="btn btn-primary btn-block">
               <span ng-if="!loginSubmitting">Login</span>
 
               <!-- Submitting indicator -->

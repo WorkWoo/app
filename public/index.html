@@ -35,6 +35,35 @@
     <script src="factories.js"></script>
     <script src="auth.js"></script>
 
+    <style>
+
+        /* Popover */
+        .popover {
+          border-radius: 5px;
+          background-color: #a86c67; 
+          border: none;
+        }
+
+        /* Popover Body */
+        .popover-content {
+          border-radius: 5px;
+          background-color: #a86c67; 
+          color: #fff; 
+          font-size: 16px;
+        }
+
+        /* Popover Arrow */
+        .popover.right .arrow:after {
+          border-right-color: #a86c67;
+        }
+
+        /* Popover Arrow */
+        .popover.left .arrow:after {
+          border-left-color: #a86c67;
+        }
+
+    </style>
+
   </head>
   
   <body ng-app="auth" ng-controller="mainController" style="margin:0px;padding:0px;color:#777;">
