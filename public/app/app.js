@@ -1,7 +1,7 @@
 var COLLECTIONS = null;
 var AUTHENTICATED = false;
 var USER_PROFILE = null;
-var mainApp = angular.module('mainApp', ['ngRoute', 'ngAnimate']);
+var mainApp = angular.module('mainApp', ['ngRoute', 'ngAnimate', 'ngJoyRide']);
 
 // Constants
 mainApp.constant('COLLECTION_ICONS', config.collection.icons);
@@ -27,6 +27,10 @@ mainApp.factory('SelectedUser', SelectedUser);
 
 // Directives
 mainApp.directive('dateTimePicker', dateTimePicker);
+
+mainApp.run(function($templateCache) {
+  $templateCache.put('tour-welcome', tourTemplates.tourWelcome);
+});
 
 mainApp.config(function($routeProvider) {
 

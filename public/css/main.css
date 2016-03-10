@@ -64,6 +64,27 @@ a:hover {
   padding: 10px;
 }
 
+/****************************** TOUR ******************************/
+
+.tourHeader {
+  color: #fff;
+  padding: 0px 5px 0px 15px;
+  background-color: #67A88C;
+  z-index: 100;
+}
+
+.tourContent {
+  border-radius: 5px;
+  background-color: #fcfcfc;
+  border: 1px dotted #d8d8d8;
+  margin: 10px 0px 10px 0px;
+  padding: 5px;
+  height: 105px;
+}
+
+.bringForward {
+  z-index: 10000;
+}
 
 /****************************** HEADER ******************************/
 
@@ -142,14 +163,14 @@ a:hover {
   .leftMenuContainer {
     background-color: #67A88C;
     width: 50px;
-    position: fixed;
+    position: absolute;
     top: 25px;
     bottom: 0px;
-    z-index: 100;
     padding: 0px;
   }
 
   .leftMenuIcon {
+    position: relative;
     color: #fff;
     text-decoration: none;
     background: none;
