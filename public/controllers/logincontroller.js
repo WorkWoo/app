@@ -11,7 +11,8 @@ function loginController($scope, Request) {
 
 	$scope.login = function(credentials) {
 		if(!$scope.loginForm.$valid) {
-			log.object($scope.loginForm.emailAddress);
+			log.info('submit');
+			log.info($scope.loginForm.emailAddress.$valid);
 			return;
 		}
 

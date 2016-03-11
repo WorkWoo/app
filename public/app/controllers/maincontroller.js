@@ -14,7 +14,7 @@ function mainController($scope, $location, $sce, $templateCache) {
   $scope.accountType = $scope.currentUser.org.accountType;
   $scope.primaryCollection = $scope.currentUser.org.primaryCollection;
 
-  $scope.startJoyRide = true;
+  //$scope.startJoyRide = true;
   $scope.joyRideConfig = [
           {
               type: "title",
@@ -146,6 +146,10 @@ function mainController($scope, $location, $sce, $templateCache) {
     return moment(dateTime).format('MM/DD/YYYY hh:mm A').slice(0, 5);
   } ;
 
+  $scope.initInvalidPopover = function(elementID, popoverText) {
+    $('#' + elementID).popover({content: popoverText, placement: 'auto right', trigger: 'hover', viewport: { selector: 'body', padding: 0}, html : true, container: 'body'});
+  };
+  
   $scope.initializeMainController = function() {
     var currentView = $location.path();
     if (currentView.indexOf('/account') >= 0) {

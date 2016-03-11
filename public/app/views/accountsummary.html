@@ -1,57 +1,63 @@
-<div class="container">
-	<!-- Page Header -->
-	<div class="container-fluid noSpaceMobile">
-	  <div class="col-md-12">
-	  	<!-- Title -->
-	  	<h3 class="pageHeading">
-	  		<span class="fadeInOut">My Account</span>
-	  	</h3>
-	  	<!-- Breadcrumb -->
-	  	<div class="breadCrumb">
-	    	<a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> Back to all settings</a>
-	  	</div>
-	  </div>
-	</div>
-	<!-- Page Header -->
+<div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
 
-	<!-- Form -->	
-	<div class="container noSpaceMobile singleItemContainer">
-		<!-- First Name -->
-		<div class="col-sm-4">
-			<label for="firstName">First name:</label>
-			<input ng-disabled="usersLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="selectedUser.firstName" size="20"/>
+  <div class="row text-center noSpaceMobile" style="padding:5px;">
+    <h3 class="noSpace text-center">My Account</h3>
+  </div>
+
+ 	<div class="row text-center noSpaceMobile" style="padding:5px;">
+    <a href="#/account"><span class="fa fa-arrow-left"></span> Back to all settings</a>
+  </div>
+
+  <form name="accountSummaryForm" ng-model="accountSummary" ng-submit="submit(accountSummary)" novalidate>
+
+    <div class="container mediumForm singleItemInnerContainer noSpaceMobile" style="padding:25px;">
+
+		<!-- First & Last Name -->
+		<div class="row noSpaceMobile">
+			<div class="col-md-6">
+				<label for="firstName">First name:</label>
+				<input ng-disabled="accountLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="accountSummary.firstName" size="20" required/>
+				<span ng-if="accountSummaryForm.firstName.$invalid && accountSummaryForm.firstName.$touched" ng-init="initInvalidPopover('firstNameRequired','Tell us who you are!')" id="firstNameRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
+			</div>
+			<div class="col-md-6">
+				<label for="lastName">Last name:</label>
+				<input ng-disabled="accountLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="accountSummary.lastName" size="20" required/>
+				<span ng-if="accountSummaryForm.lastName.$invalid && accountSummaryForm.lastName.$touched" ng-init="initInvalidPopover('lastNameRequired','Tell us who you are!')" id="lastNameRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
+			</div>
 		</div>
 
-		<!-- Last Name -->
-		<div class="col-sm-4">
-			<label for="lastName">Last name:</label>
-			<input ng-disabled="usersLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="selectedUser.lastName" size="20"/>
+		<!-- Company Name & Email address -->
+		<div class="row noSpaceMobile">
+			<div class="col-md-6">
+				<label for="companyName">Company Name:</label>
+				<input ng-disabled="accountLoading" type="text" id="companyName" name="companyName" class="form-control defaultInput" value="" ng-model="accountSummary.companyName" size="20" required/>
+				<span ng-if="accountSummaryForm.companyName.$invalid && accountSummaryForm.companyName.$touched" ng-init="initInvalidPopover('companyNameRequired','Tell us about your business!')" id="companyNameRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
+			</div>
+			<div class="col-md-6">
+				<label for="emailAddress">Email Address:</label>
+				<input ng-disabled="accountLoading" type="email" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="accountSummary.emailAddress" size="20" required/>
+				<span ng-if="accountSummaryForm.emailAddress.$invalid && accountSummaryForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We may need to contact you')" id="emailAddressRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
+			</div>
 		</div>
 
-		<!-- Company Name -->
-		<div class="col-sm-4">
-			<label for="lastName">Company Name:</label>
-			<input ng-disabled="usersLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="selectedUser.lastName" size="20"/>
+		<!-- Phone Number -->
+		<div class="row noSpaceMobile">
+			<div class="col-md-6">
+				<label for="phoneNumber">Phone Number:</label>
+				<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
+				<span ng-if="accountSummaryForm.phoneNumber.$invalid && accountSummaryForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to contact you!')" id="phoneNumberRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
+			</div>
 		</div>
 
-		<!-- Email -->
-		<div class="col-sm-8">
-			<label for="emailAddress">Email Address:</label>
-			<input ng-disabled="usersLoading" type="text" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="selectedUser.emailAddress" size="20"/>
-		</div>
-
-		<!-- Phone number -->
-		<div class="col-sm-4">
-			<label for="phoneNumber">Phone Number:</label>
-			<input ng-disabled="usersLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="selectedUser.phone" size="20"/>
-		</div>
-
-		<!-- Spacer -->
-		<div class="col-sm-9"></div>
-
-		<!-- Submit button -->
-		<div class="col-sm-3">
-			<button style="margin: 10px 0px 5px 0px;"class="btn btn-primary btn-block">Save updated info</button>
+		<!-- Button -->
+		<div class="row noSpaceMobile">
+			<div class="col-md-8"></div>
+			<div class="col-md-4">
+	        	<button type="submit" ng-disabled="accountLoading || accountSummaryForm.$invalid" class="btn btn-primary btn-block" style="margin: 10px 0px 5px 0px">
+	            	<span ng-if="accountLoading"><i class="fa fa-refresh fa-spin"></i> Saving</span>
+	            	<span ng-if="!accountLoading">Save updated info</span>
+	         	</button>
+			</div>
 		</div>
 
 	</div>

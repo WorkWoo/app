@@ -1,108 +1,23 @@
 <div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
-  <form name="loginForm" ng-model="credentials" ng-submit="login(credentials)" novalidate>
-    <div class="container smallForm singleItemInnerContainer noSpaceMobile">
-      
-      <!-- Title -->
-      <div class="row noSpaceMobile">
-        <div class="col-md-12">
-          <div>
-            <h3 class="noSpace text-center"><strong>WorkWoo</strong></h3>
-          </div>
-        </div>
-      </div>
-
-      <!-- Email -->
-      <div class="row noSpaceMobile">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <div style="padding:5px;">
-            <input ng-disabled="loginSubmitting" class="form-control" type="email" name="emailAddress" placeholder="Email Address" ng-model="credentials.emailAddress" required>
-            <span ng-if="loginForm.emailAddress.$invalid && loginForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','Required for login')" id="emailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
-          </div>
-        </div>
-        <div class="col-md-2"></div>
-      </div>
-
-      <!-- Password -->
-      <div class="row noSpaceMobile">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <div style="padding:5px;">
-            <input ng-disabled="loginSubmitting" class="form-control" type="password" name="password" placeholder="Password" ng-model="credentials.password" required autocomplete="new-password">
-            <span ng-if="loginForm.password.$invalid && loginForm.password.$touched" ng-init="initInvalidPopover('passwordRequired','Required for login')" id="passwordRequired" class="inputInvalid fa fa-exclamation-circle"></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Submit Button -->
-      <div class="row noSpaceMobile">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-          <div style="padding:5px;">
-            <button type="submit" ng-disabled="loginSubmitting || loginForm.$invalid" class="btn btn-primary btn-block">
-              <span ng-if="!loginSubmitting">Login</span>
-
-              <!-- Submitting indicator -->
-              <span ng-if="loginSubmitting" class="text-center">
-                <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-                <span id="loginSubmittingText">Logging in...</span>
-              </span>
-            </button>
-          </div>
-        </div>
-        <div class="col-md-2"></div>
-      </div>
-
-      <!-- Fail indicator -->
-      <div class="row noSpaceMobile">
-        <div class="col-md-12 text-center">
-          <div style="padding:5px;">
-            <div ng-if="loginFailed" class="errorText"><strong>Email Address or Password incorrect</strong></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </form>
 
   <div class="row text-center noSpaceMobile" style="padding:5px;">
-    <a ng-href="/#/forgot">Forgot your password?</a>
+    <h3 class="noSpace text-center">Get help or ask a question</h3>
   </div>
 
-  <div class="row text-center noSpaceMobile" style="padding:5px;">
-    <span>Not registered? <a href="#/signup">Get started <span class="fa fa-arrow-right"></span></a></span>
-  </div>
+  <form name="helpSubmissionForm" ng-model="helpSubmission" ng-submit="submit(helpSubmission)" novalidate>
+    <div class="container smallForm singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="container">
-  <form ng-model="helpSubmission" ng-submit="submit(helpSubmission)" novalidate>
-
-    <!-- Form Content -->
-    <div class="container singleItemOuterContainer">
-      <div class="container mediumForm">
-        <h3 class="pageHeading">Get help or ask a question</h3>
-      </div>
-
-      <div class="container singleItemInnerContainer mediumForm">
-
-        <!-- Issue -->
+      <!-- Issue -->
+      <div class="row noSpaceMobile">
         <div class="col-md-12">
           <label for="description">How may we help you?</label>
-          <textarea ng-disabled="formSubmitting" style="resize:vertical;" rows="5" id="description" name="description" class="form-control defaultInput" value="" ng-model="helpSubmission.description" size="20"/>
+          <textarea ng-disabled="formSubmitting" style="resize:vertical;" rows="5" id="description" name="description" class="form-control defaultInput" value="" ng-model="helpSubmission.description" size="20" required/>
+          <span ng-if="helpSubmissionForm.description.$invalid && helpSubmissionForm.description.$touched" ng-init="initInvalidPopover('descriptionRequired','Tell us something!')" id="descriptionRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
         </div>
-        <!-- Urgency -->
+      </div>
+
+      <!-- Urgency -->
+      <div class="row noSpaceMobile">
         <div class="col-md-12">
           <label for="urgency">How urgent is this?</label>
           <select id="urgency" name="urgency" ng-disabled="formSubmitting" class="form-control defaultInput" value="" ng-model="helpSubmission.urgency">
@@ -111,31 +26,31 @@
             <option value="Within the next week">Within the next week</option>
           </select>
         </div>
+      </div>
+
+      <!-- Submit button -->
+      <div class="row noSpaceMobile">
         <!-- Spacer -->
-        <div class="col-md-9"></div>
-        <div class="col-md-3">
-          <button type="submit" ng-disabled="formSubmitting" class="btn btn-primary btn-block" style="margin: 10px 0px 5px 0px">
+        <div class="col-md-8"></div>
+        <div class="col-md-4">
+          <button type="submit" ng-disabled="formSubmitting || helpSubmissionForm.$invalid" class="btn btn-primary btn-block" style="margin: 10px 0px 5px 0px">
             <span ng-if="formSubmitting"><i class="fa fa-refresh fa-spin"></i> Submitting</span>
             <span ng-if="!formSubmitting">Submit</span>
           </button>
         </div>
-
       </div>
-    </div>
-    <!-- Form Content -->
 
-    <!-- Upgrade indicator -->
-    <div ng-if="!loading && !formSubmitSuccess" class="container noSpaceMobile">
-      <div class="upgradeAlert clearfix">
-        <span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
-        <span class="upgradeAlertText"><strong>Want to go Pro?</strong><br/> Supercharge your {{ collections[primaryCollection].pluralLabel }} by importing and tracking related items like inventory, documentation, and employees</span>
-        <span class="upgradeAlertButton">
-          <a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
-        </span>
-      </div>
     </div>
-    <!-- Upgrade indicator -->
-
   </form>
+</div>
 
+<!-- Upgrade indicator -->
+<div ng-if="accountType == '0'" class="container noSpaceMobile fadeInOut">
+  <div class="upgradeAlert clearfix">
+    <span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
+    <span class="upgradeAlertText"><strong>Want to go Pro?</strong><br/> Supercharge your Stories by importing and tracking related items like inventory, documentation, and employees</span>
+    <span class="upgradeAlertButton">
+      <a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
+    </span>
+  </div>
 </div>

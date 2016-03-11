@@ -1,7 +1,17 @@
 function signupController($scope, Request) {
 	log.info('|signupController|');
+	$scope.emailsMatch = true;
 
 	$scope.signup = function(signupInfo) {
+		if (signupForm.$invalid) {
+			return;
+		}
+
+		if(signupInfo.confirmEmailAddress != signupInfo.newEmailAddress) {
+			$scope.emailsMatch = false;
+			return;
+		}
+
 	  	$scope.signupSubmitting = true;
 	  	$scope.signupFailed = false;
 
@@ -22,4 +32,13 @@ function signupController($scope, Request) {
 	};
 
 
+	$scope.verifyEmailMatch = function() {
+		var match = signupForm.confirmEmailAddress.value == signupForm.newEmailAddress.value;
+		if (match) {
+			$scope.emailsMatch = true;
+		} else {
+			$scope.emailsMatch = false;
+		}
+		return match;
+	};
 }

@@ -2,13 +2,20 @@ function resetController($scope, Request) {
 	log.info('| resetController |');
 	
 	$scope.pwdResetInfo = {};
-
 	$scope.resetSubmitted = false;
 	$scope.resetSubmitting = false;
+	$scope.passwordsMatch = true;
 
 	$scope.reset = function(pwdResetInfo) {
-	  	$scope.resetSubmitting = true;
+		if(resetForm.$invalid) {
+			return;
+		}
 
+		if(resetForm.newPassword.value != resetForm.newPasswordConfirm.value) {
+			$scope.passwordsMatch = false;
+			return;
+		}
+	  	$scope.resetSubmitting = true
 	  	pwdResetInfo.token = $scope.getURLParam('tid');
 
 		Request.reset(pwdResetInfo,

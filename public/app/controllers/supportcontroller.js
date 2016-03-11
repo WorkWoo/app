@@ -1,11 +1,9 @@
 function supportController($scope, $timeout) {
   log.info('|supportController|');
   $scope.formSubmitting = false;
-
   $scope.helpSubmission = {
   	urgency: 'Today'
   }
-
 
   $scope.submit = function() {
   	$scope.formSubmitting = true;
@@ -13,13 +11,11 @@ function supportController($scope, $timeout) {
   	log.info('Urgency: ' + $scope.helpSubmission.urgency);
   	log.info('Description: ' + $scope.helpSubmission.description);
   	
-
+    // TODO: Actually do a POST
   	$timeout(function() {
   		$scope.formSubmitSuccess = false;
   		$scope.changeView('support/submitted');
-	}, 2000);
+	}, 1500);
 
   };
-
-
 }

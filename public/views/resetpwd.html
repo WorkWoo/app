@@ -28,6 +28,8 @@
           <div style="padding:5px;">
             <input ng-disabled="resetSubmitting" class="form-control" type="password" name="newPasswordConfirm" placeholder="Confirm New Password" ng-model="pwdResetInfo.confirmPassword" autocomplete="new-password" required>
             <span ng-if="resetForm.newPasswordConfirm.$invalid && resetForm.newPasswordConfirm.$touched" ng-init="initInvalidPopover('newPasswordConfirmRequired','You must have a password!')" id="newPasswordConfirmRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="!passwordsMatch" ng-init="initInvalidPopover('newPasswordConfirmRequired','Passwords do not match')" id="newPasswordConfirmRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+
           </div>
         </div>
         <div class="col-md-2"></div>

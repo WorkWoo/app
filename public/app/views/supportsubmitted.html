@@ -1,31 +1,27 @@
-<div class="container">
+<div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
 
-  <!-- Page Header -->
-  <div class="container-fluid noSpaceMobile">
-    <!-- Title -->
-    <div class="col-md-12 noSpaceMobile">
-      <h3 class="pageHeading">Get help or ask a question</h3>
-    </div>
+  <div class="row text-center noSpaceMobile" style="padding:5px;">
+    <h3 class="noSpace text-center">Get help or ask a question</h3>
   </div>
-  <!-- Page Header -->
 
-  <!-- Content -->
-  <div class="container-fluid singleItemContainer text-center">
+  <form name="helpSubmissionForm" ng-model="helpSubmission" ng-submit="submit(helpSubmission)" novalidate>
+    <div class="container smallForm singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
+      <div class="row text-center noSpaceMobile">
+        <div class="col-md-12">
+          <div style="margin:25px;">Thank you.</br> We'll be getting in touch with you soon.</div>
+        </div>
+      </div>
 
-    <div class="col-md-12">
-      <div style="margin:25px;">Thank you.</br> We'll be getting in touch with you soon.</div>
+      <div class="row text-center noSpaceMobile">
+        <div class="col-md-6">
+          <div style="margin:25px;"><a href="#/support">Ask another question</a></div>
+        </div>
+        <div class="col-md-6">
+          <div style="margin:25px;"><a href="#/">Go to my work</a></div>
+        </div>
+      </div>
+
     </div>
-
-    <div class="col-md-6">
-      <div style="margin:25px;"><a href="#/support"><span class="fa fa-arrow-left"></span> Ask another question</a></div>
-    </div>
-    <div class="col-md-6">
-      <div style="margin:25px;"><a href="#/">Go to my work <span class="fa fa-arrow-right"></span></a></div>
-    </div>
-
-
-  </div>
-  <!-- Content -->
-
+  </form>
 </div>

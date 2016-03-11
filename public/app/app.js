@@ -42,6 +42,7 @@ mainApp.config(function($routeProvider) {
   $routeProvider.when('/support/submitted', { templateUrl: 'views/supportsubmitted.html', controller: 'supportController'});
   $routeProvider.when('/account', { templateUrl: 'views/account.html', controller: 'accountController'});
   $routeProvider.when('/account/summary', { templateUrl: 'views/accountsummary.html', controller: 'accountController'});
+  $routeProvider.when('/account/summary/submitted', { templateUrl: 'views/accountsubmitted.html', controller: 'accountController'});
   $routeProvider.when('/account/upgrade', { templateUrl: 'views/upgrade.html', controller: 'upgradeController'});
 
   $routeProvider.when('/account/collections', { templateUrl: 'views/collections.html', controller: 'collectionController'});

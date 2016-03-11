@@ -19,10 +19,11 @@ body {
 @media only screen and (min-width : 993px) {
   .contentPage {
     position: absolute;
-    padding: 10px;
+    padding: 0px;
     top: 25px;
     left: 50px;
     right: 0px;
+    
   }
 }
 
@@ -412,12 +413,19 @@ a:hover {
   cursor: pointer;
   color: #a86c67;
   position: absolute;
-  right: 30px;
-  top: 10px;
+  right: 25px;
+  top:10px;
   font-size: 25px;
 }
 
-
+.textareaInvalid {
+  cursor: pointer;
+  color: #a86c67;
+  position: absolute;
+  font-size: 25px;
+  top: 30px;
+  right: 20px;
+}
 
 
 /****************************** ALERTS ******************************/
