@@ -1,8 +1,6 @@
 function LoadedCollection() {return {collectionName: 'none'};}
-
 function TotalItems() { return {};}
 function SelectedItem() { return {};}
-
 function SelectedUser() { return {};}
 function SelectedCollection() { return {};}
 

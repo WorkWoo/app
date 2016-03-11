@@ -1,5 +1,5 @@
 function resetController($scope, Request) {
-	log.info('| resetController |');
+	log.info('|resetController|');
 	
 	$scope.pwdResetInfo = {};
 	$scope.resetSubmitted = false;

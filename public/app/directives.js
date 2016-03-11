@@ -1,5 +1,6 @@
-// No directives yet
-
+/*
+ * Date/Time Picker
+ */
 var dateTimePicker = function () {
 	var format = 'MM/DD/YYYY hh:mm A';
 

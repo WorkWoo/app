@@ -1,5 +1,5 @@
 function loginController($scope, Request) {
-	log.info('| loginController |');
+	log.info('|loginController|');
 	
 	$scope.loginFailed = false;
 	$scope.loginSubmitting = false;

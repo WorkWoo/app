@@ -1,5 +1,5 @@
 function mainController($scope, $location, Request) {
-	log.info('| mainController |');
+	log.info('|mainController|');
 	
 	$scope.initializing = false;
 	$scope.loginFailed = false;

@@ -23,8 +23,8 @@
 <div class="container-fluid noSpace">
 
   <!-- "Create New" card -->
-  <div ng-if="!itemsLoading" class="col-md-4 text-center noSpaceMobile fadeInOut">
-    <a class="noUnderline" ng-href="#/{{primaryCollection}}/new">
+  <div class="col-md-4 text-center noSpaceMobile">
+    <a ng-disabled="itemsLoading" class="noUnderline" ng-href="#/{{primaryCollection}}/new">
       <div class="itemCardActive">
         <span class="itemCardActiveIcon fa fa-plus"></span>
         <span class="cardTitleBreaker"></br></span>

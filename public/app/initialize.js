@@ -46,7 +46,6 @@ function getCollectionSettingsSuccess(response) {
   //log.info('COLLECTIONS -> ' + response);
   $('#page-loading-indicator').hide();
   $('#nav-content').show();
-
   $('#user-org-loading').hide();
   $('#user-org-loaded').show();
   $('#user-name').show();

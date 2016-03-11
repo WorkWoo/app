@@ -6,6 +6,8 @@ function itemController($scope, $location, $routeParams, Item) {
 
   $scope.loadedItems = Item.loadedItems;
   $scope.selectedItem = Item.selectedItem;
+  $scope.selectedItemTitle = '';
+
   $scope.totalItems = 0;;
 
   $scope.baseCollection = null;
@@ -55,6 +57,7 @@ function itemController($scope, $location, $routeParams, Item) {
         $scope.itemsLoading = false;
         Item.setSelectedItem(item);
         $scope.selectedItem = item;
+        $scope.selectedItemTitle = $scope.selectedItem[$scope.collections[$scope.selectedItem.collectionName].displayField];
       },
       function() {
         // Fail
@@ -437,6 +440,7 @@ function itemController($scope, $location, $routeParams, Item) {
           $scope.selectedItem = {};
           $scope.getOneItem(itemNumber);
         } else {
+          $scope.selectedItemTitle = $scope.selectedItem[$scope.collections[$scope.selectedItem.collectionName].displayField];
           $scope.itemsLoading = false;
         }
         return;

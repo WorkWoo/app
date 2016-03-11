@@ -1,7 +1,6 @@
-// -- Request Factory -- //
+// Request
 function Request($http, BASE_AUTH_URL) {
   var Request = {};
-  
   
   Request.session = function ( onSuccess, onFail) {
     log.info('| Request.session |');

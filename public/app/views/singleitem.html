@@ -4,7 +4,7 @@
     <div class="row noSpaceMobile" style="padding:5px;">
       <h3 class="pageHeading noSpace">
           <span ng-if="currentAction == 'create'">New {{ collections[selectedItem.collectionName].singleLabel }}</span>
-          <span ng-if="currentAction == 'update'">{{ selectedItem.number }}<span class="itemDisplayTitle"> - {{ selectedItem[collections[selectedItem.collectionName].displayField] }}</span></span>
+          <span ng-if="currentAction == 'update'">{{ selectedItem.number }}<span class="itemDisplayTitle"> - {{ selectedItemTitle }}</span></span>
       </h3>
     </div>
 

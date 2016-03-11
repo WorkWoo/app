@@ -12,7 +12,6 @@ auth.controller('verifyController', verifyController);
 auth.factory('Request', Request);
 
 // Constants
-//auth.constant('BASE_URL', 'http://localhost:1338');
 auth.constant('BASE_AUTH_URL', config.url.auth);
 
 auth.config(function($routeProvider) {

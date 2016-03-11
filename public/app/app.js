@@ -38,8 +38,10 @@ mainApp.config(function($routeProvider) {
   $routeProvider.when('/', { templateUrl: 'views/itemhome.html', controller: 'itemController'});
 
   // Then, define the permanant, hard-coded routes.
+
   $routeProvider.when('/support', { templateUrl: 'views/support.html', controller: 'supportController'});
   $routeProvider.when('/support/submitted', { templateUrl: 'views/supportsubmitted.html', controller: 'supportController'});
+
   $routeProvider.when('/account', { templateUrl: 'views/account.html', controller: 'accountController'});
   $routeProvider.when('/account/summary', { templateUrl: 'views/accountsummary.html', controller: 'accountController'});
   $routeProvider.when('/account/summary/submitted', { templateUrl: 'views/accountsubmitted.html', controller: 'accountController'});

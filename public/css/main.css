@@ -696,6 +696,31 @@ a:hover {
 }
 
 
+/* Fade and expand down */
+.fadeExpandDown.ng-enter {
+  transition: .25s;
+  max-height: 0px;
+  opacity: 0;
+}
+
+.fadeExpandDown.ng-enter-active {
+  max-height: 200px;
+  opacity: 1;
+}
+
+.fadeExpandDown.ng-leave {
+  transition: .25s;
+  max-height: 200px;
+  opacity: 1;
+}
+
+.fadeExpandDown.ng-leave-active {
+  max-height: 0px;
+  opacity: 0;
+}
+
+
+
 /****************************** MANAGE COLLECTIONS ******************************/
 
 .current-collection-icon {

@@ -1,3 +1,4 @@
+// Log
 var log = {
   info: function(content) {
     console.log('Info -> ' + content)
@@ -7,7 +8,8 @@ var log = {
   },
   object: function(givenObject) {
     for(var property in givenObject) {
-      console.log('Key: ' + property + ', Value -> ' + givenObject[property]);
+      console.log('Key   -> ' + property);
+      console.log('Value -> ' + givenObject[property]);
     }
   }
 }

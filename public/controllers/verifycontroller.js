@@ -1,5 +1,5 @@
 function verifyController($scope, Request) {
-	log.info('| verifyController |');
+	log.info('|verifyController|');
 	
 	$scope.verifyFailed = false;
 	$scope.verifySubmitting = true;
@@ -7,7 +7,6 @@ function verifyController($scope, Request) {
 
 	$scope.verify = function() {
 	  	var token = $scope.getURLParam('tid');
-
 		Request.verify(token,
 			function(response){
 	        	// On success
