@@ -1,32 +1,24 @@
-<div class="container">
-  <form ng-if="!itemsLoading" ng-model="selectedItem" ng-submit="preSubmit(selectedItem)" novalidate>
-    
-    <!-- Page Header -->
-    <div class="container-fluid row noSpace">
-      <div class="col-md-12">
-        <!-- Title -->
-        <h3 class="pageHeading">
+<form name="itemForm" ng-model="selectedItem" ng-submit="preSubmit(selectedItem)" novalidate>
+  <div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
+
+    <div class="row noSpaceMobile" style="padding:5px;">
+      <h3 class="pageHeading noSpace">
           <span ng-if="currentAction == 'create'">New {{ collections[selectedItem.collectionName].singleLabel }}</span>
           <span ng-if="currentAction == 'update'">{{ selectedItem.number }}<span class="itemDisplayTitle"> - {{ selectedItem[collections[selectedItem.collectionName].displayField] }}</span></span>
-        </h3>
-        <!-- Breadcrumb -->
-        <div class="breadCrumb">
+      </h3>
+    </div>
+
+    <div class="row noSpaceMobile" style="padding:5px;">
+      <div class="breadCrumb">
           <a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> Back to {{ collections[selectedItem.collectionName].singleLabel }} list</a>
         </div>
       </div>
-
     </div>
-    <!-- Page Header -->
 
-    <!-- Page Content -->
-    <div class="container-fluid row noSpace singleItemContainer">
-      <!-- These two hidden inputs are required to trick chrome into not autocompleting -->
-      <input style="display:none">
-      <input type="password" style="display:none">
+    <div class="container singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
       <!-- Begin building each single field -->
       <div ng-repeat="field in collections[selectedItem.collectionName].fields" ng-if="field.name != 'number'"class="form-group" ng-class="getItemFieldClass(selectedItem, field)">
-        
         <label for="{{ field.name }}">{{ field.label }}:</label>
 
         <!-- Short text input -->
@@ -60,7 +52,7 @@
         </span>
       </div>
       <!-- End Single field -->
-            
+
       <!-- Button Row -->
       <div class="col-md-12">
         <!-- Spacer -->
@@ -87,10 +79,8 @@
           
         </div>
       </div>
-      <!-- BUTTON CONTAINER -->
+      <!-- Button Row -->
 
     </div>
-    <!-- Content -->
-
-  </form>
-</div>
+  </div>
+</form>

@@ -1,7 +1,7 @@
 <span ng-include="'views/includes/alerts.html'"></span>
 
 <!-- Page Header -->
-<div class="container-fluid noSpaceMobile">
+<div class="container-fluid noSpaceMobile" style="margin-top:25px;">
   <!-- Title -->
   <div class="col-md-8 noSpaceMobile">
     <h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
@@ -24,41 +24,38 @@
 
   <!-- "Create New" card -->
   <div ng-if="!itemsLoading" class="col-md-4 text-center noSpaceMobile fadeInOut">
-    <div class="itemCardActive">
-      <a ng-href="#/{{primaryCollection}}/new" class="itemCardActiveLink">
+    <a class="noUnderline" ng-href="#/{{primaryCollection}}/new">
+      <div class="itemCardActive">
         <span class="itemCardActiveIcon fa fa-plus"></span>
         <span class="cardTitleBreaker"></br></span>
         <span class="itemCardActiveTitle">New {{ collections[primaryCollection].singleLabel }}</span>
-      </a>
-    </div>
+      </div>
+    </a>
   </div>
 
   <!-- Create a card for each item -->
   <div ng-repeat="item in loadedItems" class="col-md-4 noSpaceMobile fadeInOutStagger">
     <div class="itemCard">
-
-      <div class="col-md-12 clearfix">
-        <span class="pull-left text-left">
-          <a ng-click="openOneItem(item)" class="itemCardTitle" ng-href="#/{{primaryCollection}}/view/{{item.number}}">{{ item.number }}</a>
-        </span>
-
-        <span class="pull-right text-right">
-          <div class="itemCardState">{{ item.state }}</div>
-        </span>
-      </div>
-
-      <div class="col-md-12">
-        <span class="itemCardUpdateInfo">Updated: {{ formattedDateTime(item.updated_at) }} By: {{ item._updated_by.firstName }}</span>
-      </div>
-
-      <div class="col-md-12">
-        <div class="ellipsis">
-          <div class="itemCardContent">
-            {{ item[collections[primaryCollection].displayField] }}
+      <a class="noUnderline" ng-href="#/{{primaryCollection}}/view/{{item.number}}">
+        <div class="col-md-12 clearfix">
+          <span class="pull-left text-left itemCardTitle">{{ item.number }}</span>
+          <span class="pull-right text-right">
+            <div class="itemCardState">{{ item.state }}</div>
+          </span>
+        </div>
+        <div class="col-md-12">
+          <span class="itemCardUpdateInfo">Updated: {{ formattedDateTime(item.updated_at) }} By: {{ item._updated_by.firstName }}</span>
+        </div>
+        <div class="col-md-12">
+          <div class="ellipsis">
+            <div class="itemCardContent">
+              {{ item[collections[primaryCollection].displayField] }}
+            </div>
           </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
+
 
 </div>

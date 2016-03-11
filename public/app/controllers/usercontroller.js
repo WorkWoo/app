@@ -4,6 +4,7 @@ function userController($scope, $location, User, SelectedUser) {
   $scope.currentAction = null;
   $scope.loadedUsers = [];
   $scope.selectedUser = SelectedUser;
+  $scope.selecedUserName = '';
 
   $scope.usersLoading = true;
 
@@ -31,6 +32,7 @@ function userController($scope, $location, User, SelectedUser) {
       function(user){
         $scope.usersLoading = false;
         $scope.selectedUser = user;
+        $scope.selecedUserName = user.firstName + ' ' + user.lastName;
       },
       function() {
         log.error('Failed');
@@ -47,10 +49,9 @@ function userController($scope, $location, User, SelectedUser) {
       function(updatedUser){
         log.info('Success');
         $scope.usersLoading = false;
-        $scope.selectedUser = {};
+        
         $scope.currentAction = null;
         $scope.changeView('account/users');
-
       },
       function() {
         log.error('Failed');
@@ -93,6 +94,7 @@ function userController($scope, $location, User, SelectedUser) {
 
 
   $scope.initializeUserController = function() {
+    $scope.selectedUser = {};
     // Grab the current URL so we can determine what the user is trying to do
     var currentURL = $location.url().replace('/account/users', '');
     log.info('|initializeUserController| Current URL -> ' + currentURL);

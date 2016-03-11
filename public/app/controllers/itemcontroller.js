@@ -434,6 +434,7 @@ function itemController($scope, $location, $routeParams, Item) {
       if (itemNumber) {
         $scope.currentAction = 'update';
         if (!$scope.selectedItem || $scope.selectedItem.number != itemNumber) {
+          $scope.selectedItem = {};
           $scope.getOneItem(itemNumber);
         } else {
           $scope.itemsLoading = false;
@@ -470,8 +471,7 @@ function itemController($scope, $location, $routeParams, Item) {
     $scope.showItems = false;
     $scope.showHome = true;
     $scope.baseCollection = $scope.currentUser.org.primaryCollection;
-    log.info('|itemController| showing home');
-
+    $scope.selectedItem = {}
   };
 
   $scope.initializeItemController();

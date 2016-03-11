@@ -1,11 +1,11 @@
 <div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
 
-  <div class="row text-center noSpaceMobile" style="padding:5px;">
-    <h3 class="noSpace text-center">Get help or ask a question</h3>
+  <div class="row noSpaceMobile" style="padding:5px;">
+    <h3 class="pageHeading">Get help or ask a question</h3>
   </div>
 
   <form name="helpSubmissionForm" ng-model="helpSubmission" ng-submit="submit(helpSubmission)" novalidate>
-    <div class="container smallForm singleItemInnerContainer noSpaceMobile" style="padding:25px;">
+    <div class="container singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
       <!-- Issue -->
       <div class="row noSpaceMobile">
@@ -18,7 +18,8 @@
 
       <!-- Urgency -->
       <div class="row noSpaceMobile">
-        <div class="col-md-12">
+        <!-- Spacer -->
+        <div class="col-md-5">
           <label for="urgency">How urgent is this?</label>
           <select id="urgency" name="urgency" ng-disabled="formSubmitting" class="form-control defaultInput" value="" ng-model="helpSubmission.urgency">
             <option value="Right Now">Right now</option>
@@ -26,13 +27,15 @@
             <option value="Within the next week">Within the next week</option>
           </select>
         </div>
+        <!-- Spacer -->
+        <div class="col-md-8"></div>
       </div>
 
       <!-- Submit button -->
       <div class="row noSpaceMobile">
         <!-- Spacer -->
-        <div class="col-md-8"></div>
-        <div class="col-md-4">
+        <div class="col-md-9"></div>
+        <div class="col-md-3">
           <button type="submit" ng-disabled="formSubmitting || helpSubmissionForm.$invalid" class="btn btn-primary btn-block" style="margin: 10px 0px 5px 0px">
             <span ng-if="formSubmitting"><i class="fa fa-refresh fa-spin"></i> Submitting</span>
             <span ng-if="!formSubmitting">Submit</span>

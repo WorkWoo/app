@@ -1,44 +1,53 @@
 <div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
 
-	<div class="row text-center noSpaceMobile" style="padding:5px;">
-		<h3 class="noSpace text-center">{{ selectedUser.firstName }} {{ selectedUser.lastName }}</h3>
+	<div class="row noSpaceMobile" style="padding:5px;">
+		<h3 class="pageHeading noSpace">
+			<span class="fadeInOut" ng-if="!usersLoading">{{ selecedUserName }}</span>
+			<span ng-if="usersLoading">&nbsp;</span>
+		</h3>
 	</div>
 
- 	<div class="row text-center noSpaceMobile" style="padding:5px;">
-    	<a href="#/account"><span class="fa fa-arrow-left"></span> Back to all settings</a>
+ 	<div class="row noSpaceMobile" style="padding:5px;">
+ 		<div class="breadCrumb">
+    		<a href="#/account/users"><span class="fa fa-arrow-left"></span> Back to all users</a>
+    	</div>
   	</div>
 
 	<form name="userForm" ng-model="selectedUser" ng-submit="updateUser(selectedUser)" novalidate>
-	    <div class="container mediumForm singleItemInnerContainer noSpaceMobile" style="padding:25px;">
+	    <div class="container singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
 	    	<!-- First, last name & phone number -->
 	    	<div class="row noSpaceMobile">
 				<div class="col-md-4">
-					<div style="padding:5px;">
+					<div class="inputContainer">
 						<label for="firstName">First name:</label>
-						<input ng-disabled="usersLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="selectedUser.firstName" size="20"/>
+						<input ng-disabled="usersLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="selectedUser.firstName" size="20" required/>
+						<span ng-if="userForm.firstName.$invalid && userForm.firstName.$touched" ng-init="initInvalidPopover('firstNameRequired','Everyone has a name!')" id="firstNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div style="padding:5px;">
+					<div class="inputContainer">
 						<label for="lastName">Last name:</label>
 						<input ng-disabled="usersLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="selectedUser.lastName" size="20"/>
+						<span ng-if="userForm.lastName.$invalid && userForm.lastName.$touched" ng-init="initInvalidPopover('lastNameRequired','Everyone has a name!')" id="lastNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div style="padding:5px;">
+					<div class="inputContainer">
 						<label for="phoneNumber">Phone Number:</label>
 						<input ng-disabled="usersLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="selectedUser.phone" size="20"/>
+						<span ng-if="userForm.phoneNumber.$invalid && userForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to call you')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 			</div>
 			
 			<!-- Email Address -->
 			<div class="row noSpaceMobile">
-				<div class="col-md-12">
-					<div style="padding:5px;">
+				<div class="col-md-8">
+					<div class="inputContainer">
 						<label for="emailAddress">Email Address:</label>
-						<input ng-disabled="usersLoading" type="text" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="selectedUser.emailAddress" size="20"/>
+						<input ng-disabled="usersLoading" type="email" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="selectedUser.emailAddress" size="20"/>
+						<span ng-if="userForm.emailAddress.$invalid && userForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We might need to send you stuff')" id="emailAddressRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 			</div>
@@ -48,8 +57,8 @@
 				<!-- Spacer -->
 				<div class="col-md-8"></div>
 				<div class="col-md-4">
-					<div style="padding:5px;">
-						<button ng-disabled="usersLoading" type="submit" class="btn btn-primary btn-block">
+					<div class="inputContainer">
+						<button ng-disabled="usersLoading || userForm.$invalid" type="submit" class="btn btn-primary btn-block">
 							<span ng-if="!usersLoading">Save Changes</span>
 							<span ng-if="usersLoading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Saving</span>
 						</button>
