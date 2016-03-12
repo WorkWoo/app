@@ -1,10 +1,16 @@
-<div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
+<form name="helpSubmissionForm" ng-model="helpSubmission" ng-submit="submit(helpSubmission)" novalidate>
 
-  <div class="row noSpaceMobile" style="padding:5px;">
-    <h3 class="pageHeading">Get help or ask a question</h3>
+  <!-- Page Header -->
+  <div class="container-fluid noSpaceMobile" style="margin-top:10px;">
+    <!-- Title -->
+    <div class="col-md-8 noSpaceMobile">
+      <h3 class="pageHeading">Get help or ask a question</h3>
+    </div>
   </div>
+  <!-- Page Header -->
 
-  <form name="helpSubmissionForm" ng-model="helpSubmission" ng-submit="submit(helpSubmission)" novalidate>
+
+  <div class="container singleItemOuterContainer noSpaceMobile">
     <div class="container singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
       <!-- Issue -->
@@ -12,7 +18,7 @@
         <div class="col-md-12">
           <label for="description">How may we help you?</label>
           <textarea ng-disabled="formSubmitting" style="resize:vertical;" rows="5" id="description" name="description" class="form-control defaultInput" value="" ng-model="helpSubmission.description" size="20" required/>
-          <span ng-if="helpSubmissionForm.description.$invalid && helpSubmissionForm.description.$touched" ng-init="initInvalidPopover('descriptionRequired','Tell us something!')" id="descriptionRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
+          <span ng-if="helpSubmissionForm.description.$invalid && helpSubmissionForm.description.$touched" ng-init="initInvalidPopover('descriptionRequired','Tell us something!')" id="descriptionRequired" class="fa fa-exclamation-circle inputInvalid"></span>
         </div>
       </div>
 
@@ -44,8 +50,8 @@
       </div>
 
     </div>
-  </form>
-</div>
+  </div>
+</form>
 
 <!-- Upgrade indicator -->
 <div ng-if="accountType == '0'" class="container noSpaceMobile fadeInOut">

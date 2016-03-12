@@ -1,29 +1,20 @@
-<div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
+<form name="collectionForm" ng-model="selectedCollection" ng-submit="updateCollection(selectedCollection)" novalidate>
 
-	<div class="row noSpaceMobile" style="padding:5px;">
-		<h3 class="pageHeading noSpace">{{ collections[primaryCollection].pluralLabel }}</h3>
-	</div>
-
-	<div class="row noSpaceMobile" style="padding:5px;">
-		<div class="breadCrumb">
-			<a href="#/account"><span class="fa fa-arrow-left"></span> Back to all settings</a>
+	<!-- Page Header -->
+	<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
+		<!-- Title -->
+		<div class="col-md-8 noSpaceMobile">
+	  		<h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
+	  		<div class="breadCrumb">
+	    		<a href="#/account"><span class="fa fa-arrow-left"></span> Back to all settings</a>
+	  		</div>
 		</div>
 	</div>
+	<!-- Page Header -->
 
-  	<form name="collectionForm" ng-model="selectedCollection" ng-submit="updateCollection(selectedCollection)" novalidate>
+	<!-- Page Content -->
+	<div class="container singleItemOuterContainer noSpaceMobile">
     	<div class="container singleItemInnerContainer noSpaceMobile" style="padding:25px;">
-
-			<!-- Upgrade indicator -->
-			<div class="col-md-12 noSpace">
-				<div class="upgradeAlert clearfix">
-					<span class="upgradeAlertIcon"><i class="fa fa-bolt iconXL"></i></span>
-					<span class="upgradeAlertText"><strong>Supercharge your {{ collections[primaryCollection].pluralLabel }}</strong><br/> With WorkWoo Pro, import and track items that relate to {{ collections[primaryCollection].pluralLabel }}, like documents, employees, or inventory</span>
-					<span class="upgradeAlertButton">
-						<a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
-					</span>
-				</div>
-			</div>
-			<!-- Upgrade indicator -->
 
 			<!-- Basic settings & state choices -->
 			<div class="col-md-6">
@@ -40,7 +31,7 @@
 				<!-- State choices -->
 				<div id='stateContainer' class="col-md-12 noSpace">
 					<label>State Choices:</label>
-					<div id="stateChoices" class="choiceOptionContainer clearfix">
+					<div id="stateChoices" class="choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
 						<!-- Create a row for each state -->
 						<div ng-repeat="choice in selectedCollection.stateChoices track by $index" ng-if="!field.sysProvided" class="col-md-12 noSpace fadeInOutStagger">
 	            			<div class="input-group" style="margin-bottom:3px;">
@@ -52,7 +43,7 @@
 						</div>
 						<!-- Add state button -->
 						<div class="col-md-12 noSpace">
-							<button ng-disabled="collectionsLoading" type="button" ng-click="selectedCollection.stateChoices.push('- New state -')" class="btn btn-primary btn-block">
+							<button ng-disabled="collectionsLoading" type="button" ng-click="selectedCollection.stateChoices.push('- New state -')" class="btn btn-success btn-block">
 	              				<span class="fa fa-plus"></span>
 	              				<span> Add State</span>
 	              			</button>
@@ -63,10 +54,11 @@
 			</div>
 			<!-- Basic settings & state choices -->
 
+
 			<!-- Custom fields -->
 			<div class="col-md-6">
 				<label>Custom fields:</label>
-				<div class="choiceOptionContainer clearfix">
+				<div class="choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
 					<!-- Column header -->
 					<div class="col-md-5 hideInMobile">
 						<span class="customFieldColumnTitle">Field Name</span>
@@ -98,9 +90,9 @@
 
 			            	<!-- If the field is a choice type, show the choices editor -->
 			            	<span ng-if="field.displayType == 'choice'" class="fade-in-out">
-				            	<button ng-disabled="collectionsLoading" data-toggle="collapse" data-target="#{{fieldIndex}}_choices" class="btn btn-primary btn-block" style="margin-bottom:3px;">
+				            	<button ng-disabled="collectionsLoading" type="button" data-toggle="collapse" data-target="#{{fieldIndex}}_choices" class="btn btn-success btn-block" style="margin-bottom:3px;">
 				            		<i class="fa fa-bars"></i>
-				            		<span>Show options</span>
+				            		<span> Edit options</span>
 				            	</button>
 				            	
 				            	<div ng-attr-id="{{fieldIndex}}_choices" class="collapse">
@@ -121,7 +113,7 @@
 				            		</div>
 
 				            		<div class="col-md-12 noSpace">
-					              		<button ng-disabled="collectionsLoading" ng-click="field.choices.push('- New choice -')" class="btn btn-primary btn-block">
+					              		<button ng-disabled="collectionsLoading" type="button" ng-click="field.choices.push('- New choice -')" class="btn btn-success btn-block">
 					              			<span class="fa fa-plus"></span>
 					              			<span> Add option</span>
 					              		</button>
@@ -133,7 +125,7 @@
 						<!-- Remove field button -->
 						<div class="col-md-2 text-right">
 							<span ng-disabled="collectionsLoading" ng-click="removeField(fieldIndex)" class="hideInMobile customFieldRemoveIcon fa fa-remove"></span>
-							<button ng-click="removeField(fieldIndex)" class="btn btn-default btn-block hideInDesktop">
+							<button ng-click="removeField(fieldIndex)" type="button" class="btn btn-default btn-block hideInDesktop">
 								<span class="fa fa-remove" style="color:#a86c67;"></span>
 								<span>Remove field</span>
 							</button>
@@ -143,7 +135,7 @@
 
 					<!-- Add new field button-->
 					<div class="col-md-12 noSpace">
-						<button type="button" ng-disabled="collectionsLoading" ng-click="addNewField()" class="btn btn-primary btn-block">
+						<button type="button" ng-disabled="collectionsLoading" type="button" ng-click="addNewField()" class="btn btn-success btn-block">
 							<span class="fa fa-plus"></span>
 							<span> Add new field</span>
 						</button>
@@ -158,7 +150,7 @@
 				<!-- Spacer -->
 				<div class="col-md-9"></div>
 				<div class="col-md-3">
-					<button ng-disabled="collectionsLoading" ng-if="currentAction == 'update'" type="submit" class="btn btn-success btn-block">
+					<button ng-disabled="collectionsLoading" ng-if="currentAction == 'update'" type="submit" class="btn btn-primary btn-block">
 						<!-- Loading -->
 						<span ng-if="collectionsLoading && !selectedCollection">
 							<i class="fa fa-refresh fa-spin"></i>
@@ -179,5 +171,19 @@
 			</div>
 
     	</div>
-  	</form>
-</div>
+
+		<!-- Upgrade indicator -->
+		<div class="col-md-12 noSpace">
+			<div class="upgradeAlert clearfix">
+				<span class="upgradeAlertIcon"><i class="fa fa-bolt iconXL"></i></span>
+				<span class="upgradeAlertText"><strong>Supercharge your {{ collections[primaryCollection].pluralLabel }}</strong><br/> With WorkWoo Pro, import and track items that relate to {{ collections[primaryCollection].pluralLabel }}, like documents, employees, or inventory</span>
+				<span class="upgradeAlertButton">
+					<a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
+				</span>
+			</div>
+		</div>
+		<!-- Upgrade indicator -->
+
+    </div>
+</form>
+

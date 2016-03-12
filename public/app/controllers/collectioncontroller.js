@@ -39,14 +39,17 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
 
   $scope.getOneCollection = function(collectionName) {
     $scope.collectionsLoading = true;
+    $scope.setPageLoading(true);
     Collection.getOne(collectionName,
       function(collection){
         log.info('Success');
         $scope.collectionsLoading = false;
+        $scope.setPageLoading(false);
         $scope.selectedCollection = collection;
       },
       function() {
         log.error('Failed');
+        $scope.setPageLoading(false);
         $scope.collectionsLoading = false;
       }
     );

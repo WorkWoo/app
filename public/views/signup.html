@@ -13,13 +13,13 @@
         <div class="col-md-5">
           <div style="padding:5px;">
             <input ng-disabled="signupSubmitting" class="form-control" type="text" name="firstName" placeholder="First Name" ng-model="signupInfo.firstName" required>
-            <span ng-if="signupForm.firstName.$invalid && signupForm.firstName.$touched" ng-init="initInvalidPopover('firstNameRequired','Tell us who you are!')" id="firstNameRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="signupForm.firstName.$invalid && signupForm.firstName.$touched" ng-init="initInvalidPopover('firstNameRequired','Tell us who you are!')" id="firstNameRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
         <div class="col-md-5">
           <div style="padding:5px;">
             <input ng-disabled="signupSubmitting" class="form-control" type="text" name="lastName" placeholder="Last Name" ng-model="signupInfo.lastName" required>
-            <span ng-if="signupForm.lastName.$invalid && signupForm.lastName.$touched" ng-init="initInvalidPopover('lastNameRequired','Tell us who you are!')" id="lastNameRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="signupForm.lastName.$invalid && signupForm.lastName.$touched" ng-init="initInvalidPopover('lastNameRequired','Tell us who you are!')" id="lastNameRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
         <div class="col-md-1"></div>
@@ -31,7 +31,7 @@
         <div class="col-md-10">
           <div style="padding:5px;">
             <input ng-disabled="signupSubmitting" class="form-control" type="text" name="orgName" placeholder="Company Name" ng-model="signupInfo.orgName" required>
-            <span ng-if="signupForm.orgName.$invalid && signupForm.orgName.$touched" ng-init="initInvalidPopover('orgNameRequired','We need to know your company')" id="orgNameRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="signupForm.orgName.$invalid && signupForm.orgName.$touched" ng-init="initInvalidPopover('orgNameRequired','We need to know your company')" id="orgNameRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
         <div class="col-md-1"></div>
@@ -43,7 +43,7 @@
         <div class="col-md-10">
           <div style="padding:5px;">
             <input ng-disabled="signupSubmitting" class="form-control" type="email" name="newEmailAddress" placeholder="Email Address" ng-model="signupInfo.newEmailAddress" required>
-            <span ng-if="signupForm.newEmailAddress.$touched && signupForm.newEmailAddress.$invalid " ng-init="initInvalidPopover('newEmailAddressRequired','We need to send you stuff!')" id="newEmailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="signupForm.newEmailAddress.$touched && signupForm.newEmailAddress.$invalid " ng-init="initInvalidPopover('newEmailAddressRequired','We need to send you stuff!')" id="newEmailAddressRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
         <div class="col-md-1"></div>
@@ -55,8 +55,8 @@
         <div class="col-md-10">
           <div style="padding:5px;">
             <input ng-change="verifyEmailMatch()" ng-disabled="signupSubmitting" class="form-control" type="email" name="confirmEmailAddress" placeholder="Confirm Email Address" ng-model="signupInfo.confirmEmailAddress" required>
-            <span ng-if="signupForm.confirmEmailAddress.$invalid && signupForm.confirmEmailAddress.$touched" ng-init="initInvalidPopover('confirmEmailAddressRequired','Required')" id="confirmEmailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
-            <span ng-if="!emailsMatch" ng-init="initInvalidPopover('confirmEmailAddressRequired','Entries do not match')" id="confirmEmailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="signupForm.confirmEmailAddress.$invalid && signupForm.confirmEmailAddress.$touched" ng-init="initInvalidPopover('confirmEmailAddressRequired','Required')" id="confirmEmailAddressRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="!emailsMatch" ng-init="initInvalidPopover('confirmEmailAddressRequired','Entries do not match')" id="confirmEmailAddressRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
         <div class="col-md-1"></div>
@@ -68,7 +68,7 @@
         <div class="col-md-10">
           <div style="padding:5px;">
             <input ng-disabled="signupSubmitting" class="form-control" type="password" name="newPassword" placeholder="New Password" ng-model="signupInfo.newPassword" autocomplete="new-password" required>
-            <span ng-if="signupForm.newPassword.$invalid && signupForm.newPassword.$touched" ng-init="initInvalidPopover('newPasswordRequired','You will need to log in!')" id="newPasswordRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="signupForm.newPassword.$invalid && signupForm.newPassword.$touched" ng-init="initInvalidPopover('newPasswordRequired','You will need to log in!')" id="newPasswordRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
         <div class="col-md-1"></div>

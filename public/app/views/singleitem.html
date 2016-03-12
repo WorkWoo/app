@@ -1,25 +1,27 @@
 <form name="itemForm" ng-model="selectedItem" ng-submit="preSubmit(selectedItem)" novalidate>
-  <div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
 
-    <div class="row noSpaceMobile" style="padding:5px;">
-      <h3 class="pageHeading noSpace">
-          <span ng-if="currentAction == 'create'">New {{ collections[selectedItem.collectionName].singleLabel }}</span>
-          <span ng-if="currentAction == 'update'">{{ selectedItem.number }}<span class="itemDisplayTitle"> - {{ selectedItemTitle }}</span></span>
+  <!-- Page Header -->
+  <div class="container-fluid noSpaceMobile" style="margin-top:10px;">
+    <!-- Title -->
+    <div class="col-md-8 noSpaceMobile">
+      <h3 class="pageHeading">
+        <span ng-if="currentAction == 'create'">New {{ collections[selectedItem.collectionName].singleLabel }}</span>
+        <span ng-if="currentAction == 'update'">{{ selectedItem.number }}<span class="itemDisplayTitle"> - {{ selectedItemTitle }}</span></span>
       </h3>
-    </div>
-
-    <div class="row noSpaceMobile" style="padding:5px;">
       <div class="breadCrumb">
-          <a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> Back to {{ collections[selectedItem.collectionName].singleLabel }} list</a>
-        </div>
+        <a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> Back to {{ collections[selectedItem.collectionName].singleLabel }} list</a>
       </div>
     </div>
+  </div>
+  <!-- Page Header -->
 
+  <!-- Page Content -->
+  <div class="container singleItemOuterContainer noSpaceMobile">
     <div class="container singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
       <!-- Begin building each single field -->
-      <div ng-repeat="field in collections[selectedItem.collectionName].fields" ng-if="field.name != 'number'"class="form-group" ng-class="getItemFieldClass(selectedItem, field)">
-        <label for="{{ field.name }}">{{ field.label }}:</label>
+      <div ng-repeat="field in collections[selectedItem.collectionName].fields" ng-if="field.name != 'number'"class="form-group fadeInOut" ng-class="getItemFieldClass(selectedItem, field)">
+        <label for="{{ field.name }}"><strong>{{ field.label }}:</strong></label>
 
         <!-- Short text input -->
         <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'text' || field.displayType == 'boolean'" type="text" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" size="20"/>
@@ -57,30 +59,28 @@
       <div class="col-md-12">
         <!-- Spacer -->
         <div class="col-md-8"></div>
-
         <!-- Delete button -->
         <div class="col-md-2" style="padding:5px;">
           <button ng-if="currentAction == 'update'" ng-disabled="selectedItemSubmitting" ng-click="deleteOne(selectedItem)" class="btn btn-danger btn-block">Delete</button>
         </div>
-        
         <!-- Buttons -->
         <div class="col-md-2" style="padding:5px;">
           <!-- Create -->
           <button ng-if="currentAction == 'create'" ng-disabled="selectedItemSubmitting" type="submit" class="btn btn-primary btn-block">
             <span ng-if="!selectedItemSubmitting">Submit</span>
-            <span ng-if="selectedItemSubmitting"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Submitting</span>
+            <span ng-if="selectedItemSubmitting"><span class="fa fa-refresh fa-spin"></span> Submitting</span>
           </button>
-          
           <!-- Update -->
           <button ng-if="currentAction == 'update'" ng-disabled="selectedItemSubmitting" type="submit" class="btn btn-primary btn-block">
             <span ng-if="!selectedItemSubmitting">Save</span>
-            <span ng-if="selectedItemSubmitting"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Saving</span>
+            <span ng-if="selectedItemSubmitting"><span class="fa fa-refresh fa-spin"></span> Saving</span>
           </button>
-          
         </div>
       </div>
       <!-- Button Row -->
 
     </div>
   </div>
+  <!-- Page Content -->
+
 </form>

@@ -39,6 +39,16 @@ body {
   color: #a86c67;
 }
 
+#pageLoadingIndicator {
+  color: #67A88C;
+  position: absolute;
+  top: 25px;
+  right: 5px;
+  font-size: 20px; 
+  padding: 0px;
+  margin: 0px;
+}
+
 
 /****************************** LINKS ******************************/
 
@@ -228,7 +238,7 @@ a:hover {
   margin: 5px;
   text-align: center;
   background-color: #fcfcfc;
-  border: 1px dotted #d8d8d8;
+  border: 1px dashed #d8d8d8;
   border-radius: 5px;
   display: block;
   transition: all .15s linear;
@@ -237,7 +247,7 @@ a:hover {
 }
 
 .menuCardContainerActive {
-  background-color: #d9e9e2;
+  background-color: #e9f2ee;
 }
 
 .menuCardContainerDisabled {
@@ -246,15 +256,18 @@ a:hover {
 
 .menuCardContainer:hover, .menuCardContainerActive:hover {
   text-decoration: none;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #fff;
   box-shadow:
-    1px 1px 1px #67A88C,
-    -1px -1px 1px #67A88C,
-    -1px 1px 1px #67A88C,
-    1px -1px 1px #67A88C,
-    1px 0px 1px #67A88C,
-    0px 1px 1px #67A88C,
-    -1px 0px 1px #67A88C,
-    0px -1px 1px #67A88C;
+    1px 1px 0px #67A88C,
+    -1px -1px 0px #67A88C,
+    -1px 1px 0px #67A88C,
+    1px -1px 0px #67A88C,
+    1px 0px 0px #67A88C,
+    0px 1px 0px #67A88C,
+    -1px 0px 0px #67A88C,
+    0px -1px 0px #67A88C;
 }
 
 .menuCardIcon {
@@ -295,7 +308,7 @@ a:hover {
 }
 
 .itemCardActive {
-  background-color: #d9e9e2;
+  background-color: #e9f2ee;
   padding: 15px;
 }
 
@@ -304,14 +317,14 @@ a:hover {
   background-color: #fff;
   border: 1px solid #fff;
   box-shadow:
-    1px 1px 1px #67A88C,
-    -1px -1px 1px #67A88C,
-    -1px 1px 1px #67A88C,
-    1px -1px 1px #67A88C,
-    1px 0px 1px #67A88C,
-    0px 1px 1px #67A88C,
-    -1px 0px 1px #67A88C,
-    0px -1px 1px #67A88C;
+    1px 1px 0px #67A88C,
+    -1px -1px 0px #67A88C,
+    -1px 1px 0px #67A88C,
+    1px -1px 0px #67A88C,
+    1px 0px 0px #67A88C,
+    0px 1px 0px #67A88C,
+    -1px 0px 0px #67A88C,
+    0px -1px 0px #67A88C;
 }
 
 .itemCardActiveLink:hover {
@@ -427,13 +440,13 @@ a:hover {
   font-size: 25px;
 }
 
-.textareaInvalid {
+.loginInputInvalid {
   cursor: pointer;
   color: #a86c67;
   position: absolute;
+  right: 25px;
+  top: 10px;
   font-size: 25px;
-  top: 0px;
-  right: 0px;
 }
 
 .inputContainer {
@@ -441,7 +454,8 @@ a:hover {
 }
 
 
-/****************************** ALERTS ******************************/
+/****************************** Upgrade Upsell ******************************/
+
 
 .upgradeAlert {
   margin: 5px;
@@ -464,6 +478,53 @@ a:hover {
   margin: 5px 5px 0px 0px;
   float: right;
 }
+
+
+/****************************** Item Alerts ******************************/
+
+
+.alert {
+  max-height: 200px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 0px;
+  position: relative;
+}
+
+.alert-success {
+  color: #67A88C;
+  background-color: #e9f2ee;
+  border-color: #d9e9e2;
+}
+
+.alert-danger {
+  color: #a86c67;
+  background-color: #f2eae9;
+  border-color: #e9dad9;
+}
+
+.alert-info {
+  color: #6783a8;
+  background-color: #e9edf2;
+  border-color: #d9e0e9;
+}
+
+.alertClose {
+  font-size: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  text-shadow: 0px 0px 1px #fff;
+}
+
+.alertClose:hover {
+  color: #999;
+  cursor: pointer;
+}
+
 
 /****************************** LISTS ******************************/
 
@@ -593,39 +654,6 @@ a:hover {
 
 .modal-content {
   padding: 10px 10px 20px 10px;
-}
-
-
-/****************************** REFRESH & LOADING INDICATORS ******************************/
-
-.loaderXL {
-  position: absolute;
-  top: 100px;
-  left: 50px;
-  right: 0px;
-}
-
-.refresh-small {
-  font-size: 14px;
-}
-
-.refreshXL {
-  font-size: 50px;
-  opacity: .15;
-}
-
-/* Spinning  animation */
-.glyphicon-refresh-animate, .fa-refresh-animate {
-  -webkit-animation: spin1 1.5s infinite linear;
-}
-
-@-webkit-keyframes spin1 {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
 }
 
 

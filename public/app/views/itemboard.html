@@ -1,7 +1,5 @@
-<span ng-include="'views/includes/alerts.html'"></span>
-
 <!-- Page Header -->
-<div class="container-fluid noSpaceMobile" style="margin-top:25px;">
+<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
   <!-- Title -->
   <div class="col-md-8 noSpaceMobile">
     <h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
@@ -21,6 +19,10 @@
 
 <!-- Content -->
 <div class="container-fluid noSpace">
+
+  <div class="col-md-12 text-center noSpaceMobile">
+    <span ng-include="'views/includes/alerts.html'"></span>
+  </div>
 
   <!-- "Create New" card -->
   <div class="col-md-4 text-center noSpaceMobile">

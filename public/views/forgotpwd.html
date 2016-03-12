@@ -13,7 +13,7 @@
         <div class="col-md-8">
           <div style="padding:5px;">
             <input name="emailAddress" ng-disabled="forgotSubmitting" class="form-control" type="email" placeholder="Email Address" ng-model="credentials.emailAddress" required>
-            <span ng-if="forgotForm.emailAddress.$invalid && forgotForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We need to send you a reset link!')" id="emailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="forgotForm.emailAddress.$invalid && forgotForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We need to send you a reset link!')" id="emailAddressRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
         <div class="col-md-2"></div>

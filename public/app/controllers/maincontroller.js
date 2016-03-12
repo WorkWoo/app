@@ -1,11 +1,15 @@
 function mainController($scope, $location, $sce, $templateCache) {
   log.info('|mainController|');
 
+  $scope.pageLoading = true;
   $scope.trustAsHtml = $sce.trustAsHtml;
+
   $scope.successAlertVisible = false;
   $scope.successAlertText = null;
   $scope.dangerAlertVisible = false;
   $scope.dangerAlertText = null;
+  $scope.infoAlertVisible = false;
+  $scope.infoAlertText = null;
 
   $scope.authenticated = AUTHENTICATED;
   $scope.currentUser = USER_PROFILE;
@@ -128,6 +132,8 @@ function mainController($scope, $location, $sce, $templateCache) {
     $scope.successAlertText = '';
     $scope.dangerAlertVisible = false;
     $scope.dangerAlertText = '';
+    $scope.infoAlertVisible = false;
+    $scope.infoAlertText = '';
   };
 
   $scope.toggleAlert = function(type, visibility, html) {
@@ -149,6 +155,10 @@ function mainController($scope, $location, $sce, $templateCache) {
   $scope.initInvalidPopover = function(elementID, popoverText) {
     $('#' + elementID).popover({content: popoverText, placement: 'auto right', trigger: 'hover', viewport: { selector: 'body', padding: 0}, html : true, container: 'body'});
   };
+
+  $scope.setPageLoading = function(state) {
+    $scope.pageLoading = state;
+  }
   
   $scope.initializeMainController = function() {
     var currentView = $location.path();

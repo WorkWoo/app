@@ -49,7 +49,7 @@
       <!-- Top-Right dropdown menu -->
       <div class="dropdown pull-right">
         <span id="user-name">{{ currentUser.firstName }}, {{ currentUser.org.name }}</span>
-        <span class="fa fa-cog userMenuIcon" id="userMenuDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
+        <span class="fa fa-bars userMenuIcon" id="userMenuDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
         <ul class="dropdown-menu userMenuDropdown" aria-labelledby="userMenuDropdown">
           
           <li>
@@ -69,6 +69,20 @@
     </div>
     <!-- Header -->
 
+    <style>
+
+
+
+    </style>
+
+    <div id="pageLoadingIndicatorOnLoad">
+      <span class="fa fa-cog fa-spin"></span>
+    </div>
+
+    <div ng-if="pageLoading" id="pageLoadingIndicator" class="fadeInOut">
+      <span class="fa fa-cog fa-spin"></span>
+    </div>
+
     <!-- Left Menu -->
     <div class="leftMenuContainer">
       <span ng-click="leftMenuClick('work')" id="workMenuItem" class="fa fa-home leftMenuIcon" style="top:0px;"></span>
@@ -78,11 +92,6 @@
 
     <!-- View Content --> 
     <div id="nav-content" class="contentPage fadeInOut" ng-view></div>
-
-    <!-- Loading indicator. This will be hidden once Angular is initialized -->
-    <div id="page-loading-indicator" class="loaderXL text-center">
-      <span class="refreshXL glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-    </div>
 
     <!-- Main Angular scipts are loaded last to prevent init of the -->
     <!-- app, since we need info from the server to load the app.   -->

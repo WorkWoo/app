@@ -1,4 +1,4 @@
-<div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
+<div ng-if="pageLoaded" class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
 
   <div class="row text-center noSpaceMobile" style="padding:5px;">
     <h3 class="noSpace text-center">WorkWoo</h3>
@@ -11,9 +11,9 @@
       <div class="row noSpaceMobile">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-          <div style="padding: 5px;">
+          <div class="inputContainer">
             <input ng-disabled="loginSubmitting" class="form-control" type="email" name="emailAddress" placeholder="Email Address" ng-model="credentials.emailAddress" required>
-            <span ng-if="loginForm.emailAddress.$touched && loginForm.emailAddress.$invalid" ng-init="initInvalidPopover('emailAddressRequired','Required for login')" id="emailAddressRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="loginForm.emailAddress.$touched && loginForm.emailAddress.$invalid" ng-init="initInvalidPopover('emailAddressRequired','Required for login')" id="emailAddressRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
             <span ng-if="loginForm.emailAddress.$valid" ng-init="destroyInvalidPopover('emailAddressRequired')"></span>
           </div>
         </div>
@@ -24,9 +24,9 @@
       <div class="row noSpaceMobile">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-          <div style="padding:5px;">
+          <div class="inputContainer">
             <input ng-disabled="loginSubmitting" class="form-control" type="password" name="password" placeholder="Password" ng-model="credentials.password" required autocomplete="new-password">
-            <span ng-if="loginForm.password.$invalid && loginForm.password.$touched" ng-init="initInvalidPopover('passwordRequired','Required')" id="passwordRequired" class="inputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="loginForm.password.$invalid && loginForm.password.$touched" ng-init="initInvalidPopover('passwordRequired','Required')" id="passwordRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
       <div class="row noSpaceMobile">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-          <div style="padding:5px;">
+          <div class="inputContainer">
             <button type="submit" ng-disabled="loginSubmitting" class="btn btn-primary btn-block">
               <span ng-if="!loginSubmitting">Login</span>
 

@@ -51,6 +51,7 @@ function itemController($scope, $location, $routeParams, Item) {
 
   $scope.getOneItem = function(itemNumber) {
     $scope.itemsLoading = true;
+    $scope.setPageLoading(true);
     Item.getOne($scope.baseCollection, itemNumber,
       function(item){
         // Success
@@ -58,9 +59,11 @@ function itemController($scope, $location, $routeParams, Item) {
         Item.setSelectedItem(item);
         $scope.selectedItem = item;
         $scope.selectedItemTitle = $scope.selectedItem[$scope.collections[$scope.selectedItem.collectionName].displayField];
+        $scope.setPageLoading(false);
       },
       function() {
         // Fail
+        $scope.setPageLoading(false);
         $scope.alertUnknownError();
       }
     );
@@ -74,6 +77,7 @@ function itemController($scope, $location, $routeParams, Item) {
 
 
   $scope.load = function() {
+    $scope.setPageLoading(true);
     $scope.itemsLoading = true;
     var queryParams = {
       collectionName: $scope.baseCollection,
@@ -84,23 +88,22 @@ function itemController($scope, $location, $routeParams, Item) {
       searchTerm: $scope.searchTerm,
       additionalQuery: $scope.queryCriteria,
     };
-
     Item.getAll(queryParams,
       function(result){
         // Success
         $scope.itemsLoading = false;
+        $scope.setPageLoading(false);
         // First, copy the search results (minus the actual items) into the scope.
-        log.info('Items loaded: ' + result.items.length);
         $scope.anchorValue = result.newAnchorValue;
         $scope.anchorID = result.newAnchorID;
         $scope.setActiveSort($scope.sortField, $scope.sortOrder);
         $scope.totalItems = result.total;
         $scope.loadedItems = $scope.loadedItems.concat(result.items);
         Item.loadItems($scope.loadedItems);
-        log.info('Final: ' + $scope.loadedItems);
       },
       function() {
         $scope.itemsLoading = false;
+        $scope.setPageLoading(false);
         $scope.loadedItems = [];
         $scope.alertUnknownError();
       }
@@ -135,11 +138,12 @@ function itemController($scope, $location, $routeParams, Item) {
 
 
   $scope.submit = function(item, createRevision) {
-    $('#modalRevisionDialog').modal('hide');
-
+    //$('#modalRevisionDialog').modal('hide');
+    $scope.setPageLoading(true);
+    $scope.selectedItemSubmitting = true;
     // First, handle submiting a new item
     if ($scope.currentAction == 'create') {
-      $scope.selectedItemSubmitting = true;
+      
 
       Item.new(item.collectionName, item,
         function(newItem){
@@ -153,17 +157,15 @@ function itemController($scope, $location, $routeParams, Item) {
           $scope.selectedItemSubmitting = false;
           $scope.url('#/' + $scope.primaryCollection + '/');
           $scope.toggleAlert('success', true, newItem.number + ' created');
+          $scope.setPageLoading(false);
         },
         function() {
           $scope.selectedItemSubmitting = false;
+          $scope.setPageLoading(false);
           $scope.alertUnknownError();
         }
       );
-    }
-
-    else if ($scope.currentAction == 'update') {
-      $scope.selectedItemSubmitting = true;
-
+    } else if ($scope.currentAction == 'update') {
       Item.update(item.collectionName, item._id, item, createRevision,
         function(updatedItem){
           // Success
@@ -177,11 +179,13 @@ function itemController($scope, $location, $routeParams, Item) {
           $scope.url('#/' + $scope.primaryCollection + '/');
           $scope.toggleAlert('success', true, $scope.selectedItem.number + ' updated');
           $scope.selectedItem = null;
+          $scope.setPageLoading(false);
         },
         function() {
           // Fail
           $scope.selectedItem = null;
           $scope.selectedItemSubmitting = false;
+          $scope.setPageLoading(false);
           $scope.alertUnknownError();
         }
       );
@@ -476,6 +480,7 @@ function itemController($scope, $location, $routeParams, Item) {
     $scope.showHome = true;
     $scope.baseCollection = $scope.currentUser.org.primaryCollection;
     $scope.selectedItem = {}
+    $scope.setPageLoading(false);
   };
 
   $scope.initializeItemController();

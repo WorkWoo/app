@@ -1,6 +1,7 @@
 function loginController($scope, Request) {
 	log.info('|loginController|');
 	
+	$scope.pageLoaded = false;
 	$scope.loginFailed = false;
 	$scope.loginSubmitting = false;
 	$scope.signupSubmitting = false;
@@ -10,14 +11,11 @@ function loginController($scope, Request) {
 	$scope.signupInfo = {};
 
 	$scope.login = function(credentials) {
-		if(!$scope.loginForm.$valid) {
-			log.info('submit');
-			log.info($scope.loginForm.emailAddress.$valid);
+		if(loginForm.$invalid) {
 			return;
 		}
 
-		$scope.credentials.emailAddress = $scope.credentials.emailAddress.toLowerCase();
-
+		credentials.emailAddress = credentials.emailAddress.toLowerCase();
 	  	$scope.loginSubmitting = true;
 	  	$scope.loginFailed = false;
 
@@ -42,17 +40,16 @@ function loginController($scope, Request) {
 			function(response){
 	        	// On success
 	        	if (response.error) {
-	        		log.error('Existing session not found, must login');
 	        		$scope.initializing = false;
 	        		$location.url('/login');	
 	        	} else {
-	        		console.log('Existing session found, redirecting to app');
 	        		window.location.replace('/app/');	        		
 	        	}
 	    	},
 			function() {
 	        	// On fail
-	        	log.error('Existing session not found, must login');
+	        	$scope.pageLoading = false;
+	        	$scope.pageLoaded = true;
 	        	$scope.initializing = false;
 	    	}
 	    );

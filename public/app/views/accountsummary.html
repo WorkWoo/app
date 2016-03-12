@@ -1,16 +1,19 @@
-<div class="container singleItemOuterContainer noSpaceMobile" style="margin-top:25px;">
+<form name="accountSummaryForm" ng-model="accountSummary" ng-submit="submit(accountSummary)" novalidate>
 
-	<div class="row noSpaceMobile" style="padding:5px;">
-		<h3 class="pageHeading noSpace">My Account</h3>
+	<!-- Page Header -->
+	<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
+	  <!-- Title -->
+	  <div class="col-md-8 noSpaceMobile">
+	    <h3 class="pageHeading">My Account</h3>
+	    <div class="breadCrumb">
+	      <a href="#/account"><span class="fa fa-arrow-left"></span> Back to all settings</a>
+	    </div>
+	  </div>
 	</div>
+	<!-- Page Header -->
 
-	<div class="row noSpaceMobile" style="padding:5px;">
-		<div class="breadCrumb">
-			<a href="#/account"><span class="fa fa-arrow-left"></span> Back to all settings</a>
-		</div>
-	</div>
-
-  	<form name="accountSummaryForm" ng-model="accountSummary" ng-submit="submit(accountSummary)" novalidate>
+	<!-- Page Content -->
+	<div class="container singleItemOuterContainer noSpaceMobile">
     	<div class="container singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
 			<!-- First name, last name, & Email Address -->
@@ -19,21 +22,21 @@
 					<div class="inputContainer">
 						<label for="firstName">First name:</label>
 						<input ng-disabled="accountLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="accountSummary.firstName" size="20" required/>
-						<span ng-if="accountSummaryForm.firstName.$invalid && accountSummaryForm.firstName.$touched" ng-init="initInvalidPopover('firstNameRequired','Tell us who you are!')" id="firstNameRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
+						<span ng-if="accountSummaryForm.firstName.$invalid && accountSummaryForm.firstName.$touched" ng-init="initInvalidPopover('firstNameRequired','Tell us who you are!')" id="firstNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="inputContainer">
 						<label for="lastName">Last name:</label>
 						<input ng-disabled="accountLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="accountSummary.lastName" size="20" required/>
-						<span ng-if="accountSummaryForm.lastName.$invalid && accountSummaryForm.lastName.$touched" ng-init="initInvalidPopover('lastNameRequired','Tell us who you are!')" id="lastNameRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
+						<span ng-if="accountSummaryForm.lastName.$invalid && accountSummaryForm.lastName.$touched" ng-init="initInvalidPopover('lastNameRequired','Tell us who you are!')" id="lastNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="inputContainer">
 						<label for="emailAddress">Email Address:</label>
 						<input ng-disabled="accountLoading" type="email" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="accountSummary.emailAddress" size="20" required/>
-						<span ng-if="accountSummaryForm.emailAddress.$invalid && accountSummaryForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We may need to contact you')" id="emailAddressRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
+						<span ng-if="accountSummaryForm.emailAddress.$invalid && accountSummaryForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We may need to contact you')" id="emailAddressRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 			</div>
@@ -44,14 +47,14 @@
 					<div class="inputContainer">
 						<label for="companyName">Company Name:</label>
 						<input ng-disabled="accountLoading" type="text" id="companyName" name="companyName" class="form-control defaultInput" value="" ng-model="accountSummary.companyName" size="20" required/>
-						<span ng-if="accountSummaryForm.companyName.$invalid && accountSummaryForm.companyName.$touched" ng-init="initInvalidPopover('companyNameRequired','Tell us about your business!')" id="companyNameRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
+						<span ng-if="accountSummaryForm.companyName.$invalid && accountSummaryForm.companyName.$touched" ng-init="initInvalidPopover('companyNameRequired','Tell us about your business!')" id="companyNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="inputContainer">
 						<label for="phoneNumber">Phone Number:</label>
 						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
-						<span ng-if="accountSummaryForm.phoneNumber.$invalid && accountSummaryForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to contact you!')" id="phoneNumberRequired" class="fa fa-exclamation-circle textareaInvalid"></span>
+						<span ng-if="accountSummaryForm.phoneNumber.$invalid && accountSummaryForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to contact you!')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 			</div>
@@ -70,20 +73,23 @@
 			</div>
 
 		</div>
-	</form>
 
-	<!-- Upgrade message -->
-	<div class="container noSpace">
-		<div class="col-sm-12 noSpace">
-			<div class="upgradeAlert clearfix">
-				<span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
-				<span class="upgradeAlertText"><strong>Take your work to the next level!</strong><br/> With WorkWoo Pro, import and track items that relate to {{ collections[primaryCollection].pluralLabel }}, like documents, employees, or inventory</span>
-				<span class="upgradeAlertButton">
-					<a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
-				</span>
+		<!-- Upgrade message -->
+		<div class="container noSpace">
+			<div class="col-sm-12 noSpace">
+				<div class="upgradeAlert clearfix">
+					<span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
+					<span class="upgradeAlertText"><strong>Take your work to the next level!</strong><br/> With WorkWoo Pro, import and track items that relate to {{ collections[primaryCollection].pluralLabel }}, like documents, employees, or inventory</span>
+					<span class="upgradeAlertButton">
+						<a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
+					</span>
+				</div>
 			</div>
 		</div>
-	</div>
-	<!-- Upgrade message -->
+		<!-- Upgrade message -->
 
-</div>
+	</div>
+	<!-- Page Content -->
+
+</form>
+

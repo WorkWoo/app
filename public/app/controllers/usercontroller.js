@@ -5,20 +5,22 @@ function userController($scope, $location, User, SelectedUser) {
   $scope.loadedUsers = [];
   $scope.selectedUser = SelectedUser;
   $scope.selecedUserName = '';
-
   $scope.usersLoading = true;
 
 
   $scope.getAllUsers = function() {
+    $scope.setPageLoading(true);
     $scope.usersLoading = true;
     User.getAll(
       function(users){
       	log.info('Success');
         $scope.usersLoading = false;
+        $scope.setPageLoading(false);
       	$scope.loadedUsers = $scope.loadedUsers.concat(users);
       },
       function() {
         log.error('Failed');
+        $scope.setPageLoading(false);
         $scope.usersLoading = false;
       }
     );
@@ -26,16 +28,17 @@ function userController($scope, $location, User, SelectedUser) {
 
 
   $scope.getOneUser = function(userNumber) {
-    log.info('|userController|.getOneUser');
+    $scope.setPageLoading(true);
     $scope.usersLoading = true;
     User.getOne(userNumber, 
       function(user){
+        $scope.setPageLoading(false);
         $scope.usersLoading = false;
         $scope.selectedUser = user;
         $scope.selecedUserName = user.firstName + ' ' + user.lastName;
       },
       function() {
-        log.error('Failed');
+        $scope.setPageLoading(false);
         $scope.usersLoading = false;
       }
     );

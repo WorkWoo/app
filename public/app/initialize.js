@@ -7,6 +7,7 @@ function initializeHome() {
   $('#nav-content').hide();
   $('#user-name').hide();
   $('#item-navigator').hide();
+  $('#pageLoadingIndicator').hide();
 
   // Attempt to get an active session for this user. If none exists, a 401 will be returned and we will redirect to login.
   $.ajax({
@@ -44,7 +45,9 @@ function getUserProfileFail(response) {
 
 function getCollectionSettingsSuccess(response) {
   //log.info('COLLECTIONS -> ' + response);
-  $('#page-loading-indicator').hide();
+  $('#pageLoadingIndicator').show();
+  $('#pageLoadingIndicatorOnLoad').hide();
+  $('pageLoadingIndicator').show();
   $('#nav-content').show();
   $('#user-org-loading').hide();
   $('#user-org-loaded').show();

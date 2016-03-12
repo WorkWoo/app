@@ -1,6 +1,4 @@
 function forgotController($scope, Request) {
-	log.info('|forgotController|');
-	
 	$scope.credentials = {};
 	$scope.forgotSubmitted = false;
 	$scope.forgotSubmitting = false;

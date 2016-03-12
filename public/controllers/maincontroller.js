@@ -1,7 +1,7 @@
 function mainController($scope, $location, Request) {
 	log.info('|mainController|');
 	
-	$scope.initializing = false;
+	$scope.pageLoading = true;
 	$scope.loginFailed = false;
 	$scope.loginSubmitting = false;
 	$scope.credentials = {};
