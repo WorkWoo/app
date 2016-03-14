@@ -20,7 +20,7 @@ function initializeHome() {
 }
 
 function getUserProfileSuccess(response) {
-  //log.info('USER PROFILE -> ' + response);
+  log.info('USER PROFILE -> ' + response);
   AUTHENTICATED = true;
   USER_PROFILE = JSON.parse(response);
 

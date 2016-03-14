@@ -41,8 +41,8 @@
 
               <!-- Submitting indicator -->
               <span ng-if="loginSubmitting" class="text-center">
-                <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-                <span id="loginSubmittingText">Logging in...</span>
+                <span class="fa fa-refresh fa-spin"></span>
+                <span id="loginSubmittingText"> Submitting</span>
               </span>
             </button>
           </div>
@@ -51,7 +51,7 @@
       </div>
 
       <!-- Fail indicator -->
-      <div ng-if="loginFailed"class="row noSpaceMobile">
+      <div ng-if="loginFailed"class="row noSpaceMobile fadeInOut">
         <div class="col-md-12 text-center">
           <div style="padding:5px;">
             <div class="errorText"><strong>Email Address or Password incorrect</strong></div>
