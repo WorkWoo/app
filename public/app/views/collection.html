@@ -8,6 +8,7 @@
 	  		<div class="breadCrumb">
 	    		<a href="#/account"><span class="fa fa-arrow-left"></span> Back to all settings</a>
 	  		</div>
+
 		</div>
 	</div>
 	<!-- Page Header -->
@@ -56,7 +57,7 @@
 
 
 			<!-- Custom fields -->
-			<div class="col-md-6">
+			<div id="customFieldsContainer" class="col-md-6">
 				<label>Custom fields:</label>
 				<div class="choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
 					<!-- Column header -->
@@ -150,7 +151,7 @@
 				<!-- Spacer -->
 				<div class="col-md-9"></div>
 				<div class="col-md-3">
-					<button ng-disabled="collectionsLoading" ng-if="currentAction == 'update'" type="submit" class="btn btn-primary btn-block">
+					<button id="saveChangesButton" ng-disabled="collectionsLoading" ng-if="currentAction == 'update'" type="submit" class="btn btn-primary btn-block">
 						<!-- Loading -->
 						<span ng-if="collectionsLoading && !selectedCollection">
 							<i class="fa fa-refresh fa-spin"></i>

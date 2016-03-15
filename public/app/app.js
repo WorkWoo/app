@@ -29,7 +29,7 @@ mainApp.factory('SelectedUser', SelectedUser);
 mainApp.directive('dateTimePicker', dateTimePicker);
 
 mainApp.run(function($templateCache) {
-  $templateCache.put('tour-welcome', tourTemplates.tourWelcome);
+  $templateCache.put('tour-title', tourConfig.templates.title);
 });
 
 mainApp.config(function($routeProvider) {

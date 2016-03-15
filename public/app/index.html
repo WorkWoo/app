@@ -38,7 +38,7 @@
   </head>
 
   <body ng-controller="mainController" style="margin:0px;padding:0px;color:#777">
-    <div id="workWooJoyRide" ng-joy-ride="startJoyRide" config="joyRideConfig"></div>
+    <div id="mainTour" ng-joy-ride="startMainTour" config="mainTourConfig"></div>
 
     <!-- Header -->
     <div class="header">
@@ -84,7 +84,7 @@
     </div>
 
     <!-- Left Menu -->
-    <div class="leftMenuContainer">
+    <div id="leftMenuContainer" class="leftMenuContainer">
       <span ng-click="leftMenuClick('work')" id="workMenuItem" class="fa fa-home leftMenuIcon" style="top:0px;"></span>
       <span ng-click="leftMenuClick('account')" id="accountMenuItem" class="fa fa-cogs leftMenuIcon" style="top:0px;"></span>
       <span ng-click="leftMenuClick('support')" id="supportMenuItem" class="fa fa-question-circle leftMenuIcon" style="top:0px;"></span>

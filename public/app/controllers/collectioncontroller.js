@@ -11,6 +11,8 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
 
   $scope.collectionsLoading = false;
 
+  $scope.startWorkSettingsTour = false;
+  $scope.workSettingsTourConfig = tourConfig.getWorkSettingsTourConfig($scope);
 
   $scope.getAllCollections = function(collectionName) {
     $scope.collectionsLoading = true;

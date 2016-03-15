@@ -1,4 +1,4 @@
-function mainController($scope, $location, $sce, $templateCache) {
+function mainController($scope, $location, $sce) {
   log.info('|mainController|');
 
   $scope.pageLoading = true;
@@ -18,79 +18,11 @@ function mainController($scope, $location, $sce, $templateCache) {
   $scope.accountType = $scope.currentUser.org.accountType;
   $scope.primaryCollection = $scope.currentUser.org.primaryCollection;
 
-  //$scope.startJoyRide = true;
-  $scope.joyRideConfig = [
-          {
-              type: "title",
-              heading: "Welcome to the WorkWoo tour!",          
-              titleTemplate: 'tour-welcome'
-          },
-          {
-              type: "function",
-              fn: function() {$('#accountMenuItem').addClass('bringForward')}
-          },
-          {
-              type: "element",
-              selector: "#accountMenuItem",
-              text: "Click here to access your WorkWoo settings",
-              placement: "auto right",
-              advanceOn: {element: '#accountMenuItem', event: 'click'},
-              attachToBody: "true",
-              scroll: true,
-          },
-          {
-              type: "function",
-              fn: function() {$('#accountMenuItem').removeClass('bringForward')}
-          },
-          {
-              type: "function",
-              fn: function() {$('#workSettings').addClass('bringForward')}
-          },
-          {
-              type: "element",
-              selector: "#workSettings",
-              text: "Click here to access your Work settings",
-              placement: "auto right",
-              advanceOn: {element: '#workSettings', event: 'click'},
-              attachToBody: "true",
-              scroll: true,
-          },
-          {
-              type: "function",
-              fn: function() {$('#workSettings').removeClass('bringForward')}
-          },
-          {
-              type: "function",
-              fn: function() {$('#collectionNameContainer').addClass('bringForward')}
-          },
-          {
-              type: "element",
-              selector: "#collectionNameContainer",
-              text: "What do you call your workable items?",
-              placement: "auto right",
-              attachToBody: "true",
-              scroll: true,
-          },
-          {
-              type: "function",
-              fn: function() {$('#collectionNameContainer').removeClass('bringForward')}
-          },
-          {
-              type: "function",
-              fn: function() {$('#stateContainer').addClass('bringForward')}
-          },
-           {
-              type: "element",
-              selector: "#stateContainer",
-              text: "What are the states for your item?",
-              placement: "auto right",
-              attachToBody: "true",
-              scroll: true,
-          },
+  $scope.startMainTour = true;
+  tourConfig.status.main = true;
 
-
-  ];
-
+  $scope.mainTourConfig = tourConfig.getMainTourConfig($scope);
+  
   $scope.changeView = function(viewName) {
     $location.path(viewName);
   };

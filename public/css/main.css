@@ -93,10 +93,9 @@ a:hover {
 }
 
 .tourContent {
-  border-radius: 5px;
   background-color: #fcfcfc;
   border: 1px dotted #d8d8d8;
-  margin: 10px 0px 10px 0px;
+  margin: 0px 0px 0px 0px;
   padding: 5px;
   height: 105px;
 }
