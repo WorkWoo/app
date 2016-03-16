@@ -217,6 +217,17 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     $scope.selectedCollection.fields.push(newField);
   };
 
+  $scope.tiggerWorkSettingsTour = function() {
+    $scope.startWorkSettingsTour = true;
+  }
+
+  $scope.finishWorkSettingsTour = function() {
+    $scope.startWorkSettingsTour = false;
+  }
+
+  $scope.skipWorkSettingsTour = function() {
+    $scope.startWorkSettingsTour = false;
+  }
 
   $scope.lowerAndRemoveSpace = function(inputString) {
     var resultString = inputString.toLowerCase();

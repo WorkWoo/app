@@ -18,9 +18,7 @@ function mainController($scope, $location, $sce) {
   $scope.accountType = $scope.currentUser.org.accountType;
   $scope.primaryCollection = $scope.currentUser.org.primaryCollection;
 
-  $scope.startMainTour = true;
-  tourConfig.status.main = true;
-
+  $scope.startMainTour = false;
   $scope.mainTourConfig = tourConfig.getMainTourConfig($scope);
   
   $scope.changeView = function(viewName) {
@@ -91,6 +89,18 @@ function mainController($scope, $location, $sce) {
   $scope.setPageLoading = function(state) {
     $scope.pageLoading = state;
   }
+
+  $scope.tiggerMainTour = function() {
+    $scope.startMainTour = true;
+  }
+
+  $scope.finishMainTour = function() {
+    $scope.startMainTour = false;
+  }
+
+  $scope.skipMainTour = function() {
+    $scope.startMainTour = false;
+  }
   
   $scope.initializeMainController = function() {
     var currentView = $location.path();
@@ -100,6 +110,10 @@ function mainController($scope, $location, $sce) {
       $scope.setActiveSection('support');
     } else {
       $scope.setActiveSection('work');
+    }
+
+    if ($scope.currentUser.newUser) {
+      $scope.startMainTour = true;
     }
   };
 

@@ -104,6 +104,16 @@ a:hover {
   z-index: 10000;
 }
 
+.takeTourIcon {
+  color: #6783a8;
+  padding-top: 5px;
+}
+
+.takeTourIcon:hover {
+  color: #a6a6a6;
+  cursor: pointer;
+}
+
 /****************************** HEADER ******************************/
 
 
@@ -817,7 +827,6 @@ a:hover {
   color: #999;
   cursor: pointer;
 }
-
 
 /****************************** BUTTONS ******************************/
 

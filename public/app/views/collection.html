@@ -1,14 +1,21 @@
 <form name="collectionForm" ng-model="selectedCollection" ng-submit="updateCollection(selectedCollection)" novalidate>
+	
+	<div ng-if="startWorkSettingsTour" id="workSettingsTour" ng-joy-ride="startWorkSettingsTour" config="workSettingsTourConfig" on-finish="finishWorkSettingsTour()" on-skip="skipWorkSettingsTour()"></div>
 
 	<!-- Page Header -->
 	<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
 		<!-- Title -->
-		<div class="col-md-8 noSpaceMobile">
+		<div class="col-md-12 noSpaceMobile">
 	  		<h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
-	  		<div class="breadCrumb">
-	    		<a href="#/account"><span class="fa fa-arrow-left"></span> Back to all settings</a>
+	  		<div class="row">
+				<div class="col-md-10 breadCrumb">
+		    		<a href="#/account"><span class="fa fa-arrow-left"></span> Back to all settings</a>
+		  		</div>
+		  		<div class="col-md-2">
+					<span ng-disabled="collectionsLoading" ng-click="tiggerWorkSettingsTour()" class="hideInMobile takeTourIcon fa fa-road"> Take a tour</span>
+		  		</div>
 	  		</div>
-
+	  		
 		</div>
 	</div> 
 	<!-- Page Header -->

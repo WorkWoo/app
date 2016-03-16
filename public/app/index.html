@@ -38,7 +38,7 @@
   </head>
 
   <body ng-controller="mainController" style="margin:0px;padding:0px;color:#777">
-    <div id="mainTour" ng-joy-ride="startMainTour" config="mainTourConfig"></div>
+    <div ng-if="startMainTour" id="mainTour" ng-joy-ride="startMainTour" config="mainTourConfig" on-finish="finishMainTour()" on-skip="skipMainTour()"></div>
 
     <!-- Header -->
     <div class="header">
@@ -51,16 +51,22 @@
         <span id="user-name">{{ currentUser.firstName }}, {{ currentUser.org.name }}</span>
         <span class="fa fa-bars userMenuIcon" id="userMenuDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
         <ul class="dropdown-menu userMenuDropdown" aria-labelledby="userMenuDropdown">
-          
-          <li>
-            <div class="userMenuItem" ng-click="url('/logout')">
-              <span class="fa fa-sign-out"></span> Logout
-            </div>
-          </li>
-          
+                    
           <li>
             <div class="userMenuItem" ng-click="changeView('mysettings')">
               <span class="fa fa-cog"></span> My Settings
+            </div>
+          </li>
+
+          <li>
+            <div class="userMenuItem hideInMobile" ng-click="tiggerMainTour()">
+              <span class="fa fa-road"></span> Take a tour
+            </div>
+          </li>
+
+          <li>
+            <div class="userMenuItem" ng-click="url('/logout')">
+              <span class="fa fa-sign-out"></span> Logout
             </div>
           </li>
 
