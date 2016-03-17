@@ -7,6 +7,15 @@
 </div>
 <!-- Page Header -->
 
+<!-- Message if they have not setup their primary collection -->
+<div ng-if="!currentUser.org.primaryCollection" class="container-fluid text-center" style="margin-top:50px;">
+  <div class="col-md-12">
+    <h2 class="pageHeading">You haven't set up your work items!</h2>
+    <h3><a href="#">Setup now</a></h3>
+  </div>
+</div>
+<!-- Page Header -->
+
 <!-- Page Content -->
 <div ng-if="!collectionsLoading" class="container-fluid fade-in-out">
 	<!-- Create a box for each collection -->

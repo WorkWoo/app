@@ -7,6 +7,7 @@ var orgSchema = new Schema({
  	city: { type: String },
  	state: { type: String },
  	country: { type: String },
+ 	primaryCollection: { type: String },
  	emailAddress: {type: String },
 	_created_by: { type: Schema.Types.ObjectId, ref: 'User' },
     _updated_by: { type: Schema.Types.ObjectId, ref: 'User' }

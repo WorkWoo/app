@@ -1,14 +1,22 @@
+<!-- Page header if they have not setup their primary collection -->
+<div ng-if="!currentUser.org.primaryCollection" class="container-fluid text-center" style="margin-top:50px;">
+  <div class="col-md-12">
+    <h2 class="pageHeading">Aww snap! You haven't set up your work items!</h2>
+    <h3><a href="#">Get started now</a></h3>
+  </div>
+</div>
 <!-- Page Header -->
-<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
-  <div class="col-md-8 noSpaceMobile">
+
+<!-- Page Header -->
+<div ng-if="currentUser.org.primaryCollection" class="container-fluid noSpaceMobile" style="margin-top:10px;">
+  <div class="col-md-12 noSpaceMobile">
     <h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
   </div>
 </div>
 <!-- Page Header -->
 
 <!-- Page Content -->
-<div class="container-fluid noSpace">
-
+<div ng-if="currentUser.org.primaryCollection" class="container-fluid noSpace">
   <div class="col-md-3 noSpaceMobile">
     <a ng-href="#/{{primaryCollection}}/new" class="menuCardContainerActive">
       <span class="menuCardIcon fa fa-plus"></span>
@@ -16,7 +24,7 @@
       <span class="menuCardTitle">Create New</span>
     </a>
   </div>
-
+  
   <div class="col-md-3 noSpaceMobile">
     <a ng-href="#/{{primaryCollection}}/search?state=Open" class="menuCardContainer">
       <span class="menuCardIcon fa fa-inbox"></span>
