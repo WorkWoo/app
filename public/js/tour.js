@@ -71,6 +71,8 @@ tourConfig.getMainTourConfig = function($scope) {
                 elementTemplate: advanceOnTemplate
               });
 
+  config.push({ type: "function", fn: function() { $scope.leftMenuClick('account'); } });
+
   config.push({ type: "element",
                 selector: "#workSettings",
                 text: "This is where you access your Work Settings.<br><br><span class='small'><em>Click on the wrench icon to view your current Work Settings.</em></span>",
