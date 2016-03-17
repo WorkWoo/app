@@ -243,13 +243,44 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     log.info('current URL: ' + currentURL);
 
     // Creating collection
-    /*
-    var creatingCollection = (currentURL.indexOf('/new') > 0);
+    var creatingCollection = (currentURL.indexOf('/new') >= 0);
     if (creatingCollection) {
       $scope.currentAction = 'create';
+      $scope.setPageLoading(false);
+      $scope.selectedCollection = {
+        stateChoices: ['Open', 'In Progress', 'Complete'],
+        fields: [
+          {
+            'showOnNew': false,
+            'showOnView': false,
+            'showOnList': true,
+            'required': true,
+            'readonly': false,
+            'sysProvided': true,
+            'displayType': 'choice',
+            'label': 'State',
+            'choices': ['Open', 'In Progress', 'Complete'],
+            'name': 'state',
+            'dbType': 'String'
+          },
+          {
+            'showOnNew': true,
+            'showOnView': true,
+            'showOnList': true,
+            'required': true,
+            'readonly': false,
+            'sysProvided': true,
+            'displayType': 'text',
+            'label': 'Title',
+            'choices': [],
+            'name': 'title',
+            'dbType': 'String'
+          }
+        ]
+      }
+      $scope.startWorkSettingsTour = true;
       return;
     }
-    */
 
     // Viewing One
     var viewingOne = currentURL.indexOf('/view') >= 0;

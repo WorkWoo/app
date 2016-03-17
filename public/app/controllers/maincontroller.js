@@ -113,7 +113,7 @@ function mainController($scope, $location, $sce) {
     }
 
     if ($scope.currentUser.newUser) {
-      $scope.startMainTour = true;
+      //$scope.startMainTour = true;
     }
   };
 

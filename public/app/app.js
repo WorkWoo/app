@@ -48,7 +48,7 @@ mainApp.config(function($routeProvider) {
   $routeProvider.when('/account/upgrade', { templateUrl: 'views/upgrade.html', controller: 'upgradeController'});
 
   $routeProvider.when('/account/collections', { templateUrl: 'views/collections.html', controller: 'collectionController'});
-  $routeProvider.when('/account/collections/new', { templateUrl: 'views/collections.html', controller: 'collectionController'});
+  $routeProvider.when('/account/collections/new', { templateUrl: 'views/collection.html', controller: 'collectionController'});
   $routeProvider.when('/account/collections/view', { templateUrl: 'views/collection.html', controller: 'collectionController'});
   $routeProvider.when('/account/collections/view/:collectionName', { templateUrl: 'views/collection.html', controller: 'collectionController'});
 

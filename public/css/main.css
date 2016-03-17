@@ -104,16 +104,6 @@ a:hover {
   z-index: 10000;
 }
 
-.takeTourIcon {
-  color: #6783a8;
-  padding-top: 5px;
-}
-
-.takeTourIcon:hover {
-  color: #a6a6a6;
-  cursor: pointer;
-}
-
 /****************************** HEADER ******************************/
 
 
@@ -449,6 +439,15 @@ a:hover {
   font-size: 25px;
 }
 
+.collectionInputInvalid {
+  cursor: pointer;
+  color: #a86c67;
+  position: absolute;
+  right: 20px;
+  top: 32px;
+  font-size: 25px;
+}
+
 .loginInputInvalid {
   cursor: pointer;
   color: #a86c67;
@@ -755,6 +754,36 @@ a:hover {
   max-height: 0px;
   opacity: 0;
 }
+
+
+
+
+.infinitePulse {
+  animation: bounceArrow .15s 3 linear;
+}
+
+@keyframes bounceArrow {
+
+    0%   {
+      transform:rotate(0deg);
+    }
+
+    25%  {
+      transform:rotate(10deg);
+    }
+
+    75%  {
+      transform:rotate(-10deg);
+    }
+
+    100% {
+      transform:rotate(0deg);
+    }
+
+}
+
+
+
 
 
 
