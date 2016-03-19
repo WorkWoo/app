@@ -7,7 +7,7 @@ tourConfig.templates.title =
       '<h2 class="popover-title sharp-borders">{{heading}}</h2>' +
       '<div class="popover-content container-fluid">' +
         '<div ng-bind-html="content"></div>' +
-        '<hr>' +
+        '<span class="col-md-12"><hr></span>' +
         '<div class="row">' +
           '<div class="col-md-4 skip-class">' +
             '<a class="skipBtn pull-left" type="button"><i class="glyphicon glyphicon-ban-circle"></i>&nbsp; Skip Tour</a>' +
@@ -27,22 +27,22 @@ tourConfig.getMainTourConfig = function($scope) {
   var config = [];
   config.push({ type: "title",
                 heading: "Welcome to the WorkWoo tour!",
-                text: '<div id="title-text" class="col-md-12">This tour will walk you through the features of WorkWoo:</div><br/>' +
-                        '<span class="small">' +
+                text: '<div id="title-text" class="col-md-12">Configure WorkWoo for your business (It\'s fast and easy, we promise!)</div>' +
+                        '<div class="small col-md-12">' +
                           '<em><ul>' +
-                                '<li>Managing your work settings</li>' +
-                                '<li>Creating your first work item</li>' +
-                                '<li>Managing your users</li>' +
-                          '</ul></em>' +
-                        '</span>' +
-                      '</div>',       
+                                '<li>Defining and customizing your Workable Items</li>' +
+                                '<li>Creating your very first Workable Item</li>' +
+                          '</ul>' +
+                          '<div class="alert alert-info">Tip: You may skip this tour by clicking the link below. You can always access this tour later by clicking on the <i class="fa fa-bars" /> icon at the top right corner</div>' +
+                        '</div></em>',       
                 titleTemplate: 'tour-title'
               });
 
   config.push({ type: "function", fn: function() { $scope.leftMenuClick('work'); } });
   config.push({ type: "element",
                 selector: "#workMenuItem",
-                text: "This is where you can see all your work sorted by state; but, more on this later.",
+                heading: "Navigation: The <i class='fa fa-home' /> Icon",
+                text: "Clicking on the <i class='fa fa-home' /> Icon will bring you to all your Workable Items sorted by state. We will explore this section later once we create your first Workable Item; so, for now let's continue on our tour.",
                 placement: "auto right",
                 attachToBody: "true",
                 scroll: true,
@@ -53,7 +53,8 @@ tourConfig.getMainTourConfig = function($scope) {
   config.push({ type: "function", fn: function() { $scope.leftMenuClick('support'); } });
   config.push({ type: "element",
                 selector: "#supportMenuItem",
-                text: "This is where you can ask us any questions. We provide 24/7 support!",
+                heading: "Navigation: The <i class='fa fa-question-circle' /> Icon",
+                text: "Need help? Want to provide feedback? Have an idea for a new feature? Clicking on the <i class='fa fa-question-circle' /> Icon will bring you to our help section. We welcome any questions or feedback from our customers plus we provide 24/7 support!",
                 placement: "auto right",
                 attachToBody: "true",
                 scroll: true,
@@ -63,7 +64,8 @@ tourConfig.getMainTourConfig = function($scope) {
 
   config.push({ type: "element",
                 selector: "#accountMenuItem",
-                text: "Now let's start setting up WorkWoo the way you want. <br><br><span class='small'><em>Click the settings icon to access your WorkWoo settings</em></span>",
+                heading: "Navigation: The <i class='fa fa-cogs' /> Icon",
+                text: "Now let's start setting up WorkWoo the way you want. <div class='alert alert-success'><em>Click on the <i class='fa fa-cogs' /> icon to access your WorkWoo Settings</em></div>",
                 placement: "auto right",
                 advanceOn: {element: '#accountMenuItem', event: 'click'},
                 attachToBody: "true",
@@ -75,8 +77,9 @@ tourConfig.getMainTourConfig = function($scope) {
 
   config.push({ type: "element",
                 selector: "#workSettings",
-                text: "This is where you access your Work Settings.<br><br><span class='small'><em>Click on the wrench icon to view your current Work Settings.</em></span>",
-                placement: "auto right",
+                heading: "Your <i class='fa fa-wrench' /> Workable Items",
+                text: "This entire section contains your WorkWoo Settings (Account, Users, etc.); however, right now we are on a mission to create your first Workable Item; so, let's move on. <div class='alert alert-success'><em>Click on the <i class='fa fa-wrench' /> icon to configure your Workable Items.</em></div>",
+                placement: "auto top",
                 advanceOn: {element: '#workSettings', event: 'click'},
                 attachToBody: "true",
                 scroll: true,
@@ -91,16 +94,16 @@ tourConfig.getMainTourConfig = function($scope) {
 tourConfig.getWorkSettingsTourConfig = function($scope) {
   var config = [];
   config.push({ type: "title",
-                heading: "Work Settings",
-                text: '<div id="title-text" class="col-md-12">Managing your Workable Items:</div><br/>' +
-                        '<span class="small">' +
+                heading: "Workable Items",
+                text: '<div id="title-text" class="col-md-12">Defining and Customizing Workable Items:</div>' +
+                        '<div class="small col-md-12">' +
                           '<em><ul>' +
-                                '<li>What is your workable item?</li>' +
-                                '<li>What is the lifecycle (state model) of your work?</li>' +
+                                '<li>What is your Workable Item?</li>' +
+                                '<li>What is the state model of your work?</li>' +
                                 '<li>And finally, what information makes up your Workable Item?</li>' +
-                              '</ul></em>' +
-                        '</span>' +
-                      '</div>',         
+                          '</ul>' +
+                          '<div class="alert alert-info">Tip: We will be creating a brand new Workable Item. Don\'t worry if you forget to add a state or a field; you can always come back and modify your items!</div>' +
+                        '</div></em>',   
                 titleTemplate: 'tour-title'
               });
   

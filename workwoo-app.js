@@ -153,7 +153,7 @@ function initializeApp() {
 			log.info('|logout|', widget);
 			req.session.destroy();
 			req.logout();
-			res.redirect(cfg.auth.url);
+			res.redirect(cfg.platform.url);
 		});
 
 		return app;
