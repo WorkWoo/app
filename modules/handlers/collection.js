@@ -1,9 +1,9 @@
 // Config
-var cfg = require('../config/config');
+var cfg = require('workwoo-utils').config;
 
 // Mongoose
 var Collection = require('../models/collection');
-var Counter = require('../models/counter');
+var Counter = require('workwoo-utils').counter;
 var Item = require('../models/item');
 
 var inflect = require('i')(true);

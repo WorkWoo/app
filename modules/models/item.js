@@ -1,12 +1,12 @@
 // Config
-var cfg = require('../config/config');
+var cfg = require('workwoo-utils').config;
 
 var mongoose = require('mongoose');
 var qpcache = require('workwoo-utils').cache;
 var utility = require('workwoo-utils').utility;
 var log = require('workwoo-utils').logger;
 
-var Counter = require('../models/counter');
+var Counter = require('workwoo-utils').counter;
 var Collection = require('../models/collection');
 
 var widget = 'Item';

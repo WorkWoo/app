@@ -1,9 +1,9 @@
 // Config
-var cfg = require('../config/config');
+var cfg = require('workwoo-utils').config;
 
 // Mongoose
 var Item = require('../models/item');
-var Org = require('../models/org');
+var Org = require('workwoo-utils').org;
 
 // Custom modules
 var mailer = require('workwoo-utils').mailer;

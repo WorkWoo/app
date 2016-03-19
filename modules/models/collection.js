@@ -1,5 +1,5 @@
 // Config
-var cfg = require('../config/config');
+var cfg = require('workwoo-utils').config;
 
 // Logging
 var log = require('workwoo-utils').logger;
@@ -9,7 +9,7 @@ log.registerWidget(widget);
 var inflect = require('i')(true);
 
 // Mongoose
-var Counter = require('../models/counter');
+var Counter = require('workwoo-utils').counter;
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
