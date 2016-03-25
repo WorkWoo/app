@@ -1,8 +1,8 @@
 <!-- Page Header -->
 <div class="row container-fluid">
   <div class="col-md-12">
-  	<h3 class="page-heading">Work Settings</h3>
-  	<a href="#/account"><span class="fa fa-arrow-left"></span> Account home</a>
+  	<h3 class="page-heading">Workable items</h3>
+  	<a href="#/account"><span class="fa fa-arrow-left"></span> All settings</a>
   </div>
 </div>
 <!-- Page Header -->
@@ -18,13 +18,36 @@
 
 <!-- Page Content -->
 <div ng-if="!collectionsLoading" class="container-fluid fade-in-out">
-	<!-- Create a box for each collection -->
-	<div ng-repeat="collection in loadedCollections" class="col-md-3 text-center">
-		<div class="large-context-button" ng-click="openEditCollection(collection)">
-			<span class="fa" ng-class="collections[primaryCollection].icon"></span>
-			<h4 class="large-context-button-title">{{collection.pluralLabel}}</h4>
-		</div>
-	</div>
+
+  <!-- Create new button -->
+  <div ng-if="!usersLoading" class="col-md-4 noSpaceMobile fadeInOut">
+    <!-- Free users -->
+    <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
+      <span class="menuCardIconDisabled fa fa-plus"></span>
+      <span class="cardTitleBreaker"></br></span>
+      <span class="menuCardTitleDisabled">New Collection</span>
+    </span>
+  </div>
+
+  <div ng-repeat="collection in loadedCollections" class="col-md-4 noSpaceMobile">
+    <a id='workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
+      <span class="menuCardIcon fa" ng-class="collection.icon"></span>
+      <span class="cardTitleBreaker"></br></span>
+      <span class="menuCardTitle">{{collection.pluralLabel}}</span>
+    </a>
+  </div>
+
+  <!-- Upgrade indicator -->
+  <div ng-if="!usersLoading" class="col-md-12 noSpaceMobile fadeInOut">
+    <div class="upgradeAlert clearfix">
+      <span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
+      <span class="upgradeAlertText"><strong>Play to win!</strong><br/> Free accounts includes 1 workable collection. Upgrade to Pro to import & track related items like inventory, documentation, and employees</span>
+      <span class="upgradeAlertButton">
+        <a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
+      </span>
+    </div>
+  </div>
+
 </div>
 
 <!-- Loading indicator -->

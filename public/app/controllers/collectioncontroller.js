@@ -28,12 +28,18 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     Collection.getAll(
       function(collections){
       	log.info('Success');
+
+        log.info('Collections: ' + collections);
+        log.object(collections[0]);
+
         $scope.collectionsLoading = false;
       	$scope.loadedCollections = collections;
+        $scope.setPageLoading(false);
       },
       function() {
         log.error('Failed');
         $scope.collectionsLoading = false;
+        $scope.setPageLoading(false);
       }
     );
   };
@@ -297,8 +303,7 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     }
 
     // Get all
-    //$scope.getAllCollections();
-    $scope.setPageLoading(false);
+    $scope.getAllCollections();
   };
 
   $scope.initializeCollectionController();
