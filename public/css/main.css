@@ -430,6 +430,13 @@ a:hover {
   z-index: 1;
 }
 
+.defaultInputGroup {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 5px;
+  background-color: #fcfcfc;
+}
+
 .inputInvalid {
   cursor: pointer;
   color: #a86c67;
@@ -670,14 +677,13 @@ a:hover {
 
 /* Fade in and fade out */
 .fadeInOut.ng-enter {
-  transition: .25s;
+  transition: .75s;
   opacity: 0;
 }
 .fadeInOut.ng-enter-active {
   opacity: 1;
 }
 .fadeInOut.ng-leave {
-  transition: .25s;
   opacity: 1;
 }
 .fadeInOut.ng-leave-active {
@@ -756,10 +762,8 @@ a:hover {
 }
 
 
-
-
 .infinitePulse {
-  animation: bounceArrow .15s 3 linear;
+  animation: bounceArrow .25s 4 linear;
 }
 
 @keyframes bounceArrow {
@@ -859,7 +863,7 @@ a:hover {
 
 /****************************** BUTTONS ******************************/
 
-.btn-success {
+.btn-success, .btn-success:focus {
   border-color: #67A88C;
   background-color: #67A88C;
   box-shadow: 0px 0px 1px #fff;
@@ -871,8 +875,12 @@ a:hover {
   box-shadow: 0px 0px 1px #fff;
 }
 
+.btn:active:focus {
+  background-color: #999;
+}
 
-.btn-primary {
+
+.btn-primary, .btn-primary:focus {
   border-color: #6783a8;
   background-color: #6783a8;
   box-shadow: 0px 0px 1px #fff;
@@ -885,7 +893,7 @@ a:hover {
 }
 
 
-.btn-danger {
+.btn-danger, .btn-danger:focus {
   border-color: #a86c67;
   background-color: #a86c67;
   box-shadow: 0px 0px 1px #fff;

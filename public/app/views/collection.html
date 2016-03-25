@@ -34,8 +34,8 @@
 
 				<!-- Collection name -->
 				<div class="row noSpaceMobile">
-					<div id='collectionNameContainer' class="col-md-12">
-						<label>Your items:</label>
+					<div id='collectionNameContainer' class="defaultInputGroup form-group col-md-12">
+						<label for="collectionName">Your items:</label>
 						<input ng-disabled="collectionsLoading" placeholder="Orders, Instructions, Sales, etc." type="text" id="collectionName" name="collectionName" class="form-control defaultInput" value="" ng-model="selectedCollection.pluralLabel" size="20" required/>
 						<span ng-if="collectionForm.collectionName.$invalid && collectionForm.collectionName.$touched" ng-init="initInvalidPopover('collectionNameRequired','Required!')" id="collectionNameRequired" class="fa fa-exclamation-circle collectionInputInvalid"></span>
 					</div>
@@ -43,16 +43,16 @@
 
 				<!-- Number prefix -->
 				<div class="row noSpaceMobile">
-					<div id='numberPrefixContainer' class="col-md-12">
-						<label>Number prefix:</label>
+					<div id='numberPrefixContainer' class="defaultInputGroup form-group col-md-12">
+						<label for="numberPrefix">Number prefix:</label>
 						<input ng-disabled="collectionsLoading" placeholder="The prefix for each item's number, like 'IN1234'" type="text" id="numberPrefix" name="numberPrefix" class="form-control defaultInput" value="" ng-model="selectedCollection.numberPrefix" size="20" required/>
 						<span ng-if="collectionForm.numberPrefix.$invalid && collectionForm.numberPrefix.$touched" ng-init="initInvalidPopover('numberPrefixRequired','Required!')" id="numberPrefixRequired" class="fa fa-exclamation-circle collectionInputInvalid"></span>
 					</div>
 				</div>
 				<!-- State choices -->
 				<div class="row noSpaceMobile">
-					<div id='stateContainer' class="col-md-12">
-						<label>State Choices:</label>
+					<div id='stateContainer' class="defaultInputGroup form-group col-md-12">
+						<label for="stateChoices">State Choices:</label>
 						<div id="stateChoices" class="choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
 							<!-- Create a row for each state -->
 							<div ng-repeat="choice in selectedCollection.stateChoices track by $index" ng-if="!field.sysProvided" class="col-md-12 noSpace fadeInOutStagger">
@@ -79,7 +79,7 @@
 
 
 			<!-- Custom fields -->
-			<div id="customFieldsContainer" class="col-md-6">
+			<div id="customFieldsContainer" class="defaultInputGroup form-group col-md-6">
 				<label>Custom fields:</label>
 				<div class="choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
 					<!-- Column header -->

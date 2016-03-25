@@ -13,7 +13,7 @@
         <div class="col-md-8">
           <div class="inputContainer">
             <input ng-disabled="loginSubmitting" class="form-control" type="email" name="emailAddress" placeholder="Email Address" ng-model="credentials.emailAddress" required>
-            <span ng-if="loginForm.emailAddress.$touched && loginForm.emailAddress.$invalid" ng-init="initInvalidPopover('emailAddressRequired','Required for login')" id="emailAddressRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
+            <span ng-if="loginForm.emailAddress.$touched && loginForm.emailAddress.$invalid" ng-init="initInvalidPopover('emailAddressRequired','Required')" id="emailAddressRequired" class="loginInputInvalid fa fa-exclamation-circle"></span>
             <span ng-if="loginForm.emailAddress.$valid" ng-init="destroyInvalidPopover('emailAddressRequired')"></span>
           </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <div class="inputContainer">
-            <button type="submit" ng-disabled="loginSubmitting" class="btn btn-primary btn-block">
+            <button type="submit" ng-disabled="loginSubmitting" class="btn btn-success btn-block">
               <span ng-if="!loginSubmitting">Login</span>
 
               <!-- Submitting indicator -->

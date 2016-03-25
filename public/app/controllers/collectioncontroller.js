@@ -278,6 +278,7 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
           }
         ]
       }
+      $scope.setPageLoading(false);
       $scope.startWorkSettingsTour = true;
       return;
     }
@@ -290,12 +291,14 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
         log.info('|initializeCollectionController| Viewing one');
         $scope.currentAction = 'update';
         $scope.getOneCollection(collectionName);
+        $scope.setPageLoading(false);
         return;
       }
     }
 
     // Get all
     //$scope.getAllCollections();
+    $scope.setPageLoading(false);
   };
 
   $scope.initializeCollectionController();

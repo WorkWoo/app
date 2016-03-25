@@ -8,7 +8,7 @@
     <div class="container smallForm singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
       <!-- New password -->
-      <div class="row noSpaceMobile">
+      <div ng-if="!resetSubmitted" class="row noSpaceMobile">
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <div style="padding:5px;">
@@ -20,7 +20,7 @@
       </div>
 
       <!-- New password confirm -->
-      <div class="row noSpaceMobile">
+      <div ng-if="!resetSubmitted" class="row noSpaceMobile">
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <div style="padding:5px;">
@@ -34,7 +34,7 @@
       </div>
 
       <!-- Submit button -->
-      <div class="row noSpaceMobile">
+      <div ng-if="!resetSubmitted" class="row noSpaceMobile">
         <div class="col-md-2"></div>
         <div class="col-md-8">
           <div style="padding:5px;">
@@ -52,16 +52,22 @@
         <div class="col-md-2"></div>
       </div>
 
+      <!-- Success indicator -->
+      <div ng-if="resetSubmitted" class="row noSpaceMobile text-center fadeInOut">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <div style="padding:5px;">
+            <div>Your password has been reset</div>
+          </div>
+        </div>
+        <div class="col-md-2"></div>
+      </div>
+
     </div>
   </form>
 
-  <div ng-if="!resetSubmitted" class="row text-center noSpaceMobile" style="padding:5px;">
-    <a ng-disabled="resetSubmitting" ng-href="/#/login">Try logging in again</a>
-  </div>
-
-  <div ng-if="resetSubmitted" class="row text-center noSpaceMobile" style="padding:5px;">
-    <p class="text-left">Your password has been reset</p>
-    <a ng-disabled="resetSubmitting" ng-href="/#/login">Try logging in again</a>
+  <div class="row text-center noSpaceMobile" style="padding:5px;">
+    <a ng-href="/#/login">Try logging in again</a>
   </div>
 
 </div>
