@@ -24,8 +24,17 @@
     <span ng-include="'views/includes/alerts.html'"></span>
   </div>
 
+  <!-- Message if they have not setup their primary collection -->
+  <div ng-if="!itemsLoading && loadedItems.length == 0" class="container-fluid text-center" style="margin-top:50px;">
+    <div class="col-md-12">
+      <h2 class="pageHeading">No items to show!</h2>
+      <a class="btn btn-success" ng-href="#/{{primaryCollection}}/new"><h3 class="noSpace">Create one now</h3></a>
+    </div>
+  </div>
+  <!-- Page Header -->
+
   <!-- "Create New" card -->
-  <div class="col-md-4 text-center noSpaceMobile">
+  <div ng-if="!itemsLoading && loadedItems.length > 0" class="col-md-4 text-center noSpaceMobile fadeInOut">
     <a ng-disabled="itemsLoading" class="noUnderline" ng-href="#/{{primaryCollection}}/new">
       <div class="itemCardActive">
         <span class="itemCardActiveIcon fa fa-plus"></span>

@@ -63,6 +63,14 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     );
   };
 
+  $scope.submit = function() {
+    if ($scope.currentAction == 'create') {
+      $scope.createCollection();
+    } else {
+      $scope.updateCollection();
+    }
+  };
+
 
   $scope.updateCollection = function() {
     $scope.collectionsLoading = true;
@@ -101,7 +109,6 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
         $scope.collectionsLoading = false;
       }
     );
-
   };
 
 
@@ -254,8 +261,23 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
       $scope.currentAction = 'create';
       $scope.setPageLoading(false);
       $scope.selectedCollection = {
+        collectionType: 'workable',
+        displayField: 'title',
+        icon: 'fa-wrench',
         stateChoices: ['Open', 'In Progress', 'Complete'],
         fields: [
+          {
+            "showOnNew": false,
+            "showOnView": false,
+            "showOnList": true,
+            "required": true,
+            "readonly": false,
+            "sysProvided": true,
+            "displayType": "autonumber",
+            "label": "Number",
+            "name": "number",
+            "dbType": "String"
+          },
           {
             'showOnNew': false,
             'showOnView': false,
@@ -263,9 +285,9 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
             'required': true,
             'readonly': false,
             'sysProvided': true,
-            'displayType': 'choice',
+            'displayType': 'state',
             'label': 'State',
-            'choices': ['Open', 'In Progress', 'Complete'],
+            'choices': [],
             'name': 'state',
             'dbType': 'String'
           },

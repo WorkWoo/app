@@ -53,14 +53,14 @@
         <ul class="dropdown-menu userMenuDropdown" aria-labelledby="userMenuDropdown">
                     
           <li>
-            <div class="userMenuItem" ng-click="changeView('mysettings')">
+            <div class="userMenuItem" ng-click="url('#/account/summary')">
               <span class="fa fa-cog"></span> My Settings
             </div>
           </li>
 
           <li>
             <div class="userMenuItem hideInMobile" ng-click="tiggerMainTour()">
-              <span class="fa fa-road"></span> Take a tour
+              <span class="fa fa-road"></span> Take the tour
             </div>
           </li>
 
@@ -86,7 +86,7 @@
     <!-- Left Menu -->
     <div id="leftMenuContainer" class="leftMenuContainer">
       <span ng-click="leftMenuClick('work')" id="workMenuItem" class="fa fa-home leftMenuIcon" style="top:0px;"></span>
-      <span ng-click="leftMenuClick('account')" id="accountMenuItem" class="fa fa-cogs leftMenuIcon" style="top:0px;"></span>
+      <span ng-click="leftMenuClick('account')" id="accountMenuItem" class="fa fa-cog leftMenuIcon" style="top:0px;"></span>
       <span ng-click="leftMenuClick('support')" id="supportMenuItem" class="fa fa-question-circle leftMenuIcon" style="top:0px;"></span>
     </div>
 

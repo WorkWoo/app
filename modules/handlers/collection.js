@@ -3,8 +3,9 @@ var cfg = require('workwoo-utils').config;
 
 // Mongoose
 var Collection = require('../models/collection');
-var Counter = require('workwoo-utils').counter;
 var Item = require('../models/item');
+var Counter = require('workwoo-utils').counter;
+var Org = require('workwoo-utils').org;
 
 var inflect = require('i')(true);
 
@@ -35,6 +36,7 @@ exports.create = function(req, res) {
 		newCollection.numberPrefix = req.body.collection.numberPrefix;
 		newCollection.icon = req.body.collection.icon;
 		newCollection.displayField = req.body.collection.displayField;
+		newCollection.stateChoices = req.body.collection.stateChoices;
 
 
 		// Then, calculate the collection name and labels, since the
@@ -62,7 +64,7 @@ exports.create = function(req, res) {
 			if (field.displayType == 'text' || field.displayType == 'textarea' || field.displayType == 'choice' || field.displayType == 'autonumber' || field.displayType == 'state') {
 				field.dbType = 'String';
 				if (field.displayType == 'state') {
-					newCollection.stateChoices = field.choices;
+					field.choices = newCollection.stateChoices;
 				}
 			} else if (field.displayType == 'datetime') {
 				field.dbType = 'Date';
@@ -99,18 +101,43 @@ exports.create = function(req, res) {
 
  			newCounter.save(function(){
 	    		if (error) {
-					log.error('|Collection.save.counter.save| Unknown -> ' + error, widget);
+					log.error('|Collection.create.save.counter.save| Unknown -> ' + error, widget);
 					utility.errorResponseJSON(res, 'Unknown error creating collection');
 	    		}
-	    		// Before returning, reload the cache for this org, since a change to collections was made.
-	    		qpcache.delete(orgID);
-	    		Item.getCollections(orgID, function(error, collectionsObject){
-					if (error) {
-						log.error('|collection.create| Unknown error -> ' + error, widget);
+
+
+	    		// Now that the collection and counter have bee created, update the org if this is their first setup
+		    	Org.findById(orgID, function(error, org) {
+		    		if (error) {
+						log.error('|Collection.create.save.org.fine| Unknown -> ' + error, widget);
+						utility.errorResponseJSON(res, 'Unknown error creating collection');
 					} else {
-						res.send(JSON.stringify({ collections: collectionsObject.collections }));
+						if (!org.primaryCollection) {
+							org.primaryCollection = savedCollection.name;
+							org.save(function(error, org) {
+								// Before returning, reload the cache for this org, since a change to collections was made.
+					    		qpcache.delete(orgID);
+					    		Item.getCollections(orgID, function(error, collectionsObject){
+									if (error) {
+										log.error('|collection.create| Unknown error -> ' + error, widget);
+									} else {
+										res.send(JSON.stringify({ collections: collectionsObject.collections }));
+									}
+								});
+				    		});
+						} else {
+							// Before returning, reload the cache for this org, since a change to collections was made.
+				    		qpcache.delete(orgID);
+				    		Item.getCollections(orgID, function(error, collectionsObject){
+								if (error) {
+									log.error('|collection.create| Unknown error -> ' + error, widget);
+								} else {
+									res.send(JSON.stringify({ collections: collectionsObject.collections }));
+								}
+							});
+						}
 					}
-				});
+		    	});
  			});
 		});
 

@@ -1,9 +1,6 @@
 function itemController($scope, $location, $routeParams, Item) {
   log.info('|itemController| Starting');
 
-  $scope.showHome = false;
-  $scope.showItems = false;
-
   $scope.loadedItems = Item.loadedItems;
   $scope.selectedItem = Item.selectedItem;
   $scope.selectedItemTitle = '';
@@ -14,6 +11,8 @@ function itemController($scope, $location, $routeParams, Item) {
 
   $scope.itemsLoading = true;
   $scope.selectedItemSubmitting = false;
+
+  $scope.itemCountByState = {};
 
   $scope.currentAction = null;
   $scope.previousAction = null;
@@ -105,6 +104,43 @@ function itemController($scope, $location, $routeParams, Item) {
         $scope.itemsLoading = false;
         $scope.setPageLoading(false);
         $scope.loadedItems = [];
+        $scope.alertUnknownError();
+      }
+    );
+  };
+
+
+  $scope.countItemsByState = function() {
+    $scope.setPageLoading(true);
+    $scope.itemsLoading = true;
+    $scope.itemCountByState = {};
+    for(var i=0; i<$scope.collections[$scope.baseCollection].stateChoices.length; i++) {
+      $scope.itemCountByState[$scope.collections[$scope.baseCollection].stateChoices[i]] = 0;
+    }
+    var queryParams = {
+      collectionName: $scope.baseCollection,
+      sortField: $scope.sortField,
+      sortOrder: $scope.sortOrder,
+      anchorValue: $scope.anchorValue,
+      anchorID: $scope.anchorID,
+      searchTerm: $scope.searchTerm,
+      additionalQuery: $scope.queryCriteria,
+    };
+    Item.getAll(queryParams,
+      function(result){
+        // Success
+        $scope.itemsLoading = false;
+        $scope.setPageLoading(false);
+
+        // Update the state count
+        for (var i=0; i<result.items.length; i++) {
+          $scope.itemCountByState[result.items[i].state] = $scope.itemCountByState[result.items[i].state] + 1;
+        }
+
+      },
+      function() {
+        $scope.itemsLoading = false;
+        $scope.setPageLoading(false);
         $scope.alertUnknownError();
       }
     );
@@ -414,8 +450,6 @@ function itemController($scope, $location, $routeParams, Item) {
 
       $scope.initializeScroll();
       $scope.load($scope.baseCollection);
-      $scope.showHome = false;
-      $scope.showItems = true;
       return;
     }
 
@@ -460,8 +494,6 @@ function itemController($scope, $location, $routeParams, Item) {
     if (validCollection) {
       log.info('|itemController| Loading all');
       $scope.initializeScroll();
-      $scope.showHome = false;
-      $scope.showItems = true;
 
       // Only load the items if they are not loaded already
       if ($scope.loadedItems.length == 0) {
@@ -476,10 +508,15 @@ function itemController($scope, $location, $routeParams, Item) {
     }
 
     // If this point is reached, simply show the home
-    $scope.showItems = false;
-    $scope.showHome = true;
-    $scope.baseCollection = $scope.currentUser.org.primaryCollection;
-    $scope.selectedItem = {}
+    if($scope.currentUser.org.primaryCollection) {
+      $scope.baseCollection = $scope.currentUser.org.primaryCollection;
+      $scope.selectedItem = {};
+      $scope.countItemsByState($scope.baseCollection);
+      $scope.setPageLoading(false);
+      return;
+    }
+
+    // If this point is reached, they are a new unconfigured user.
     $scope.setPageLoading(false);
   };
 

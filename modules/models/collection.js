@@ -68,7 +68,7 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 					if (field.displayType == 'text' || field.displayType == 'textarea' || field.displayType == 'choice' || field.displayType == 'autonumber' || field.displayType == 'state') {
 						field.dbType = 'String';
 						if (field.displayType == 'state') {
-							collection.stateChoices = field.choices;
+							field.choices = collection.stateChoices;
 						}
 					} else if (field.displayType == 'datetime') {
 						field.dbType = 'Date';

@@ -57,8 +57,6 @@ mainApp.config(function($routeProvider) {
   $routeProvider.when('/account/users/view', { templateUrl: 'views/users.html', controller: 'userController'});
   $routeProvider.when('/account/users/view/:user', { templateUrl: 'views/user.html', controller: 'userController'});
 
-  $routeProvider.when('/mysettings', { templateUrl: 'views/mysettings.html', controller: 'supportController'});
-
   // Finally, add the routes for each custom collection dynamically
   for (var collection in COLLECTIONS) {
     $routeProvider.when('/' + collection, { templateUrl: 'views/itemboard.html', controller: 'itemController'});  // List view

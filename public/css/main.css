@@ -762,30 +762,43 @@ a:hover {
 }
 
 
-.infinitePulse {
-  animation: bounceArrow .25s 4 linear;
+.wiggle {
+  animation: wiggle .25s 6 linear;
 }
 
-@keyframes bounceArrow {
-
+@keyframes wiggle {
     0%   {
       transform:rotate(0deg);
     }
-
     25%  {
-      transform:rotate(10deg);
+      transform:rotate(3deg);
     }
-
     75%  {
-      transform:rotate(-10deg);
+      transform:rotate(-3deg);
     }
-
     100% {
       transform:rotate(0deg);
     }
-
 }
 
+.glowYellow {
+  animation: glowYellow .5s infinite linear;
+}
+
+@keyframes glowYellow {
+    0%   {
+      transform: scale(1,1);
+      box-shadow: 0px 0px 5px #fff;
+    }
+    50%  {
+      transform: scale(1.05,1.05);
+      box-shadow: 0px 0px 5px #000;
+    }
+    100% {
+      transform: scale(1,1);
+      box-shadow: 0px 0px 5px #fff;
+    }
+}
 
 
 

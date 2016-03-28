@@ -2,7 +2,7 @@
 <div ng-if="!currentUser.org.primaryCollection" class="container-fluid text-center" style="margin-top:50px;">
   <div class="col-md-12">
     <h2 class="pageHeading">Aww snap! You haven't set up your work items!</h2>
-    <a class="btn btn-success infinitePulse" href="#/account/collections/new"><h3 class="noSpace">Get started now</h3></a>
+    <a class="btn btn-success wiggle" href="#/account/collections/new"><h3 class="noSpace">Get started now</h3></a>
   </div>
 </div>
 <!-- Page Header -->
@@ -17,7 +17,7 @@
 
 <!-- Page Content -->
 <div ng-if="currentUser.org.primaryCollection" class="container-fluid noSpace">
-  <div class="col-md-3 noSpaceMobile">
+  <div class="col-md-4 noSpaceMobile">
     <a ng-href="#/{{primaryCollection}}/new" class="menuCardContainerActive">
       <span class="menuCardIcon fa fa-plus"></span>
       <span class="cardTitleBreaker"></br></span>
@@ -25,27 +25,19 @@
     </a>
   </div>
   
-  <div class="col-md-3 noSpaceMobile">
-    <a ng-href="#/{{primaryCollection}}/search?state=Open" class="menuCardContainer">
-      <span class="menuCardIcon fa fa-inbox"></span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">Open</span>
-    </a>
-  </div>
+  <div ng-repeat="state in collections[primaryCollection].stateChoices" class="col-md-4 noSpaceMobile">
+    <a ng-href="#/{{primaryCollection}}/search?state={{state}}" class="menuCardContainer">
+      
+      <span class="menuCardIcon fa">
+        <span ng-if="!itemsLoading">
+          <strong>{{itemCountByState[state]}}</strong>
+        </span>
+        <span ng-if="itemsLoading" class="fa fa-refresh fa-spin"></span>
 
-  <div class="col-md-3 noSpaceMobile">
-    <a ng-href="#/{{primaryCollection}}/search?state=In%20Progress" class="menuCardContainer">
-      <span class="menuCardIcon fa fa-refresh"></span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">In Progress</span>
-    </a>
-  </div>
+      </span>
 
-  <div class="col-md-3 noSpaceMobile">
-    <a ng-href="#/{{primaryCollection}}/search?state=Complete" class="menuCardContainer">
-      <span class="menuCardIcon fa fa-check-square-o"></span>
       <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">Complete</span>
+      <span class="menuCardTitle">{{ state }}</span>
     </a>
   </div>
 
