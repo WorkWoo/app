@@ -112,13 +112,13 @@
 			            	</select>
 
 			            	<!-- If the field is a choice type, show the choices editor -->
-			            	<span ng-if="field.displayType == 'choice'" class="fade-in-out">
-				            	<button ng-if="!field.sysProvided" ng-disabled="collectionsLoading" type="button" data-toggle="collapse" data-target="#{{fieldIndex}}_choices" class="btn btn-success btn-block" style="margin-bottom:3px;">
+			            	<span ng-if="field.displayType == 'choice'" class="fade-in-out" ng-attr-id="{{fieldIndex}}_parent">
+				            	<button ng-if="!field.sysProvided" ng-disabled="collectionsLoading" type="button" ng-click="toggleFieldChoices(fieldIndex + '_choices')" class="btn btn-success btn-block" style="margin-bottom:3px;">
 				            		<i class="fa fa-bars"></i>
 				            		<span> Edit choices</span>
 				            	</button>
 				            	
-				            	<div ng-attr-id="{{fieldIndex}}_choices" class="collapse">
+				            	<div ng-if="showChoices(fieldIndex + '_choices')" class="fadeExpandDown">
 				            		<!-- No options -->
 				            		<div ng-if="field.choices.length == 0" class="col-md-12 noSpace">
 				            			<input disabled="true" class="form-control defaultInput" value="You haven't added any!" style="border-right:none;margin-bottom:2px;" type="text">

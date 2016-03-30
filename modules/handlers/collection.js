@@ -121,6 +121,7 @@ exports.create = function(req, res) {
 									if (error) {
 										log.error('|collection.create| Unknown error -> ' + error, widget);
 									} else {
+										req.session.userprofile.org.primaryCollection = savedCollection.name;
 										res.send(JSON.stringify({ collections: collectionsObject.collections }));
 									}
 								});

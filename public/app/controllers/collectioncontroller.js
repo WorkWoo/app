@@ -14,6 +14,8 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
   $scope.startWorkSettingsTour = false;
   $scope.workSettingsTourConfig = tourConfig.getWorkSettingsTourConfig($scope);
 
+
+
   $scope.getAllCollections = function(collectionName) {
     $scope.collectionsLoading = true;
     var queryParams = {
@@ -74,6 +76,10 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
 
   $scope.updateCollection = function() {
     $scope.collectionsLoading = true;
+
+    log.info('COLLECTION:');
+    log.object($scope.selectedCollection);
+    return;
     Collection.update($scope.selectedCollection,
       function(updatedCollections){
         log.info('Success');
@@ -102,7 +108,7 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
         $scope.selectedCollection = {};
         $scope.currentAction = null;
         $scope.collectionsLoading = false;
-        $scope.changeView('account/collections');
+        $scope.changeView('/');
         location.reload();
       },
       function() {
@@ -229,6 +235,25 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     }
     $scope.selectedCollection.fields.push(newField);
   };
+
+
+  $scope.toggleFieldChoices = function(fieldID) {
+    if ($scope['show' + fieldID] == undefined) {
+      $scope['show' + fieldID] = true;
+    } else {
+      $scope['show' + fieldID] = !$scope['show' + fieldID];
+    }
+  };
+
+
+  $scope.showChoices = function(fieldID) {
+    if($scope['show' + fieldID]) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
 
   $scope.tiggerWorkSettingsTour = function() {
     $scope.startWorkSettingsTour = true;
