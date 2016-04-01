@@ -148,6 +148,7 @@ function initializeApp() {
 		app.route('/deleteUsers').post(validateRequest(), user.deleteMultiple);
 		app.route('/getUser').get(validateRequest(), user.getUser);
 		app.route('/getAllUsers').get(validateRequest(), user.getAll);
+		app.route('/setIsNewUser').get(validateRequest(), user.setIsNewUser);
 
 		app.get('/logout', function(req, res){
 			log.info('|logout|', widget);
