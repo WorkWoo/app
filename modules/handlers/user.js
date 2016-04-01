@@ -12,6 +12,30 @@ var log = require('workwoo-utils').logger;
 var widget = 'user-management';
 log.registerWidget(widget);
 
+exports.setIsNewUser = function(req, res) {
+	try {
+		log.info('|user.setIsNewUser|', widget);
+
+		var userId = req.session.userprofile.id;
+
+		User.findById(userId, function(error, user) {
+    		if (error) {
+				log.error('|user.setIsNewUser.findById| Unknown  -> ' + error, widget);
+				utility.errorResponseJSON(res, 'Error occurred setting is new user');
+			} else {			
+				user.newUser = req.body.setIsNewUser;
+
+		    	user.save(function(error, user) {
+					res.send(JSON.stringify({result: true}));
+		    	});
+			}
+    	});
+
+	} catch (error) {
+		log.error('|user.create| Unknown -> ' + error, widget);
+		utility.errorResponseJSON(res, 'Error occurred setting is new user');
+	}
+};
 
 exports.create = function(req, res) {
 	try {
