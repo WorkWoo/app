@@ -26,6 +26,7 @@ exports.setIsNewUser = function(req, res) {
 				user.newUser = req.body.setIsNewUser;
 
 		    	user.save(function(error, user) {
+		    		req.session.userprofile.newUser = user.newUser;
 					res.send(JSON.stringify({result: true}));
 		    	});
 			}
