@@ -1,4 +1,4 @@
-function mainController($scope, $location, $sce) {
+function mainController($scope, $location, $sce, User) {
   log.info('|mainController|');
 
   $scope.pageLoading = true;
@@ -101,6 +101,18 @@ function mainController($scope, $location, $sce) {
   $scope.skipMainTour = function() {
     $scope.startMainTour = false;
   }
+
+  $scope.setIsNewUser = function() {
+    log.info('|mainController|.setIsNewUser');
+    User.setIsNewUser(false,
+      function(response){
+        log.info('Success');
+      },
+      function(response) {
+        log.error('Failed');
+      }
+    );
+  };
   
   $scope.initializeMainController = function() {
     var currentView = $location.path();
@@ -114,8 +126,9 @@ function mainController($scope, $location, $sce) {
 
     if ($scope.currentUser.newUser) {
       $scope.startMainTour = true;
-    }
+      $scope.setIsNewUser();
 
+    }
     
   };
 

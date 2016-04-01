@@ -225,6 +225,17 @@ function User($http) {
     );
   };
 
+  User.setIsNewUser = function(trueFalse, onSuccess, onFail) {
+    $http({ url: '/setIsNewUser', method: 'POST', data: { setIsNewUser: trueFalse } })
+      .then(function success(response) {
+        onSuccess(response);
+      },
+      function fail(response) {
+        onFail(response);
+      }
+    );
+  };
+
   return User;
 }
 
