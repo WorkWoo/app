@@ -14,7 +14,7 @@
 <div ng-if="!currentUser.org.primaryCollection" class="container-fluid text-center" style="margin-top:50px;">
   <div class="col-md-12">
     <h2 class="pageHeading">You haven't set anything up yet!</h2>
-    <a class="btn btn-success" href="#/account/collections/new"><h3 class="noSpace">Set up now</h3></a>
+    <a id="setUpNow" class="btn btn-success" href="#/account/collections/new"><h3 class="noSpace">Set up now</h3></a>
   </div>
 </div>
 <!-- Page Header -->
@@ -32,8 +32,8 @@
     </span>
   </div>
 
-  <div ng-repeat="collection in loadedCollections" class="col-md-4 noSpaceMobile">
-    <a id='workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
+  <div ng-repeat="(collectionIndex, collection) in loadedCollections" class="col-md-4 noSpaceMobile">
+    <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
       <span class="menuCardIcon fa" ng-class="collection.icon"></span>
       <span class="cardTitleBreaker"></br></span>
       <span class="menuCardTitle">{{collection.pluralLabel}}</span>

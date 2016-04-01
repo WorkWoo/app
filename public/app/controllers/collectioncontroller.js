@@ -332,7 +332,10 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
         ]
       }
       $scope.setPageLoading(false);
-      $scope.startWorkSettingsTour = true;
+
+      if (!$scope.startMainTour) {
+        $scope.tiggerWorkSettingsTour();
+      }
       return;
     }
 
