@@ -8,8 +8,8 @@ var dateTimePicker = function () {
 	    restrict: 'A',
 	    require: 'ngModel',
 	    link: function (scope, element, attributes, ctrl) {
-            if (scope.item[attributes.dateTimePicker]) {
-                ctrl.$setViewValue(moment(scope.item[attributes.dateTimePicker]).format(format));
+            if (scope.selectedItem[attributes.dateTimePicker]) {
+                ctrl.$setViewValue(moment(scope.selectedItem[attributes.dateTimePicker]).format(format));
                 ctrl.$render();
             }
 

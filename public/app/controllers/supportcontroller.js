@@ -1,6 +1,7 @@
 function supportController($scope, $timeout) {
   log.info('|supportController|');
   $scope.formSubmitting = false;
+  $scope.setPageLoading(false);
   $scope.helpSubmission = {
   	urgency: 'Today'
   }
