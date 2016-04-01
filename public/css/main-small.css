@@ -56,9 +56,10 @@
   .itemCard {
     border-radius: 0px;
     background-color: #fcfcfc;
-    border: 1px dashed #d8d8d8;
-    border-left: 1px solid #fcfcfc;
-    border-right: 1px solid #fcfcfc;
+    border-top: 2px solid #e8e8e8;
+    border-left: 2px solid #fcfcfc;
+    border-right: 2px solid #fcfcfc;
+    border-bottom: 2px solid #e8e8e8;
     margin: 10px 0px 10px 0px;
     padding: 5px;
     height: 110px;
@@ -70,11 +71,12 @@
   .itemCardActive {
     height: auto;
     border-radius: 0px;
-    border-left: 1px solid #fcfcfc;
-    border-right: 1px solid #fcfcfc;
+    border-top: 2px solid #c8e0d6;
+    border-left: 2px solid #fcfcfc;
+    border-right: 2px solid #fcfcfc;
+    border-bottom: 2px solid #c8e0d6;
     background-color: #e9f2ee;
     padding: 5px;
-    border: 1px dotted #d8d8d8;
     margin: 10px 0px 0px 0px;
   }
 
@@ -154,6 +156,19 @@
 
   .itemDisplayTitle {
     display: none;
+  }
+
+  .itemInfoUpdate {
+    padding-top: 5px;
+    text-align: center;
+  }
+
+  .itemInfoNumber {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
   }
 
 

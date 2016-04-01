@@ -48,7 +48,8 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 				collection.pluralLabel = updatedCollection.pluralLabel;
 				collection.singleLabel = inflect.singularize(collection.pluralLabel);
 			 	collection.name = collection.pluralLabel.toLowerCase().replace(/ /g,''); // Lowercase and remove spaces
-				
+				collection.stateChoices = updatedCollection.stateChoices;
+
 				// Now iterate through each field to do several thing:
 				// 1. Lowercase and remove space from the provided field names
 				// 2. Count the number of fields for list views.
@@ -68,7 +69,7 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 					if (field.displayType == 'text' || field.displayType == 'textarea' || field.displayType == 'choice' || field.displayType == 'autonumber' || field.displayType == 'state') {
 						field.dbType = 'String';
 						if (field.displayType == 'state') {
-							field.choices = collection.stateChoices;
+							field.choices = updatedCollection.stateChoices;
 						}
 					} else if (field.displayType == 'datetime') {
 						field.dbType = 'Date';

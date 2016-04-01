@@ -10,6 +10,7 @@ function itemController($scope, $location, $routeParams, Item) {
   $scope.baseCollection = null;
 
   $scope.itemsLoading = true;
+  $scope.setPageLoading(true);
   $scope.selectedItemSubmitting = false;
 
   $scope.itemCountByState = {};
@@ -78,6 +79,8 @@ function itemController($scope, $location, $routeParams, Item) {
 
 
   $scope.load = function() {
+    log.info('Loading items');
+
     $scope.setPageLoading(true);
     $scope.itemsLoading = true;
     var queryParams = {
@@ -114,9 +117,9 @@ function itemController($scope, $location, $routeParams, Item) {
 
   $scope.getItemStateButtonClass = function(stateChoice, selectedItemState) {
     if(stateChoice == selectedItemState) {
-      return 'btn-success';
+      return 'btn-success btn-sm';
     } else {
-      return 'btn-default';
+      return 'btn-default btn-sm';
     }
   };
 
@@ -140,13 +143,15 @@ function itemController($scope, $location, $routeParams, Item) {
     Item.getAll(queryParams,
       function(result){
         // Success
-        $scope.itemsLoading = false;
-        $scope.setPageLoading(false);
+
 
         // Update the state count
         for (var i=0; i<result.items.length; i++) {
           $scope.itemCountByState[result.items[i].state] = $scope.itemCountByState[result.items[i].state] + 1;
         }
+
+        $scope.itemsLoading = false
+        $scope.setPageLoading(false);
 
       },
       function() {
@@ -472,8 +477,12 @@ function itemController($scope, $location, $routeParams, Item) {
       currentURL = currentURL.slice(0, currentURL.indexOf('/new'));
       $scope.baseCollection = currentURL.slice(1);
       $scope.currentAction = 'create';
-      $scope.selectedItem = { collectionName: $scope.primaryCollection };
+      $scope.selectedItem = {
+        collectionName: $scope.primaryCollection,
+        state: $scope.collections[$scope.primaryCollection].stateChoices[0]
+      };
       $scope.itemsLoading = false;
+      $scope.setPageLoading(false);
       return;
     }
 
@@ -515,6 +524,7 @@ function itemController($scope, $location, $routeParams, Item) {
         $scope.itemsLoading = false;
         log.info('Already loaded');
       }
+      $scope.setPageLoading(false);
       return;
     }
 
@@ -523,7 +533,6 @@ function itemController($scope, $location, $routeParams, Item) {
       $scope.baseCollection = $scope.currentUser.org.primaryCollection;
       $scope.selectedItem = {};
       $scope.countItemsByState($scope.baseCollection);
-      $scope.setPageLoading(false);
       return;
     }
 

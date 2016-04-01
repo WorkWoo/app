@@ -1,148 +1,130 @@
-<form name="itemForm" ng-model="selectedItem" ng-submit="preSubmit(selectedItem)" novalidate>
 
-  <!-- Page Header -->
-  <div class="container-fluid noSpaceMobile" style="margin-top:10px;">
-    <!-- Title -->
-    <div class="col-md-8 noSpaceMobile">
-      <div class="breadCrumb">
-        <a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> Back to {{ collections[selectedItem.collectionName].singleLabel }} list</a>
-      </div>
-    </div>
-  </div>
-  <!-- Page Header -->
+<div ng-if="!itemsLoading" class="fadeInOut">
 
-  <!-- Page Content -->
-  <div class="container-fluid singleItemOuterContainer noSpaceMobile">
+  <form name="itemForm" ng-model="selectedItem" ng-submit="preSubmit(selectedItem)" novalidate>
 
-    <style>
-
-      .itemInfo {
-        color: #477c65;
-        border: 1px solid #b8d7ca;
-        background-color: #c8e0d6;
-        padding: 10px;
-        margin: 8px 0px 10px 0px;
-      }
-
-      .itemInfoNumber {
-        font-size: 22px;
-        font-weight: bold;
-        margin: 0px;
-        padding: 0px;
-      }
-
-      .itemInfoUpdate {
-        padding-top: 5px;
-      }
-
-    </style>
-
-
-    <div class="container-fluid itemInfo">
-      
-      <!-- Item Number -->
-      <div class="col-md-6">
-        <h4 class="itemInfoNumber">
-          <span ng-if="currentAction == 'create'"><strong>New {{ collections[selectedItem.collectionName].singleLabel }}</strong></span>
-          <span ng-if="currentAction == 'update'"><strong>{{ collections[selectedItem.collectionName].singleLabel }} #{{ selectedItem.number }}</strong></span>
-        </h4>
-      </div>
-
-      <!-- State -->
-      <div class="col-md-6 text-right">
-        
-        <!-- State buttons for large view -->
-        <div class="btn-group hideInMobile">
-          <button type="button" style="width:95px;" class="btn" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
-        </div>
-
-        <!-- State buttons for mobile view -->
-        <div class="row hideInDesktop noSpace" style="padding: 10px 0px 10px 0px; margin: 5px 0px 5px 0px;background-color:#fcfcfc;border-radius:5px;">
-          <div class="col-md-12" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices">
-            <button style="margin:3px;" type="button" class="btn btn-block" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
-          </div>
-        </div>
-
-
-      </div>
-
+    <!-- Page Header -->
+    <div class="container-fluid noSpaceMobile" style="margin-top:10px;">
       <!-- Title -->
-      <div class="col-md-6">
-        <input ng-disabled="selectedItemSubmitting" type="text" class="form-control defaultInput" value="" ng-model="selectedItem.title" size="20"/>
+      <div class="col-md-8 noSpaceMobile">
+        <div class="breadCrumb">
+          <a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> All {{ collections[selectedItem.collectionName].pluralLabel }}</a>
+        </div>
       </div>
-
-      <!-- Last update info -->
-      <div class="col-md-6 text-right">
-        <div class="itemInfoUpdate">Last updated: <strong>{{ formattedDateTime(selectedItem.updated_at) }}</strong> By: <strong>{{ selectedItem._updated_by.firstName }}</strong></div>
-      </div>
-
-
     </div>
+    <!-- Page Header -->
 
-    <div class="container-fluid singleItemInnerContainer noSpaceMobile" style="padding:25px;">
+    <!-- Page Content -->
+    <div class="container-fluid singleItemOuterContainer noSpaceMobile">
 
-      <!-- Begin building each single field -->
-      <div ng-repeat="field in collections[selectedItem.collectionName].fields" ng-if="field.name != 'number' && field.name != 'state' && field.name != 'title'" class="form-group fadeInOut" ng-class="getItemFieldClass(selectedItem, field)">
-        <label for="{{ field.name }}"><strong>{{ field.label }}:</strong></label>
-
-        <!-- Short text input -->
-        <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'text' || field.displayType == 'boolean'" type="text" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" size="20"/>
+      <div class="container-fluid itemInfo">
         
-        <!-- Textarea -->
-        <textarea ng-disabled="selectedItemSubmitting || currentAction == 'preview'" style="resize:vertical;" ng-if="field.displayType == 'textarea'" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" rows="5" size="20"></textarea>
-
-        <!-- Choice list -->
-        <select ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'choice'" ng-options="option for option in field.choices" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]"></select>
-
-        <!-- Date Time Picker -->
-        <div class='input-group date' id='datetimepicker1' ng-if="field.displayType == 'datetime'">
-          <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" date-time-picker="{{field.name}}"/>
-          <span class="input-group-addon">
-              <span class="glyphicon glyphicon-calendar"></span>
-          </span>
+        <!-- Item Number -->
+        <div class="col-md-4">
+          <h4 class="itemInfoNumber">
+            <span ng-if="currentAction == 'create'"><strong>New {{ collections[selectedItem.collectionName].singleLabel }}</strong></span>
+            <span ng-if="currentAction == 'update'"><strong>{{ collections[selectedItem.collectionName].singleLabel }} #{{ selectedItem.number }}</strong></span>
+          </h4>
         </div>
 
-        <!-- Single Reference -->
-        <span ng-if="field.displayType == 'SingleReference'">
-          <!-- Hidden value that hold the entire reference item object -->
-          <input type="hidden" ng-model="selectedItem[field.name]"/>
-          <!-- Displayed value with nav and edit buttons -->
-          <div class="input-group">
-            <input type="text" class="form-control defaultInput" ng-disabled="true" ng-value="selectedItem[field.name][collections[field.referenceTo].displayField]" size="20"/>
-            <span ng-disabled="selectedItemSubmitting" ng-click="openItemPreview(selectedItem[field.name])" class="input-group-addon ref-info-icon"><i class="glyphicon glyphicon glyphicon-new-window"></i></span>
-            <span ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-click="loadReferenceItems(field.referenceTo, field.name, 'single')" class="input-group-addon single-ref-select-button">Select</span>
+        <!-- State -->
+        <div class="col-md-8 text-right">
+          
+          <!-- State buttons for large view -->
+          <div class="btn-group hideInMobile fadeInOut">
+            <button type="button" class="btn" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
+          </div>
+
+          <!-- State buttons for mobile view -->
+          <div class="row hideInDesktop noSpace" style="padding: 10px 0px 10px 0px; margin: 5px 0px 5px 0px;background-color:#fcfcfc;border-radius:5px;">
+            <div class="col-md-12" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices">
+              <button style="margin:3px;" type="button" class="btn btn-block" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- Title -->
+        <div class="col-md-6">
+          <input ng-disabled="selectedItemSubmitting" type="text" class="form-control defaultInput" placeholder="Title" value="" ng-model="selectedItem.title" size="20"/>
+        </div>
+
+        <!-- Last update info -->
+        <div class="col-md-6">
+          <div ng-if="currentAction == 'update'" class="itemInfoUpdate">Last updated by {{ selectedItem._updated_by.firstName }} on {{ formattedDateTime(selectedItem.updated_at) }}</div>
+        </div>
+
+
+      </div>
+
+      <div class="container-fluid singleItemInnerContainer noSpaceMobile" style="padding:25px;">
+
+        <!-- Begin building each single field -->
+        <div ng-repeat="field in collections[selectedItem.collectionName].fields" ng-if="field.name != 'number' && field.name != 'state' && field.name != 'title'" class="form-group fadeInOut" ng-class="getItemFieldClass(selectedItem, field)">
+          <label for="{{ field.name }}"><strong>{{ field.label }}:</strong></label>
+
+          <!-- Short text input -->
+          <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'text' || field.displayType == 'boolean'" type="text" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" size="20"/>
+          
+          <!-- Textarea -->
+          <textarea ng-disabled="selectedItemSubmitting || currentAction == 'preview'" style="resize:vertical;" ng-if="field.displayType == 'textarea'" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" rows="5" size="20"></textarea>
+
+          <!-- Choice list -->
+          <select ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'choice'" ng-options="option for option in field.choices" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]"></select>
+
+          <!-- Date Time Picker -->
+          <div class='input-group date' id='datetimepicker1' ng-if="field.displayType == 'datetime'">
+            <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" date-time-picker="{{field.name}}"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
             </span>
           </div>
-        </span>
-      </div>
-      <!-- End Single field -->
 
-      <!-- Button Row -->
-      <div class="col-md-12">
-        <!-- Spacer -->
-        <div class="col-md-8"></div>
-        <!-- Delete button -->
-        <div class="col-md-2" style="padding:5px;">
-          <button ng-if="currentAction == 'update'" ng-disabled="selectedItemSubmitting" ng-click="deleteOne(selectedItem)" class="btn btn-danger btn-block">Delete</button>
+          <!-- Single Reference -->
+          <span ng-if="field.displayType == 'SingleReference'">
+            <!-- Hidden value that hold the entire reference item object -->
+            <input type="hidden" ng-model="selectedItem[field.name]"/>
+            <!-- Displayed value with nav and edit buttons -->
+            <div class="input-group">
+              <input type="text" class="form-control defaultInput" ng-disabled="true" ng-value="selectedItem[field.name][collections[field.referenceTo].displayField]" size="20"/>
+              <span ng-disabled="selectedItemSubmitting" ng-click="openItemPreview(selectedItem[field.name])" class="input-group-addon ref-info-icon"><i class="glyphicon glyphicon glyphicon-new-window"></i></span>
+              <span ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-click="loadReferenceItems(field.referenceTo, field.name, 'single')" class="input-group-addon single-ref-select-button">Select</span>
+              </span>
+            </div>
+          </span>
         </div>
-        <!-- Buttons -->
-        <div class="col-md-2" style="padding:5px;">
-          <!-- Create -->
-          <button ng-if="currentAction == 'create'" ng-disabled="selectedItemSubmitting" type="submit" class="btn btn-primary btn-block">
-            <span ng-if="!selectedItemSubmitting">Submit</span>
-            <span ng-if="selectedItemSubmitting"><span class="fa fa-refresh fa-spin"></span> Submitting</span>
-          </button>
-          <!-- Update -->
-          <button ng-if="currentAction == 'update'" ng-disabled="selectedItemSubmitting" type="submit" class="btn btn-primary btn-block">
-            <span ng-if="!selectedItemSubmitting">Save</span>
-            <span ng-if="selectedItemSubmitting"><span class="fa fa-refresh fa-spin"></span> Saving</span>
-          </button>
-        </div>
-      </div>
-      <!-- Button Row -->
+        <!-- End Single field -->
 
+        <!-- Button Row -->
+        <div class="col-md-12">
+          <!-- Spacer -->
+          <div class="col-md-8"></div>
+          <!-- Delete button -->
+          <div class="col-md-2" style="padding:5px;">
+            <button ng-if="currentAction == 'update'" ng-disabled="selectedItemSubmitting" ng-click="deleteOne(selectedItem)" class="btn btn-danger btn-block">Delete</button>
+          </div>
+          <!-- Buttons -->
+          <div class="col-md-2" style="padding:5px;">
+            <!-- Create -->
+            <button ng-if="currentAction == 'create'" ng-disabled="selectedItemSubmitting" type="submit" class="btn btn-primary btn-block">
+              <span ng-if="!selectedItemSubmitting">Submit</span>
+              <span ng-if="selectedItemSubmitting"><span class="fa fa-refresh fa-spin"></span> Submitting</span>
+            </button>
+            <!-- Update -->
+            <button ng-if="currentAction == 'update'" ng-disabled="selectedItemSubmitting" type="submit" class="btn btn-primary btn-block">
+              <span ng-if="!selectedItemSubmitting">Save</span>
+              <span ng-if="selectedItemSubmitting"><span class="fa fa-refresh fa-spin"></span> Saving</span>
+            </button>
+          </div>
+        </div>
+        <!-- Button Row -->
+
+      </div>
     </div>
-  </div>
-  <!-- Page Content -->
+    <!-- Page Content -->
 
-</form>
+  </form>
+
+
+</div>

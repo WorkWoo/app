@@ -159,7 +159,7 @@ exports.update = function(req, res) {
 		var updatedCollection = req.body.collection;
 
 		// Enforce Org Separation
-		if (updatedCollection._org._id != orgID) {
+		if (updatedCollection._org != orgID) {
 			log.error('|collection.update| UNAUTHORIZED', widget);
     		utility.errorResponseJSON(res, 'UNAUTHORIZED');
 		}

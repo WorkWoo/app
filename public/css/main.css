@@ -246,6 +246,7 @@ a:hover {
 }
 
 .menuCardContainerActive {
+  border: 1px dashed #c8e0d6;
   background-color: #e9f2ee;
 }
 
@@ -257,20 +258,13 @@ a:hover {
   text-decoration: none;
   cursor: pointer;
   background-color: #fff;
-  border: 1px solid #fff;
-  box-shadow:
-    1px 1px 0px #67A88C,
-    -1px -1px 0px #67A88C,
-    -1px 1px 0px #67A88C,
-    1px -1px 0px #67A88C,
-    1px 0px 0px #67A88C,
-    0px 1px 0px #67A88C,
-    -1px 0px 0px #67A88C,
-    0px -1px 0px #67A88C;
+  border: 1px solid #67A88C;
 }
 
 .menuCardIcon {
-  font-size: 40px;
+  padding: 0px;
+  margin: 0px;
+  font-size: 30px;
   color: #67A88C;
 }
 
@@ -307,6 +301,7 @@ a:hover {
 }
 
 .itemCardActive {
+  border: 1px dashed #c8e0d6;
   background-color: #e9f2ee;
   padding: 15px;
 }
@@ -314,16 +309,7 @@ a:hover {
 .itemCard:hover, .itemCardActive:hover {
   cursor: pointer;
   background-color: #fff;
-  border: 1px solid #fff;
-  box-shadow:
-    1px 1px 0px #67A88C,
-    -1px -1px 0px #67A88C,
-    -1px 1px 0px #67A88C,
-    1px -1px 0px #67A88C,
-    1px 0px 0px #67A88C,
-    0px 1px 0px #67A88C,
-    -1px 0px 0px #67A88C,
-    0px -1px 0px #67A88C;
+  border: 1px solid #67A88C;
 }
 
 .itemCardActiveLink:hover {
@@ -417,7 +403,10 @@ a:hover {
   background-color: #fcfcfc;
   border: 1px dashed #d8d8d8;
   padding: 10px;
-  margin: 0px;
+  margin-top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
 }
 
 .defaultInput {
@@ -463,6 +452,28 @@ a:hover {
 
 .inputContainer {
   padding: 5px;
+}
+
+
+.itemInfo {
+  color: #477c65;
+  border: 1px solid #b8d7ca;
+  background-color: #c8e0d6;
+  padding: 10px;
+  margin: 8px 0px 10px 0px;
+}
+
+.itemInfoNumber {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0px;
+  padding: 0px;
+  text-align: left;
+}
+
+.itemInfoUpdate {
+  padding-top: 10px;
+  text-align: right;
 }
 
 
@@ -674,16 +685,23 @@ a:hover {
 
 /* Fade in and fade out */
 .fadeInOut.ng-enter {
-  transition: .75s;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
   opacity: 0;
 }
+
 .fadeInOut.ng-enter-active {
   opacity: 1;
 }
+
 .fadeInOut.ng-leave {
   opacity: 1;
 }
-.fadeInOut.ng-leave-active {
+
+.fadeInOut.ng-leave-active { 
   opacity: 0;
 }
 
@@ -778,24 +796,7 @@ a:hover {
     }
 }
 
-.glowYellow {
-  animation: glowYellow .5s infinite linear;
-}
 
-@keyframes glowYellow {
-    0%   {
-      transform: scale(1,1);
-      box-shadow: 0px 0px 5px #fff;
-    }
-    50%  {
-      transform: scale(1.05,1.05);
-      box-shadow: 0px 0px 5px #000;
-    }
-    100% {
-      transform: scale(1,1);
-      box-shadow: 0px 0px 5px #fff;
-    }
-}
 
 
 

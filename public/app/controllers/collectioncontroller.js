@@ -88,7 +88,7 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
         $scope.selectedCollection = {};
         $scope.currentAction = null;
         $scope.collectionsLoading = false;
-        $scope.changeView('account/');
+        $scope.changeView('/');
         location.reload();
       },
       function() {
@@ -289,7 +289,7 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
         collectionType: 'workable',
         displayField: 'title',
         icon: 'fa-wrench',
-        stateChoices: ['Open', 'In Progress', 'Complete'],
+        stateChoices: ['Open', 'In Progress', 'Complete', 'Cancelled'],
         fields: [
           {
             "showOnNew": false,

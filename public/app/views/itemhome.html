@@ -17,27 +17,24 @@
 
 <!-- Page Content -->
 <div ng-if="currentUser.org.primaryCollection" class="container-fluid noSpace">
-  <div class="col-md-4 noSpaceMobile">
+  <div class="col-md-3 noSpaceMobile">
     <a ng-href="#/{{primaryCollection}}/new" class="menuCardContainerActive">
-      <span class="menuCardIcon fa fa-plus"></span>
+      <span class="menuCardIcon noSpace">
+        <span class="fa fa-plus"></span>
+      </span>
       <span class="cardTitleBreaker"></br></span>
       <span class="menuCardTitle">Create New</span>
     </a>
   </div>
   
-  <div ng-repeat="state in collections[primaryCollection].stateChoices" class="col-md-4 noSpaceMobile">
+  <div ng-repeat="state in collections[primaryCollection].stateChoices" class="col-md-3 noSpaceMobile">
     <a ng-href="#/{{primaryCollection}}/search?state={{state}}" class="menuCardContainer">
-      
-      <span class="menuCardIcon fa">
-        <span ng-if="!itemsLoading">
-          <strong>{{itemCountByState[state]}}</strong>
+        <span ng-if="itemsLoading" class="menuCardIcon noSpace">
+          <span class="fa fa-refresh fa-spin"></span>
         </span>
-        <span ng-if="itemsLoading" class="fa fa-refresh fa-spin"></span>
-
-      </span>
-
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">{{ state }}</span>
+        <span ng-if="!itemsLoading" class="menuCardIcon fadeInOut">{{itemCountByState[state]}}</span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitle">{{ state }}</span>
     </a>
   </div>
 
