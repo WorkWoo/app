@@ -64,8 +64,8 @@ tourConfig.getMainTourConfig = function($scope) {
 
   config.push({ type: "element",
                 selector: "#accountMenuItem",
-                heading: "Navigation: The <i class='fa fa-cogs' /> Icon",
-                text: "Now let's start setting up WorkWoo the way you want. <div class='alert alert-success'><em>Click on the <i class='fa fa-cogs' /> icon to access your WorkWoo Settings</em></div>",
+                heading: "Navigation: The <i class='fa fa-cog' /> Icon",
+                text: "Now let's start setting up WorkWoo the way you want. <div class='alert alert-success'><em>Click on the <i class='fa fa-cog' /> icon to access your WorkWoo Settings</em></div>",
                 placement: "auto right",
                 advanceOn: {element: '#accountMenuItem', event: 'click'},
                 attachToBody: "true",
@@ -109,25 +109,28 @@ tourConfig.getWorkSettingsTourConfig = function($scope) {
   
   config.push({ type: "element",
                 selector: "#collectionNameContainer",
-                text: "What do you call your Workable Item?<br><span class='small'><em>Provide a name and click Next when done.</em></span>",
+                heading: "Workable Item Name",
+                text: "What do you call your Workable Item? This is the main identifier for items of this type.<div class='alert alert-success'><em>Provide a name and click Next when done.</em></div>",
                 placement: "auto right",
-                attachToBody: "true",
-                scroll: true,
+                //attachToBody: "true",
+                scroll: false,
                 elementTemplate: customElementTemplate
               });
 
   config.push({ type: "element",
                 selector: "#numberPrefixContainer",
-                text: "All Workable Items within WorkWoo are numbered with a prefix (ex: WO134563). What prefix would you like to use for this Workable Item?<br><span class='small'><em>Provide a prefix and click Next when done.</em></span>",
+                heading: "Workable Item Prefix",
+                text: "All Workable Items within WorkWoo are numbered with a prefix (ex: <b><u>WO</u></b>134563). What prefix would you like to use for this Workable Item?<div class='alert alert-success'><em>Provide a prefix and click Next when done.</em></div>",
                 placement: "auto right",
-                attachToBody: "true",
+                //attachToBody: "true",
                 scroll: true,
                 elementTemplate: customElementTemplate
               });
 
   config.push({ type: "element",
                 selector: "#stateContainer",
-                text: "Workable Items in WorkWoo have a state model. We've provided some standard states; however, you can customize it to your business. <br><span class='small'><em>Click on the <span class='fa fa-plus'></span> Add State button to add a new state<br>Click on the <i class='fa fa-remove'></i> button to remove a state<br><br>Click next when done.</em></span>",
+                heading: "Workable Item State Model",
+                text: "Workable Items in WorkWoo have a state model. We've provided some standard states; however, you can customize it to your business. <div class='alert alert-info'><em>Tips: Click on the <span class='fa fa-plus'></span> Add State button to add a new state<br>Click on the <i class='fa fa-remove'></i> button to remove a state</em></div><div class='alert alert-success'><em>Click next when done.</em></div>",
                 placement: "auto right",
                 attachToBody: "true",
                 scroll: true,
