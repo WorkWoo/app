@@ -79,7 +79,7 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
 
     log.info('COLLECTION:');
     log.object($scope.selectedCollection);
-    return;
+
     Collection.update($scope.selectedCollection,
       function(updatedCollections){
         log.info('Success');

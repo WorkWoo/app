@@ -54,6 +54,8 @@ function itemController($scope, $location, $routeParams, Item) {
     Item.getOne($scope.baseCollection, itemNumber,
       function(item){
         // Success
+        log.object(item._updated_by);
+
         $scope.itemsLoading = false;
         Item.setSelectedItem(item);
         $scope.selectedItem = item;
@@ -107,6 +109,15 @@ function itemController($scope, $location, $routeParams, Item) {
         $scope.alertUnknownError();
       }
     );
+  };
+
+
+  $scope.getItemStateButtonClass = function(stateChoice, selectedItemState) {
+    if(stateChoice == selectedItemState) {
+      return 'btn-success';
+    } else {
+      return 'btn-default';
+    }
   };
 
 

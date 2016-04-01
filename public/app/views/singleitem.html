@@ -4,10 +4,6 @@
   <div class="container-fluid noSpaceMobile" style="margin-top:10px;">
     <!-- Title -->
     <div class="col-md-8 noSpaceMobile">
-      <h3 class="pageHeading">
-        <span ng-if="currentAction == 'create'">New {{ collections[selectedItem.collectionName].singleLabel }}</span>
-        <span ng-if="currentAction == 'update'">{{ selectedItem.number }}<span class="itemDisplayTitle"> - {{ selectedItemTitle }}</span></span>
-      </h3>
       <div class="breadCrumb">
         <a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> Back to {{ collections[selectedItem.collectionName].singleLabel }} list</a>
       </div>
@@ -16,11 +12,77 @@
   <!-- Page Header -->
 
   <!-- Page Content -->
-  <div class="container singleItemOuterContainer noSpaceMobile">
-    <div class="container singleItemInnerContainer noSpaceMobile" style="padding:25px;">
+  <div class="container-fluid singleItemOuterContainer noSpaceMobile">
+
+    <style>
+
+      .itemInfo {
+        color: #477c65;
+        border: 1px solid #b8d7ca;
+        background-color: #c8e0d6;
+        padding: 10px;
+        margin: 8px 0px 10px 0px;
+      }
+
+      .itemInfoNumber {
+        font-size: 22px;
+        font-weight: bold;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .itemInfoUpdate {
+        padding-top: 5px;
+      }
+
+    </style>
+
+
+    <div class="container-fluid itemInfo">
+      
+      <!-- Item Number -->
+      <div class="col-md-6">
+        <h4 class="itemInfoNumber">
+          <span ng-if="currentAction == 'create'"><strong>New {{ collections[selectedItem.collectionName].singleLabel }}</strong></span>
+          <span ng-if="currentAction == 'update'"><strong>{{ collections[selectedItem.collectionName].singleLabel }} #{{ selectedItem.number }}</strong></span>
+        </h4>
+      </div>
+
+      <!-- State -->
+      <div class="col-md-6 text-right">
+        
+        <!-- State buttons for large view -->
+        <div class="btn-group hideInMobile">
+          <button type="button" style="width:95px;" class="btn" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
+        </div>
+
+        <!-- State buttons for mobile view -->
+        <div class="row hideInDesktop noSpace" style="padding: 10px 0px 10px 0px; margin: 5px 0px 5px 0px;background-color:#fcfcfc;border-radius:5px;">
+          <div class="col-md-12" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices">
+            <button style="margin:3px;" type="button" class="btn btn-block" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Title -->
+      <div class="col-md-6">
+        <input ng-disabled="selectedItemSubmitting" type="text" class="form-control defaultInput" value="" ng-model="selectedItem.title" size="20"/>
+      </div>
+
+      <!-- Last update info -->
+      <div class="col-md-6 text-right">
+        <div class="itemInfoUpdate">Last updated: <strong>{{ formattedDateTime(selectedItem.updated_at) }}</strong> By: <strong>{{ selectedItem._updated_by.firstName }}</strong></div>
+      </div>
+
+
+    </div>
+
+    <div class="container-fluid singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
       <!-- Begin building each single field -->
-      <div ng-repeat="field in collections[selectedItem.collectionName].fields" ng-if="field.name != 'number'"class="form-group fadeInOut" ng-class="getItemFieldClass(selectedItem, field)">
+      <div ng-repeat="field in collections[selectedItem.collectionName].fields" ng-if="field.name != 'number' && field.name != 'state' && field.name != 'title'" class="form-group fadeInOut" ng-class="getItemFieldClass(selectedItem, field)">
         <label for="{{ field.name }}"><strong>{{ field.label }}:</strong></label>
 
         <!-- Short text input -->
@@ -30,7 +92,7 @@
         <textarea ng-disabled="selectedItemSubmitting || currentAction == 'preview'" style="resize:vertical;" ng-if="field.displayType == 'textarea'" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" rows="5" size="20"></textarea>
 
         <!-- Choice list -->
-        <select ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'choice' || field.displayType == 'state'" ng-options="option for option in field.choices" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]"></select>
+        <select ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'choice'" ng-options="option for option in field.choices" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]"></select>
 
         <!-- Date Time Picker -->
         <div class='input-group date' id='datetimepicker1' ng-if="field.displayType == 'datetime'">
