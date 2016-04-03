@@ -499,6 +499,7 @@ function itemController($scope, $location, $routeParams, Item) {
           $scope.getOneItem(itemNumber);
         } else {
           $scope.selectedItemTitle = $scope.selectedItem[$scope.collections[$scope.selectedItem.collectionName].displayField];
+          $scope.setPageLoading(false);
           $scope.itemsLoading = false;
         }
         return;
