@@ -246,25 +246,17 @@ a:hover {
 
 
 .menuCardContainer, .menuCardContainerActive, .menuCardContainerDisabled {
-  padding: 20px;
+  padding: 10px 10px 10px 10px;
   margin: 5px;
-  text-align: center;
+  text-align: left;
   background-color: #fcfcfc;
   border: 1px dashed #d8d8d8;
   border-radius: 5px;
   display: block;
+  font-size: 20px;
   transition: all .15s linear;
   -webkit-transition: all .15s linear;
   -moz-transition: all .15s linear;
-}
-
-.menuCardContainerActive {
-  border: 1px dashed #c8e0d6;
-  background-color: #e9f2ee;
-}
-
-.menuCardContainerDisabled {
-  background-color: #f0f0f0;
 }
 
 .menuCardContainer:hover, .menuCardContainerActive:hover {
@@ -275,26 +267,8 @@ a:hover {
 }
 
 .menuCardIcon {
-  padding: 0px;
-  margin: 0px;
-  font-size: 30px;
+  font-size: 35px;
   color: #67A88C;
-}
-
-.menuCardIconDisabled {
-  font-size: 40px;
-  color: #d8d8d8;
-}
-
-.menuCardTitle {
-  font-size: 18px;
-  display: inline-block;
-}
-
-.menuCardTitleDisabled {
-  color: #d8d8d8;
-  font-size: 18px;
-  display: inline-block;
 }
 
 
@@ -721,18 +695,18 @@ a:hover {
 
 /* Fade in and fade out staggered */
 .fadeInOutStagger.ng-enter {
-  transition: .5s;
+  transition: .25s;
   opacity: 0;
 }
 .fadeInOutStagger.ng-enter-stagger {
-  transition-delay: 0.05s;
+  transition-delay: 0.1s;
   transition-duration: 0s;
 }
 .fadeInOutStagger.ng-enter-active {
   opacity: 1;
 }
 .fadeInOutStagger.ng-leave {
-  transition: .5s;
+  transition: .25s;
   opacity: 1;
 }
 .fadeInOutStagger.ng-leave-active {
@@ -888,12 +862,12 @@ a:hover {
 /****************************** BUTTONS ******************************/
 
 .btn-success, .btn-success:focus {
-  border-color: #67A88C;
+  border-color: #fff;
   background-color: #67A88C;
 }
 
 .btn-success:hover {
-  border-color: #599c7f;
+  border-color: #fff;
   background-color: #599c7f;
 }
 
@@ -903,34 +877,34 @@ a:hover {
 
 
 .btn-primary, .btn-primary:focus {
-  border-color: #859bb9;
-  background-color: #859bb9;
+  border-color: #fff;
+  background-color: #6783a8;
 }
 
 .btn-primary:hover {
-  border-color: #59769c;
+  border-color: #fff;
   background-color: #59769c;
 }
 
 
 .btn-danger, .btn-danger:focus {
-  border-color: #c09491;
+  border-color: #fff;
   background-color: #c09491;
 }
 
 .btn-danger:hover {
-  border-color: #9c5f59;
+  border-color: #fff;
   background-color: #9c5f59;
 }
 
 
 .btn-default, .btn-default:focus {
-  border-color: #d8d8d8;
+  border-color: #fff;
   background-color: #fcfcfc;
 }
 
 .btn-default:hover {
-  border-color: #d8d8d8;
+  border-color: #fff;
   background-color: #efefef;
 }
 

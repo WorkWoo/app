@@ -2,10 +2,10 @@
 <div class="container-fluid noSpaceMobile" style="margin-top:10px;">
   <!-- Title -->
   <div class="col-md-8 noSpaceMobile">
-    <h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
     <div class="breadCrumb">
       <a href="#/"><span class="fa fa-arrow-left"></span> Back to summary</a>
     </div>
+    <h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
   </div>
   <!-- Search -->
   <div class="col-md-4 text-right noSpaceMobile">
@@ -25,7 +25,7 @@
   </div>
 
   <!-- Message if they have not setup their primary collection -->
-  <div ng-if="!itemsLoading && loadedItems.length == 0" class="container-fluid text-center" style="margin-top:50px;">
+  <div ng-if="!itemsLoading && loadedItems.length == 0" class="container-fluid text-center fadeInOut" style="margin-top:50px;">
     <div class="col-md-12">
       <h2 class="pageHeading">No items to show!</h2>
       <a class="btn btn-success" ng-href="#/{{primaryCollection}}/new"><h3 class="noSpace">Create one now</h3></a>
@@ -34,7 +34,7 @@
   <!-- Page Header -->
 
   <!-- "Create New" card -->
-  <div ng-if="!itemsLoading && loadedItems.length > 0" class="col-md-4 text-center noSpaceMobile fadeInOut">
+  <div ng-if="loadedItems.length > 0" class="col-md-3 text-center noSpaceMobile fadeInOut">
     <a ng-disabled="itemsLoading" class="noUnderline" ng-href="#/{{primaryCollection}}/new">
       <div class="itemCardActive">
         <span class="itemCardActiveIcon fa fa-plus"></span>
@@ -45,7 +45,7 @@
   </div>
 
   <!-- Create a card for each item -->
-  <div ng-repeat="item in loadedItems" class="col-md-4 noSpaceMobile fadeInOutStagger">
+  <div ng-repeat="item in loadedItems" class="col-md-3 noSpaceMobile fadeInOutStagger">
     <div class="itemCard">
       <a class="noUnderline" ng-href="#/{{primaryCollection}}/view/{{item.number}}">
         <div class="col-md-12 clearfix">

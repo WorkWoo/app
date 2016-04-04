@@ -9,33 +9,42 @@
 
 <!-- Page Header -->
 <div ng-if="currentUser.org.primaryCollection" class="container-fluid noSpaceMobile" style="margin-top:10px;">
-  <div class="col-md-12 noSpaceMobile">
+  <div class="col-md-12 noSpaceMobile text-center">
     <h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
   </div>
 </div>
 <!-- Page Header -->
 
 <!-- Page Content -->
-<div ng-if="currentUser.org.primaryCollection" class="container-fluid noSpace">
-  <div class="col-md-3 noSpaceMobile">
-    <a ng-href="#/{{primaryCollection}}/new" class="menuCardContainerActive">
-      <span class="menuCardIcon noSpace">
-        <span class="fa fa-plus"></span>
-      </span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">Create New</span>
-    </a>
-  </div>
+<div ng-if="currentUser.org.primaryCollection" class="container-fluid noSpace fadeInOut">
   
-  <div ng-repeat="state in collections[primaryCollection].stateChoices" class="col-md-3 noSpaceMobile">
-    <a ng-href="#/{{primaryCollection}}/search?state={{state}}" class="menuCardContainer">
-        <span ng-if="itemsLoading" class="menuCardIcon noSpace">
-          <span class="fa fa-refresh fa-spin"></span>
+  <!-- Create new button -->
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 noSpaceMobile">
+      <a ng-href="#/{{primaryCollection}}/new" class="menuCardContainerActive">
+        <span class="menuCardIcon noSpace">
+          <span class="fa fa-plus"></span>
         </span>
-        <span ng-if="!itemsLoading" class="menuCardIcon fadeInOut">{{itemCountByState[state]}}</span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitle">{{ state }}</span>
-    </a>
+        <span class="menuCardTitle">Create New</span>
+      </a>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+
+  <!-- 1 card for each possible state -->
+  <div ng-repeat="state in collections[primaryCollection].stateChoices" class="row">
+    <div class="col-md-3"></div>
+    <div  class="col-md-6 noSpaceMobile">
+      <a ng-href="#/{{primaryCollection}}/search?state={{state}}" class="menuCardContainer">
+          <span ng-if="itemsLoading" class="menuCardIcon noSpace">
+            <span class="fa fa-refresh fa-spin"></span>
+          </span>
+          <span ng-if="!itemsLoading" class="menuCardIcon fadeInOut">{{itemCountByState[state]}}</span>
+          <span class="menuCardTitle">{{ state }}</span>
+      </a>
+    </div>
+    <div class="col-md-3"></div>
   </div>
 
   <div class="col-md-12">

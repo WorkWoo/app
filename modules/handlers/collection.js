@@ -72,6 +72,8 @@ exports.create = function(req, res) {
 				field.dbType = 'SingleReference';
 			} else if (field.displayType == 'ReferenceList') {
 				field.dbType = 'ReferenceList';
+			} else if(field.displayType == 'checkbox') {
+				field.dbType = 'boolean';
 			}
 
 			// If the field if a reference, store it at the top level

@@ -4,20 +4,23 @@
 	<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
 	  <!-- Title -->
 	  <div class="col-md-8 noSpaceMobile">
-	    <h3 class="pageHeading">My Account</h3>
-	    <div class="breadCrumb">
+	  	<div class="breadCrumb">
 	      <a href="#/account"><span class="fa fa-arrow-left"></span> All settings</a>
 	    </div>
+	    <h3 class="pageHeading">My Account</h3>
 	  </div>
 	</div>
 	<!-- Page Header -->
 
 	<!-- Page Content -->
-	<div class="container singleItemOuterContainer noSpaceMobile">
-    	<div class="container singleItemInnerContainer noSpaceMobile" style="padding:25px;">
+	<div class="container-fluid singleItemOuterContainer noSpaceMobile">
+    	<div class="container-fluid singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
+    		<h4>My Personal info:</h4>
 			<!-- First name, last name, & Email Address -->
 			<div class="row noSpaceMobile">
+
+				<!-- First Name -->
 				<div class="col-md-4">
 					<div class="inputContainer">
 						<label for="firstName">First name:</label>
@@ -25,6 +28,8 @@
 						<span ng-if="accountSummaryForm.firstName.$invalid && accountSummaryForm.firstName.$touched" ng-init="initInvalidPopover('firstNameRequired','Tell us who you are!')" id="firstNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
+
+				<!-- Last Name -->
 				<div class="col-md-4">
 					<div class="inputContainer">
 						<label for="lastName">Last name:</label>
@@ -32,6 +37,8 @@
 						<span ng-if="accountSummaryForm.lastName.$invalid && accountSummaryForm.lastName.$touched" ng-init="initInvalidPopover('lastNameRequired','Tell us who you are!')" id="lastNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
+
+				<!-- Email Address -->
 				<div class="col-md-4">
 					<div class="inputContainer">
 						<label for="emailAddress">Email Address:</label>
@@ -39,9 +46,22 @@
 						<span ng-if="accountSummaryForm.emailAddress.$invalid && accountSummaryForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We may need to contact you')" id="emailAddressRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
+
+
+				<!-- Phone Number -->
+				<div class="col-md-4">
+					<div class="inputContainer">
+						<label for="emailAddress">Phone Number:</label>
+						<input ng-disabled="accountLoading" type="email" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="accountSummary.emailAddress" size="20" required/>
+						<span ng-if="accountSummaryForm.emailAddress.$invalid && accountSummaryForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We may need to contact you')" id="emailAddressRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+					</div>
+				</div>
+
 			</div>
 
-			<!-- Company Name & Phone number -->
+
+			<h4>My Company:</h4>
+
 			<div class="row noSpaceMobile">
 				<div class="col-md-4">
 					<div class="inputContainer">
@@ -50,13 +70,57 @@
 						<span ng-if="accountSummaryForm.companyName.$invalid && accountSummaryForm.companyName.$touched" ng-init="initInvalidPopover('companyNameRequired','Tell us about your business!')" id="companyNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
+
 				<div class="col-md-4">
 					<div class="inputContainer">
-						<label for="phoneNumber">Phone Number:</label>
+						<label for="phoneNumber">Email Address:</label>
 						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
 						<span ng-if="accountSummaryForm.phoneNumber.$invalid && accountSummaryForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to contact you!')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
+
+				<div class="col-md-4">
+					<div class="inputContainer">
+						<label for="phoneNumber">Address:</label>
+						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
+						<span ng-if="accountSummaryForm.phoneNumber.$invalid && accountSummaryForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to contact you!')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="inputContainer">
+						<label for="phoneNumber">City:</label>
+						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
+						<span ng-if="accountSummaryForm.phoneNumber.$invalid && accountSummaryForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to contact you!')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="inputContainer">
+						<label for="phoneNumber">State:</label>
+						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
+						<span ng-if="accountSummaryForm.phoneNumber.$invalid && accountSummaryForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to contact you!')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="inputContainer">
+						<label for="phoneNumber">Zip:</label>
+						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
+						<span ng-if="accountSummaryForm.phoneNumber.$invalid && accountSummaryForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to contact you!')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="inputContainer">
+						<label for="phoneNumber">Country:</label>
+						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
+						<span ng-if="accountSummaryForm.phoneNumber.$invalid && accountSummaryForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to contact you!')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+					</div>
+				</div>
+
+
+
 			</div>
 
 			<!-- Buttons -->

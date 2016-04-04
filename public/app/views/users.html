@@ -2,10 +2,10 @@
 <div class="container-fluid noSpaceMobile" style="margin-top:10px;">
   <!-- Title -->
   <div class="col-md-8 noSpaceMobile">
-    <h3 class="pageHeading">Users</h3>
     <div class="breadCrumb">
       <a href="#/account"><span class="fa fa-arrow-left"></span> All settings</a>
     </div>
+    <h3 class="pageHeading">Users</h3>
   </div>
 </div>
 <!-- Page Header -->
@@ -13,8 +13,8 @@
 <!-- Page Content -->
 <div class="container-fluid noSpace">
 
-   <!-- Create new button -->
- <div ng-if="!usersLoading" class="col-md-4 noSpaceMobile fadeInOut">
+  <!-- Create new button -->
+  <div class="col-md-3 noSpaceMobile fadeInOut">
     <!-- Free users -->
     <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
       <span class="menuCardIconDisabled fa fa-user-plus"></span>
@@ -24,7 +24,7 @@
   </div>
 
   <!-- One card for each user -->
-  <div ng-repeat="user in loadedUsers" class="col-md-4 noSpaceMobile fadeInOutStagger" >
+  <div ng-repeat="user in loadedUsers" class="col-md-3 noSpaceMobile fadeInOutStagger" >
     <a ng-href="#/account/users/view/{{user.number}}" class="menuCardContainer">
       <span class="menuCardIcon fa fa-user"></span>
       <span class="cardTitleBreaker"></br></span>
@@ -32,19 +32,17 @@
     </a>
   </div>
 
-  <!-- Upgrade indicator -->
-  <div ng-if="!usersLoading" class="col-md-12 noSpaceMobile fadeInOut">
-    <div class="upgradeAlert clearfix">
-      <span class="upgradeAlertIcon"><i class="fa fa-users iconXL"></i></span>
-      <span class="upgradeAlertText"><strong>Empower your employees!</strong><br/> Your free account includes 1 user. Upgrade now to add additional users for only $10 a month per user</span>
-      <span class="upgradeAlertButton">
-        <a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
-      </span>
-    </div>
+</div>
+
+<!-- Upgrade indicator -->
+<div class="container-fluid">
+  <div class="upgradeAlert clearfix text-left">
+    <span class="upgradeAlertIcon"><i class="fa fa-users iconXL"></i></span>
+    <span class="upgradeAlertText"><strong>Empower your employees!</strong><br/> Your free account includes 1 user. Upgrade now to add additional users for only $10 a month per user</span>
+    <span class="upgradeAlertButton">
+      <a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
+    </span>
   </div>
-
-  
-
 </div>
 
 <!-- Page Content -->

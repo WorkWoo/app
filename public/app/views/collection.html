@@ -4,33 +4,33 @@
 
 	<!-- Page Header -->
 	<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
-		<!-- Title -->
-		<div class="col-md-12 noSpaceMobile">
-	  		<h3 ng-if="currentAction == 'update'" class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
-	  		<h3 ng-if="currentAction == 'create'" class="pageHeading">New Workable Item</h3>
-	  		<div class="row">
-				<div class="col-md-10 breadCrumb">
-		    		<a href="#/account/collections"><span class="fa fa-arrow-left"></span> All Workable Items</a>
-		  		</div>
-		  		<div class="col-md-2">
-					<button type="button" ng-disabled="collectionsLoading" ng-click="tiggerWorkSettingsTour()" class=" btn btn-success hideInMobile" style="margin-right:20px;">
-						<span class="fa fa-road"></span>
-						<span> Guide me!</span>
-					</button>
-		  		</div>
-	  		</div>
-	  		
+		
+		<div class="col-md-12 breadCrumb noSpaceMobile">
+		    <a href="#/account/collections"><span class="fa fa-arrow-left"></span> All Workable Items</a>
+		</div>
+
+  		<!-- Title -->
+  		<div class="col-md-6">
+			<h3 ng-if="currentAction == 'update'" class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
+			<h3 ng-if="currentAction == 'create'" class="pageHeading">New Workable Item</h3>
+  		</div>
+
+		<div class="col-md-6 noSpace text-right">
+			<button type="button" ng-disabled="collectionsLoading" ng-click="tiggerWorkSettingsTour()" class=" btn btn-success hideInMobile" style="margin-right:20px;">
+				<span class="fa fa-road"></span>
+				<span> Guide me!</span>
+			</button>
 		</div>
 	</div> 
 	<!-- Page Header -->
 
 	<!-- Page Content -->
-	<div class="container singleItemOuterContainer noSpaceMobile">
+	<div class="container-fluid singleItemOuterContainer noSpaceMobile">
 
-    	<div class="container singleItemInnerContainer noSpaceMobile" style="padding:25px;">
+    	<div class="container-fluid singleItemInnerContainer noSpaceMobile" style="padding:25px;">
 
 			<!-- Basic settings & state choices -->
-			<div class="col-md-6">
+			<div class="col-md-4">
 
 				<!-- Collection name -->
 				<div class="row noSpaceMobile">
@@ -79,25 +79,25 @@
 
 
 			<!-- Custom fields -->
-			<div id="customFieldsContainer" class="defaultInputGroup form-group col-md-6">
+			<div id="customFieldsContainer" class="defaultInputGroup form-group col-md-8">
 				<label>Custom fields:</label>
 				<div class="choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
 					<!-- Column header -->
-					<div class="col-md-5 hideInMobile">
+					<div class="col-md-7 hideInMobile">
 						<span class="customFieldColumnTitle">Field Name</span>
 					</div>
-					<div class="col-md-5 hideInMobile">
+					<div class="col-md-4 hideInMobile">
 						<span class="customFieldColumnTitle">Type</span>
 					</div>
 
 					<!-- Loop through each field -->
-					<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" class="col-md-12 noSpace customFieldRow fadeInOut">
+					<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" class="col-md-12 noSpace customFieldRow fadeInOutStagger">
 						<!-- Field name -->
-						<div class="col-md-5" style="margin-bottom:5px;">
+						<div class="col-md-7" style="margin-bottom:5px;">
 							<input ng-disabled="collectionsLoading || field.sysProvided" type="text" ng-model="field.label" ng-change="field.name = lowerAndRemoveSpace(field.label)" ng-init="field.name = lowerAndRemoveSpace(field.label)" class="form-control defaultInput" size="20">
 						</div>
 						<!-- Field type -->
-						<div class="col-md-5" style="margin-bottom:5px;">
+						<div class="col-md-4" style="margin-bottom:5px;">
 			              	<!-- If a custom field, allow different types -->
 							<select ng-disabled="collectionsLoading || field.sysProvided" class="form-control defaultInput" ng-model="field.displayType">
 			            		<option value="text">Single line text</option>
@@ -125,7 +125,7 @@
 				            		</div>
 
 				            		<!-- One row for each option -->
-				            		<div ng-repeat="(choiceIndex, choice) in field.choices track by $index" class="col-md-12 noSpace">
+				            		<div ng-repeat="(choiceIndex, choice) in field.choices track by $index" class="col-md-12 noSpace fadeInOutStagger">
 				            			<div class="input-group" style="margin-bottom:3px;">
 				            				<input ng-disabled="collectionsLoading" class="form-control defaultInput" ng-model="field.choices[$index]" style="border-right:none;" type="text">
 				            				<span ng-disabled="collectionsLoading" ng-click="removeOption(fieldIndex, choiceIndex)" class="input-group-addon removeChoiceIcon" style="border-left:none;">
@@ -145,7 +145,7 @@
 						</div>
 
 						<!-- Remove field button -->
-						<div ng-if="!field.sysProvided" class="col-md-2 text-right">
+						<div ng-if="!field.sysProvided" class="col-md-1 text-right">
 							<span ng-disabled="collectionsLoading" ng-click="removeField(fieldIndex)" class="hideInMobile customFieldRemoveIcon fa fa-remove"></span>
 							<button ng-click="removeField(fieldIndex)" type="button" class="btn btn-default btn-block hideInDesktop">
 								<span class="fa fa-remove" style="color:#a86c67;"></span>
@@ -156,7 +156,7 @@
 					<!-- End loop through each field -->
 
 					<!-- Add new field button-->
-					<div class="col-md-12 noSpace">
+					<div class="col-md-5 pull-right noSpace">
 						<button type="button" ng-disabled="collectionsLoading" type="button" ng-click="addNewField()" class="btn btn-success btn-block">
 							<span class="fa fa-plus"></span>
 							<span> Add new field</span>
@@ -170,9 +170,9 @@
 			<!-- Buttons -->
 			<div class="col-md-12" style="margin-bottom:10px;">
 				<!-- Spacer -->
-				<div class="col-md-9"></div>
-				<div class="col-md-3">
-					
+				<div class="col-md-10"></div>
+
+				<div class="col-md-2">
 					<button id="saveChangesButton" ng-disabled="collectionsLoading" ng-if="currentAction == 'update'" type="submit" class="btn btn-primary btn-block">
 						<!-- Loading -->
 						<span ng-if="collectionsLoading && !selectedCollection">

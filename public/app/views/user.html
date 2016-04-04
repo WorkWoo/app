@@ -4,13 +4,13 @@
 	<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
 	  <!-- Title -->
 	  <div class="col-md-8 noSpaceMobile">
+	   	<div class="breadCrumb">
+	      <a href="#/account/users"><span class="fa fa-arrow-left"></span> All users</a>
+	    </div>
 	    <h3 class="pageHeading">
 			<span class="fadeInOut" ng-if="!usersLoading">{{ selecedUserName }}</span>
 			<span ng-if="usersLoading">&nbsp;</span>
 	    </h3>
-	    <div class="breadCrumb">
-	      <a href="#/account/users"><span class="fa fa-arrow-left"></span> Back to all users</a>
-	    </div>
 	  </div>
 	</div>
 	<!-- Page Header -->
