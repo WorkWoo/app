@@ -49,6 +49,12 @@ body {
   margin: 0px;
 }
 
+.largeLoadingIndicator {
+  font-size: 30px;
+  color: #d8d8d8;
+  padding: 20px 0px 20px 100px;
+}
+
 
 /****************************** LINKS ******************************/
 
@@ -248,7 +254,7 @@ a:hover {
 .menuCardContainer, .menuCardContainerActive, .menuCardContainerDisabled {
   padding: 10px 10px 10px 10px;
   margin: 5px;
-  text-align: left;
+  text-align: center;
   background-color: #fcfcfc;
   border: 1px dashed #d8d8d8;
   border-radius: 5px;
@@ -271,8 +277,57 @@ a:hover {
   color: #67A88C;
 }
 
+.menuCardIconDisabled {
+  font-size: 35px;
+  color: #d8d8d8;
+}
+
+.menuCardTitleDisabled {
+  color: #d8d8d8;
+}
+
+
+/****************************** ITEM HOME ******************************/
+
+
+  .workHomeStateContainer {
+    border-radius: 5px;
+    background-color: #fcfcfc;
+    border: 1px dashed #d8d8d8;
+    margin: 5px;
+    padding: 10px;
+    display: block;
+    transition: all .15s linear;
+    -webkit-transition: all .15s linear;
+    -moz-transition: all .15s linear;
+  }
+
+  .workHomeStateContainerActive {
+    border: 1px dashed #c8e0d6;
+    background-color: #e9f2ee;
+  }
+
+  .workHomeStateContainer:hover {
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #67A88C;
+  }
+
+  .workHomeStateTitle {
+    margin: 0px 0px 0px 20px;
+    font-size: 25px;
+  }
+
+  .workHomeStateIcon {
+    margin: 0px 0px 0px 50px;
+    font-size: 25px;
+    color: #67A88C;
+  }
+
 
 /****************************** ITEM CARD BOARD ******************************/
+
 
 .itemCard, .itemCardActive {
   border-radius: 5px;

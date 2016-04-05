@@ -33,8 +33,14 @@
   </div>
   <!-- Page Header -->
 
+    <!-- Loading indicator -->
+  <div ng-if="itemsLoading" class="col-md-12 fadeInOut largeLoadingIndicator">
+    <span class="fa fa-refresh fa-spin"></span>
+    <span>Loading items</span>
+  </div>
+
   <!-- "Create New" card -->
-  <div ng-if="loadedItems.length > 0" class="col-md-3 text-center noSpaceMobile fadeInOut">
+  <div ng-if="loadedItems.length > 0" class="col-md-4 text-center noSpaceMobile fadeInOut">
     <a ng-disabled="itemsLoading" class="noUnderline" ng-href="#/{{primaryCollection}}/new">
       <div class="itemCardActive">
         <span class="itemCardActiveIcon fa fa-plus"></span>
@@ -45,7 +51,7 @@
   </div>
 
   <!-- Create a card for each item -->
-  <div ng-repeat="item in loadedItems" class="col-md-3 noSpaceMobile fadeInOutStagger">
+  <div ng-repeat="item in loadedItems" class="col-md-4 noSpaceMobile fadeInOutStagger">
     <div class="itemCard">
       <a class="noUnderline" ng-href="#/{{primaryCollection}}/view/{{item.number}}">
         <div class="col-md-12 clearfix">

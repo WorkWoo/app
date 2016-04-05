@@ -83,11 +83,19 @@
       <span class="fa fa-cog fa-spin"></span>
     </div>
 
-    <!-- Left Menu -->
-    <span ng-click="leftMenuClick('work')" id="workMenuItem" class="fa fa-home leftMenuIcon" style="top:25px;"></span>
-    <span ng-click="leftMenuClick('account')" id="accountMenuItem" class="fa fa-cog leftMenuIcon" style="top:75px;"></span>
-    <span ng-click="leftMenuClick('support')" id="supportMenuItem" class="fa fa-question-circle leftMenuIcon" style="top:125px;"></span>
-    <span class="leftMenuContainer"></span>
+
+    <!-- Left Menu (Mobile) -->
+    <div id="leftMenuContainer" class="leftMenuContainer hideInDesktop">
+      <span ng-click="leftMenuClick('work')" id="workMenuItemM" class="fa fa-home leftMenuIcon" style="top:0px;"></span>
+      <span ng-click="leftMenuClick('account')" id="accountMenuItemM" class="fa fa-cog leftMenuIcon" style="top:0px;"></span>
+      <span ng-click="leftMenuClick('support')" id="supportMenuItemM" class="fa fa-question-circle leftMenuIcon" style="top:0px;"></span>
+    </div>
+
+    <!-- Left Menu (Desktop) -->
+    <span ng-click="leftMenuClick('work')" id="workMenuItemD" class="fa fa-home leftMenuIcon hideInMobile" style="top:25px;"></span>
+    <span ng-click="leftMenuClick('account')" id="accountMenuItemD" class="fa fa-cog leftMenuIcon hideInMobile" style="top:75px;"></span>
+    <span ng-click="leftMenuClick('support')" id="supportMenuItemD" class="fa fa-question-circle leftMenuIcon hideInMobile" style="top:125px;"></span>
+    <span class="leftMenuContainer hideInMobile"></span>
 
     <!-- View Content --> 
     <div id="nav-content" class="contentPage" ng-view></div>

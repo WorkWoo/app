@@ -27,20 +27,34 @@ function mainController($scope, $location, $sce, User) {
 
   $scope.setActiveSection = function(sectionID) {
     // First, deactivate any other active sections
-    $('#workMenuItem').removeClass('leftMenuIconActiveTop');
-    $('#accountMenuItem').removeClass('leftMenuIconActive');
-    $('#supportMenuItem').removeClass('leftMenuIconActive');
-    $('#workMenuItem').addClass('leftMenuIcon');
-    $('#accountMenuItem').addClass('leftMenuIcon');
-    $('#supportMenuItem').addClass('leftMenuIcon');
+    $('#workMenuItemD').removeClass('leftMenuIconActiveTop');
+    $('#workMenuItemM').removeClass('leftMenuIconActiveTop');
+
+    $('#accountMenuItemD').removeClass('leftMenuIconActive');
+    $('#accountMenuItemM').removeClass('leftMenuIconActive');
+
+    $('#supportMenuItemD').removeClass('leftMenuIconActive');
+    $('#supportMenuItemM').removeClass('leftMenuIconActive');
+
+    $('#workMenuItemD').addClass('leftMenuIcon');
+    $('#workMenuItemM').addClass('leftMenuIcon');
+
+    $('#accountMenuItemD').addClass('leftMenuIcon');
+    $('#accountMenuItemM').addClass('leftMenuIcon');
+
+    $('#supportMenuItemD').addClass('leftMenuIcon');
+    $('#supportMenuItemM').addClass('leftMenuIcon');
 
     // Then, set the given section as active
-    $('#' + sectionID + 'MenuItem').removeClass('leftMenuIcon');
+    $('#' + sectionID + 'MenuItemD').removeClass('leftMenuIcon');
+    $('#' + sectionID + 'MenuItemM').removeClass('leftMenuIcon');
     if (sectionID == 'work') {
-      $('#' + sectionID + 'MenuItem').addClass('leftMenuIconActiveTop');
+      $('#' + sectionID + 'MenuItemD').addClass('leftMenuIconActiveTop');
+      $('#' + sectionID + 'MenuItemM').addClass('leftMenuIconActiveTop');
       sectionID = '';
     } else {
-      $('#' + sectionID + 'MenuItem').addClass('leftMenuIconActive');
+      $('#' + sectionID + 'MenuItemD').addClass('leftMenuIconActive');
+      $('#' + sectionID + 'MenuItemM').addClass('leftMenuIconActive');
     }
   };
 

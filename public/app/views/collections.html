@@ -32,6 +32,12 @@
     </span>
   </div>
 
+    <!-- Loading indicator -->
+  <div ng-if="collectionsLoading" class="col-md-8 fadeInOut largeLoadingIndicator">
+    <span class="fa fa-refresh fa-spin"></span>
+    <span>Loading your items</span>
+  </div>
+
   <div ng-repeat="(collectionIndex, collection) in loadedCollections" class="col-md-4 noSpaceMobile fadeInOutStagger">
     <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
       <span class="menuCardIcon fa" ng-class="collection.icon"></span>

@@ -23,6 +23,12 @@
     </span>
   </div>
 
+  <!-- Loading indicator -->
+  <div ng-if="usersLoading" class="col-md-9 fadeInOut largeLoadingIndicator">
+    <span class="fa fa-refresh fa-spin"></span>
+    <span>Loading users</span>
+  </div>
+
   <!-- One card for each user -->
   <div ng-repeat="user in loadedUsers" class="col-md-3 noSpaceMobile fadeInOutStagger" >
     <a ng-href="#/account/users/view/{{user.number}}" class="menuCardContainer">

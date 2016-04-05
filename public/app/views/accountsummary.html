@@ -7,21 +7,20 @@
 	  	<div class="breadCrumb">
 	      <a href="#/account"><span class="fa fa-arrow-left"></span> All settings</a>
 	    </div>
-	    <h3 class="pageHeading">My Account</h3>
 	  </div>
 	</div>
 	<!-- Page Header -->
 
 	<!-- Page Content -->
 	<div class="container-fluid singleItemOuterContainer noSpaceMobile">
-    	<div class="container-fluid singleItemInnerContainer noSpaceMobile" style="padding:25px;">
+    	<div class="container-fluid singleItemInnerContainer noSpace">
 
-    		<h4>My Personal info:</h4>
-			<!-- First name, last name, & Email Address -->
-			<div class="row noSpaceMobile">
+    		<!-- Personal Info -->
+    		<div class="col-md-6">
+    			<h3>Personal Info:</h3>
 
 				<!-- First Name -->
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="firstName">First name:</label>
 						<input ng-disabled="accountLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="accountSummary.firstName" size="20" required/>
@@ -30,7 +29,7 @@
 				</div>
 
 				<!-- Last Name -->
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="lastName">Last name:</label>
 						<input ng-disabled="accountLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="accountSummary.lastName" size="20" required/>
@@ -39,7 +38,7 @@
 				</div>
 
 				<!-- Email Address -->
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="emailAddress">Email Address:</label>
 						<input ng-disabled="accountLoading" type="email" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="accountSummary.emailAddress" size="20" required/>
@@ -47,9 +46,8 @@
 					</div>
 				</div>
 
-
 				<!-- Phone Number -->
-				<div class="col-md-4">
+				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="emailAddress">Phone Number:</label>
 						<input ng-disabled="accountLoading" type="email" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="accountSummary.emailAddress" size="20" required/>
@@ -57,13 +55,22 @@
 					</div>
 				</div>
 
-			</div>
+				<!-- Password reset button -->
+				<div class="col-md-6">
+					<div class="inputContainer">
+						<button type="button" class="btn btn-success btn-block">Reset your password</button>
+					</div>
+				</div>
+    		</div>
+    		<!-- End personal info -->
 
 
-			<h4>My Company:</h4>
+    		<!-- Company Info -->
+    		<div class="col-md-6">
+    			<h3>Your company:</h3>
 
-			<div class="row noSpaceMobile">
-				<div class="col-md-4">
+    			<!-- Company Name -->
+				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="companyName">Company Name:</label>
 						<input ng-disabled="accountLoading" type="text" id="companyName" name="companyName" class="form-control defaultInput" value="" ng-model="accountSummary.companyName" size="20" required/>
@@ -71,7 +78,8 @@
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<!-- Company email address -->
+				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="phoneNumber">Email Address:</label>
 						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
@@ -79,15 +87,17 @@
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<!-- Street Address -->
+				<div class="col-md-12">
 					<div class="inputContainer">
-						<label for="phoneNumber">Address:</label>
+						<label for="phoneNumber">Street Address:</label>
 						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
 						<span ng-if="accountSummaryForm.phoneNumber.$invalid && accountSummaryForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to contact you!')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<!-- City -->
+				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="phoneNumber">City:</label>
 						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
@@ -95,7 +105,8 @@
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<!-- State -->
+				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="phoneNumber">State:</label>
 						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
@@ -103,7 +114,8 @@
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<!-- Zip code -->
+				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="phoneNumber">Zip:</label>
 						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
@@ -111,36 +123,28 @@
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<!-- Country -->
+				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="phoneNumber">Country:</label>
 						<input ng-disabled="accountLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="accountSummary.phoneNumber" size="20" required/>
 						<span ng-if="accountSummaryForm.phoneNumber.$invalid && accountSummaryForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to contact you!')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
+    		</div>
+    		<!-- End company info -->
 
-
-
-			</div>
-
-			<!-- Buttons -->
-			<div class="row noSpaceMobile">
-				<div class="col-md-9"></div>
-				<div class="col-md-3">
-					<div class="inputContainer">
-		        		<button type="submit" ng-disabled="accountLoading || accountSummaryForm.$invalid" class="btn btn-primary btn-block" style="margin: 10px 0px 5px 0px">
-		            		<span ng-if="accountLoading"><i class="fa fa-refresh fa-spin"></i> Saving</span>
-		            		<span ng-if="!accountLoading">Save updated info</span>
-		         		</button>
-					</div>
-				</div>
-			</div>
+    		<!-- Buttons -->
+    		<div class="col-md-10"></div>
+    		<div class="col-md-2">
+    			<button style="margin:15px;" class="btn btn-primary btn-block" type="submit">Save</button>
+    		</div>
 
 		</div>
 
 		<!-- Upgrade message -->
-		<div class="container noSpace">
-			<div class="col-sm-12 noSpace">
+		<div class="container-fluid noSpace">
+			<div class="col-md-12 noSpace">
 				<div class="upgradeAlert clearfix">
 					<span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
 					<span class="upgradeAlertText"><strong>Take your work to the next level!</strong><br/> With WorkWoo Pro, import and track items that relate to {{ collections[primaryCollection].pluralLabel }}, like documents, employees, or inventory</span>
