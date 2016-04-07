@@ -205,6 +205,70 @@ exports.getAll = function(req, res) {
 	}
 };
 
+exports.updateMyAccount = function(req, res) {
+	try {
+		log.info('|user.update|', widget);
+
+		// TODO: Scrub request body
+		var userId = req.session.userprofile.id;
+		var orgID = req.session.userprofile.org._id;
+
+		if (!userId) {
+			log.error('|user.updateMyAccount| No user ID given' + error, widget);
+			utility.errorResponseJSON(res, 'No user ID given');
+		} else {
+			User.findById(userId, function(error, user) {
+	    		if (error) {
+					log.error('|user.updateMyAccount.user.findById| Unknown  -> ' + error, widget);
+					utility.errorResponseJSON(res, 'Error occurred updating my account');
+				} else {			
+					user.firstName = req.body.user.firstName;
+			 		user.lastName = req.body.user.lastName;
+					user.emailAddress = req.body.user.emailAddress;
+					user.phone = req.body.user.phone;
+			    	user._updated_by = userId;
+
+			    	user.save(function(error, user) {
+			    		if (error) {
+			    			log.error('|user.updateMyAccount.user.save| Unknown  -> ' + error, widget);
+							utility.errorResponseJSON(res, 'Error occurred updating my account');
+			    		} else {
+			    			Org.findById(orgID, function(error, org) {
+				    			if (error) {
+									log.error('|user.updateMyAccount.org.findById| Unknown  -> ' + error, widget);
+									utility.errorResponseJSON(res, 'Error occurred updating my account');
+								} else {
+									org.name = req.body.org.name;
+									org.emailAddress = req.body.org.emailAddress;
+									org.phone = req.body.org.phone;
+									org.streetAddress = req.body.org.street;
+									org.city = req.body.org.city;
+									org.state = req.body.org.state;
+									org.zip = req.body.org.zip;
+									org.country = req.body.org.country;
+									org._updated_by = userId;
+									
+									org.save(function(error, org) {
+										if (error) {
+											log.error('|user.updateMyAccount.org.save| Unknown  -> ' + error, widget);
+											utility.errorResponseJSON(res, 'Error occurred updating my account');
+										} else {
+											res.send(JSON.stringify({result: true}));
+										}
+									});
+								}
+				    		});
+			    		}
+			    	});
+				}
+	    	});
+		}
+	} catch (error) {
+		log.error('|user.updateMyAccount| Unknown -> ' + error, widget);
+		utility.errorResponseJSON(res, 'Error occurred updating my account');
+	}
+};
+
 
 exports.getUserProfile = function(req, res) {
 	try {
