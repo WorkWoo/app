@@ -25,6 +25,10 @@ function accountController($scope, $timeout, User) {
       }
     };
 
+    console.log("Account Info Phone: " + updatedAccountInfo.user.phone);
+    console.log("Scope Phone: " + $scope.currentUser.phone);
+
+
     User.updateMyAccount(updatedAccountInfo, 
       function(response){
         $scope.setPageLoading(false);

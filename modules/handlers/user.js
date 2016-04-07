@@ -207,7 +207,7 @@ exports.getAll = function(req, res) {
 
 exports.updateMyAccount = function(req, res) {
 	try {
-		log.info('|user.update|', widget);
+		log.info('|user.updateMyAccount|', widget);
 
 		// TODO: Scrub request body
 		var userId = req.session.userprofile.id;
@@ -226,6 +226,9 @@ exports.updateMyAccount = function(req, res) {
 			 		user.lastName = req.body.user.lastName;
 					user.emailAddress = req.body.user.emailAddress;
 					user.phone = req.body.user.phone;
+
+					log.info("Phone: " + req.body.user.phone);
+
 			    	user._updated_by = userId;
 
 			    	user.save(function(error, user) {
@@ -256,8 +259,8 @@ exports.updateMyAccount = function(req, res) {
 											req.session.userprofile.firstName = user.firstName;
 											req.session.userprofile.lastName = user.lastName;
 											req.session.userprofile.emailAddress = user.emailAddress;
+											req.session.userprofile.phone = user.phone;
 											req.session.userprofile.org = org;
-											req.session.userprofile.phone = phone;
 											res.send(JSON.stringify({result: true}));
 										}
 									});
