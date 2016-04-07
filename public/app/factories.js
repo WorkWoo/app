@@ -237,7 +237,7 @@ function User($http) {
   };
 
   User.updateMyAccount = function(updatedAccountInfo, onSuccess, onFail) {
-    $http({ url: '/updateMyAccount', method: 'POST', updatedAccountInfo })
+    $http({ url: '/updateMyAccount', method: 'POST', data: { user: updatedAccountInfo.user, org: updatedAccountInfo.org }})
       .then(function success(response) {
         onSuccess(response);
       },

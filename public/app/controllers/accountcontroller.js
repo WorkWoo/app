@@ -11,7 +11,7 @@ function accountController($scope, $timeout, User) {
         firstName: $scope.currentUser.firstName,
         lastName: $scope.currentUser.lastName,
         emailAddress: $scope.currentUser.emailAddress,
-        phoneNumber: $scope.currentUser.phone
+        phone: $scope.currentUser.phone
       },
       org: {
         name: $scope.currentUser.org.name,
@@ -20,7 +20,8 @@ function accountController($scope, $timeout, User) {
         city: $scope.currentUser.org.city,
         state: $scope.currentUser.org.state,
         zip: $scope.currentUser.org.zip,
-        country: $scope.currentUser.org.country
+        country: $scope.currentUser.org.country,
+        phone: $scope.currentUser.org.phone,
       }
     };
 
