@@ -149,6 +149,7 @@ function initializeApp() {
 		app.route('/getUser').get(validateRequest(), user.getUser);
 		app.route('/getAllUsers').get(validateRequest(), user.getAll);
 		app.route('/setIsNewUser').post(validateRequest(), user.setIsNewUser);
+		app.route('/updateMyAccount').post(validateRequest(), user.updateMyAccount);
 
 		app.get('/logout', function(req, res){
 			log.info('|logout|', widget);
