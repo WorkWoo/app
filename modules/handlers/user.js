@@ -253,6 +253,16 @@ exports.updateMyAccount = function(req, res) {
 											log.error('|user.updateMyAccount.org.save| Unknown  -> ' + error, widget);
 											utility.errorResponseJSON(res, 'Error occurred updating my account');
 										} else {
+											var userSession = {
+												firstName: user.firstName,
+												lastName: user.lastName,
+												emailAddress: user.emailAddress,
+												org: org,
+												phone: user.phone
+											};
+
+											req.session.userprofile = userSession;
+
 											res.send(JSON.stringify({result: true}));
 										}
 									});
