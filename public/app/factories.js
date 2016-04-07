@@ -236,6 +236,17 @@ function User($http) {
     );
   };
 
+  User.updateMyAccount = function(updatedAccountInfo, onSuccess, onFail) {
+    $http({ url: '/updateMyAccount', method: 'POST', updatedAccountInfo })
+      .then(function success(response) {
+        onSuccess(response);
+      },
+      function fail(response) {
+        onFail(response);
+      }
+    );
+  };
+
   return User;
 }
 
