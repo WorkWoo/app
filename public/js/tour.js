@@ -40,7 +40,7 @@ tourConfig.getMainTourConfig = function($scope) {
 
   config.push({ type: "function", fn: function() { $scope.leftMenuClick('work'); } });
   config.push({ type: "element",
-                selector: "#workMenuItem",
+                selector: "#workMenuItemD",
                 heading: "Navigation: The <i class='fa fa-home' /> Icon",
                 text: "Clicking the <i class='fa fa-home' /> Icon will bring you to all your Workable Items sorted by state. We will explore this section later once we create your first Workable Item; " + 
                       "so, for now let's continue on our tour.",
@@ -53,7 +53,7 @@ tourConfig.getMainTourConfig = function($scope) {
 
   config.push({ type: "function", fn: function() { $scope.leftMenuClick('support'); } });
   config.push({ type: "element",
-                selector: "#supportMenuItem",
+                selector: "#supportMenuItemD",
                 heading: "Navigation: The <i class='fa fa-question-circle' /> Icon",
                 text: "Need help? Want to provide feedback? Have an idea for a new feature? Clicking the <i class='fa fa-question-circle' /> Icon will bring you to our help section. " + 
                       "We welcome any questions or feedback from our customers plus we provide 24/7 support!",
@@ -65,11 +65,11 @@ tourConfig.getMainTourConfig = function($scope) {
   config.push({ type: "function", fn: function() { $scope.leftMenuClick('support'); } });
 
   config.push({ type: "element",
-                selector: "#accountMenuItem",
+                selector: "#accountMenuItemD",
                 heading: "Navigation: The <i class='fa fa-cog' /> Icon",
                 text: "Now let's start setting up WorkWoo the way you want. <div class='alert alert-success'><em>Click the <i class='fa fa-cog' /> icon to access your WorkWoo Settings</em></div>",
                 placement: "auto right",
-                advanceOn: {element: '#accountMenuItem', event: 'click'},
+                advanceOn: {element: '#accountMenuItemD', event: 'click'},
                 attachToBody: "true",
                 scroll: true,
                 elementTemplate: advanceOnTemplate
