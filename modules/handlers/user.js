@@ -277,6 +277,29 @@ exports.updateMyAccount = function(req, res) {
 	}
 };
 
+exports.changePassword = function(req, res) {
+	try {
+		log.info('|user.changePassword|', widget);
+
+		// TODO: Scrub request body
+		var userId = req.session.userprofile.id;
+		var currentPassword = req.body.user.currentPassword;
+		var newPassword = req.body.user.newPassword;
+
+		User.changePassword(userId, currentPassword, newPassword, function (error, user) {
+			if (error) {
+				log.error('|user.changePassword| Unknown  -> ' + error, widget);
+				utility.errorResponseJSON(res, 'Error occurred changing password');
+			} else {
+				res.send(JSON.stringify({result: true}));
+			}
+		});
+		
+	} catch (error) {
+		log.error('|user.changePassword| Unknown -> ' + error, widget);
+		utility.errorResponseJSON(res, 'Error occurred changing password');
+	}
+},
 
 exports.getUserProfile = function(req, res) {
 	try {
