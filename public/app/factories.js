@@ -247,6 +247,17 @@ function User($http) {
     );
   };
 
+  User.changePassword = function(passwordInfo, onSuccess, onFail) {
+    $http({ url: '/changePassword', method: 'POST', data: { user: passwordInfo } })
+      .then(function success(response) {
+        onSuccess(response);
+      },
+      function fail(response) {
+        onFail(response);
+      }
+    );
+  };
+
   return User;
 }
 

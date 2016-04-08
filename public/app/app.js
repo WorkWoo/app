@@ -38,7 +38,7 @@ mainApp.config(function($routeProvider) {
   $routeProvider.when('/', { templateUrl: 'views/itemhome.html', controller: 'itemController'});
 
   // Then, define the permanant, hard-coded routes.
-
+  $routeProvider.when('/changepassword', { templateUrl: 'views/changepassword.html', controller: 'accountController'});
   $routeProvider.when('/support', { templateUrl: 'views/support.html', controller: 'supportController'});
   $routeProvider.when('/support/submitted', { templateUrl: 'views/supportsubmitted.html', controller: 'supportController'});
 

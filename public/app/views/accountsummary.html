@@ -1,4 +1,4 @@
-<form name="accountSummaryForm" ng-model="accountSummary" ng-submit="submit(accountSummary)" novalidate>
+<form name="accountSummaryForm" ng-model="accountInfo" ng-submit="submit()" novalidate>
 
 	<!-- Page Header -->
 	<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
@@ -23,7 +23,7 @@
 				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="firstName">First name:</label>
-						<input ng-disabled="accountLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="currentUser.firstName" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="accountInfo.user.firstName" size="20" required/>
 					</div>
 				</div>
 
@@ -31,7 +31,7 @@
 				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="lastName">Last name:</label>
-						<input ng-disabled="accountLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="currentUser.lastName" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="accountInfo.user.lastName" size="20" required/>
 					</div>
 				</div>
 
@@ -39,7 +39,7 @@
 				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="userEmail">Email Address:</label>
-						<input ng-disabled="accountLoading" type="email" id="userEmail" name="userEmail" class="form-control defaultInput" value="" ng-model="currentUser.emailAddress" size="20" required/>
+						<input ng-disabled="accountLoading" type="email" id="userEmail" name="userEmail" class="form-control defaultInput" value="" ng-model="accountInfo.user.emailAddress" size="20" required/>
 					</div>
 				</div>
 
@@ -47,14 +47,14 @@
 				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="userPhone">Phone Number:</label>
-						<input ng-disabled="accountLoading" type="email" id="userPhone" name="userPhone" class="form-control defaultInput" value="" ng-model="currentUser.phone" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="userPhone" name="userPhone" class="form-control defaultInput" value="" ng-model="accountInfo.user.phone" size="20" required/>
 					</div>
 				</div>
 
 				<!-- Password reset button -->
-				<div class="col-md-6">
+				<div class="col-md-12 text-center">
 					<div class="inputContainer">
-						<button type="button" class="btn btn-success btn-block">Reset your password</button>
+						<a href="#/changepassword">Change your password <span class="fa fa-arrow-right"></span></a>
 					</div>
 				</div>
     		</div>
@@ -69,7 +69,7 @@
 				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="orgName">Name:</label>
-						<input ng-disabled="accountLoading" type="text" id="orgName" name="orgName" class="form-control defaultInput" value="" ng-model="currentUser.org.name" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="orgName" name="orgName" class="form-control defaultInput" value="" ng-model="accountInfo.org.name" size="20" required/>
 					</div>
 				</div>
 
@@ -77,7 +77,7 @@
 				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="orgEmail">Email Address:</label>
-						<input ng-disabled="accountLoading" type="text" id="orgEmail" name="orgEmail" class="form-control defaultInput" value="" ng-model="currentUser.org.emailAddress" size="20" required/>
+						<input ng-disabled="accountLoading" type="email" id="orgEmail" name="orgEmail" class="form-control defaultInput" value="" ng-model="accountInfo.org.emailAddress" size="20" required/>
 					</div>
 				</div>
 
@@ -85,7 +85,7 @@
 				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="street">Street Address:</label>
-						<input ng-disabled="accountLoading" type="text" id="street" name="street" class="form-control defaultInput" value="" ng-model="currentUser.org.streetAddress" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="street" name="street" class="form-control defaultInput" value="" ng-model="accountInfo.org.streetAddress" size="20" required/>
 					</div>
 				</div>
 
@@ -93,7 +93,7 @@
 				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="city">City:</label>
-						<input ng-disabled="accountLoading" type="text" id="city" name="city" class="form-control defaultInput" value="" ng-model="currentUser.org.city" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="city" name="city" class="form-control defaultInput" value="" ng-model="accountInfo.org.city" size="20" required/>
 					</div>
 				</div>
 
@@ -101,7 +101,7 @@
 				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="state">State:</label>
-						<input ng-disabled="accountLoading" type="text" id="state" name="state" class="form-control defaultInput" value="" ng-model="currentUser.org.state" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="state" name="state" class="form-control defaultInput" value="" ng-model="accountInfo.org.state" size="20" required/>
 					</div>
 				</div>
 
@@ -109,7 +109,7 @@
 				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="zip">Zip:</label>
-						<input ng-disabled="accountLoading" type="text" id="zip" name="zip" class="form-control defaultInput" value="" ng-model="currentUser.org.zip" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="zip" name="zip" class="form-control defaultInput" value="" ng-model="accountInfo.org.zip" size="20" required/>
 					</div>
 				</div>
 
@@ -117,7 +117,7 @@
 				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="country">Country:</label>
-						<input ng-disabled="accountLoading" type="text" id="country" name="country" class="form-control defaultInput" value="" ng-model="currentUser.org.country" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="country" name="country" class="form-control defaultInput" value="" ng-model="accountInfo.org.country" size="20" required/>
 					</div>
 				</div>
 
@@ -126,7 +126,7 @@
 				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="orgPhone">Office Phone:</label>
-						<input ng-disabled="accountLoading" type="text" id="orgPhone" name="orgPhone" class="form-control defaultInput" value="" ng-model="currentUser.org.phone" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="orgPhone" name="orgPhone" class="form-control defaultInput" value="" ng-model="accountInfo.org.phone" size="20" required/>
 					</div>
 				</div>
 
@@ -134,8 +134,8 @@
     		<!-- End company info -->
 
     		<!-- Buttons -->
-    		<div class="col-md-10"></div>
-    		<div class="col-md-2">
+    		<div class="col-md-9"></div>
+    		<div class="col-md-3">
     			<button style="margin:15px;" class="btn btn-primary btn-block" type="submit">Save</button>
     		</div>
 

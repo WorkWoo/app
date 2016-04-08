@@ -76,10 +76,6 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
 
   $scope.updateCollection = function() {
     $scope.collectionsLoading = true;
-
-    log.info('COLLECTION:');
-    log.object($scope.selectedCollection);
-
     Collection.update($scope.selectedCollection,
       function(updatedCollections){
         log.info('Success');
