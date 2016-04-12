@@ -248,7 +248,7 @@ function User($http) {
   };
 
   User.changePassword = function(passwordInfo, onSuccess, onFail) {
-    $http({ url: '/changePassword', method: 'POST', data: { user: passwordInfo } })
+    $http({ url: '/changePassword', method: 'POST', data: { user: { currentPassword: passwordInfo.currentPassword, newPassword: passwordInfo.newPassword } } })
       .then(function success(response) {
         onSuccess(response);
       },

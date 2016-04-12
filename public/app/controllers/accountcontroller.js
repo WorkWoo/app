@@ -46,9 +46,14 @@ function accountController($scope, $timeout, User) {
 
     log.info($scope.passwordInfo);
     log.object($scope.passwordInfo);
+
+    if($scope.passwordInfo.newPassword != $scope.passwordInfo.newPasswordConfirm) {
+      alert('Entries do not match');
+      return;
+    }
     $scope.accountLoading = true;
     $scope.setPageLoading(true);
-    User.changePassword($scope.accountInfo, 
+    User.changePassword($scope.passwordInfo, 
       function(response){
         $scope.setPageLoading(false);
         $scope.usersLoading = false;

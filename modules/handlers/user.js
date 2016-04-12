@@ -286,6 +286,11 @@ exports.changePassword = function(req, res) {
 		var currentPassword = req.body.user.currentPassword;
 		var newPassword = req.body.user.newPassword;
 
+		log.info('-----------', widget);
+		log.info('Current: ' + currentPassword, widget);
+		log.info('New: ' + newPassword,  widget);
+		log.info('-----------', widget);
+
 		User.changePassword(userId, currentPassword, newPassword, function (error, user) {
 			if (error) {
 				log.error('|user.changePassword| Unknown  -> ' + error, widget);
@@ -299,7 +304,7 @@ exports.changePassword = function(req, res) {
 		log.error('|user.changePassword| Unknown -> ' + error, widget);
 		utility.errorResponseJSON(res, 'Error occurred changing password');
 	}
-},
+};
 
 exports.getUserProfile = function(req, res) {
 	try {
