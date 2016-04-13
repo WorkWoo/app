@@ -20,6 +20,7 @@ var user = require('./modules/handlers/user.js');
 
 
 var utility = require('workwoo-utils').utility;
+var validator = require('workwoo-utils').validator;
 var log = require('workwoo-utils').logger;
 var widget = 'workwoo-app';
 log.registerWidget(widget);
@@ -37,6 +38,20 @@ function validateRequest() {
 			var errorMessage = {error: 'Not authenticated'};
 			return res.send(JSON.stringify(errorMessage));
 		}
+
+		var error = null;
+		if (validator.checkNull(req.session.userprofile.id)) { error = 'Session User Id is Null'; } 
+		else if (!validator.checkMongoId(req.session.userprofile.id)) { error = 'Session User Id is not valid: ' + userId; } 
+		else if (validator.checkNull(req.session.userprofile.org._id)) { error = 'Session Org Id is Null'; }
+		else if (!validator.checkMongoId(req.session.userprofile.org._id)) { error = 'Session Org Id is not valid: ' + orgID; } 
+
+		if (error) {
+			log.error('|validateRequest| ' + error, widget);
+			res.status(401);
+			var errorMessage = {error: error};
+			return res.send(JSON.stringify(errorMessage));
+		}
+
 		log.info('|validateRequest| -> User authenticated', widget);
 		next();
 	}

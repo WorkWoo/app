@@ -1,7 +1,7 @@
 var COLLECTIONS = null;
 var AUTHENTICATED = false;
 var USER_PROFILE = null;
-var mainApp = angular.module('mainApp', ['ngRoute', 'ngAnimate', 'ngJoyRide']);
+var mainApp = angular.module('mainApp', ['ngRoute', 'ngAnimate', 'ngJoyRide', 'ngIntlTelInput']);
 
 // Constants
 mainApp.constant('COLLECTION_ICONS', config.collection.icons);

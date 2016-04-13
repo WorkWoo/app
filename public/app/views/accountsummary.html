@@ -47,7 +47,7 @@
 				<div class="col-md-12">
 					<div class="inputContainer">
 						<label for="userPhone">Phone Number:</label>
-						<input ng-disabled="accountLoading" type="text" id="userPhone" name="userPhone" class="form-control defaultInput" value="" ng-model="accountInfo.user.phone" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="userPhone" name="userPhone" class="form-control defaultInput" value="" ng-model="accountInfo.user.phone" size="20" ng-intl-tel-input required/>
 					</div>
 				</div>
 
@@ -126,7 +126,7 @@
 				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="orgPhone">Office Phone:</label>
-						<input ng-disabled="accountLoading" type="text" id="orgPhone" name="orgPhone" class="form-control defaultInput" value="" ng-model="accountInfo.org.phone" size="20" required/>
+						<input ng-disabled="accountLoading" type="text" id="orgPhone" name="orgPhone" class="form-control defaultInput" value="" ng-model="accountInfo.org.phone" size="20" ng-intl-tel-input required/>
 					</div>
 				</div>
 

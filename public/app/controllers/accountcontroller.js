@@ -7,6 +7,7 @@ function accountController($scope, $timeout, User) {
 
   $scope.accountInfo = {
       user: {
+        _id: $scope.currentUser.id,
         firstName: $scope.currentUser.firstName,
         lastName: $scope.currentUser.lastName,
         emailAddress: $scope.currentUser.emailAddress,

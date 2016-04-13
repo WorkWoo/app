@@ -8,6 +8,7 @@ var Org = require('workwoo-utils').org;
 // Custom modules
 var mailer = require('workwoo-utils').mailer;
 var utility = require('workwoo-utils').utility;
+var validator = require('workwoo-utils').validator;
 var log = require('workwoo-utils').logger;
 var widget = 'user-management';
 log.registerWidget(widget);
@@ -79,14 +80,15 @@ exports.update = function(req, res) {
 	try {
 		log.info('|user.update|', widget);
 
-		// TODO: Scrub request body
-		var userId = req.body.user._id;
+		var validationResult = validateUserRequest(req, false);
 
-		if (!userId) {
-			log.error('|user.update| No user ID given' + error, widget);
-			utility.errorResponseJSON(res, 'No user ID given');
+		if (validationResult.hasErrors) {
+			log.error('|auth.update| ' + JSON.stringify(validationResult.errors), widget);
+			return utility.errorResponseJSON(res, validationResult.errors);	
 		}
-						
+
+		var userId = req.body.user._id;
+			
     	User.findById(userId, function(error, user) {
     		if (error) {
 				log.error('|user.update.findById| Unknown  -> ' + error, widget);
@@ -205,72 +207,126 @@ exports.getAll = function(req, res) {
 	}
 };
 
+var validateUserRequest = function(req, performOrgValidation) {
+	var errors = {};
+
+	var userErrors = validateUser(req.body.user);		
+	if (!validator.checkEmptyObject(userErrors)) {
+		errors.user = userErrors;
+	}
+
+	if (performOrgValidation) {
+		var orgErrors = validateOrg(req.body.org);	
+		if (!validator.checkEmptyObject(orgErrors)) {
+			errors.org = orgErrors;
+		}
+	}
+	
+	if (!validator.checkEmptyObject(errors)) {
+		return { hasErrors: true, errors: errors };
+	}
+
+	return { hasErrors: false };
+};
+
+var validateUser = function(obj) {
+	var errors = {};
+
+	if (validator.checkNull(obj._id)) {errors._id = "UserId is Null";}
+	else if (!validator.checkMongoId(obj._id)) {errors._id = "UserId is not valid: " + obj._id;}
+
+	if (validator.checkNull(obj.firstName)) {errors.firstName = "First name is Null";}
+	else if (!validator.checkAlpha(obj.firstName)) {errors.firstName = "First name can only contain letters";}
+
+	if (validator.checkNull(obj.lastName)) {errors.lastName = "Last name is Null";}	
+	else if (!validator.checkAlpha(obj.lastName)) {errors.lastName = "Last name can only contain letters";}
+
+	if (validator.checkNull(obj.emailAddress)) { errors.emailAddress = 'Email address is Null'; } 
+	else if (!validator.checkEmail(obj.emailAddress)) { errors.emailAddress = 'Email address is not valid: ' + obj.emailAddress; } 
+
+	if (!validator.checkNull(obj.phone) && !validator.checkMobilePhone(obj.phone)) { errors.phone = 'Phone is not valid: ' + obj.phone; } 
+
+	return errors;
+};
+
+var validateOrg = function(obj) {
+	var errors = {};
+
+	if (validator.checkNull(obj.name)) {errors.name = "Organization name is null";}
+
+	if (!validator.checkNull(obj.emailAddress) && !validator.checkEmail(obj.emailAddress)) { errors.emailAddress = 'Email address is not valid: ' + obj.emailAddress; } 
+
+	if (!validator.checkNull(obj.phone) && !validator.checkMobilePhone(obj.phone)) { errors.phone = 'Phone is not valid: ' + obj.phone; } 
+
+	// TODO: Address validation
+
+	return errors;
+};
+
 exports.updateMyAccount = function(req, res) {
 	try {
 		log.info('|user.updateMyAccount|', widget);
 
-		// TODO: Scrub request body
-		var userId = req.session.userprofile.id;
-		var orgID = req.session.userprofile.org._id;
+		var validationResult = validateUserRequest(req, true);
 
-		if (!userId) {
-			log.error('|user.updateMyAccount| No user ID given' + error, widget);
-			utility.errorResponseJSON(res, 'No user ID given');
-		} else {
-			User.findById(userId, function(error, user) {
-	    		if (error) {
-					log.error('|user.updateMyAccount.user.findById| Unknown  -> ' + error, widget);
-					utility.errorResponseJSON(res, 'Error occurred updating my account');
-				} else {			
-					user.firstName = req.body.user.firstName;
-			 		user.lastName = req.body.user.lastName;
-					user.emailAddress = req.body.user.emailAddress;
-					user.phone = req.body.user.phone;
-
-					log.info("Phone: " + req.body.user.phone);
-
-			    	user._updated_by = userId;
-
-			    	user.save(function(error, user) {
-			    		if (error) {
-			    			log.error('|user.updateMyAccount.user.save| Unknown  -> ' + error, widget);
-							utility.errorResponseJSON(res, 'Error occurred updating my account');
-			    		} else {
-			    			Org.findById(orgID, function(error, org) {
-				    			if (error) {
-									log.error('|user.updateMyAccount.org.findById| Unknown  -> ' + error, widget);
-									utility.errorResponseJSON(res, 'Error occurred updating my account');
-								} else {
-									org.name = req.body.org.name;
-									org.emailAddress = req.body.org.emailAddress;
-									org.phone = req.body.org.phone;
-									org.streetAddress = req.body.org.street;
-									org.city = req.body.org.city;
-									org.state = req.body.org.state;
-									org.zip = req.body.org.zip;
-									org.country = req.body.org.country;
-									org._updated_by = userId;
-									
-									org.save(function(error, org) {
-										if (error) {
-											log.error('|user.updateMyAccount.org.save| Unknown  -> ' + error, widget);
-											utility.errorResponseJSON(res, 'Error occurred updating my account');
-										} else {
-											req.session.userprofile.firstName = user.firstName;
-											req.session.userprofile.lastName = user.lastName;
-											req.session.userprofile.emailAddress = user.emailAddress;
-											req.session.userprofile.phone = user.phone;
-											req.session.userprofile.org = org;
-											res.send(JSON.stringify({result: true}));
-										}
-									});
-								}
-				    		});
-			    		}
-			    	});
-				}
-	    	});
+		if (validationResult.hasErrors) {
+			log.error('|auth.updateMyAccount| ' + JSON.stringify(validationResult.errors), widget);
+			return utility.errorResponseJSON(res, validationResult.errors);	
 		}
+
+		var userId = req.session.userprofile.id;
+		User.findById(userId, function(error, user) {
+    		if (error) {
+				log.error('|user.updateMyAccount.user.findById| Unknown  -> ' + error, widget);
+				utility.errorResponseJSON(res, 'Error occurred updating my account');
+			} else {			
+				user.firstName = req.body.user.firstName;
+		 		user.lastName = req.body.user.lastName;
+				user.emailAddress = req.body.user.emailAddress;
+				user.phone = req.body.user.phone;
+
+		    	user._updated_by = userId;
+
+		    	user.save(function(error, user) {
+		    		if (error) {
+		    			log.error('|user.updateMyAccount.user.save| Unknown  -> ' + error, widget);
+						utility.errorResponseJSON(res, 'Error occurred updating my account');
+		    		} else {
+		    			var orgID = req.session.userprofile.org._id;
+		    			Org.findById(orgID, function(error, org) {
+			    			if (error) {
+								log.error('|user.updateMyAccount.org.findById| Unknown  -> ' + error, widget);
+								utility.errorResponseJSON(res, 'Error occurred updating my account');
+							} else {
+								org.name = req.body.org.name;
+								org.emailAddress = req.body.org.emailAddress;
+								org.phone = req.body.org.phone;
+								org.streetAddress = req.body.org.street;
+								org.city = req.body.org.city;
+								org.state = req.body.org.state;
+								org.zip = req.body.org.zip;
+								org.country = req.body.org.country;
+								org._updated_by = userId;
+								
+								org.save(function(error, org) {
+									if (error) {
+										log.error('|user.updateMyAccount.org.save| Unknown  -> ' + error, widget);
+										utility.errorResponseJSON(res, 'Error occurred updating my account');
+									} else {
+										req.session.userprofile.firstName = user.firstName;
+										req.session.userprofile.lastName = user.lastName;
+										req.session.userprofile.emailAddress = user.emailAddress;
+										req.session.userprofile.phone = user.phone;
+										req.session.userprofile.org = org;
+										res.send(JSON.stringify({result: true}));
+									}
+								});
+							}
+			    		});
+		    		}
+		    	});
+			}
+    	});
 	} catch (error) {
 		log.error('|user.updateMyAccount| Unknown -> ' + error, widget);
 		utility.errorResponseJSON(res, 'Error occurred updating my account');

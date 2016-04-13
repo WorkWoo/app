@@ -38,7 +38,7 @@
 				<div class="col-md-4">
 					<div class="inputContainer">
 						<label for="phoneNumber">Phone Number:</label>
-						<input ng-disabled="usersLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="selectedUser.phone" size="20" required/>
+						<input ng-disabled="usersLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="selectedUser.phone" size="20" ng-intl-tel-input required/>
 						<span ng-if="userForm.phoneNumber.$invalid && userForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to call you')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
