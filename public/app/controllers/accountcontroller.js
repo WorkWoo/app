@@ -28,15 +28,12 @@ function accountController($scope, $timeout, User) {
   $scope.submit = function() {
     $scope.accountLoading = true;
     $scope.setPageLoading(true);
-
-    log.info('Result: ');
-    log.object($scope.accountInfo.org);
-
     User.updateMyAccount($scope.accountInfo, 
       function(response){
         $scope.setPageLoading(false);
         $scope.usersLoading = false;
-        //location.reload();
+        $scope.changeView('/');
+        location.reload();
 
       },
       function() {

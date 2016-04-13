@@ -1,7 +1,7 @@
 function itemController($scope, $location, $routeParams, Item) {
   log.info('|itemController| Starting');
 
-  $scope.loadedItems = Item.loadedItems;
+  $scope.loadedItems = [];
   $scope.selectedItem = Item.selectedItem;
   $scope.selectedItemTitle = '';
 
@@ -103,7 +103,6 @@ function itemController($scope, $location, $routeParams, Item) {
         $scope.setActiveSort($scope.sortField, $scope.sortOrder);
         $scope.totalItems = result.total;
         $scope.loadedItems = $scope.loadedItems.concat(result.items);
-        Item.loadItems($scope.loadedItems);
       },
       function() {
         $scope.itemsLoading = false;
@@ -199,12 +198,6 @@ function itemController($scope, $location, $routeParams, Item) {
 
       Item.new(item.collectionName, item,
         function(newItem){
-          if ($scope.loadedItems.length == 0) {
-            $scope.load();
-          } else {
-            $scope.loadedItems.push(newItem);
-          }
-
           $scope.totalItems.total = $scope.totalItems.total + 1; 
           $scope.selectedItemSubmitting = false;
           $scope.url('#/' + $scope.primaryCollection + '/');
@@ -221,12 +214,6 @@ function itemController($scope, $location, $routeParams, Item) {
       Item.update(item.collectionName, item._id, item, createRevision,
         function(updatedItem){
           // Success
-          for (var x=0; x<$scope.loadedItems.length; x++) {
-            if ($scope.loadedItems[x]._id == updatedItem._id) {
-              $scope.loadedItems[x] = updatedItem;
-            }
-          }
-
           $scope.selectedItemSubmitting = false;
           $scope.url('#/' + $scope.primaryCollection + '/');
           $scope.toggleAlert('success', true, $scope.selectedItem.number + ' updated');
@@ -249,14 +236,6 @@ function itemController($scope, $location, $routeParams, Item) {
     Item.delete($scope.selectedItem.collectionName, [$scope.selectedItem._id],
       function(){
         // Success
-        // Now remove each deleted item from the front end,
-        // Saving the last one (in case it was the only deleted one)
-        var itemID = $scope.selectedItem._id;
-        for (var i=0; i<$scope.loadedItems.length; i++) {
-          if ($scope.loadedItems[i]._id == itemID) {
-            $scope.loadedItems.splice(i, 1);
-          }
-        }
 
         // Update the total count, so we dont have to get it again
         $scope.totalItems.total = $scope.totalItems.total - $scope.selectedItems.length; 
@@ -281,17 +260,6 @@ function itemController($scope, $location, $routeParams, Item) {
       function(){
         // Success
         $scope.itemsLoading = false;
-
-        // Now remove each deleted item from the front end,
-        // Saving the last one (in case it was the only deleted one)
-        for (var i=0; i<$scope.selectedItems.length; i++) {
-          var orderID = $scope.selectedItems[i];
-          for (var x=0; x<$scope.loadedItems.length; x++) {
-            if ($scope.loadedItems[x]._id == orderID) {
-              $scope.loadedItems.splice(x, 1);
-            }
-          }
-        }
 
         var deletedItemCount = $scope.selectedItems.length;
         var deleteSuccessText = deletedItemCount + ' ' + $scope.collections[$scope.baseCollection].pluralLabel + ' deleted';
@@ -398,6 +366,8 @@ function itemController($scope, $location, $routeParams, Item) {
       return 'col-md-12';
     } else if (field.name == $scope.collections[item.collectionName].displayField) {
       return 'col-md-9';
+    } else if (field.displayType == 'datetime') {
+      return 'col-md-4';
     } else {
       return 'col-md-3';
     }
@@ -513,18 +483,8 @@ function itemController($scope, $location, $routeParams, Item) {
 
     // If the collection was passed, go to it's list. Otherwise, go to the work home.
     if (validCollection) {
-      log.info('|itemController| Loading all');
       $scope.initializeScroll();
-
-      // Only load the items if they are not loaded already
-      if ($scope.loadedItems.length == 0) {
-        log.info('Loading...');
-        $scope.load($scope.baseCollection);
-      } else {
-        $scope.totalItems = $scope.loadedItems.length;
-        $scope.itemsLoading = false;
-        log.info('Already loaded');
-      }
+      $scope.load($scope.baseCollection);
       $scope.setPageLoading(false);
       return;
     }

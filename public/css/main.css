@@ -754,7 +754,7 @@ a:hover {
   opacity: 0;
 }
 .fadeInOutStagger.ng-enter-stagger {
-  transition-delay: 0.1s;
+  transition-delay: 0.05s;
   transition-duration: 0s;
 }
 .fadeInOutStagger.ng-enter-active {
