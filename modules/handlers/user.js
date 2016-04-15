@@ -84,29 +84,31 @@ exports.update = function(req, res) {
 
 		if (validationResult.hasErrors) {
 			log.error('|auth.update| ' + JSON.stringify(validationResult.errors), widget);
-			return utility.errorResponseJSON(res, validationResult.errors);	
+			return utility.errorResponseJSON(res, 'Error occurred updating user');
 		}
 
 		var userId = req.body.user._id;
 			
-    	User.findById(userId, function(error, user) {
-    		if (error) {
-				log.error('|user.update.findById| Unknown  -> ' + error, widget);
-				utility.errorResponseJSON(res, 'Error occurred updating user');
-			} else {			
-				user.firstName = req.body.user.firstName;
-		 		user.lastName = req.body.user.lastName;
-				user.emailAddress = req.body.user.emailAddress;
-				user.phone = req.body.user.phone;
-				user.role = req.body.user.role;
-				user.state = req.body.user.state;
-		    	user._updated_by = req.session.userprofile.id;
+    	User.findById(userId, '-password -resetPwdToken -resetPwd -resetPwdExpiration -verifyToken -verified')
+    		.exec(
+    		function(error, user) {
+	    		if (error) {
+					log.error('|user.update.findById| Unknown  -> ' + error, widget);
+					utility.errorResponseJSON(res, 'Error occurred updating user');
+				} else {			
+					user.firstName = req.body.user.firstName;
+			 		user.lastName = req.body.user.lastName;
+					user.emailAddress = req.body.user.emailAddress;
+					user.phone = req.body.user.phone;
+					user.role = req.body.user.role;
+					user.state = req.body.user.state;
+			    	user._updated_by = req.session.userprofile.id;
 
-		    	user.save(function(error, user) {
-					res.send(JSON.stringify(user));
-		    	});
-			}
-    	});
+			    	user.save(function(error, user) {
+						res.send(JSON.stringify(user));
+			    	});
+				}
+	    	});
 
 	} catch (error) {
 		log.error('|user.update| Unknown -> ' + error, widget);
@@ -145,26 +147,26 @@ exports.getUser = function(req, res) {
 	try {
 		log.info('|user.getUser|', widget);
 
-		// TODO: Scrub request body
 		var userNumber = req.query.userNumber;
-		log.info('|user.getUser| Getting user -> ' + userNumber, widget);
 
-		if (!userNumber) {
-			log.error('|user.getUser| No user number given' + error, widget);
-			utility.errorResponseJSON(res, 'No user number given');
+		var error = null;
+
+		if (validator.checkNull(userNumber)) { error = "User Number is Null"; }
+		else if (!validator.checkAlphanumeric(userNumber)) { error = "User Number is invalid"; }
+
+		if (error) {
+			log.error('|user.getUser| ' + error, widget);
+			return utility.errorResponseJSON(res, 'Error occurred getting user');
 		}
+
+		log.info('|user.getUser| Getting user -> ' + userNumber, widget);
 
 		var query = {
 			_org: req.session.userprofile.org._id,
 			number: userNumber
 		};
 
-		// Need to exclude??
-		//resetPwdToken
-		//resetPwd
-		//resetPwdExpiration,
-
-		User.findOne(query, '-password')
+		User.findOne(query, '-password -resetPwdToken -resetPwd -resetPwdExpiration -verifyToken -verified')
 			.populate('_org _created_by _updated_by')
 			.exec(
 			function (error, user) {
@@ -187,10 +189,9 @@ exports.getAll = function(req, res) {
 	try {
 		log.info('|user.getAll|', widget);
 
-		// TODO: Scrub request body
 		var orgID = req.session.userprofile.org._id;
 
-		User.find({_org: orgID}, '-password')
+		User.find({_org: orgID}, '-password -resetPwdToken -resetPwd -resetPwdExpiration -verifyToken -verified')
 			.populate('_org _created_by _updated_by')
 			.exec(
 			function (error, users) {
@@ -271,7 +272,7 @@ exports.updateMyAccount = function(req, res) {
 
 		if (validationResult.hasErrors) {
 			log.error('|auth.updateMyAccount| ' + JSON.stringify(validationResult.errors), widget);
-			return utility.errorResponseJSON(res, validationResult.errors);	
+			return utility.errorResponseJSON(res, 'Error occurred updating my account');
 		}
 
 		var userId = req.session.userprofile.id;
@@ -337,15 +338,27 @@ exports.changePassword = function(req, res) {
 	try {
 		log.info('|user.changePassword|', widget);
 
-		// TODO: Scrub request body
 		var userId = req.session.userprofile.id;
 		var currentPassword = req.body.user.currentPassword;
 		var newPassword = req.body.user.newPassword;
 
-		log.info('-----------', widget);
-		log.info('Current: ' + currentPassword, widget);
-		log.info('New: ' + newPassword,  widget);
-		log.info('-----------', widget);
+		var errors = {};
+		if (validator.checkNull(currentPassword)) { errors.currentPassword = 'Current Password is Null'; } 
+		if (validator.checkNull(newPassword)) { errors.newPassword = 'New Password is Null'; } 
+
+		if (!validator.checkEmptyObject(errors)) {
+			log.error('|user.changePassword| ' + JSON.stringify(errors), widget);
+			return utility.errorResponseJSON(res, 'Error occurred changing password');
+		}
+
+		var passwordComplexityResult = validator.checkPasswordComplexity(newPassword);
+
+		for (var option in passwordComplexityResult) {
+			if (!passwordComplexityResult[option]) {
+				log.error('|user.changePassword| Password complexity check failed: ' + JSON.stringify(passwordComplexityResult), widget);
+				return utility.errorResponseJSON(res, 'New Password failed complexity check');
+			}
+		}
 
 		User.changePassword(userId, currentPassword, newPassword, function (error, user) {
 			if (error) {
