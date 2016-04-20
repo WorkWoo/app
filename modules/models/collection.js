@@ -66,7 +66,7 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 					}
 
 					// Translate the display types into db types
-					if (field.displayType == 'text' || field.displayType == 'textarea' || field.displayType == 'choice' || field.displayType == 'autonumber' || field.displayType == 'state') {
+					if (field.displayType == 'text' || field.displayType == 'textarea' || field.displayType == 'choice' || field.displayType == 'autonumber' || field.displayType == 'state' || field.displayType == 'currency') {
 						field.dbType = 'String';
 						if (field.displayType == 'state') {
 							field.choices = updatedCollection.stateChoices;

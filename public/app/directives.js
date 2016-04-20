@@ -36,3 +36,32 @@ var dateTimePicker = function () {
 	    }
 	};
 };
+
+
+var currencyField = function ($filter) {
+    return {
+        require: '^ngModel',
+        scope: true,
+        link: function (scope, element, attributes, ctrl) {
+
+            function formatter(value) {
+                value = value ? parseFloat(value.toString().replace(/[^0-9._-]/g, '')) || 0 : 0;
+                var formattedValue = $filter('currency')(value);
+                element.val(formattedValue);
+                
+                ctrl.$setViewValue(value);
+                scope.$apply();
+
+                return formattedValue;
+            }
+
+            ctrl.$formatters.push(formatter);
+
+            element.bind('blur', function () {
+                formatter(element.val());
+            });
+        }  
+    };
+};
+
+currencyField.$inject = ['$filter'];

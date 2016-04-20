@@ -27,6 +27,7 @@ mainApp.factory('SelectedUser', SelectedUser);
 
 // Directives
 mainApp.directive('dateTimePicker', dateTimePicker);
+mainApp.directive('currencyField', currencyField);
 
 mainApp.run(function($templateCache) {
   $templateCache.put('tour-title', tourConfig.templates.title);
