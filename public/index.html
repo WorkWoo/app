@@ -13,9 +13,6 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script> 
 
-    <!-- Main stylesheet -->
-    <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/main-small.css">
 
     <!-- Angular -->
     <script src="/js/angular.min.js"></script>
@@ -35,6 +32,13 @@
     <script src="auth.js"></script>
 
     <style>
+
+        body {
+          background-image: url('http://www.workwoo.com/img/bg2.png');
+          background-repeat: repeat;
+          position: relative;
+          font-family: 'Open Sans', sans-serif;
+        }
 
         /* Popover */
         .popover {
@@ -61,19 +65,77 @@
           border-left-color: #a86c67;
         }
 
+        #topNavbar {
+            background-color: #000;
+            color: #fff;
+         }
+
+        .btn-success, .btn-success:focus {
+          border-color: #67A88C;
+          background-color: #67A88C;
+        }
+
+        .btn-success:hover {
+          border-color: #599c7f;
+          background-color: #599c7f;
+        }
+
+        .btn:active:focus {
+          background-color: #999;
+        }
+
+        .loginInputInvalid {
+          cursor: pointer;
+          color: #a86c67;
+          position: absolute;
+          right: 25px;
+          top: 20px;
+          font-size: 25px;
+        }
+
+         #topNavbar {
+            background-image: url('img/navbg.png');
+            background-repeat: repeat;
+            color: #fff;
+         }
+
+        .defaultInput {
+            font-size: 18px;
+            margin: 5px;
+            padding: 25px;
+            border: 2px solid #bebebe;
+         }
+
+         .defaultButton {
+            margin: 5px;
+            padding: 15px;
+            font-size: 18px;
+            text-transform: uppercase;
+         }
+
+        #topNavbar a {
+            color: #fff;
+         }
+
+
+
     </style>
 
   </head>
   
   <body ng-app="auth" ng-controller="mainController" style="margin:0px;padding:0px;color:#777;">
 
-    <!-- Header -->
-    <div class="loginHeader">
-      <span class="headerTitle">
-        <span class="fa fa-coffee"></span>
-      </span>
-    </div>
-    <!-- Header -->
+      <!-- NAV -->
+      <nav id="topNavbar" class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a style="font-size:28px;margin:10px;" class="navbar-brand" href="#signup"><span class="fa fa-coffee"></span> WorkWoo</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+          </div>
+        </div>
+      </nav>
+      <!-- NAV -->
 
     
 
