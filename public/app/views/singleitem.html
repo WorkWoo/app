@@ -82,9 +82,10 @@
           </div>
 
           <!-- Currency -->
-          <div ng-if="field.displayType == 'currency'" class='input-group date'>
-            <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" currency-field="{{field.name}}"/>
-          </div>
+          <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'currency'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" currency-field/>
+
+           <!-- Phone Number -->
+          <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'phone'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" ng-intl-tel-input/>
 
            <!-- Checkbox -->
           <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'checkbox' || field.displayType == 'boolean'" type="checkbox" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]"/>

@@ -100,16 +100,7 @@
 						<div class="col-md-4" style="margin-bottom:5px;">
 			              	<!-- If a custom field, allow different types -->
 							<select ng-disabled="collectionsLoading || field.sysProvided" class="form-control defaultInput" ng-model="field.displayType">
-			            		<option value="text">Single line text</option>
-			            		<option value="textarea">Paragraph text</option>
-			            		<option value="checkbox">Checkbox</option>
-			            		<option value="datetime">Date/Time</option>
-			            		<option value="currency">Currency</option>
-			            		<option value="choice">Dropdown</option>
-			            		<option disabled="true" value="SingleReference">One User (Pro only)</option>
-			            		<option disabled="true" value="ReferenceList">List of Users (Pro only)</option>
-			            		<option disabled="true" value="SingleReference">One Item (Pro only)</option>
-			            		<option disabled="true" value="ReferenceList">List of Items (Pro only)</option>
+								<option ng-repeat="fieldType in fieldTypes" value="{{ fieldType.displayType }}" ng-disabled="fieldType.isPro" ng-selected="fieldType.displayType == field.displayType" >{{ fieldType.label }}</option>
 			            	</select>
 
 			            	<!-- If the field is a choice type, show the choices editor -->

@@ -55,6 +55,7 @@ function getCollectionSettingsSuccess(response) {
   $('#item-navigator').show();
 
   COLLECTIONS = JSON.parse(response).collections;
+  FIELDTYPES = JSON.parse(response).fieldTypes;
   angular.bootstrap(document, ['mainApp']);
 }
 

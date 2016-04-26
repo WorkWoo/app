@@ -14,6 +14,7 @@ function mainController($scope, $location, $sce, User) {
   $scope.authenticated = AUTHENTICATED;
   $scope.currentUser = USER_PROFILE;
   $scope.collections = COLLECTIONS;
+  $scope.fieldTypes = FIELDTYPES;
 
   $scope.accountType = $scope.currentUser.org.accountType;
   $scope.primaryCollection = $scope.currentUser.org.primaryCollection;
