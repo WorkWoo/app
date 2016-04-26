@@ -49,6 +49,7 @@
 						<span ng-if="collectionForm.numberPrefix.$invalid && collectionForm.numberPrefix.$touched" ng-init="initInvalidPopover('numberPrefixRequired','Required!')" id="numberPrefixRequired" class="fa fa-exclamation-circle collectionInputInvalid"></span>
 					</div>
 				</div>
+
 				<!-- State choices -->
 				<div class="row noSpaceMobile">
 					<div id='stateContainer' class="defaultInputGroup form-group col-md-12">
@@ -73,13 +74,29 @@
 						</div>
 		            </div>
 		        </div>
-	            <!-- State choices -->
 			</div>
-			<!-- Basic settings & state choices -->
-
 
 			<!-- Custom fields -->
 			<div id="customFieldsContainer" class="defaultInputGroup form-group col-md-8">
+				<!-- System fields -->
+	        	<div id="sysFields" class="itemInfo choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
+	        		<label>Workable Items have the following system fields:</label>
+	        		<div class="col-md-12">
+	        		<div class="col-md-4 hideInMobile">
+						<div>Auto-number</div>
+						<div>State</div>
+					</div>
+					<div class="col-md-4 hideInMobile">
+						<div>Create User</div>	
+						<div>Update User</div>
+					</div>
+					<div class="col-md-4 hideInMobile">
+						<div>Created Timestamp</div>
+						<div>Updated Timestamp</div>	
+					</div>
+				</div>
+	        	</div> 
+
 				<label>Custom fields:</label>
 				<div class="choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
 					<!-- Column header -->
@@ -91,7 +108,7 @@
 					</div>
 
 					<!-- Loop through each field -->
-					<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" class="col-md-12 noSpace customFieldRow fadeInOutStagger">
+					<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" ng-if="!field.sysProvided" class="col-md-12 noSpace customFieldRow fadeInOutStagger">
 						<!-- Field name -->
 						<div class="col-md-7" style="margin-bottom:5px;">
 							<input ng-disabled="collectionsLoading || field.sysProvided" type="text" ng-model="field.label" ng-change="field.name = lowerAndRemoveSpace(field.label)" ng-init="field.name = lowerAndRemoveSpace(field.label)" class="form-control defaultInput" size="20">
@@ -119,7 +136,7 @@
 				            		<!-- One row for each option -->
 				            		<div ng-repeat="(choiceIndex, choice) in field.choices track by $index" class="col-md-12 noSpace fadeInOutStagger">
 				            			<div class="input-group" style="margin-bottom:3px;">
-				            				<input ng-disabled="collectionsLoading" class="form-control defaultInput" ng-model="field.choices[$index]" style="border-right:none;" type="text">
+				            				<input ng-disabled="collectionsLoading" class="form-control defaultInput" ng-model="field.choices[$index]" style="border-right:none;" type="text" placeholder="New Choice">
 				            				<span ng-disabled="collectionsLoading" ng-click="removeOption(fieldIndex, choiceIndex)" class="input-group-addon removeChoiceIcon" style="border-left:none;">
 				            					<i class="fa fa-remove"></i>
 				            				</span>
@@ -127,7 +144,7 @@
 				            		</div>
 
 				            		<div class="col-md-12 noSpace">
-					              		<button ng-disabled="collectionsLoading || field.sysProvided" type="button" ng-click="field.choices.push('- New choice -')" class="btn btn-success btn-block">
+					              		<button ng-disabled="collectionsLoading || field.sysProvided" type="button" ng-click="field.choices.push('')" class="btn btn-success btn-block">
 					              			<span class="fa fa-plus"></span>
 					              			<span> Add choice</span>
 					              		</button>
