@@ -13,6 +13,9 @@ var Counter = require('workwoo-utils').counter;
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+// Custom modules
+var fieldTypes = require('workwoo-utils').fieldType.getFieldTypesObject();
+
 var collectionSchema = new Schema({
 	_org: { type: Schema.Types.ObjectId, ref: 'Org', required: true },
  	name: { type: String, required: true },
@@ -66,24 +69,20 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 					}
 
 					// Translate the display types into db types
-					if (field.displayType == 'text' || field.displayType == 'textarea' || field.displayType == 'choice' || field.displayType == 'autonumber' || field.displayType == 'state' || field.displayType == 'currency' || field.displayType == 'phone') {
+					if (field.displayType == 'state') {
 						field.dbType = 'String';
-						if (field.displayType == 'state') {
-							field.choices = updatedCollection.stateChoices;
-						}
-					} else if (field.displayType == 'datetime') {
-						field.dbType = 'Date';
-					} else if (field.displayType == 'SingleReference') {
-						field.dbType = 'SingleReference';
-					} else if (field.displayType == 'ReferenceList') {
-						field.dbType = 'ReferenceList';
-					} else if(field.displayType == 'checkbox') {
-						field.dbType = 'boolean';
-					}
+						field.choices = updatedCollection.stateChoices;
+					} else {
+						var fieldType = fieldTypes[field.displayType];
 
-					// If the field if a reference, store it at the top level
-					if (field.dbType == 'SingleReference' || field.dbType == 'ReferenceList') {
-						referenceFields += field.name + ' ';
+						if (fieldType) {
+							field.dbType = fieldType.dbType;
+						}
+
+						// If the field if a reference, store it at the top level
+						if (field.dbType == 'SingleItemReference' || field.dbType == 'ListItemReference') {
+							referenceFields += field.name + ' ';
+						}
 					}
 
 					updatedFields.push(field);

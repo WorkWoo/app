@@ -10,6 +10,7 @@ var Org = require('workwoo-utils').org;
 var inflect = require('i')(true);
 
 // Custom modules
+var fieldTypes = require('workwoo-utils').fieldType.getFieldTypesObject();
 var qpcache = require('workwoo-utils').cache;
 var utility = require('workwoo-utils').utility;
 var log = require('workwoo-utils').logger;
@@ -80,6 +81,23 @@ exports.create = function(req, res) {
 			if (field.dbType == 'SingleReference' || field.dbType == 'ReferenceList') {
 				referenceFields += field.name + ' ';
 			}
+
+			if (field.displayType == 'state') {
+				field.dbType = 'String';
+				field.choices = newCollection.stateChoices;
+			} else {
+				var fieldType = fieldTypes[field.displayType];
+
+				if (fieldType) {
+					field.dbType = fieldType.dbType;
+				}
+
+				// If the field if a reference, store it at the top level
+				if (field.dbType == 'SingleItemReference' || field.dbType == 'ListItemReference') {
+					referenceFields += field.name + ' ';
+				}
+			}
+
 
 			processedFields.push(field);
 		}
