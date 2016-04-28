@@ -1,5 +1,6 @@
 var COLLECTIONS = null;
 var FIELDTYPES = null;
+var COLLECTIONTYPES = null;
 var AUTHENTICATED = false;
 var USER_PROFILE = null;
 var mainApp = angular.module('mainApp', ['ngRoute', 'ngAnimate', 'ngJoyRide', 'ngIntlTelInput']);

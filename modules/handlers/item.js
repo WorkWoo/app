@@ -20,7 +20,7 @@ exports.getCollections = function(req, res) {
 			if (error) {
 				log.error('|item.getItems| Unknown error -> ' + error, widget);
 			} else {
-				res.send(JSON.stringify({ collections: collectionsObject.collections, fieldTypes: collectionsObject.fieldTypes }));
+				res.send(JSON.stringify({ collections: collectionsObject.collections, fieldTypes: collectionsObject.fieldTypes, collectionTypes: collectionsObject.collectionTypes }));
 			}
 		});
 

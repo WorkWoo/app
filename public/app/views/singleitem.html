@@ -83,6 +83,9 @@
             </span>
           </div>
 
+          <!-- Number & Decimal -->
+          <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'number' || field.displayType == 'decimal'" ng-required="field.required" type="number" class="form-control defaultInput" ng-model="selectedItem[field.name]" >
+
           <!-- Currency -->
           <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'currency'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" currency-field/>
 
