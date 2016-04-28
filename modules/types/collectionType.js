@@ -14,6 +14,7 @@ exports.getCollectionTypesObject = function () {
 exports.getCollectionTypesArray = function () {
 	var collectionTypes = [];
 	collectionTypes.push(getDefaultWorkableCollection());
+	collectionTypes.push(getDefaultBasicCollection());
 
 	return collectionTypes;
 };
@@ -41,6 +42,29 @@ function getDefaultWorkableCollection() {
 	workableCollection.defaults = defaults;
 
 	return workableCollection;
+}
+
+function getDefaultBasicCollection() {
+	var basicCollection = {};
+	basicCollection.label = 'Basic';
+
+	var defaults = {};
+	defaults.collectionType = 'basic';
+	defaults.name = '';
+	defaults.displayField = 'title';
+	defaults.pluralLabel = '';
+	defaults.singleLabel = '';
+	defaults.icon = 'fa-object-group';
+
+	var defaultFields = [];
+
+	defaultFields.push({ 'displayType': 'text', 'label': 'Name', 'choices': [], 'name': 'name', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+
+	defaults.fields = defaultFields;
+	basicCollection.defaults = defaults;
+
+	return basicCollection;
+
 }
 
 /*
