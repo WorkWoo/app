@@ -66,7 +66,7 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 					}
 
 					// Translate the display types into db types
-					if (field.displayType == 'text' || field.displayType == 'textarea' || field.displayType == 'choice' || field.displayType == 'autonumber' || field.displayType == 'state' || field.displayType == 'currency') {
+					if (field.displayType == 'text' || field.displayType == 'textarea' || field.displayType == 'choice' || field.displayType == 'autonumber' || field.displayType == 'state' || field.displayType == 'currency' || field.displayType == 'phone') {
 						field.dbType = 'String';
 						if (field.displayType == 'state') {
 							field.choices = updatedCollection.stateChoices;
@@ -77,6 +77,8 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 						field.dbType = 'SingleReference';
 					} else if (field.displayType == 'ReferenceList') {
 						field.dbType = 'ReferenceList';
+					} else if(field.displayType == 'checkbox') {
+						field.dbType = 'boolean';
 					}
 
 					// If the field if a reference, store it at the top level
