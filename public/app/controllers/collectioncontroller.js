@@ -216,7 +216,7 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
   $scope.addNewField = function() {
     var newField = {
       name: '',
-      label: 'New Field',
+      label: '',
       displayType: 'text',
       sysProvided: false,
       dbType: String,
