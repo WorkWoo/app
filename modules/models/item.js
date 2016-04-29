@@ -10,7 +10,8 @@ var Counter = require('workwoo-utils').counter;
 var Collection = require('../models/collection');
 
 // Custom modules
-var fieldTypes = require('workwoo-utils').fieldType.getFieldTypesArray();
+var fieldTypes = require('../types/fieldType').getFieldTypesArray();
+var collectionTypes = require('../types/collectionType').getCollectionTypesArray();
 
 var widget = 'Item';
 log.registerWidget(widget);
@@ -52,7 +53,8 @@ itemSchema.statics.getCollections = function(org, callback) {
 				var collectionInfo = {
 					collections: collectionsObject,
 					models: modelsObject,
-					fieldTypes: fieldTypes
+					fieldTypes: fieldTypes,
+					collectionTypes: collectionTypes
 				};
 
 				log.info('|Item.getCollections| Attempting to cach collections for org -> ' + org, widget);

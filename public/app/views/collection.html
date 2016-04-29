@@ -58,7 +58,7 @@
 							<!-- Create a row for each state -->
 							<div ng-repeat="choice in selectedCollection.stateChoices track by $index" ng-if="!field.sysProvided" class="col-md-12 noSpace fadeInOutStagger">
 		            			<div class="input-group" style="margin-bottom:3px;">
-		            				<input ng-disabled="collectionsLoading" class="form-control defaultInput" ng-model="selectedCollection.stateChoices[$index]" style="border-right:none;" type="text">
+		            				<input ng-disabled="collectionsLoading" class="form-control defaultInput" ng-model="selectedCollection.stateChoices[$index]" style="border-right:none;" type="text" placeholder="New State">
 		            				<span ng-click="removeState($index)" class="input-group-addon removeChoiceIcon" style="border-left:none;">
 		            					<i class="fa fa-remove"></i>
 		            				</span>
@@ -66,7 +66,7 @@
 							</div>
 							<!-- Add state button -->
 							<div class="col-md-12 noSpace">
-								<button ng-disabled="collectionsLoading" type="button" ng-click="selectedCollection.stateChoices.push('- New state -')" class="btn btn-success btn-block">
+								<button ng-disabled="collectionsLoading" type="button" ng-click="selectedCollection.stateChoices.push('')" class="btn btn-success btn-block">
 		              				<span class="fa fa-plus"></span>
 		              				<span> Add State</span>
 		              			</button>
@@ -111,7 +111,7 @@
 					<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" ng-if="!field.sysProvided" class="col-md-12 noSpace customFieldRow fadeInOutStagger">
 						<!-- Field name -->
 						<div class="col-md-7" style="margin-bottom:5px;">
-							<input ng-disabled="collectionsLoading || field.sysProvided" type="text" ng-model="field.label" ng-change="field.name = lowerAndRemoveSpace(field.label)" ng-init="field.name = lowerAndRemoveSpace(field.label)" class="form-control defaultInput" size="20">
+							<input ng-disabled="collectionsLoading || field.sysProvided" type="text" ng-model="field.label" ng-change="field.name = lowerAndRemoveSpace(field.label)" ng-init="field.name = lowerAndRemoveSpace(field.label)" class="form-control defaultInput" size="20" placeholder='New Field'>
 						</div>
 						<!-- Field type -->
 						<div class="col-md-4" style="margin-bottom:5px;">

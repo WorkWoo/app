@@ -216,7 +216,7 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
   $scope.addNewField = function() {
     var newField = {
       name: '',
-      label: 'New Field',
+      label: '',
       displayType: 'text',
       sysProvided: false,
       dbType: String,
@@ -279,52 +279,7 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     if (creatingCollection) {
       $scope.currentAction = 'create';
       $scope.setPageLoading(false);
-      $scope.selectedCollection = {
-        collectionType: 'workable',
-        displayField: 'title',
-        icon: 'fa-wrench',
-        stateChoices: ['Open', 'In Progress', 'Complete', 'Cancelled'],
-        fields: [
-          {
-            "showOnNew": false,
-            "showOnView": false,
-            "showOnList": true,
-            "required": true,
-            "readonly": false,
-            "sysProvided": true,
-            "displayType": "autonumber",
-            "label": "Number",
-            "name": "number",
-            "dbType": "String"
-          },
-          {
-            'showOnNew': false,
-            'showOnView': false,
-            'showOnList': true,
-            'required': true,
-            'readonly': false,
-            'sysProvided': true,
-            'displayType': 'state',
-            'label': 'State',
-            'choices': [],
-            'name': 'state',
-            'dbType': 'String'
-          },
-          {
-            'showOnNew': true,
-            'showOnView': true,
-            'showOnList': true,
-            'required': true,
-            'readonly': false,
-            'sysProvided': false,
-            'displayType': 'text',
-            'label': 'Title',
-            'choices': [],
-            'name': 'title',
-            'dbType': 'String'
-          }
-        ]
-      }
+      $scope.selectedCollection = $scope.collectionTypes[0].defaults; // TODO: Revise when other types are available
       $scope.setPageLoading(false);
 
       if (!$scope.startMainTour) {

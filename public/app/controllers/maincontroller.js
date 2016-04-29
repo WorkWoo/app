@@ -15,6 +15,7 @@ function mainController($scope, $location, $sce, User) {
   $scope.currentUser = USER_PROFILE;
   $scope.collections = COLLECTIONS;
   $scope.fieldTypes = FIELDTYPES;
+  $scope.collectionTypes = COLLECTIONTYPES;
 
   $scope.accountType = $scope.currentUser.org.accountType;
   log.info('Account Type: ' + $scope.accountType);

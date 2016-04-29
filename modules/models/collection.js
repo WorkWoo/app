@@ -14,7 +14,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // Custom modules
-var fieldTypes = require('workwoo-utils').fieldType.getFieldTypesObject();
+var fieldTypes = require('../types/fieldType').getFieldTypesObject();
 
 var collectionSchema = new Schema({
 	_org: { type: Schema.Types.ObjectId, ref: 'Org', required: true },

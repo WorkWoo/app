@@ -10,7 +10,7 @@ var Org = require('workwoo-utils').org;
 var inflect = require('i')(true);
 
 // Custom modules
-var fieldTypes = require('workwoo-utils').fieldType.getFieldTypesObject();
+var fieldTypes = require('../types/fieldType').getFieldTypesObject();
 var qpcache = require('workwoo-utils').cache;
 var utility = require('workwoo-utils').utility;
 var log = require('workwoo-utils').logger;
@@ -39,6 +39,7 @@ exports.create = function(req, res) {
 		newCollection.displayField = req.body.collection.displayField;
 		newCollection.stateChoices = req.body.collection.stateChoices;
 
+		utility.logObject(req.body.collection);
 
 		// Then, calculate the collection name and labels, since the
 		// user only provides the "Plural" value for the collection.
