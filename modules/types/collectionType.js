@@ -13,20 +13,22 @@ exports.getCollectionTypesObject = function () {
 
 exports.getCollectionTypesArray = function () {
 	var collectionTypes = [];
-	collectionTypes.push(getDefaultWorkableCollection());
-	collectionTypes.push(getDefaultBasicCollection());
+	collectionTypes.push(getWorkableCollection());
+	collectionTypes.push(getRevisionableCollection());
+	collectionTypes.push(getInventorialCollection());
+	collectionTypes.push(getBasicCollection());
 
 	return collectionTypes;
 };
 
-function getDefaultWorkableCollection() {
+function getWorkableCollection() {
 	var workableCollection = {};
 	workableCollection.label = 'Workable';
 
 	var defaults = {};
 	defaults.collectionType = 'workable';
 	defaults.name = '';
-	defaults.displayField = 'title';
+	defaults.displayField = 'name';
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
 	defaults.icon = 'fa-wrench';
@@ -36,7 +38,8 @@ function getDefaultWorkableCollection() {
 
 	defaultFields.push({ 'displayType': 'autonumber', 'label': 'Number', 'name': 'number', 'dbType': 'String', 'showOnNew': false, 'showOnView': false, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': true });
 	defaultFields.push({ 'displayType': 'state', 'label': 'State', 'choices': [], 'name': 'state', 'dbType': 'String', 'showOnNew': false, 'showOnView': false, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': true });
-	defaultFields.push({ 'displayType': 'text', 'label': 'Title', 'choices': [], 'name': 'title', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+	defaultFields.push({ 'displayType': 'text', 'label': 'Name', 'name': 'name', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+	defaultFields.push({ 'displayType': 'textarea', 'label': 'Description', 'name': 'description', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
 
 	defaults.fields = defaultFields;
 	workableCollection.defaults = defaults;
@@ -44,21 +47,71 @@ function getDefaultWorkableCollection() {
 	return workableCollection;
 }
 
-function getDefaultBasicCollection() {
+function getRevisionableCollection() {
+	var revisionableCollection = {};
+	revisionableCollection.label = 'Revisionable';
+
+	var defaults = {};
+	defaults.collectionType = 'revisionable';
+	defaults.name = '';
+	defaults.displayField = 'name';
+	defaults.pluralLabel = '';
+	defaults.singleLabel = '';
+	defaults.icon = 'fa-refresh';
+
+	var defaultFields = [];
+
+	defaultFields.push({ 'displayType': 'decimal', 'label': 'Revision', 'name': 'revision', 'dbType': 'Number', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+	defaultFields.push({ 'displayType': 'text', 'label': 'Name', 'name': 'name', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+	defaultFields.push({ 'displayType': 'textarea', 'label': 'Description', 'name': 'description', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+
+	defaults.fields = defaultFields;
+	revisionableCollection.defaults = defaults;
+
+	return revisionableCollection;
+}
+
+function getInventorialCollection() {
+	var inventorialCollection = {};
+	inventorialCollection.label = 'Inventorial';
+
+	var defaults = {};
+	defaults.collectionType = 'inventorial';
+	defaults.name = '';
+	defaults.displayField = 'name';
+	defaults.pluralLabel = '';
+	defaults.singleLabel = '';
+	defaults.icon = 'fa-inbox';
+
+	var defaultFields = [];
+
+	defaultFields.push({ 'displayType': 'number', 'label': 'Quantity', 'name': 'quantity', 'dbType': 'Number', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+	defaultFields.push({ 'displayType': 'text', 'label': 'Name', 'name': 'name', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+	defaultFields.push({ 'displayType': 'textarea', 'label': 'Description', 'name': 'description', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+
+	defaults.fields = defaultFields;
+	inventorialCollection.defaults = defaults;
+
+	return inventorialCollection;
+
+}
+
+function getBasicCollection() {
 	var basicCollection = {};
 	basicCollection.label = 'Basic';
 
 	var defaults = {};
 	defaults.collectionType = 'basic';
 	defaults.name = '';
-	defaults.displayField = 'title';
+	defaults.displayField = 'name';
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
 	defaults.icon = 'fa-object-group';
 
 	var defaultFields = [];
 
-	defaultFields.push({ 'displayType': 'text', 'label': 'Name', 'choices': [], 'name': 'name', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+	defaultFields.push({ 'displayType': 'text', 'label': 'Name', 'name': 'name', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+	defaultFields.push({ 'displayType': 'textarea', 'label': 'Description', 'name': 'description', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
 
 	defaults.fields = defaultFields;
 	basicCollection.defaults = defaults;
@@ -66,17 +119,3 @@ function getDefaultBasicCollection() {
 	return basicCollection;
 
 }
-
-/*
-name: { type: String, required: true },
- 	collectionType: { type: String, required: true },
- 	displayField: { type: String, required: true },
-	singleLabel: { type: String, required: true },
-	pluralLabel: { type: String, required: true },
-	numberPrefix: { type: String, required: true },
-	icon: { type: String, required: true },
-	listColumnCount: { type: Number, required: true },
-	referenceFields: { type: String, required: false },
-	stateChoices: { type: [String], required: false },
-
-*/

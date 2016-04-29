@@ -33,7 +33,7 @@ tourConfig.getMainTourConfig = function($scope) {
                                 '<li>Defining and customizing your Workable Items</li>' +
                                 '<li>Creating your very first Workable Item</li>' +
                           '</ul>' +
-                          '<div class="alert alert-info">Tip: You may skip this tour by clicking the link below. You can always access this tour later by clicking the <i class="fa fa-bars" /> icon at the top right corner</div>' +
+                          '<div class="alert alert-info alert-info-tour">Tip: You may skip this tour by clicking the link below. You can always access this tour later by clicking the <i class="fa fa-bars" /> icon at the top right corner</div>' +
                         '</div></em>',       
                 titleTemplate: 'tour-title'
               });
@@ -67,7 +67,7 @@ tourConfig.getMainTourConfig = function($scope) {
   config.push({ type: "element",
                 selector: "#accountMenuItemD",
                 heading: "Navigation: The <i class='fa fa-cog' /> Icon",
-                text: "Now let's start setting up WorkWoo the way you want. <div class='alert alert-success'><em>Click the <i class='fa fa-cog' /> icon to access your WorkWoo Settings</em></div>",
+                text: "Now let's start setting up WorkWoo the way you want. <div class='alert alert-success alert-success-tour'><em>Click the <i class='fa fa-cog' /> icon to access your WorkWoo Settings</em></div>",
                 placement: "auto right",
                 advanceOn: {element: '#accountMenuItemD', event: 'click'},
                 attachToBody: "true",
@@ -81,7 +81,7 @@ tourConfig.getMainTourConfig = function($scope) {
                 selector: "#workSettings",
                 heading: "Your <i class='fa fa-cog' /> WorkWoo Settings",
                 text: "This section contains your WorkWoo Settings (Account, Users, etc.); however, right now we are on a mission to create your first Workable Item; so, let's move on." + 
-                      "<div class='alert alert-success'><em>Click the <i class='fa fa-wrench' /> icon to configure your Workable Items.</em></div>",
+                      "<div class='alert alert-success alert-success-tour'><em>Click the <i class='fa fa-wrench' /> icon to configure your Workable Items.</em></div>",
                 placement: "auto top",
                 advanceOn: {element: '#workSettings', event: 'click'},
                 attachToBody: "true",
@@ -95,7 +95,7 @@ tourConfig.getMainTourConfig = function($scope) {
                 selector: "#setUpNow",
                 heading: "Your <i class='fa fa-wrench' /> Workable Items",
                 text: "Oh no, looks like you have no Workable Items yet. Let's fix that now!" + 
-                      "<div class='alert alert-success'><em>Click </em><span class='btn-success-tour'>Set Up Now</span><em> to create your first Workable Item.</em></div>",
+                      "<div class='alert alert-success alert-success-tour'><em>Click </em><span class='btn-success-tour'>Set Up Now</span><em> to create your first Workable Item.</em></div>",
                 placement: "auto top",
                 advanceOn: {element: '#setUpNow', event: 'click'},
                 attachToBody: "true",
@@ -108,7 +108,7 @@ tourConfig.getMainTourConfig = function($scope) {
                 selector: "#0_workSettings",
                 heading: "Your <i class='fa fa-wrench' /> Workable Items",
                 text: "Looks like there are Workable Items already defined. Let's dive into one to learn how you can update your items." + 
-                      "<div class='alert alert-success'><em>Click on the highlighted Workable Item.</em></div>",
+                      "<div class='alert alert-success alert-success-tour'><em>Click on the highlighted Workable Item.</em></div>",
                 placement: "auto top",
                 advanceOn: {element: '#0_workSettings', event: 'click'},
                 attachToBody: "true",
@@ -133,7 +133,7 @@ tourConfig.getWorkSettingsTourConfig = function($scope) {
                                 '<li>What is the state model of your work?</li>' +
                                 '<li>And finally, what information makes up your Workable Item?</li>' +
                           '</ul>' +
-                          '<div class="alert alert-info">Tip: We will be creating a brand new Workable Item. Don\'t worry if you forget to add a state or a field; you can always come back and modify your items!</div>' +
+                          '<div class="alert alert-info alert-info-tour">Tip: We will be creating a brand new Workable Item. Don\'t worry if you forget to add a state or a field; you can always come back and modify your items!</div>' +
                         '</div></em>',   
                 titleTemplate: 'tour-title'
               });
@@ -141,7 +141,7 @@ tourConfig.getWorkSettingsTourConfig = function($scope) {
   config.push({ type: "element",
                 selector: "#collectionNameContainer",
                 heading: "Workable Item Name",
-                text: "What do you call your Workable Item? This is the main identifier for items of this type.<div class='alert alert-success'><em>Enter a name and click Next when done.</em></div>",
+                text: "What do you call your Workable Item? This is the main identifier for items of this type.<div class='alert alert-success alert-success-tour'><em>Enter a name and click Next when done.</em></div>",
                 placement: "auto top",
                 attachToBody: "true",
                 scroll: false,
@@ -152,7 +152,7 @@ tourConfig.getWorkSettingsTourConfig = function($scope) {
                 selector: "#numberPrefixContainer",
                 heading: "Workable Item Prefix",
                 text: "All Workable Items within WorkWoo are numbered with a prefix (ex: <font color='#67A88C'><b><u>WO</u></b></font>134563). What prefix would you like to use for this Workable Item?" + 
-                      "<div class='alert alert-success'><em>Enter a prefix and click Next when done.</em></div>",
+                      "<div class='alert alert-success alert-success-tour'><em>Enter a prefix and click Next when done.</em></div>",
                 placement: "auto top",
                 attachToBody: "true",
                 scroll: false,
@@ -163,9 +163,9 @@ tourConfig.getWorkSettingsTourConfig = function($scope) {
                 selector: "#stateContainer",
                 heading: "Workable Item State Model",
                 text: "Workable Items in WorkWoo have a state model. We've provided some standard states; however, you can customize it to your business." + 
-                      "<div class='alert alert-info'><em>Click </em><span class='btn-success-tour'><span class='fa fa-plus'></span> Add State </span><em> to add a new state.<br><br>" + 
+                      "<div class='alert alert-info alert-info-tour'><em>Click </em><span class='btn-success-tour'><span class='fa fa-plus'></span> Add State </span><em> to add a new state.<br><br>" + 
                       "Click <i class='fa fa-remove removeChoiceIconTour'></i> to remove a state.</em></div>" +
-                      "<div class='alert alert-success'><em>Try adding or changing the state model and click Next when done.</em></div>",
+                      "<div class='alert alert-success alert-success-tour'><em>Try adding or changing the state model and click Next when done.</em></div>",
                 placement: "auto right",
                 attachToBody: "true",
                 scroll: true,
@@ -176,12 +176,12 @@ tourConfig.getWorkSettingsTourConfig = function($scope) {
                 selector: "#customFieldsContainer",
                 heading: "Workable Item Fields",
                 text: "What information makes up your Workable Item? There are many types of fields to choose from." + 
-                      "<div class='alert alert-info'><em>Click </em><span class='btn-success-tour'><span class='fa fa-plus'></span> Add New Field </span><em> to add a new field.<br><br>" + 
+                      "<div class='alert alert-info alert-info-tour'><em>Click </em><span class='btn-success-tour'><span class='fa fa-plus'></span> Add New Field </span><em> to add a new field.<br><br>" + 
                       "Enter a name and choose a type in the dropdown.<br><br>" + 
                       "Click <i class='fa fa-remove removeChoiceIconTour'></i> to remove a field.</em></div>" + 
-                      "<div class='alert alert-info'><em>You can even create a dropdown field with choices you define. Try it out by choosing \"Dropdown\" as the field type and clicking </em>" + 
+                      "<div class='alert alert-info alert-info-tour'><em>You can even create a dropdown field with choices you define. Try it out by choosing \"Dropdown\" as the field type and clicking </em>" + 
                       "<span class='btn-success-tour'><i class='fa fa-bars'></i> Edit Choices</span></div>" + 
-                      "<div class='alert alert-success'><em>Try adding or changing fields and click Next when done.</em></div>",
+                      "<div class='alert alert-success alert-success-tour'><em>Try adding or changing fields and click Next when done.</em></div>",
                 placement: "auto right",
                 attachToBody: "true",
                 scroll: true,
@@ -192,7 +192,7 @@ tourConfig.getWorkSettingsTourConfig = function($scope) {
                 selector: "#saveChangesButton",
                 heading: "Saving your Changes",
                 text: "Thanks for sticking around with us and making it this far!" + 
-                "<div class='alert alert-info'><em>Click </em><span class='btn-primary-tour'>Save Changes</span><em> to save your Workable Item.</em></div>",
+                "<div class='alert alert-info alert-info-tour'><em>Click </em><span class='btn-primary-tour'>Save Changes</span><em> to save your Workable Item.</em></div>",
                 placement: "auto bottom",
                 attachToBody: "true",
                 scroll: true,

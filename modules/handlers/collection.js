@@ -66,30 +66,11 @@ exports.create = function(req, res) {
 				listFieldCount++;
 			}
 
-			// Translate the display types into db types
-			if (field.displayType == 'text' || field.displayType == 'textarea' || field.displayType == 'choice' || field.displayType == 'autonumber' || field.displayType == 'state' || field.displayType == 'currency' || field.displayType == 'phone') {
+			if (field.displayType == 'state' || field.displayType == 'autonumber') {
 				field.dbType = 'String';
 				if (field.displayType == 'state') {
 					field.choices = newCollection.stateChoices;
 				}
-			} else if (field.displayType == 'datetime') {
-				field.dbType = 'Date';
-			} else if (field.displayType == 'SingleReference') {
-				field.dbType = 'SingleReference';
-			} else if (field.displayType == 'ReferenceList') {
-				field.dbType = 'ReferenceList';
-			} else if(field.displayType == 'checkbox') {
-				field.dbType = 'boolean';
-			}
-
-			// If the field if a reference, store it at the top level
-			if (field.dbType == 'SingleReference' || field.dbType == 'ReferenceList') {
-				referenceFields += field.name + ' ';
-			}
-
-			if (field.displayType == 'state') {
-				field.dbType = 'String';
-				field.choices = newCollection.stateChoices;
 			} else {
 				var fieldType = fieldTypes[field.displayType];
 
@@ -102,7 +83,6 @@ exports.create = function(req, res) {
 					referenceFields += field.name + ' ';
 				}
 			}
-
 
 			processedFields.push(field);
 		}
