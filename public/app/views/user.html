@@ -8,8 +8,9 @@
 	      <a href="#/account/users"><span class="fa fa-arrow-left"></span> All users</a>
 	    </div>
 	    <h3 class="pageHeading">
-			<span class="fadeInOut" ng-if="!usersLoading">{{ selecedUserName }}</span>
-			<span ng-if="usersLoading">&nbsp;</span>
+			<span ng-if="currentAction == 'update' && !usersLoading" class="fadeInOut">{{ selecedUserName }}</span>
+			<span ng-if="currentAction == 'update' && usersLoading" class="fadeInOut"><span class="fa fa-refresh fa-spin"></span></span>
+			<span ng-if="currentAction == 'create'" class="fadeInOut">New User</span>
 	    </h3>
 	  </div>
 	</div>
@@ -39,7 +40,7 @@
 					<div class="inputContainer">
 						<label for="phoneNumber">Phone Number:</label>
 						<input ng-disabled="usersLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="selectedUser.phone" size="20" ng-intl-tel-input required/>
-						<span ng-if="userForm.phoneNumber.$invalid && userForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to call you')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+						<span ng-if="userForm.phoneNumber.$invalid && userForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to call')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 			</div>
@@ -50,7 +51,7 @@
 					<div class="inputContainer">
 						<label for="emailAddress">Email Address:</label>
 						<input ng-disabled="usersLoading" type="email" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="selectedUser.emailAddress" size="20" required/>
-						<span ng-if="userForm.emailAddress.$invalid && userForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We might need to send you stuff')" id="emailAddressRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+						<span ng-if="userForm.emailAddress.$invalid && userForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We might need to send stuff')" id="emailAddressRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 					</div>
 				</div>
 			</div>

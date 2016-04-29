@@ -1,17 +1,17 @@
 <!-- Success alert -->
-<span ng-if="successAlertVisible" class="alert alert-success text-center fadeExpandDown">
+<div ng-if="successAlertVisible" class="alert alert-success text-center fadeExpandDown">
   <span ng-click="toggleAlert('success', false, '')" class="pull-right alertClose fa fa-times" alt="Dismiss"></span>
   <span class="fa fa-check"></span> <span ng-bind-html="trustAsHtml(successAlertText)"></span>
-</span>
+</div>
 
 <!-- Danger alert -->
-<span ng-if="dangerAlertVisible" class="alert alert-danger text-center fadeExpandDown">
+<div ng-if="dangerAlertVisible" class="alert alert-danger text-center fadeExpandDown">
   <span ng-click="toggleAlert('danger', false, '')" class="pull-right alertClose fa fa-times"></span>
   <span class="fa fa-exclamation-triangle "></span> <span ng-bind-html="trustAsHtml(dangerAlertText)"></span>
-</span>
+</div>
 
 <!-- Info alert -->
-<span ng-if="infoAlertVisible" class="alert alert-info text-center fadeExpandDown">
+<div ng-if="infoAlertVisible" class="alert alert-info text-center fadeExpandDown">
   <span ng-click="toggleAlert('info', false, '')" class="pull-right alertClose fa fa-times"></span>
   <span class="fa fa-info-circle"></span> <span ng-bind-html="trustAsHtml(infoAlertText)"></span>
-</span>
+</div>

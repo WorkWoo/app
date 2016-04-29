@@ -108,12 +108,8 @@ function userController($scope, $location, User, SelectedUser) {
 
     if (creatingNew) {
       log.info('|initializeUserController| Creating new');
-      // Now, extract the collection name
-      currentURL = currentURL.slice(0, currentURL.indexOf('/new'));
-      $scope.baseCollection = currentURL.slice(1);
       $scope.currentAction = 'create';
-      $scope.selectedItem = { collectionName: $scope.primaryCollection };
-      $scope.itemsLoading = false;
+      $scope.usersLoading = false;
       return;
     }
 

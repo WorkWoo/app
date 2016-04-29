@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Work Sans', sans-serif;
   font-size: 16px;
 }
 
@@ -53,6 +53,16 @@ body {
   font-size: 30px;
   color: #d8d8d8;
   padding: 20px 0px 20px 100px;
+}
+
+.spanLink {
+  color: #6783a8;
+}
+
+.spanLink:hover {
+  color: #a6a6a6;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 
@@ -139,6 +149,7 @@ a:hover {
 
 
 .userMenuIcon {
+  margin-left: 10px;
   font-size: 18px;
   transition: all .1s linear;
   -webkit-transition: all .1s linear;
@@ -257,7 +268,7 @@ a:hover {
   text-align: center;
   background-color: #fcfcfc;
   border: 1px dashed #d8d8d8;
-  border-radius: 5px;
+  border-radius: 0px;
   display: block;
   font-size: 20px;
   transition: all .15s linear;
@@ -291,7 +302,7 @@ a:hover {
 
 
   .workHomeStateContainer {
-    border-radius: 5px;
+    border-radius: 0px;
     background-color: #fcfcfc;
     border: 1px dashed #d8d8d8;
     margin: 5px;
@@ -330,7 +341,7 @@ a:hover {
 
 
 .itemCard, .itemCardActive {
-  border-radius: 5px;
+  border-radius: 0px;
   background-color: #fcfcfc;
   border: 1px dashed #d8d8d8;
   margin: 10px 0px 10px 0px;
@@ -442,7 +453,7 @@ a:hover {
 }
 
 .singleItemInnerContainer {
-  background-color: #fcfcfc;
+  /*background-color: #fcfcfc;*/
   border: 1px dashed #d8d8d8;
   padding: 10px;
   margin-top: 0px;
@@ -452,25 +463,27 @@ a:hover {
 }
 
 .defaultInput {
-  border-radius: 5px;
+  font-size: 16px;
+  margin: 0px;
+  padding: 20px;
   border: 1px solid #e5e5e5;
   box-shadow: none;
+  border-radius: 0px;
   z-index: 1;
 }
 
 .defaultInputGroup {
   padding-top: 5px;
   padding-bottom: 5px;
-  border-radius: 5px;
-  background-color: #fcfcfc;
+  border-radius: 0px;
 }
 
 .inputInvalid {
   cursor: pointer;
   color: #a86c67;
   position: absolute;
-  right: 25px;
-  top: 35px;
+  right: 30px;
+  top: 40px;
   font-size: 25px;
 }
 
@@ -496,6 +509,10 @@ a:hover {
   padding: 5px;
 }
 
+.choiceOptionContainer {
+  background-color: #fff;
+  padding: 10px;
+}
 
 .itemInfo {
   color: #477c65;
@@ -557,11 +574,14 @@ a:hover {
   margin-bottom: 0px;
   position: relative;
   font-size: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0px;
 }
 
 .alert-success {
   color: #67A88C;
-  background-color: #e9f2ee;
+  background-color: #fff;
   border-color: #d9e9e2;
 }
 
@@ -873,25 +893,17 @@ a:hover {
   background-color: #d8d8d8;
 }
 
-.choiceOptionContainer {
-  background-color: #fff;
-  padding: 10px;
-  margin: 5px;
-  border-radius: 5px;
-  list-style-type: none;
-}
-
 .removeChoiceIcon {
   color: #a86c67;
-  background-color: #f0f0f0;
-  border: 1px dotted #c4c4c4;
-  box-shadow: inset 1px 1px 3px #f0f0f0;
+  background-color: #e5e5e5;
+  border-radius: 0px;
+  border: 1px solid #e5e5e5;
+  box-shadow: none;
 }
 
 .removeChoiceIcon:hover {
-  background-color: #fcfcfc;
+  background-color: #f0f0f0;
   cursor: pointer;
-  box-shadow: inset 1px 1px 3px #f0f0f0;
 }
 
 .customFieldRow {
@@ -916,6 +928,11 @@ a:hover {
 }
 
 /****************************** BUTTONS ******************************/
+
+.btn {
+  border-radius: 0px;
+  padding: 10px;
+}
 
 .btn-success, .btn-success:focus {
   border-color: #fff;

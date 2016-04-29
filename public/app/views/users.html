@@ -15,12 +15,19 @@
 
   <!-- Create new button -->
   <div class="col-md-3 noSpaceMobile fadeInOut">
-    <!-- Free users -->
+    <!-- Basic users -->
     <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
       <span class="menuCardIconDisabled fa fa-user-plus"></span>
       <span class="cardTitleBreaker"></br></span>
       <span class="menuCardTitleDisabled">New User</span>
     </span>
+
+    <!-- Pro users -->
+    <a ng-href="#/account/users/new" ng-if="accountType == '1'" class="menuCardContainer fadeInOut">
+      <span class="menuCardIcon fa fa-user-plus"></span>
+      <span class="cardTitleBreaker"></br></span>
+      <span class="menuCardTitle">New User</span>
+    </a>
   </div>
 
   <!-- Loading indicator -->
@@ -41,7 +48,7 @@
 </div>
 
 <!-- Upgrade indicator -->
-<div class="container-fluid">
+<div ng-if="accountType == '0'" class="container-fluid">
   <div class="upgradeAlert clearfix text-left">
     <span class="upgradeAlertIcon"><i class="fa fa-users iconXL"></i></span>
     <span class="upgradeAlertText"><strong>Empower your employees!</strong><br/> Your free account includes 1 user. Upgrade now to add additional users for only $10 a month per user</span>

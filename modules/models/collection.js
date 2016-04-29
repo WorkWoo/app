@@ -119,7 +119,7 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 		    				log.info('Counter: ' + counter);
 
 		    				counter.prefix = savedCollection.numberPrefix;
-		    				counter.collection = savedCollection.name;
+		    				counter.collectionName = savedCollection.name;
 		    				counter.save(function(error, savedCounter){
 			    				if (error) {
 			    					log.error('|Collection.update.save.counter.save| Unknown -> ' + error, widget);

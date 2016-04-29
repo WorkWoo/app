@@ -115,7 +115,7 @@ exports.create = function(req, res) {
 		// First, create the counter for this collection
 		var newCounter = new Counter();
 		newCounter._org = orgID;
-		newCounter.collection = newCollection.name
+		newCounter.collectionName = newCollection.name
 		newCounter.prefix = newCollection.numberPrefix;
 		newCounter.save(function(error, savedCounter){
     		if (error || !savedCounter) {

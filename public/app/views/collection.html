@@ -4,7 +4,6 @@
 
 	<!-- Page Header -->
 	<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
-		
 		<div class="col-md-12 breadCrumb noSpaceMobile">
 		    <a href="#/account/collections"><span class="fa fa-arrow-left"></span> All Workable Items</a>
 		</div>
@@ -16,7 +15,7 @@
   		</div>
 
 		<div class="col-md-6 noSpace text-right">
-			<span ng-disabled="collectionsLoading" ng-click="tiggerWorkSettingsTour()" class="btn btn-success hideInMobile" style="margin-right:20px;">
+			<span ng-disabled="collectionsLoading" ng-click="tiggerWorkSettingsTour()" class="spanLink" style="margin-right:20px;">
 				<span class="fa fa-question-circle"></span>
 				<span> Help me through this!</span>
 			</span>
@@ -27,7 +26,7 @@
 	<!-- Page Content -->
 	<div class="container-fluid singleItemOuterContainer noSpaceMobile">
 
-    	<div class="container-fluid singleItemInnerContainer noSpaceMobile" style="padding:25px;">
+    	<div class="container-fluid noSpaceMobile">
 
 			<!-- Basic settings & state choices -->
 			<div class="col-md-4">
@@ -79,23 +78,23 @@
 			<!-- Custom fields -->
 			<div id="customFieldsContainer" class="defaultInputGroup form-group col-md-8">
 				<!-- System fields -->
-	        	<div id="sysFields" class="itemInfo choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
-	        		<label>Workable Items have the following fields by default:</label>
+	        	<div id="sysFields" class="itemInfo clearfix hideInMobile">
 	        		<div class="col-md-12">
-	        		<div class="col-md-4 hideInMobile">
+	        			<label><strong>Workable Items have the following fields by default:</strong></label>
+	        		</div>
+	        		<div class="col-md-4">
 						<div>Auto-number</div>
 						<div>State</div>
 					</div>
-					<div class="col-md-4 hideInMobile">
+					<div class="col-md-4">
 						<div>Who created it</div>	
 						<div>Who updated last</div>
 					</div>
-					<div class="col-md-4 hideInMobile">
+					<div class="col-md-4">
 						<div>Created time</div>
 						<div>Last updated time</div>	
 					</div>
 				</div>
-	        	</div> 
 
 				<label>Custom fields:</label>
 				<div class="choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
@@ -166,7 +165,8 @@
 					<!-- End loop through each field -->
 
 					<!-- Add new field button-->
-					<div class="col-md-5 pull-right noSpace">
+					<div class="col-md-7"></div>
+					<div class="col-md-5">
 						<button type="button" ng-disabled="collectionsLoading" type="button" ng-click="addNewField()" class="btn btn-success btn-block">
 							<span class="fa fa-plus"></span>
 							<span> Add new field</span>
@@ -218,7 +218,7 @@
     	</div>
 
 		<!-- Upgrade indicator -->
-		<div class="col-md-12 noSpace">
+		<div ng-if="accountType == '0'" class="col-md-12 noSpace">
 			<div class="upgradeAlert clearfix">
 				<span class="upgradeAlertIcon"><i class="fa fa-bolt iconXL"></i></span>
 				<span class="upgradeAlertText"><strong>Supercharge your {{ collections[primaryCollection].pluralLabel }}</strong><br/> With WorkWoo Pro, import and track items that relate to {{ collections[primaryCollection].pluralLabel }}, like documents, employees, or inventory</span>
