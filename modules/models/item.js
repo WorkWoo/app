@@ -467,8 +467,8 @@ function createItemSchema(collectionObject) {
 		newItemSchema.pre('save', function(next) {
 			var item = this;
 			if (this.isNew && (!this.revision || this.revision == 0)) {
-				Counter.increment(item.collectionName, this._org, function(error, autonumber) {
-					item.number = autonumber;
+				Counter.increment(item.collectionName, this._org, function(error, incrementedNumber) {
+					item.number = incrementedNumber;
 					next();
 				});
 			} else {

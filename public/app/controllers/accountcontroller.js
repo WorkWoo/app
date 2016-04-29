@@ -32,8 +32,8 @@ function accountController($scope, $timeout, User) {
       function(response){
         $scope.setPageLoading(false);
         $scope.usersLoading = false;
-        $scope.changeView('/');
-        location.reload();
+        $scope.changeView('/account');
+        $scope.toggleAlert('success', true, 'Your account has been updated');
 
       },
       function() {
@@ -59,12 +59,15 @@ function accountController($scope, $timeout, User) {
       function(response){
         $scope.setPageLoading(false);
         $scope.usersLoading = false;
-        location.reload();
+        $scope.changeView('/account');
+        $scope.toggleAlert('success', true, 'Your password has been changed');
 
       },
       function() {
         $scope.setPageLoading(false);
         $scope.usersLoading = false;
+        $scope.changeView('/account');
+        $scope.toggleAlert('danger', true, 'Something went wrong trying to reset your password');
       }
     );
   };

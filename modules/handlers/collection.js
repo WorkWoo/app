@@ -34,7 +34,7 @@ exports.create = function(req, res) {
 		var newCollection = new Collection();
 		newCollection._org = orgID;
 		newCollection.collectionType = req.body.collection.collectionType;
-		newCollection.numberPrefix = req.body.collection.numberPrefix;
+		newCollection.numberPrefix = req.body.collection.numberPrefix.toUpperCase();
 		newCollection.icon = req.body.collection.icon;
 		newCollection.displayField = req.body.collection.displayField;
 		newCollection.stateChoices = req.body.collection.stateChoices;
@@ -42,8 +42,12 @@ exports.create = function(req, res) {
 
 		// Then, calculate the collection name and labels, since the
 		// user only provides the "Plural" value for the collection.
-		newCollection.pluralLabel = req.body.collection.pluralLabel;
+		newCollection.pluralLabel = inflect.pluralize(req.body.collection.pluralLabel);
+		newCollection.pluralLabel = inflect.titleize(newCollection.pluralLabel);
+
 		newCollection.singleLabel = inflect.singularize(newCollection.pluralLabel);
+		newCollection.singleLabel = inflect.titleize(newCollection.singleLabel);
+
 	 	newCollection.name = newCollection.pluralLabel.toLowerCase().replace(/ /g,''); // Lowercase and remove spaces
 		
 		// Now iterate through each field to do several thing:
@@ -107,63 +111,63 @@ exports.create = function(req, res) {
 		newCollection.listColumnCount = listFieldCount;
 		newCollection.fields = processedFields;
 
-    	newCollection.save(function(error, savedCollection) {
-    		if (error || !savedCollection) {
-				log.error('|Collection.create.save| Unknown -> ' + error, widget);
+		// First, create the counter for this collection
+		var newCounter = new Counter();
+		newCounter._org = orgID;
+		newCounter.collection = newCollection.name
+		newCounter.prefix = newCollection.numberPrefix;
+		newCounter.save(function(error, savedCounter){
+    		if (error || !savedCounter) {
+				log.error('|Collection.create.save.counter.save| Unknown -> ' + error, widget);
 				utility.errorResponseJSON(res, 'Unknown error creating collection');
-    		}
-
-    		// Now create the counter for this collection
-    		var newCounter = new Counter();
-    		newCounter._org = orgID;
-    		newCounter.col = savedCollection.name;
- 			newCounter.prefix = savedCollection.numberPrefix;
-
- 			newCounter.save(function(){
-	    		if (error) {
-					log.error('|Collection.create.save.counter.save| Unknown -> ' + error, widget);
-					utility.errorResponseJSON(res, 'Unknown error creating collection');
-	    		}
-
-
-	    		// Now that the collection and counter have bee created, update the org if this is their first setup
-		    	Org.findById(orgID, function(error, org) {
-		    		if (error) {
-						log.error('|Collection.create.save.org.fine| Unknown -> ' + error, widget);
+    		} else {
+	    		// If creation of the counter was successful, save the collection
+	    		newCollection._counter = savedCounter._id;
+		    	newCollection.save(function(error, savedCollection) {
+		    		if (error || !savedCollection) {
+						log.error('|Collection.create.save| Unknown -> ' + error, widget);
 						utility.errorResponseJSON(res, 'Unknown error creating collection');
-					} else {
-						if (!org.primaryCollection) {
-							org.primaryCollection = savedCollection.name;
-							org.save(function(error, org) {
+		    		}
+
+		    		// Now that the collection and counter have bee created, update the org's primaryCollection if this is their first setup
+			    	Org.findById(orgID, function(error, org) {
+			    		if (error) {
+							log.error('|Collection.create.save.org.find| Unknown -> ' + error, widget);
+							utility.errorResponseJSON(res, 'Unknown error creating collection');
+						} else {
+							if (!org.primaryCollection) {
+								org.primaryCollection = savedCollection.name;
+								org.save(function(error, org) {
+									// Before returning, reload the cache for this org, since a change to collections was made.
+						    		qpcache.delete(orgID);
+						    		Item.getCollections(orgID, function(error, collectionsObject){
+										if (error) {
+											log.error('|collection.create| Unknown error -> ' + error, widget);
+										} else {
+											req.session.userprofile.org.primaryCollection = savedCollection.name;
+											res.send(JSON.stringify({ collections: collectionsObject.collections }));
+										}
+									});
+					    		});
+							} else {
 								// Before returning, reload the cache for this org, since a change to collections was made.
 					    		qpcache.delete(orgID);
 					    		Item.getCollections(orgID, function(error, collectionsObject){
 									if (error) {
 										log.error('|collection.create| Unknown error -> ' + error, widget);
 									} else {
-										req.session.userprofile.org.primaryCollection = savedCollection.name;
 										res.send(JSON.stringify({ collections: collectionsObject.collections }));
 									}
 								});
-				    		});
-						} else {
-							// Before returning, reload the cache for this org, since a change to collections was made.
-				    		qpcache.delete(orgID);
-				    		Item.getCollections(orgID, function(error, collectionsObject){
-								if (error) {
-									log.error('|collection.create| Unknown error -> ' + error, widget);
-								} else {
-									res.send(JSON.stringify({ collections: collectionsObject.collections }));
-								}
-							});
+							}
 						}
-					}
-		    	});
- 			});
+			    	});
+	 			});
+    		}
 		});
 
 	} catch (error) {
-		log.error('|collection.update| Unknown -> ' + error, widget);
+		log.error('|collection.create| Unknown -> ' + error, widget);
 		utility.errorResponseJSON(res, 'Unknown error creating collection');
 	}
 };

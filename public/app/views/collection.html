@@ -17,8 +17,8 @@
 
 		<div class="col-md-6 noSpace text-right">
 			<span ng-disabled="collectionsLoading" ng-click="tiggerWorkSettingsTour()" class="btn btn-success hideInMobile" style="margin-right:20px;">
-				<span class="fa fa-road"></span>
-				<span> Guide me!</span>
+				<span class="fa fa-question-circle"></span>
+				<span> Help me through this!</span>
 			</span>
 		</div>
 	</div> 
@@ -80,19 +80,19 @@
 			<div id="customFieldsContainer" class="defaultInputGroup form-group col-md-8">
 				<!-- System fields -->
 	        	<div id="sysFields" class="itemInfo choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
-	        		<label>Workable Items have the following system fields:</label>
+	        		<label>Workable Items have the following fields by default:</label>
 	        		<div class="col-md-12">
 	        		<div class="col-md-4 hideInMobile">
 						<div>Auto-number</div>
 						<div>State</div>
 					</div>
 					<div class="col-md-4 hideInMobile">
-						<div>Create User</div>	
-						<div>Update User</div>
+						<div>Who created it</div>	
+						<div>Who updated last</div>
 					</div>
 					<div class="col-md-4 hideInMobile">
-						<div>Created Timestamp</div>
-						<div>Updated Timestamp</div>	
+						<div>Created time</div>
+						<div>Last updated time</div>	
 					</div>
 				</div>
 	        	</div> 
@@ -208,6 +208,9 @@
 						</span>
 					</button>
 
+				</div>
+				<div class="col-md-12 text-right" style="margin-top:5px;">
+					<span class="fa fa-info-circle"></span> <span><i>After submitting, your browser will reload in order for your changes to take effect</i></span>
 				</div>
 
 			</div>

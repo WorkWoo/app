@@ -17,6 +17,7 @@ function mainController($scope, $location, $sce, User) {
   $scope.fieldTypes = FIELDTYPES;
 
   $scope.accountType = $scope.currentUser.org.accountType;
+  log.info('Account Type: ' + $scope.accountType);
   $scope.primaryCollection = $scope.currentUser.org.primaryCollection;
 
   $scope.startMainTour = false;

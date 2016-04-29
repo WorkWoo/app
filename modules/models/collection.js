@@ -18,6 +18,7 @@ var fieldTypes = require('workwoo-utils').fieldType.getFieldTypesObject();
 
 var collectionSchema = new Schema({
 	_org: { type: Schema.Types.ObjectId, ref: 'Org', required: true },
+	_counter: { type: Schema.Types.ObjectId, ref: 'Counter', required: true },
  	name: { type: String, required: true },
  	collectionType: { type: String, required: true },
  	displayField: { type: String, required: true },
@@ -44,12 +45,16 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 				// First, update the simple fields that can be directly saved.
 				collection.icon = updatedCollection.icon;
 				collection.displayField = updatedCollection.displayField;
-				collection.numberPrefix = updatedCollection.numberPrefix;
+				collection.numberPrefix = updatedCollection.numberPrefix.toUpperCase();
 
 				// First, calculate the collection name and labels, since the
 				// user only provides the "Plural" value for the collection.
-				collection.pluralLabel = updatedCollection.pluralLabel;
+				collection.pluralLabel = inflect.pluralize(updatedCollection.pluralLabel);
+				collection.pluralLabel = inflect.titleize(collection.pluralLabel);
+
 				collection.singleLabel = inflect.singularize(collection.pluralLabel);
+				collection.singleLabel = inflect.titleize(collection.singleLabel);
+
 			 	collection.name = collection.pluralLabel.toLowerCase().replace(/ /g,''); // Lowercase and remove spaces
 				collection.stateChoices = updatedCollection.stateChoices;
 
@@ -103,7 +108,7 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 		    		log.info('COLLECTION: ' + savedCollection.name);
 
 		    		// Before returning, update the counter for this collection
-		    		Counter.findOne({ _org: savedCollection._org, col: savedCollection.name })
+		    		Counter.findOne({ _id: savedCollection._counter, _org: savedCollection._org })
 		    			.exec(
 		    			function(error, counter) {
 			    			if (error) {
@@ -114,6 +119,7 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 		    				log.info('Counter: ' + counter);
 
 		    				counter.prefix = savedCollection.numberPrefix;
+		    				counter.collection = savedCollection.name;
 		    				counter.save(function(error, savedCounter){
 			    				if (error) {
 			    					log.error('|Collection.update.save.counter.save| Unknown -> ' + error, widget);

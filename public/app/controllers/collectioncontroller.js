@@ -316,7 +316,7 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
             'showOnList': true,
             'required': true,
             'readonly': false,
-            'sysProvided': true,
+            'sysProvided': false,
             'displayType': 'text',
             'label': 'Title',
             'choices': [],

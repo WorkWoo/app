@@ -8,29 +8,36 @@
 
 <!-- Page Content -->
 <div class="container-fluid noSpace">
-
-  <div class="col-md-4 noSpaceMobile">
-    <a id='accountSettings' href="#/account/summary" class="menuCardContainer">
-      <span class="menuCardIcon fa fa-credit-card"></span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">My Account</span>
-    </a>
+  <div class="row noSpace" style="margin-bottom:25px;">
+    <div class="col-md-12 text-center">
+      <span ng-include="'views/includes/alerts.html'"></span>
+    </div>
   </div>
 
-  <div class="col-md-4 noSpaceMobile">
-    <a id='userSettings' href="#/account/users" class="menuCardContainer">
-      <span class="menuCardIcon fa fa-users"></span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">Users</span>
-    </a>
-  </div>
+  <div class="row noSpace">
+    <div class="col-md-4 noSpaceMobile">
+      <a id='accountSettings' href="#/account/summary" class="menuCardContainer">
+        <span class="menuCardIcon fa fa-credit-card"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitle">My Account</span>
+      </a>
+    </div>
 
-  <div class="col-md-4 noSpaceMobile">
-    <a id='workSettings' ng-href="#/account/collections" class="menuCardContainer">
-      <span class="menuCardIcon fa fa-wrench"></span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">Workable Items</span>
-    </a>
+    <div class="col-md-4 noSpaceMobile">
+      <a id='userSettings' href="#/account/users" class="menuCardContainer">
+        <span class="menuCardIcon fa fa-users"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitle">Users</span>
+      </a>
+    </div>
+
+    <div class="col-md-4 noSpaceMobile">
+      <a id='workSettings' ng-href="#/account/collections" class="menuCardContainer">
+        <span class="menuCardIcon fa fa-wrench"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitle">Workable Items</span>
+      </a>
+    </div>
   </div>
 
 </div>
