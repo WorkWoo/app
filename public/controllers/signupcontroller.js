@@ -1,5 +1,4 @@
 function signupController($scope, Request) {
-	log.info('|signupController|');
 	$scope.emailsMatch = true;
 
 	$scope.signup = function(signupInfo) {

@@ -1,6 +1,4 @@
 function loginController($scope, Request) {
-	log.info('|loginController|');
-	
 	$scope.pageLoaded = false;
 	$scope.loginFailed = false;
 	$scope.loginSubmitting = false;

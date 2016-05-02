@@ -1,6 +1,4 @@
-function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
-  log.info('|collectionController|');
-
+function collectionController($scope, Collection, $location, $routeParams, COLLECTION_ICONS) {
   $scope.currentAction = null;
   $scope.loadedCollections = [];
   $scope.selectedCollection = null;
@@ -32,11 +30,6 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
 
     Collection.getAll(
       function(collections){
-      	log.info('Success');
-
-        log.info('Collections: ' + collections);
-        log.object(collections[0]);
-
         $scope.collectionsLoading = false;
       	$scope.loadedCollections = collections;
 
@@ -55,7 +48,6 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
         $scope.setPageLoading(false);
       },
       function() {
-        log.error('Failed');
         $scope.collectionsLoading = false;
         $scope.setPageLoading(false);
       }
@@ -68,13 +60,11 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     $scope.setPageLoading(true);
     Collection.getOne(collectionName,
       function(collection){
-        log.info('Success');
         $scope.collectionsLoading = false;
         $scope.setPageLoading(false);
         $scope.selectedCollection = collection;
       },
       function() {
-        log.error('Failed');
         $scope.setPageLoading(false);
         $scope.collectionsLoading = false;
       }
@@ -94,8 +84,6 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     $scope.collectionsLoading = true;
     Collection.update($scope.selectedCollection,
       function(updatedCollections){
-        log.info('Success');
-        
         $scope.collections = updatedCollections;
         $scope.selectedCollection = {};
         $scope.currentAction = null;
@@ -114,8 +102,6 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     $scope.collectionsLoading = true;
     Collection.create($scope.selectedCollection,
       function(updatedCollections){
-        log.info('Success');
-
         $scope.collections = updatedCollections;
         $scope.selectedCollection = {};
         $scope.currentAction = null;
@@ -290,11 +276,13 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     // Grab the current URL so we can determine what the user is trying to do
     var currentURL = $location.url().replace('/account/collections', '');
 
-    log.info('current URL: ' + currentURL);
-
     // Creating collection
     var creatingCollection = (currentURL.indexOf('/new') >= 0);
     if (creatingCollection) {
+
+      // Grab the collection type, if none was given assume "basic"?
+      log.info('Creating new collection of type: ' + $routeParams.type);
+
       $scope.currentAction = 'create';
       $scope.setPageLoading(false);
       $scope.selectedCollection = $scope.collectionTypes[0].defaults; // TODO: Revise when other types are available
@@ -311,7 +299,6 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
     if (viewingOne) {
       var collectionName = currentURL.slice(currentURL.indexOf('/view') + 6, currentURL.length); // The item number will be after "/view"
       if (collectionName) {
-        log.info('|initializeCollectionController| Viewing one');
         $scope.currentAction = 'update';
         $scope.getOneCollection(collectionName);
         $scope.setPageLoading(false);

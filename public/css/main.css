@@ -384,7 +384,7 @@ a:hover {
 }
 
 .itemCardState {
-  font-size: 12px;
+  font-size: 14px;
   color: #67A88C;
   font-weight: bold;
 }
@@ -594,13 +594,13 @@ a:hover {
 
 .alert-danger {
   color: #a86c67;
-  background-color: #f2eae9;
+  background-color: #fff;
   border-color: #e9dad9;
 }
 
 .alert-info {
   color: #6783a8;
-  background-color: #e9edf2;
+  background-color: #fff;
   border-color: #d9e0e9;
 }
 
@@ -871,12 +871,44 @@ a:hover {
 }
 
 
-
-
-
-
-
 /****************************** MANAGE COLLECTIONS ******************************/
+
+.collectionIconSelection {
+  margin: 5px;
+  padding: 5px;
+  color: #999;
+  border-radius: 5px;
+  border: 1px solid #f0f0f0;
+  height: 48px;
+  width: 48px;
+}
+
+.collectionIconSelection:hover {
+  color: #67A88C;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.collectionIcon {
+  border: 1px solid #f0f0f0;
+  color: #fff;
+  background-color: #67A88C;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.collectionIcon:hover {
+  background-color: #e5e5e5;
+  cursor: pointer;
+}
+
+.editCollectionIcon {
+  color: #fff;
+  position: absolute;
+  font-size: 18px;
+  top: 2px;
+  left: 18px;
+}
 
 .current-collection-icon {
     color: #67A88C;
@@ -992,12 +1024,27 @@ a:hover {
   background-color: #efefef;
 }
 
+.newCollectionButton, .newCollectionButtonDisabled {
+  padding: 10px 10px 10px 10px;
+  margin: 5px;
+  text-align: center;
+  background-color: #e9f2ee;
+  border: 1px dashed #c8e0d6;
+  border-radius: 0px;
+  display: block;
+  font-size: 20px;
+  transition: all .15s linear;
+  -webkit-transition: all .15s linear;
+  -moz-transition: all .15s linear;
+}
 
+.newCollectionButton:hover {
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #67A88C;
+}
 
-
-
-
-
-
-
-
+.newCollectionButtonIcon {
+  color: #67A88C;
+}

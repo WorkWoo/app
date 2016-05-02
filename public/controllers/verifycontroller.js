@@ -1,6 +1,4 @@
 function verifyController($scope, Request) {
-	log.info('|verifyController|');
-	
 	$scope.verifyFailed = false;
 	$scope.verifySubmitting = true;
 	$scope.verifySucceeded = false;

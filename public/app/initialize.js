@@ -20,7 +20,6 @@ function initializeHome() {
 }
 
 function getUserProfileSuccess(response) {
-  log.info('USER PROFILE -> ' + response);
   AUTHENTICATED = true;
   USER_PROFILE = JSON.parse(response);
 
@@ -39,12 +38,10 @@ function getUserProfileSuccess(response) {
 }
 
 function getUserProfileFail(response) {
-  log.info('Get user profile failed!');
   window.location.replace('/#/login');
 }
 
 function getCollectionSettingsSuccess(response) {
-  //log.info('COLLECTIONS -> ' + response);
   $('#pageLoadingIndicator').show();
   $('#pageLoadingIndicatorOnLoad').hide();
   $('pageLoadingIndicator').show();

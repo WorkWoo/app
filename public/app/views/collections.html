@@ -1,18 +1,11 @@
 <!-- Page Header -->
 <div class="container-fluid noSpaceMobile" style="margin-top:10px;">
-  
   <!-- Title -->
   <div class="col-md-9">
     <div class="breadCrumb">
       <a href="#/account"><span class="fa fa-arrow-left"></span> All settings</a>
     </div>
     <h3 class="pageHeading">Item Configuration</h3>
-  </div>
-
-  <!-- Create new button -->
-  <div class="col-md-3">
-    <div class="breadCrumb"></div>
-    <a href="#/account/collections/selecttype" class="btn btn-success btn-block">Create new item type</a>
   </div>
 </div>
 <!-- Page Header -->
@@ -28,18 +21,32 @@
 
 <div class="container-fluid">
 
+
   <!-- WORKABLE -->
   <div class="col-md-3">
     <div class="col-md-12">
       <h3 class="text-center">Workable</h3>
     </div>
 
+    <!-- New collection -->
+    <div class="col-md-12">
+      <!-- Paid -->
+      <a ng-if="accountType == '1'" href="#/account/collections/new?type=workable" class="newCollectionButton">
+        <span class="newCollectionButtonIcon fa fa-plus"></span> New
+        <span class="cardTitleBreaker"></br></span>
+        <span class="newCollectionButtonTitle">{{collection.pluralLabel}}</span>
+      </a>
+      <!-- Free (Disabled) -->
+      <span ng-if="accountType == '0'" class="menuCardContainerDisabled menuCardTitleDisabled">
+        <span class="fa fa-plus"></span> New (Pro only)
+        <span class="cardTitleBreaker"></br></span>
+      </span>
+    </div>
+      
     <!--  If there are none -->
     <div ng-if="!collectionsLoading && workableCollections.length == 0" class="col-md-12 text-center fadeInOut">
-      <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
-        <span class="menuCardIconDisabled fa fa-ellipsis-h"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitleDisabled">None found</span>
+      <span class="menuCardContainerDisabled fadeInOut">
+        <span class="menuCardTitleDisabled">None created yet!</span>
       </span>
     </div>
 
@@ -51,8 +58,8 @@
         <span class="menuCardTitle">{{collection.pluralLabel}}</span>
       </a>
     </div>
-
   </div>
+
 
   <!-- REVISIONABLE -->
   <div class="col-md-3">
@@ -60,12 +67,25 @@
       <h3 class="text-center">Revisionable</h3>
     </div>
 
+    <!-- New collection -->
+    <div class="col-md-12">
+      <!-- Paid -->
+      <a ng-if="accountType == '1'" href="#/account/collections/new?type=revisionable" class="newCollectionButton">
+        <span class="newCollectionButtonIcon fa fa-plus"></span> New
+        <span class="cardTitleBreaker"></br></span>
+        <span class="newCollectionButtonTitle">{{collection.pluralLabel}}</span>
+      </a>
+      <!-- Free (Disabled) -->
+      <span ng-if="accountType == '0'" class="menuCardContainerDisabled menuCardTitleDisabled">
+        <span class="fa fa-plus"></span> New (Pro only)
+        <span class="cardTitleBreaker"></br></span>
+      </span>
+    </div>
+      
     <!--  If there are none -->
     <div ng-if="!collectionsLoading && revisionableCollections.length == 0" class="col-md-12 text-center fadeInOut">
-      <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
-        <span class="menuCardIconDisabled fa fa-ellipsis-h"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitleDisabled">None found</span>
+      <span class="menuCardContainerDisabled fadeInOut">
+        <span class="menuCardTitleDisabled">None created yet!</span>
       </span>
     </div>
 
@@ -77,8 +97,8 @@
         <span class="menuCardTitle">{{collection.pluralLabel}}</span>
       </a>
     </div>
-
   </div>
+
 
   <!-- INVENTORIAL -->
   <div class="col-md-3">
@@ -86,12 +106,25 @@
       <h3 class="text-center">Inventorial</h3>
     </div>
 
+    <!-- New collection -->
+    <div class="col-md-12">
+      <!-- Paid -->
+      <a ng-if="accountType == '1'" href="#/account/collections/new?type=inventorial" class="newCollectionButton">
+        <span class="newCollectionButtonIcon fa fa-plus"></span> New
+        <span class="cardTitleBreaker"></br></span>
+        <span class="newCollectionButtonTitle">{{collection.pluralLabel}}</span>
+      </a>
+      <!-- Free (Disabled) -->
+      <span ng-if="accountType == '0'" class="menuCardContainerDisabled menuCardTitleDisabled">
+        <span class="fa fa-plus"></span> New (Pro only)
+        <span class="cardTitleBreaker"></br></span>
+      </span>
+    </div>
+      
     <!--  If there are none -->
     <div ng-if="!collectionsLoading && inventorialCollections.length == 0" class="col-md-12 text-center fadeInOut">
-      <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
-        <span class="menuCardIconDisabled fa fa-ellipsis-h"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitleDisabled">None found</span>
+      <span class="menuCardContainerDisabled fadeInOut">
+        <span class="menuCardTitleDisabled">None created yet!</span>
       </span>
     </div>
 
@@ -105,18 +138,32 @@
     </div>
   </div>
 
+
   <!-- BASIC -->
   <div class="col-md-3">
     <div class="col-md-12">
       <h3 class="text-center">Basic</h3>
     </div>
 
+    <!-- New collection -->
+    <div class="col-md-12">
+      <!-- Paid -->
+      <a ng-if="accountType == '1'" href="#/account/collections/new?type=basic" class="newCollectionButton">
+        <span class="newCollectionButtonIcon fa fa-plus"></span> New
+        <span class="cardTitleBreaker"></br></span>
+        <span class="newCollectionButtonTitle">{{collection.pluralLabel}}</span>
+      </a>
+      <!-- Free (Disabled) -->
+      <span ng-if="accountType == '0'" class="menuCardContainerDisabled menuCardTitleDisabled">
+        <span class="fa fa-plus"></span> New (Pro only)
+        <span class="cardTitleBreaker"></br></span>
+      </span>
+    </div>
+      
     <!--  If there are none -->
     <div ng-if="!collectionsLoading && basicCollections.length == 0" class="col-md-12 text-center fadeInOut">
-      <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
-        <span class="menuCardIconDisabled fa fa-ellipsis-h"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitleDisabled">None found</span>
+      <span class="menuCardContainerDisabled fadeInOut">
+        <span class="menuCardTitleDisabled">None created yet!</span>
       </span>
     </div>
 
@@ -129,8 +176,6 @@
       </a>
     </div>
   </div>
-
-
 
 
 </div>

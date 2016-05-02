@@ -9,15 +9,10 @@ function forgotController($scope, Request) {
 
 		Request.forgot(credentials.emailAddress,
 			function(response){
-	        	log.info('Forgot password submit successful');
-	        	log.info('RESPONSE: ' + response);
-	        	log.object(response);
-
 	        	$scope.forgotSubmitting = false;
 	        	$scope.forgotSubmitted = true;
 	    	},
 			function() {
-	        	log.info('Forgot password submit failed');
 	        	$scope.loginSubmitting = false;
 	        	$scope.loginFailed = true;
 	    	}

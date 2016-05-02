@@ -1,6 +1,4 @@
 function resetController($scope, Request) {
-	log.info('|resetController|');
-	
 	$scope.pwdResetInfo = {};
 	$scope.resetSubmitted = false;
 	$scope.resetSubmitting = false;
@@ -20,12 +18,10 @@ function resetController($scope, Request) {
 
 		Request.reset(pwdResetInfo,
 			function(response){
-	        	log.info('Reset Successful');
 	        	$scope.resetSubmitting = false;
 	        	$scope.resetSubmitted = true;
 	    	},
 			function() {
-	        	log.info('Reset Failed');
 	        	$scope.resetSubmitting = false;
 	        	$scope.resetSubmitted = true;
 	    	}

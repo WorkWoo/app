@@ -1,12 +1,9 @@
 function itemController($scope, $location, $routeParams, Item) {
-  log.info('|itemController| Starting');
-
   $scope.loadedItems = [];
   $scope.selectedItem = Item.selectedItem;
   $scope.selectedItemTitle = '';
 
   $scope.totalItems = 0;;
-
   $scope.baseCollection = null;
 
   $scope.itemsLoading = true;
@@ -79,8 +76,6 @@ function itemController($scope, $location, $routeParams, Item) {
 
 
   $scope.load = function() {
-    log.info('Loading items');
-
     $scope.setPageLoading(true);
     $scope.itemsLoading = true;
     var queryParams = {
@@ -164,7 +159,6 @@ function itemController($scope, $location, $routeParams, Item) {
 
   $scope.search = function(searchTerm) {
     $scope.searchTerm = searchTerm;
-    log.info('Search term -> ' + $scope.searchTerm);
     $scope.loadedItems = [];
     $scope.anchorValue = null;
     $scope.anchorID = null;
@@ -420,7 +414,6 @@ function itemController($scope, $location, $routeParams, Item) {
   $scope.initializeItemController = function() {
     // Grab the current URL so we can determine what the user is trying to do
     var currentURL = $location.url();
-    log.info('|itemController| Current URL -> ' + currentURL);
     $scope.setActiveSection('work');
 
     // Searching
@@ -442,7 +435,6 @@ function itemController($scope, $location, $routeParams, Item) {
     // Creating New
     var creatingNew = currentURL.indexOf('/new') > 0;
     if (creatingNew) {
-      log.info('|itemController| Creating new');
       // Now, extract the collection name
       currentURL = currentURL.slice(0, currentURL.indexOf('/new'));
       $scope.baseCollection = currentURL.slice(1);

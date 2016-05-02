@@ -1,5 +1,5 @@
 function mainController($scope, $location, $sce, User) {
-  log.info('|mainController|');
+  log.info('WorkWoo App initialized successully');
 
   $scope.pageLoading = true;
   $scope.trustAsHtml = $sce.trustAsHtml;
@@ -18,7 +18,6 @@ function mainController($scope, $location, $sce, User) {
   $scope.collectionTypes = COLLECTIONTYPES;
 
   $scope.accountType = $scope.currentUser.org.accountType;
-  log.info('Account Type: ' + $scope.accountType);
   $scope.primaryCollection = $scope.currentUser.org.primaryCollection;
 
   $scope.startMainTour = false;
@@ -120,13 +119,10 @@ function mainController($scope, $location, $sce, User) {
   }
 
   $scope.setIsNewUser = function() {
-    log.info('|mainController|.setIsNewUser');
     User.setIsNewUser(false,
       function(response){
-        log.info('Success');
       },
       function(response) {
-        log.error('Failed');
       }
     );
   };

@@ -10,8 +10,16 @@
 
   		<!-- Title -->
   		<div class="col-md-6">
-			<h3 ng-if="currentAction == 'update'" class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
-			<h3 ng-if="currentAction == 'create'" class="pageHeading">New Workable Item</h3>
+			<h3 ng-if="currentAction == 'update'" class="pageHeading">
+				<div>
+					<span data-toggle="modal" data-target="#myModal" class="fa fa-2x collectionIcon" ng-class="selectedCollection.icon">
+						<span class="fa fa-pencil-square editCollectionIcon"></span>
+					</span>
+				 {{ selectedCollection.pluralLabel }}
+				</div>
+			</h3>
+			
+			<h3 ng-if="currentAction == 'create'" class="pageHeading">New Item Type</h3>
   		</div>
 
 		<div class="col-md-6 noSpace text-right">
@@ -214,7 +222,6 @@
 				</div>
 
 			</div>
-
     	</div>
 
 		<!-- Upgrade indicator -->
@@ -231,4 +238,19 @@
 
     </div>
 </form>
+
+<!-- Modal icon selector -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <h4 class="text-center">Choose the icon for this type of item</h4>
+        <div class="text-center">
+        	<span ng-repeat="collectionIcon in collectionIcons" class="fa fa-2x collectionIconSelection" ng-class="collectionIcon"></span>
+    	</div>
+    </div>
+
+  </div>
+</div>
 
