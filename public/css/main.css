@@ -585,6 +585,13 @@ a:hover {
   border-color: #d9e9e2;
 }
 
+.alert-success-tour {
+  font-size: 14px;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
 .alert-danger {
   color: #a86c67;
   background-color: #f2eae9;
@@ -595,6 +602,10 @@ a:hover {
   color: #6783a8;
   background-color: #e9edf2;
   border-color: #d9e0e9;
+}
+
+.alert-info-tour {
+  font-size: 14px;
 }
 
 .alertClose {
