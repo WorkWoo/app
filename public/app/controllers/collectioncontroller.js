@@ -14,6 +14,11 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
   $scope.startWorkSettingsTour = false;
   $scope.workSettingsTourConfig = tourConfig.getWorkSettingsTourConfig($scope);
 
+  $scope.workableCollections = [];
+  $scope.revisionableCollections = [];
+  $scope.inventorialCollections = [];
+  $scope.basicCollections = [];
+
   $scope.getAllCollections = function(collectionName) {
     $scope.collectionsLoading = true;
     var queryParams = {
@@ -34,6 +39,19 @@ function collectionController($scope, Collection, $location, COLLECTION_ICONS) {
 
         $scope.collectionsLoading = false;
       	$scope.loadedCollections = collections;
+
+        for(var i=0; i<$scope.loadedCollections.length; i++) {
+          if($scope.loadedCollections[i].collectionType == 'workable') {
+            $scope.workableCollections.push($scope.loadedCollections[i]);
+          } else if($scope.loadedCollections[i].collectionType == 'revisionable') {
+            $scope.revisionableCollections.push($scope.loadedCollections[i]);
+          } else if($scope.loadedCollections[i].collectionType == 'inventorial') {
+            $scope.inventorialCollections.push($scope.loadedCollections[i]);
+          } else if($scope.loadedCollections[i].collectionType == 'basic') {
+            $scope.basicCollections.push($scope.loadedCollections[i]);
+          }
+        }
+
         $scope.setPageLoading(false);
       },
       function() {

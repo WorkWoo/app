@@ -52,6 +52,7 @@ mainApp.config(function($routeProvider) {
   $routeProvider.when('/account/upgrade/submitted', { templateUrl: 'views/upgradesubmitted.html', controller: 'supportController'});
 
   $routeProvider.when('/account/collections', { templateUrl: 'views/collections.html', controller: 'collectionController'});
+  $routeProvider.when('/account/collections/selecttype', { templateUrl: 'views/selectcollectiontype.html', controller: 'collectionController'});
   $routeProvider.when('/account/collections/new', { templateUrl: 'views/collection.html', controller: 'collectionController'});
   $routeProvider.when('/account/collections/view', { templateUrl: 'views/collection.html', controller: 'collectionController'});
   $routeProvider.when('/account/collections/view/:collectionName', { templateUrl: 'views/collection.html', controller: 'collectionController'});

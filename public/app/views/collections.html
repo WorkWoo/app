@@ -1,11 +1,18 @@
 <!-- Page Header -->
 <div class="container-fluid noSpaceMobile" style="margin-top:10px;">
+  
   <!-- Title -->
-  <div class="col-md-8 noSpaceMobile">
+  <div class="col-md-9">
     <div class="breadCrumb">
       <a href="#/account"><span class="fa fa-arrow-left"></span> All settings</a>
     </div>
-    <h3 class="pageHeading">Workable items</h3>
+    <h3 class="pageHeading">Item Configuration</h3>
+  </div>
+
+  <!-- Create new button -->
+  <div class="col-md-3">
+    <div class="breadCrumb"></div>
+    <a href="#/account/collections/selecttype" class="btn btn-success btn-block">Create new item type</a>
   </div>
 </div>
 <!-- Page Header -->
@@ -19,43 +26,111 @@
 </div>
 <!-- Page Header -->
 
-<!-- Page Content -->
-<div ng-if="currentUser.org.primaryCollection" class="container-fluid fade-in-out">
+<div class="container-fluid">
 
-  <!-- Create new button -->
-  <div class="col-md-4 noSpaceMobile fadeInOut">
-    <!-- Free users -->
-    <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
-      <span class="menuCardIconDisabled fa fa-plus"></span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitleDisabled">New Collection</span>
-    </span>
-  </div>
+  <!-- WORKABLE -->
+  <div class="col-md-3">
+    <div class="col-md-12">
+      <h3 class="text-center">Workable</h3>
+    </div>
 
-    <!-- Loading indicator -->
-  <div ng-if="collectionsLoading" class="col-md-8 fadeInOut largeLoadingIndicator">
-    <span class="fa fa-refresh fa-spin"></span>
-    <span>Loading your items</span>
-  </div>
-
-  <div ng-repeat="(collectionIndex, collection) in loadedCollections" class="col-md-4 noSpaceMobile fadeInOutStagger">
-    <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
-      <span class="menuCardIcon fa" ng-class="collection.icon"></span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">{{collection.pluralLabel}}</span>
-    </a>
-  </div>
-
-  <!-- Upgrade indicator -->
-  <div ng-if="accountType == '0'" class="col-md-12 noSpaceMobile fadeInOut">
-    <div class="upgradeAlert clearfix">
-      <span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
-      <span class="upgradeAlertText"><strong>Play to win!</strong><br/> Free accounts includes 1 workable collection. Upgrade to Pro to import & track related items like inventory, documentation, and employees</span>
-      <span class="upgradeAlertButton">
-        <a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
+    <!--  If there are none -->
+    <div ng-if="!collectionsLoading && workableCollections.length == 0" class="col-md-12 text-center fadeInOut">
+      <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
+        <span class="menuCardIconDisabled fa fa-ellipsis-h"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitleDisabled">None found</span>
       </span>
+    </div>
+
+    <!-- Each collection -->
+    <div ng-repeat="(collectionIndex, collection) in workableCollections" ng-if="collection.collectionType == 'workable'" class="col-md-12 fadeInOutStagger">
+      <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
+        <span class="menuCardIcon fa" ng-class="collection.icon"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitle">{{collection.pluralLabel}}</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- REVISIONABLE -->
+  <div class="col-md-3">
+    <div class="col-md-12">
+      <h3 class="text-center">Revisionable</h3>
+    </div>
+
+    <!--  If there are none -->
+    <div ng-if="!collectionsLoading && revisionableCollections.length == 0" class="col-md-12 text-center fadeInOut">
+      <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
+        <span class="menuCardIconDisabled fa fa-ellipsis-h"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitleDisabled">None found</span>
+      </span>
+    </div>
+
+    <!-- Each collection -->
+    <div ng-repeat="(collectionIndex, collection) in revisionableCollections" ng-if="collection.collectionType == 'workable'" class="col-md-12 fadeInOutStagger">
+      <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
+        <span class="menuCardIcon fa" ng-class="collection.icon"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitle">{{collection.pluralLabel}}</span>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- INVENTORIAL -->
+  <div class="col-md-3">
+    <div class="col-md-12">
+      <h3 class="text-center">Inventorial</h3>
+    </div>
+
+    <!--  If there are none -->
+    <div ng-if="!collectionsLoading && inventorialCollections.length == 0" class="col-md-12 text-center fadeInOut">
+      <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
+        <span class="menuCardIconDisabled fa fa-ellipsis-h"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitleDisabled">None found</span>
+      </span>
+    </div>
+
+    <!-- Each collection -->
+    <div ng-repeat="(collectionIndex, collection) in inventorialCollections" ng-if="collection.collectionType == 'workable'" class="col-md-12 fadeInOutStagger">
+      <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
+        <span class="menuCardIcon fa" ng-class="collection.icon"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitle">{{collection.pluralLabel}}</span>
+      </a>
     </div>
   </div>
 
+  <!-- BASIC -->
+  <div class="col-md-3">
+    <div class="col-md-12">
+      <h3 class="text-center">Basic</h3>
+    </div>
+
+    <!--  If there are none -->
+    <div ng-if="!collectionsLoading && basicCollections.length == 0" class="col-md-12 text-center fadeInOut">
+      <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
+        <span class="menuCardIconDisabled fa fa-ellipsis-h"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitleDisabled">None found</span>
+      </span>
+    </div>
+
+    <!-- Each collection -->
+    <div ng-repeat="(collectionIndex, collection) in basicCollections" ng-if="collection.collectionType == 'workable'" class="col-md-12 fadeInOutStagger">
+      <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
+        <span class="menuCardIcon fa" ng-class="collection.icon"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitle">{{collection.pluralLabel}}</span>
+      </a>
+    </div>
+  </div>
+
+
+
+
 </div>
-<!-- Page Content -->
