@@ -181,24 +181,8 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
   };
 
 
-  $scope.toggleIconSelection = function() {
-    $scope.showIconSelection = !$scope.showIconSelection;
-    if ($scope.showIconSelection) {
-      $scope.collectionIconClass = 'collection-icon-active';
-    } else {
-      $scope.collectionIconClass = 'collection-icon';
-    }
-  };
-
-
   $scope.getCollectionIconClass = function(iconClass) {
     return iconClass + ' ' + $scope.collectionIconClass;
-  };
-
-
-  $scope.selectIcon = function(iconClass) {
-    $scope.selectedCollection.icon = iconClass;
-    $scope.toggleIconSelection();
   };
 
 
@@ -252,6 +236,11 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
     }
   };
 
+  $scope.setCollectionIcon = function(iconName) {
+    $scope.selectedCollection.icon = iconName;
+    $("#iconSelector").modal('hide');
+  }
+
 
   $scope.tiggerWorkSettingsTour = function() {
     $scope.startWorkSettingsTour = true;
@@ -279,13 +268,22 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
     // Creating collection
     var creatingCollection = (currentURL.indexOf('/new') >= 0);
     if (creatingCollection) {
+      // Grab the collection type, if none was given assume "workable"
+      var newCollectionType = $routeParams.type;
+      if(!newCollectionType) {
+        newCollectionType = 'workable';
+      }
 
-      // Grab the collection type, if none was given assume "basic"?
-      log.info('Creating new collection of type: ' + $routeParams.type);
+            log.info('Creating new collection of type: ' + newCollectionType);
 
       $scope.currentAction = 'create';
       $scope.setPageLoading(false);
-      $scope.selectedCollection = $scope.collectionTypes[0].defaults; // TODO: Revise when other types are available
+
+      log.info('Types: ' + $scope.collectionTypes);
+      log.object($scope.collectionTypes);
+
+
+      $scope.selectedCollection = $scope.collectionTypes[newCollectionType].defaults;
       $scope.setPageLoading(false);
 
       if (!$scope.startMainTour) {

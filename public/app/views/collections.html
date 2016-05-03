@@ -51,7 +51,7 @@
     </div>
 
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in workableCollections" ng-if="collection.collectionType == 'workable'" class="col-md-12 fadeInOutStagger">
+    <div ng-repeat="(collectionIndex, collection) in workableCollections" class="col-md-12 fadeInOutStagger">
       <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
         <span class="menuCardIcon fa" ng-class="collection.icon"></span>
         <span class="cardTitleBreaker"></br></span>
@@ -90,7 +90,7 @@
     </div>
 
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in revisionableCollections" ng-if="collection.collectionType == 'workable'" class="col-md-12 fadeInOutStagger">
+    <div ng-repeat="(collectionIndex, collection) in revisionableCollections" class="col-md-12 fadeInOutStagger">
       <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
         <span class="menuCardIcon fa" ng-class="collection.icon"></span>
         <span class="cardTitleBreaker"></br></span>
@@ -129,7 +129,7 @@
     </div>
 
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in inventorialCollections" ng-if="collection.collectionType == 'workable'" class="col-md-12 fadeInOutStagger">
+    <div ng-repeat="(collectionIndex, collection) in inventorialCollections" class="col-md-12 fadeInOutStagger">
       <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
         <span class="menuCardIcon fa" ng-class="collection.icon"></span>
         <span class="cardTitleBreaker"></br></span>
@@ -168,7 +168,7 @@
     </div>
 
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in basicCollections" ng-if="collection.collectionType == 'workable'" class="col-md-12 fadeInOutStagger">
+    <div ng-repeat="(collectionIndex, collection) in basicCollections" class="col-md-12 fadeInOutStagger">
       <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
         <span class="menuCardIcon fa" ng-class="collection.icon"></span>
         <span class="cardTitleBreaker"></br></span>

@@ -11,7 +11,7 @@ var Collection = require('../models/collection');
 
 // Custom modules
 var fieldTypes = require('../types/fieldType').getFieldTypesArray();
-var collectionTypes = require('../types/collectionType').getCollectionTypesArray();
+var collectionTypes = require('../types/collectionType').getCollectionTypesObject();
 
 var widget = 'Item';
 log.registerWidget(widget);
