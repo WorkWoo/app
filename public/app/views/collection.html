@@ -127,9 +127,19 @@
 						<div class="col-md-4" style="margin-bottom:5px;">
 			              	
 			              	<!-- If a custom field, allow different types -->
-							<select ng-disabled="collectionsLoading || field.sysProvided" class="form-control defaultInput" ng-model="field.displayType">
+							<!-- <select ng-disabled="collectionsLoading || field.sysProvided" class="form-control defaultInput" ng-model="field.displayType">
 								<option ng-repeat="fieldType in fieldTypes" value="{{ fieldType.displayType }}" ng-disabled="fieldType.isPro && accountType != 1" ng-selected="fieldType.displayType == field.displayType" >{{ fieldType.label }}</option>
 			            	</select>
+-->
+							<p>Selected: {{field.displayType}}</p>
+							<ui-select ng-model="field.displayType" theme="bootstrap" search-enabled="false">
+						    	<ui-select-match placeholder="Select a field type">{{$select.selected.label}}</ui-select-match>
+						    	<ui-select-choices repeat="fieldType.displayType as fieldType in fieldTypes | filter: {label: $select.search, displayType: $select.search}">
+						      	<div ng-bind-html="fieldType.label | highlight: $select.search"></div>
+						    	</ui-select-choices>
+						  	</ui-select>
+
+
 
 			            	<!-- If the field is a choice type, show the choices editor -->
 			            	<!-- ng-init is to push the choices array as empty if it was not previously defined -->
@@ -166,10 +176,11 @@
 
 			              	<!-- If the field is a item reference type, show the reference to field -->
 			              	<span ng-if="field.displayType == 'itemReference'" class="fade-in-out" ng-attr-id="{{fieldIndex}}_parent">
+			              		<p>Selected: {{field.referenceTo}}</p>
 			              		<div class="col-md-12 noSpace">
 									<ui-select ng-model="field.referenceTo" ng-click="bringFieldForward('row_' + fieldIndex)" theme="bootstrap">
 										<ui-select-match placeholder="Select or search a item type">{{$select.selected.label}}</ui-select-match>
-								    	<ui-select-choices group-by="'type'" repeat="col.id as col in collectionsArray | filter: { label: $select.search }">
+								    	<ui-select-choices group-by="'type'" repeat="col.name as col in collectionsArray | filter: { label: $select.search }">
 											<small class="fa" ng-class="col.icon"></small>
 						            		<span ng-bind-html="col.label | highlight: $select.search"></span>
 								    	</ui-select-choices>
