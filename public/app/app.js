@@ -3,7 +3,7 @@ var FIELDTYPES = null;
 var COLLECTIONTYPES = null;
 var AUTHENTICATED = false;
 var USER_PROFILE = null;
-var mainApp = angular.module('mainApp', ['ngRoute', 'ngAnimate', 'ngJoyRide', 'ngIntlTelInput']);
+var mainApp = angular.module('mainApp', ['ngRoute', 'ngAnimate', 'ngJoyRide', 'ngIntlTelInput', 'ui.select', 'ngSanitize']);
 
 // Constants
 mainApp.constant('COLLECTION_ICONS', config.collection.icons);

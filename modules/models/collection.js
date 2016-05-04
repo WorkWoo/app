@@ -85,7 +85,7 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 						}
 
 						// If the field if a reference, store it at the top level
-						if (field.dbType == 'SingleItemReference' || field.dbType == 'ListItemReference') {
+						if (field.dbType == 'itemReference' || field.dbType == 'itemReferenceList') {
 							referenceFields += field.name + ' ';
 						}
 					}

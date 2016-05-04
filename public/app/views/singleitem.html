@@ -98,8 +98,8 @@
           <!-- Checkbox -->
           <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'checkbox' || field.displayType == 'boolean'" type="checkbox" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]"/>
 
-          <!-- Single Reference -->
-          <span ng-if="field.displayType == 'SingleReference'">
+          <!-- Item Reference -->
+          <span ng-if="field.displayType == 'itemReference'">
             <!-- Hidden value that hold the entire reference item object -->
             <input type="hidden" ng-model="selectedItem[field.name]"/>
             <!-- Displayed value with nav and edit buttons -->
