@@ -445,12 +445,12 @@ function createItemSchema(collectionObject) {
 		var itemFields = collectionObject.fields;
 		for (var i=0; i<itemFields.length; i++) {
 			if (itemFields[i].dbType == 'itemReference') {
-				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo.name };
+				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo };
 			} else if (itemFields[i].dbType == 'userReference') {
 				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: 'User' };
 			} else if (itemFields[i].dbType == 'itemReferenceList') {
 				var listItemSchema = new Schema({
-					_id: { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo.name }
+					_id: { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo }
 				});
 
 				itemModel[itemFields[i].name] = [listItemSchema];
