@@ -504,6 +504,18 @@ a:hover {
   z-index: 1;
 }
 
+.defaultNumberInput {
+  font-size: 16px;
+  margin: 0px;
+  padding: 0px 5px 0px 20px;
+  height: 45px;
+  border: 1px solid #e5e5e5;
+  box-shadow: none;
+  border-radius: 0px;
+  z-index: 1;
+}
+
+
 .defaultInputGroup {
   padding-top: 5px;
   padding-bottom: 5px;

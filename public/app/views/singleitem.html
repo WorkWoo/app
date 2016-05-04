@@ -8,7 +8,7 @@
       <!-- Title -->
       <div class="col-md-8 noSpaceMobile">
         <div class="breadCrumb">
-          <a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> All {{ collections[selectedItem.collection.name].pluralLabel }}</a>
+          <a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> All {{ collections[selectedItem.collectionName].pluralLabel }}</a>
         </div>
       </div>
     </div>
@@ -21,6 +21,7 @@
       <div ng-if="collections[selectedItem.collectionName].collectionType == 'workable'" class="container-fluid itemInfo">
         <div class="col-md-4">
           <h4 class="itemInfoNumber">
+            <span class="mainColor fa" ng-class="collections[selectedItem.collectionName].icon"></span>
             <span ng-if="currentAction == 'create'"><strong>New {{ collections[selectedItem.collectionName].singleLabel }}</strong></span>
             <span ng-if="currentAction == 'update'"><strong>{{ collections[selectedItem.collectionName].singleLabel }} #{{ selectedItem.number }}</strong></span>
           </h4>
@@ -107,10 +108,10 @@
           </div>
 
           <!-- Number & Decimal -->
-          <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'number' || field.displayType == 'decimal'" ng-required="field.required" type="number" class="form-control defaultInput" ng-model="selectedItem[field.name]" >
+          <input ng-if="field.displayType == 'number' || field.displayType == 'decimal'" ng-required="field.required" type="number" class="form-control defaultNumberInput" ng-model="selectedItem[field.name]" >
 
           <!-- Currency -->
-          <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'currency'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" currency-field/>
+          <input ng-disabled="selectedItemSubmitting" ng-if="field.displayType == 'currency'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" currency-field/>
 
            <!-- Phone Number -->
           <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'phone'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" ng-intl-tel-input/>

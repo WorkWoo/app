@@ -53,8 +53,6 @@ function itemController($scope, $location, $routeParams, Item) {
     Item.getOne($scope.baseCollection, itemNumber,
       function(item){
         // Success
-        log.object(item._updated_by);
-
         $scope.itemsLoading = false;
         Item.setSelectedItem(item);
         $scope.selectedItem = item;
@@ -177,6 +175,8 @@ function itemController($scope, $location, $routeParams, Item) {
                 }
               } else if (!item[countableFieldName] && (countableFields[f].displayType == 'choice' || countableFields[f].displayType == 'state')) {
                 $scope.collectionCounts[item.collectionName][countableFieldName]['empty'] = $scope.collectionCounts[item.collectionName][countableFieldName]['empty'] + 1;
+              } else if (item[countableFieldName] && countableFields[f].displayType == 'currency') {
+                $scope.collectionCounts[item.collectionName][countableFieldName] = $scope.collectionCounts[item.collectionName][countableFieldName] + item[countableFieldName];
               }
             }
           }
@@ -196,7 +196,7 @@ function itemController($scope, $location, $routeParams, Item) {
 
   $scope.logTest = function() {
     log.info('RESULT: ');
-    log.object($scope.collectionCounts.buildorders.category);
+    log.object($scope.collectionCounts.purchaseorders);
   };
 
 
@@ -237,7 +237,7 @@ function itemController($scope, $location, $routeParams, Item) {
         function(newItem){
           $scope.totalItems.total = $scope.totalItems.total + 1; 
           $scope.selectedItemSubmitting = false;
-          $scope.url('#/' + $scope.primaryCollection + '/');
+          $scope.url('#/' + newItem.collectionName + '/');
           $scope.toggleAlert('success', true, newItem.number + ' created');
           $scope.setPageLoading(false);
         },
@@ -252,7 +252,7 @@ function itemController($scope, $location, $routeParams, Item) {
         function(updatedItem){
           // Success
           $scope.selectedItemSubmitting = false;
-          $scope.url('#/' + $scope.primaryCollection + '/');
+          $scope.url('#/' + updatedItem.collectionName + '/');
           $scope.toggleAlert('success', true, $scope.selectedItem.number + ' updated');
           $scope.selectedItem = null;
           $scope.setPageLoading(false);
@@ -277,9 +277,9 @@ function itemController($scope, $location, $routeParams, Item) {
         // Update the total count, so we dont have to get it again
         $scope.totalItems.total = $scope.totalItems.total - $scope.selectedItems.length; 
         $scope.toggleAlert('success', true, $scope.selectedItem.number + ' deleted');
-        $scope.selectedItem = null;
         $scope.selectedItemSubmitting = false;
-        $scope.url('#/' + $scope.primaryCollection + '/');
+        $scope.url('#/' + $scope.selectedItem.collectionName + '/');
+        $scope.selectedItem = null;
       },
       function() {
         // Fail

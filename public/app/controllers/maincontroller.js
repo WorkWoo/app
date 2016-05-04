@@ -1,4 +1,4 @@
-function mainController($scope, $location, $sce, User) {
+function mainController($scope, $location, $sce, User, $filter) {
   log.info('App initialized');
 
   $scope.pageLoading = true;
@@ -132,6 +132,14 @@ function mainController($scope, $location, $sce, User) {
       }
     );
   };
+
+
+  $scope.formatCurrency = function(value) {
+    value = value ? parseFloat(value.toString().replace(/[^0-9._-]/g, '')) || 0 : 0;
+    var formattedValue = $filter('currency')(value);
+    return formattedValue;
+  }
+
 
   $scope.initializeCollections = function() {
     for(var collection in $scope.collections) {

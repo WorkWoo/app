@@ -5,7 +5,11 @@
     <div class="breadCrumb">
       <a href="#/"><span class="fa fa-arrow-left"></span> Back to summary</a>
     </div>
-    <h3 class="pageHeading">{{ collections[baseCollection].pluralLabel }}</h3>
+    <h3 class="pageHeading">
+      <span class="mainColor fa" ng-class="collections[baseCollection].icon"></span>
+      <span> {{ collections[baseCollection].pluralLabel }}</span>
+    </h3>
+
   </div>
   <!-- Search -->
   <div class="col-md-4 text-right noSpaceMobile">
@@ -13,6 +17,10 @@
       <input type="text" class="form-control defaultInput" value="" ng-model="searchTerm" size="20"/>
       <span ng-disabled="itemsLoading" ng-click="search(searchTerm)" class="input-group-addon searchIcon"><i class="fa fa-search"></i></span>
     </form>
+
+    <!-- New button -->
+    <a style="margin-top:5px;" ng-disabled="itemsLoading" class="btn btn-success" ng-href="#/{{baseCollection}}/new">New {{ collections[baseCollection].singleLabel }}</a>
+
   </div>
 </div>
 <!-- Page Header -->
@@ -34,20 +42,9 @@
   <!-- Page Header -->
 
     <!-- Loading indicator -->
-  <div ng-if="itemsLoading" class="col-md-12 fadeInOut largeLoadingIndicator">
+  <div ng-if="itemsLoading" class="col-md-12 fadeInOut largeLoadingIndicator text-center">
     <span class="fa fa-refresh fa-spin"></span>
     <span>Loading {{ collections[baseCollection].pluralLabel }}</span>
-  </div>
-
-  <!-- "Create New" card -->
-  <div ng-if="loadedItems.length > 0" class="col-md-4 text-center noSpaceMobile fadeInOut">
-    <a ng-disabled="itemsLoading" class="noUnderline" ng-href="#/{{baseCollection}}/new">
-      <div class="itemCardActive">
-        <span class="itemCardActiveIcon fa fa-plus"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="itemCardActiveTitle">New {{ collections[baseCollection].singleLabel }}</span>
-      </div>
-    </a>
   </div>
 
   <!-- Create a card for each item -->
