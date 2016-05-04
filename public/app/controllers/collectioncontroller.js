@@ -55,16 +55,21 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
     $scope.setPageLoading(true);
     Collection.getOne(collectionName,
       function(collection){
-         
+        var referenceable = $scope.collectionTypes[collection.collectionType].defaults.referenceable;
+
         $scope.collectionsArray = [];
 
         for (prop in $scope.collections) {
-          $scope.collectionsArray.push({  id: $scope.collections[prop]._id, 
+          if (referenceable[$scope.collections[prop].collectionType] == true) {
+             $scope.collectionsArray.push({  id: $scope.collections[prop]._id, 
                                           label: $scope.collections[prop].pluralLabel, 
                                           name: $scope.collections[prop].name,
                                           icon: $scope.collections[prop].icon, 
-                                          type: $scope.collections[prop].collectionType });
+                                          type: $scope.collectionTypes[$scope.collections[prop].collectionType].label });
+          }
         }
+
+        $scope.collectionsArray.sort(function(a,b) {return (a.type > b.type) ? 1 : ((b.type > a.type) ? -1 : 0);} );
 
         $scope.collectionsLoading = false;
         $scope.setPageLoading(false);
