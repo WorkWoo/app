@@ -66,6 +66,7 @@ exports.create = function(req, res) {
 				listFieldCount++;
 			}
 
+			// TODO: Move state and autonumber to fieldTypes file
 			if (field.displayType == 'state' || field.displayType == 'autonumber') {
 				field.dbType = 'String';
 				if (field.displayType == 'state') {
@@ -79,7 +80,7 @@ exports.create = function(req, res) {
 				}
 
 				// If the field if a reference, store it at the top level
-				if (field.dbType == 'SingleItemReference' || field.dbType == 'ListItemReference') {
+				if (field.dbType == 'itemReference' || field.dbType == 'itemReferenceList') {
 					referenceFields += field.name + ' ';
 				}
 			}

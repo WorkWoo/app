@@ -444,7 +444,28 @@ function createItemSchema(collectionObject) {
 		// Then add each custom user-defined field
 		var itemFields = collectionObject.fields;
 		for (var i=0; i<itemFields.length; i++) {
+			if (itemFields[i].dbType == 'itemReference') {
+				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo.name };
+			} else if (itemFields[i].dbType == 'userReference') {
+				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: 'User' };
+			} else if (itemFields[i].dbType == 'itemReferenceList') {
+				var listItemSchema = new Schema({
+					_id: { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo.name }
+				});
 
+				itemModel[itemFields[i].name] = [listItemSchema];
+			} else if (itemFields[i].dbType == 'userReferenceList') {
+				var listUserSchema = new Schema({
+					_id: { type: Schema.Types.ObjectId, ref: 'User' }
+				});
+
+				itemModel[itemFields[i].name] = [listUserSchema];
+			} else {
+				itemModel[itemFields[i].name] = { type: itemFields[i].dbType };
+			}
+
+
+/*
 			// First, handle if it's a reference field
 			if (itemFields[i].dbType == 'SingleReference') {
 				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo };
@@ -461,6 +482,7 @@ function createItemSchema(collectionObject) {
 			} else {
 				itemModel[itemFields[i].name] = { type: itemFields[i].dbType };
 			}
+*/
 		}
 
 		var newItemSchema = new Schema(itemModel, cfg.mongoose.options);

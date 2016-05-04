@@ -55,6 +55,17 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
     $scope.setPageLoading(true);
     Collection.getOne(collectionName,
       function(collection){
+         
+        $scope.collectionsArray = [];
+
+        for (prop in $scope.collections) {
+          $scope.collectionsArray.push({  id: $scope.collections[prop]._id, 
+                                          label: $scope.collections[prop].pluralLabel, 
+                                          name: $scope.collections[prop].name,
+                                          icon: $scope.collections[prop].icon, 
+                                          type: $scope.collections[prop].collectionType });
+        }
+
         $scope.collectionsLoading = false;
         $scope.setPageLoading(false);
         $scope.selectedCollection = collection;
