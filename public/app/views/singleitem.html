@@ -8,7 +8,7 @@
       <!-- Title -->
       <div class="col-md-8 noSpaceMobile">
         <div class="breadCrumb">
-          <a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> All {{ collections[selectedItem.collectionName].pluralLabel }}</a>
+          <a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> All {{ collections[selectedItem.collection.name].pluralLabel }}</a>
         </div>
       </div>
     </div>
@@ -17,49 +17,72 @@
     <!-- Page Content -->
     <div class="container-fluid singleItemOuterContainer noSpaceMobile">
 
-      <div class="container-fluid itemInfo">
-        
-        <!-- Item Number -->
+      <!-- Item info: WORKABLE -->
+      <div ng-if="collections[selectedItem.collectionName].collectionType == 'workable'" class="container-fluid itemInfo">
         <div class="col-md-4">
           <h4 class="itemInfoNumber">
             <span ng-if="currentAction == 'create'"><strong>New {{ collections[selectedItem.collectionName].singleLabel }}</strong></span>
             <span ng-if="currentAction == 'update'"><strong>{{ collections[selectedItem.collectionName].singleLabel }} #{{ selectedItem.number }}</strong></span>
           </h4>
         </div>
-
         <!-- State -->
         <div class="col-md-8 text-right">
-          
-          <!-- State buttons for large view -->
+          <!-- State (Desktop) -->
           <div class="btn-group hideInMobile fadeInOut">
             <button type="button" class="btn" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
           </div>
-
-          <!-- State buttons for mobile view -->
+          <!-- State (Mobile) -->
           <div class="row hideInDesktop noSpace" style="padding: 10px 0px 10px 0px; margin: 5px 0px 5px 0px;background-color:#fcfcfc;border-radius:5px;">
             <div class="col-md-12" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices">
               <button style="margin:3px;" type="button" class="btn btn-block" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
             </div>
           </div>
-
-
         </div>
-
         <!-- Title -->
         <div class="col-md-6">
           <input ng-disabled="selectedItemSubmitting" type="text" class="form-control defaultInput" placeholder="Title" value="" ng-model="selectedItem.title" size="20"/>
         </div>
-
         <!-- Last update info -->
         <div class="col-md-6">
           <div ng-if="currentAction == 'update'" class="itemInfoUpdate">Last updated by {{ selectedItem._updated_by.firstName }} on {{ formattedDateTime(selectedItem.updated_at) }}</div>
         </div>
-
-
       </div>
+      <!-- Item info: WORKABLE -->
 
+      <!-- Item info: INVENTORIAL -->
+      <div ng-if="collections[selectedItem.collectionName].collectionType == 'inventorial'" class="container-fluid itemInfo">
+        <div class="col-md-4">
+          <h4 class="itemInfoNumber">
+            <span ng-if="currentAction == 'create'"><strong>New {{ collections[selectedItem.collectionName].singleLabel }}</strong></span>
+            <span ng-if="currentAction == 'update'"><strong>{{ collections[selectedItem.collectionName].singleLabel }} #{{ selectedItem.number }}</strong></span>
+          </h4>
+        </div>
+        <!-- State -->
+        <div class="col-md-8 text-right">
+          <!-- State (Desktop) -->
+          <div class="btn-group hideInMobile fadeInOut">
+            <button type="button" class="btn" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
+          </div>
+          <!-- State (Mobile) -->
+          <div class="row hideInDesktop noSpace" style="padding: 10px 0px 10px 0px; margin: 5px 0px 5px 0px;background-color:#fcfcfc;border-radius:5px;">
+            <div class="col-md-12" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices">
+              <button style="margin:3px;" type="button" class="btn btn-block" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
+            </div>
+          </div>
+        </div>
+        <!-- Title -->
+        <div class="col-md-6">
+          <input ng-disabled="selectedItemSubmitting" type="text" class="form-control defaultInput" placeholder="Title" value="" ng-model="selectedItem.title" size="20"/>
+        </div>
+        <!-- Last update info -->
+        <div class="col-md-6">
+          <div ng-if="currentAction == 'update'" class="itemInfoUpdate">Last updated by {{ selectedItem._updated_by.firstName }} on {{ formattedDateTime(selectedItem.updated_at) }}</div>
+        </div>
+      </div>
+      <!-- Item info: INVENTORIAL -->
+
+      <!-- Item content -->
       <div class="container-fluid singleItemInnerContainer noSpaceMobile" style="padding:25px;">
-
         <!-- Begin building each single field -->
         <div ng-repeat="field in collections[selectedItem.collectionName].fields" ng-if="field.name != 'number' && field.name != 'state' && field.name != 'title'" class="form-group fadeInOut" ng-class="getItemFieldClass(selectedItem, field)">
           <label for="{{ field.name }}"><strong>{{ field.label }}:</strong></label>

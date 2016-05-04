@@ -10,24 +10,24 @@
 
   		<!-- Title -->
   		<div class="col-md-6">
-			<h3 ng-if="currentAction == 'update'" class="pageHeading">
-				<div>
+			<h3 class="pageHeading">
 					<span data-toggle="modal" data-target="#iconSelector" class="fa fa-2x collectionIcon text-center" ng-class="selectedCollection.icon">
 						<span class="fa fa-pencil-square editCollectionIcon"></span>
 					</span>
-				 	{{ selectedCollection.pluralLabel }}
-				</div>
+					<span ng-if="currentAction == 'update'"> {{ selectedCollection.pluralLabel }}</span><!-- Existing collections -->
+					<span ng-if="currentAction == 'create'"> New Item Type</span><!-- New collections -->
 			</h3>
-			
-			<h3 ng-if="currentAction == 'create'" class="pageHeading">New Item Type</h3>
   		</div>
+  		<!-- Title -->
 
+  		<!-- Start tour link -->
 		<div class="col-md-6 noSpace text-right">
 			<span ng-disabled="collectionsLoading" ng-click="tiggerWorkSettingsTour()" class="spanLink" style="margin-right:20px;">
 				<span class="fa fa-question-circle"></span>
 				<span> Help me through this!</span>
 			</span>
 		</div>
+		<!-- Start tour link -->
 	</div> 
 	<!-- Page Header -->
 
@@ -121,7 +121,8 @@
 			            	</select>
 
 			            	<!-- If the field is a choice type, show the choices editor -->
-			            	<span ng-if="field.displayType == 'choice'" class="fade-in-out" ng-attr-id="{{fieldIndex}}_parent">
+			            	<!-- ng-init is to push the choices array as empty if it was not previously defined -->
+			            	<span ng-if="field.displayType == 'choice'" ng-init="field.choices = (field.choices) ? field.choices : []" class="fade-in-out" ng-attr-id="{{fieldIndex}}_parent">
 				            	<button ng-if="!field.sysProvided" ng-disabled="collectionsLoading" type="button" ng-click="toggleFieldChoices(fieldIndex + '_choices')" class="btn btn-success btn-block" style="margin-bottom:3px;">
 				            		<i class="fa fa-bars"></i>
 				            		<span> Edit choices</span>

@@ -17,6 +17,11 @@ function mainController($scope, $location, $sce, User) {
   $scope.fieldTypes = FIELDTYPES;
   $scope.collectionTypes = COLLECTIONTYPES;
 
+  $scope.workableCollections = [];
+  $scope.revisionableCollections = [];
+  $scope.inventorialCollections = [];
+  $scope.basicCollections = [];
+
   $scope.accountType = $scope.currentUser.org.accountType;
   $scope.primaryCollection = $scope.currentUser.org.primaryCollection;
 
@@ -29,28 +34,29 @@ function mainController($scope, $location, $sce, User) {
 
   $scope.setActiveSection = function(sectionID) {
     // First, deactivate any other active sections
-    $('#workMenuItemD').removeClass('leftMenuIconActiveTop');
-    $('#workMenuItemM').removeClass('leftMenuIconActiveTop');
+    $('#workableMenuItemD').removeClass('leftMenuIconActiveTop');
+    $('#workableMenuItemM').removeClass('leftMenuIconActiveTop');
+    $('#inventorialMenuItemD').removeClass('leftMenuIconActive');
+    $('#inventorialMenuItemM').removeClass('leftMenuIconActive');
+    $('#revisionableMenuItemD').removeClass('leftMenuIconActive');
+    $('#revisionableMenuItemM').removeClass('leftMenuIconActive');
+    $('#basicMenuItemD').removeClass('leftMenuIconActive');
+    $('#basicMenuItemM').removeClass('leftMenuIconActive');
 
-    $('#accountMenuItemD').removeClass('leftMenuIconActive');
-    $('#accountMenuItemM').removeClass('leftMenuIconActive');
-
-    $('#supportMenuItemD').removeClass('leftMenuIconActive');
-    $('#supportMenuItemM').removeClass('leftMenuIconActive');
-
-    $('#workMenuItemD').addClass('leftMenuIcon');
-    $('#workMenuItemM').addClass('leftMenuIcon');
-
-    $('#accountMenuItemD').addClass('leftMenuIcon');
-    $('#accountMenuItemM').addClass('leftMenuIcon');
-
-    $('#supportMenuItemD').addClass('leftMenuIcon');
-    $('#supportMenuItemM').addClass('leftMenuIcon');
+    // Set everything to default
+    $('#workableMenuItemD').addClass('leftMenuIcon');
+    $('#workableMenuItemM').addClass('leftMenuIcon');
+    $('#inventorialMenuItemD').addClass('leftMenuIcon');
+    $('#inventorialMenuItemM').addClass('leftMenuIcon');
+    $('#revisionableMenuItemD').addClass('leftMenuIcon');
+    $('#revisionableMenuItemM').addClass('leftMenuIcon');
+    $('#basicMenuItemD').addClass('leftMenuIcon');
+    $('#basicMenuItemM').addClass('leftMenuIcon');
 
     // Then, set the given section as active
     $('#' + sectionID + 'MenuItemD').removeClass('leftMenuIcon');
     $('#' + sectionID + 'MenuItemM').removeClass('leftMenuIcon');
-    if (sectionID == 'work') {
+    if (sectionID == 'workable') {
       $('#' + sectionID + 'MenuItemD').addClass('leftMenuIconActiveTop');
       $('#' + sectionID + 'MenuItemM').addClass('leftMenuIconActiveTop');
       sectionID = '';
@@ -62,7 +68,7 @@ function mainController($scope, $location, $sce, User) {
 
   $scope.leftMenuClick = function(sectionID) {
     $scope.setActiveSection(sectionID);
-    if (sectionID == 'work') {
+    if (sectionID == 'workable') {
       $scope.changeView('');
     } else {
       $scope.changeView(sectionID);
@@ -126,8 +132,25 @@ function mainController($scope, $location, $sce, User) {
       }
     );
   };
+
+  $scope.initializeCollections = function() {
+    for(var collection in $scope.collections) {
+      var collectionType = $scope.collections[collection].collectionType;
+
+      if(collectionType == 'workable') {
+        $scope.workableCollections.push($scope.collections[collection]);
+      } else if(collectionType == 'revisionable') {
+        $scope.revisionableCollections.push($scope.collections[collection]);
+      } else if(collectionType == 'inventorial') {
+        $scope.inventorialCollections.push($scope.collections[collection]);
+      } else if(collectionType == 'basic') {
+        $scope.basicCollections.push($scope.collections[collection]);
+      }
+    }
+  };
   
   $scope.initializeMainController = function() {
+    /*
     var currentView = $location.path();
     if (currentView.indexOf('/account') >= 0) {
       $scope.setActiveSection('account');
@@ -136,12 +159,14 @@ function mainController($scope, $location, $sce, User) {
     } else {
       $scope.setActiveSection('work');
     }
+    */
 
     if ($scope.currentUser.newUser) {
       $scope.startMainTour = true;
       $scope.setIsNewUser();
-
     }
+
+    $scope.initializeCollections();
     
   };
 

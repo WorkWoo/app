@@ -31,7 +31,7 @@ function getWorkableCollection() {
 	defaults.displayField = 'name';
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
-	defaults.icon = 'fa-wrench';
+	defaults.icon = 'fa-ellipsis-h';
 	defaults.stateChoices = ['Open', 'In Progress', 'Complete', 'Cancelled'];
 
 	var defaultFields = [];
@@ -57,7 +57,7 @@ function getRevisionableCollection() {
 	defaults.displayField = 'name';
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
-	defaults.icon = 'fa-refresh';
+	defaults.icon = 'fa-ellipsis-h';
 
 	var defaultFields = [];
 
@@ -82,7 +82,7 @@ function getInventorialCollection() {
 	defaults.displayField = 'name';
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
-	defaults.icon = 'fa-inbox';
+	defaults.icon = 'fa-ellipsis-h';
 
 	var defaultFields = [];
 
@@ -108,7 +108,7 @@ function getBasicCollection() {
 	defaults.displayField = 'name';
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
-	defaults.icon = 'fa-object-group';
+	defaults.icon = 'fa-ellipsis-h';
 
 	var defaultFields = [];
 

@@ -13,7 +13,6 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script> 
 
-
     <!-- Angular -->
     <script src="/js/angular.min.js"></script>
     <script src="/js/angular-animate.js"></script>
@@ -32,7 +31,6 @@
     <script src="auth.js"></script>
 
     <style>
-
         body {
           background-image: url('http://www.workwoo.com/img/bg2.png');
           background-repeat: repeat;
@@ -117,27 +115,22 @@
             color: #fff;
          }
 
-
-
     </style>
-
   </head>
   
   <body ng-app="auth" ng-controller="mainController" style="margin:0px;padding:0px;color:#777;">
 
-      <!-- NAV -->
-      <nav id="topNavbar" class="navbar navbar-fixed-top">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a style="font-size:28px;margin:10px;" class="navbar-brand" href="#signup"><span class="fa fa-coffee"></span> WorkWoo</a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-          </div>
+    <!-- Header -->
+    <nav id="topNavbar" class="navbar navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a style="font-size:28px;margin:10px;" class="navbar-brand" href="#signup"><span class="fa fa-coffee"></span> WorkWoo</a>
         </div>
-      </nav>
-      <!-- NAV -->
-
-    
+        <div class="collapse navbar-collapse" id="myNavbar">
+        </div>
+      </div>
+    </nav>
+    <!-- Header -->
 
     <!-- Loading indicator -->
     <div ng-if="!pageLoading" class="text-center pageLoadingIndicator">

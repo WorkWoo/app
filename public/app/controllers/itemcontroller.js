@@ -118,42 +118,85 @@ function itemController($scope, $location, $routeParams, Item) {
   };
 
 
-  $scope.countItemsByState = function() {
+  $scope.getItemCounts = function(collectionNames) {
+    log.info('Collection count: ' + collectionNames.length);
+
     $scope.setPageLoading(true);
     $scope.itemsLoading = true;
-    $scope.itemCountByState = {};
-    for(var i=0; i<$scope.collections[$scope.baseCollection].stateChoices.length; i++) {
-      $scope.itemCountByState[$scope.collections[$scope.baseCollection].stateChoices[i]] = 0;
-    }
-    var queryParams = {
-      collectionName: $scope.baseCollection,
-      sortField: $scope.sortField,
-      sortOrder: $scope.sortOrder,
-      anchorValue: $scope.anchorValue,
-      anchorID: $scope.anchorID,
-      searchTerm: $scope.searchTerm,
-      additionalQuery: $scope.queryCriteria,
-    };
-    Item.getAll(queryParams,
-      function(result){
-        // Success
+    $scope.collectionCounts = {};
 
+    // Build each collection object
+    for(var i=0; i<collectionNames.length; i++) {
+      log.info('loop');
+      
+      $scope.collectionCounts[collectionNames[i].name] = {}
+      var countableFields = [];
 
-        // Update the state count
-        for (var i=0; i<result.items.length; i++) {
-          $scope.itemCountByState[result.items[i].state] = $scope.itemCountByState[result.items[i].state] + 1;
+      // Build a property for each field
+      for(var y=0; y<collectionNames[i].fields.length; y++) {
+        var field = collectionNames[i].fields[y];
+        if(field.displayType == 'choice') {
+          countableFields.push(field);
+
+          $scope.collectionCounts[collectionNames[i].name][field.name] = {};
+          for(var f=0; f<field.choices.length; f++) {
+            $scope.collectionCounts[collectionNames[i].name][field.name][field.choices[f]] = 0;
+          }
+        } else if(field.displayType == 'currency') {
+          countableFields.push(field);
+
+          $scope.collectionCounts[collectionNames[i].name][field.name] = 0;
         }
+      } 
 
-        $scope.itemsLoading = false
-        $scope.setPageLoading(false);
+      // Now query and get the counts for each collection
+      
+      var queryParams = {
+        collectionName: collectionNames[i].name,
+        sortField: $scope.sortField,
+        sortOrder: $scope.sortOrder,
+        anchorValue: $scope.anchorValue,
+        anchorID: $scope.anchorID,
+        searchTerm: $scope.searchTerm,
+        additionalQuery: $scope.queryCriteria,
+      };
 
-      },
-      function() {
-        $scope.itemsLoading = false;
-        $scope.setPageLoading(false);
-        $scope.alertUnknownError();
-      }
-    );
+      Item.getAll(queryParams,
+        function(result){
+          // Update the counts for each field
+
+          for (var x=0; x<result.items.length; x++) {
+            var item = result.items[x];
+
+            for(var j=0; j<countableFields.length;j++) {
+              var fieldName = countableFields[j].name;
+              if(item[countableFields[j].name]) {
+                if(countableFields[j].displayType == 'currency') {
+
+                  $scope.collectionCounts[collections[i].name][fieldName] += item[fieldName];
+
+                } else if(countableFields[j].displayType == 'choice') {
+                    log.info('N: ' + item[fieldName]);
+
+                    $scope.collectionCounts[item.collectionName][fieldName][item[fieldName]] = $scope.collectionCounts[item.collectionName][fieldName][item[fieldName]] + 1;
+                }
+              }
+            }
+          }
+
+          $scope.itemsLoading = false
+          $scope.setPageLoading(false);
+
+        },
+        function() {
+          $scope.itemsLoading = false;
+          $scope.setPageLoading(false);
+          $scope.alertUnknownError();
+        }
+      );
+    
+    }
+    log.info($scope.collectionCounts.buildorders.assignedto['Jesse']);
   };
 
 
@@ -410,11 +453,24 @@ function itemController($scope, $location, $routeParams, Item) {
     });
   };
 
+  $scope.setActiveCollection = function(url) {
+    if(url.indexOf('/workable') >= 0) {
+      $scope.setActiveSection('workable');
+    } else if(url.indexOf('/revisionable') >= 0) {
+      $scope.setActiveSection('revisionable');
+    } else if(url.indexOf('/inventorial') >= 0) {
+      $scope.setActiveSection('inventorial');
+    } else if(url.indexOf('/basic') >= 0) {
+      $scope.setActiveSection('basic');
+    } else {
+      $scope.setActiveSection('workable');
+    }
+  };
 
   $scope.initializeItemController = function() {
     // Grab the current URL so we can determine what the user is trying to do
     var currentURL = $location.url();
-    $scope.setActiveSection('work');
+    $scope.setActiveCollection(currentURL);
 
     // Searching
     var searching = currentURL.indexOf('/search?') > 0;
@@ -440,8 +496,8 @@ function itemController($scope, $location, $routeParams, Item) {
       $scope.baseCollection = currentURL.slice(1);
       $scope.currentAction = 'create';
       $scope.selectedItem = {
-        collectionName: $scope.primaryCollection,
-        state: $scope.collections[$scope.primaryCollection].stateChoices[0]
+        collectionName: $scope.baseCollection,
+        state: $scope.collections[$scope.baseCollection].stateChoices[0]
       };
       $scope.itemsLoading = false;
       $scope.setPageLoading(false);
@@ -485,7 +541,7 @@ function itemController($scope, $location, $routeParams, Item) {
     if($scope.currentUser.org.primaryCollection) {
       $scope.baseCollection = $scope.currentUser.org.primaryCollection;
       $scope.selectedItem = {};
-      $scope.countItemsByState($scope.baseCollection);
+      $scope.getItemCounts($scope.workableCollections);
       return;
     }
 

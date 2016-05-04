@@ -1,0 +1,58 @@
+<div class="container-fluid" style="margin-top:50px;">
+  <h1>TEST: {{ collectionCounts.buildorders.assignedto['Jesse'] }}</h1>
+  <div ng-repeat="collection in workableCollections" class="col-md-6">
+    <div class="collectionStatusContainer clearfix">
+    
+    <!-- Edit settings link -->
+    <a ng-href="#/account/collections/view/{{collection.name}}" class="collectionStatusSettingsIcon fa fa-cog"></a>
+
+    <!-- Collection icon & title -->
+    <div class="col-md-6">
+      <h3 class="noSpace">
+        <span class="mainColor fa" ng-class="collection.icon"></span>
+        <span> {{ collection.pluralLabel }}</span>
+      </h3>
+    </div>
+
+    <div class="col-md-6 text-right">
+      <a ng-href="#/{{collection.name}}">See all {{ collection.pluralLabel }} <span class="fa fa-arrow-right"></span></a>
+    </div>
+
+    <div class="col-md-12">
+      <!-- Breakdown by state -->
+      <div class="itemInfo clearfix">
+        <div ng-repeat="state in collection.stateChoices" class="col-md-6">
+          <a ng-href="#/{{collection.name}}/search?state={{state}}"><strong>{{ state }}:</strong> 5</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <!-- Breakdown by other fields -->
+      <div>
+        <div ng-repeat="field in collection.fields" ng-if="field.displayType == 'currency' || field.displayType == 'choice'" class="col-md-6">
+
+          <!-- Currency field -->
+          <div ng-if="field.displayType == 'currency'">
+            <h4 class="mainColor">Total {{ field.label }}:</h4>
+
+            <div>$1,234.75</div>
+          </div>
+
+          <!-- Dropdown field -->
+          <span ng-if="field.displayType == 'choice'">
+            <h4 class="mainColor">By {{ field.label }}:</h4>
+
+            <div ng-repeat="choice in field.choices">
+              <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}"><strong>{{ choice }}:</strong> 7</a>
+            </div>
+          </span>
+
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

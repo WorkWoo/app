@@ -5,7 +5,7 @@
     <div class="breadCrumb">
       <a href="#/"><span class="fa fa-arrow-left"></span> Back to summary</a>
     </div>
-    <h3 class="pageHeading">{{ collections[primaryCollection].pluralLabel }}</h3>
+    <h3 class="pageHeading">{{ collections[baseCollection].pluralLabel }}</h3>
   </div>
   <!-- Search -->
   <div class="col-md-4 text-right noSpaceMobile">
@@ -27,8 +27,8 @@
   <!-- Message if they have not setup their primary collection -->
   <div ng-if="!itemsLoading && loadedItems.length == 0" class="container-fluid text-center fadeInOut" style="margin-top:50px;">
     <div class="col-md-12">
-      <h2 class="pageHeading">No items to show!</h2>
-      <a class="btn btn-success" ng-href="#/{{primaryCollection}}/new"><h3 class="noSpace">Create one now</h3></a>
+      <h2 class="pageHeading">No {{ collections[baseCollection].pluralLabel }} to show!</h2>
+      <a class="btn btn-success" ng-href="#/{{baseCollection}}/new"><h3 class="noSpace">Create one now</h3></a>
     </div>
   </div>
   <!-- Page Header -->
@@ -36,16 +36,16 @@
     <!-- Loading indicator -->
   <div ng-if="itemsLoading" class="col-md-12 fadeInOut largeLoadingIndicator">
     <span class="fa fa-refresh fa-spin"></span>
-    <span>Loading items</span>
+    <span>Loading {{ collections[baseCollection].pluralLabel }}</span>
   </div>
 
   <!-- "Create New" card -->
   <div ng-if="loadedItems.length > 0" class="col-md-4 text-center noSpaceMobile fadeInOut">
-    <a ng-disabled="itemsLoading" class="noUnderline" ng-href="#/{{primaryCollection}}/new">
+    <a ng-disabled="itemsLoading" class="noUnderline" ng-href="#/{{baseCollection}}/new">
       <div class="itemCardActive">
         <span class="itemCardActiveIcon fa fa-plus"></span>
         <span class="cardTitleBreaker"></br></span>
-        <span class="itemCardActiveTitle">New {{ collections[primaryCollection].singleLabel }}</span>
+        <span class="itemCardActiveTitle">New {{ collections[baseCollection].singleLabel }}</span>
       </div>
     </a>
   </div>
@@ -53,7 +53,7 @@
   <!-- Create a card for each item -->
   <div ng-repeat="item in loadedItems" class="col-md-4 noSpaceMobile fadeInOutStagger">
     <div class="itemCard">
-      <a class="noUnderline" ng-href="#/{{primaryCollection}}/view/{{item.number}}">
+      <a class="noUnderline" ng-href="#/{{baseCollection}}/view/{{item.number}}">
         <div class="col-md-12 clearfix">
           <span class="pull-left text-left itemCardTitle">{{ item.number }}</span>
           <span class="pull-right text-right">
@@ -66,7 +66,7 @@
         <div class="col-md-12">
           <div class="ellipsis">
             <div class="itemCardContent">
-              {{ item[collections[primaryCollection].displayField] }}
+              {{ item[collections[baseCollection].displayField] }}
             </div>
           </div>
         </div>

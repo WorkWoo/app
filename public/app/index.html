@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="/css/ng-joyride.css">
     <link rel="stylesheet" href="/css/intlTelInput.css">
-
     <script src="/js/jquery.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 
@@ -29,7 +28,6 @@
     <script src="controllers/itemcontroller.js"></script>
     <script src="controllers/supportcontroller.js"></script>
     <script src="controllers/usercontroller.js"></script>
-
     <script src="/js/tour.js"></script>
 
     <!-- Main stylesheets -->
@@ -51,20 +49,17 @@
       <div class="dropdown pull-right">
         <span id="user-name">{{ currentUser.firstName }} @ {{ currentUser.org.name }}</span>
         <span class="fa fa-bars userMenuIcon" id="userMenuDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
-        <ul class="dropdown-menu userMenuDropdown" aria-labelledby="userMenuDropdown">
-                    
+        <ul class="dropdown-menu userMenuDropdown" aria-labelledby="userMenuDropdown">  
           <li>
-            <div class="userMenuItem" ng-click="url('#/account/summary')">
-              <span class="fa fa-cog"></span> My Settings
+            <div class="userMenuItem" ng-click="url('#/account/')">
+              <span class="fa fa-cog"></span> Settings
             </div>
           </li>
-
           <li>
             <div class="userMenuItem hideInMobile" ng-click="tiggerMainTour()">
               <span class="fa fa-road"></span> Take the tour
             </div>
           </li>
-
           <li>
             <div class="userMenuItem" ng-click="url('/logout')">
               <span class="fa fa-sign-out"></span> Logout
@@ -76,33 +71,49 @@
     </div>
     <!-- Header -->
 
+    <!-- Loading indicator (before angular is loaded) -->
     <div id="pageLoadingIndicatorOnLoad">
       <span class="fa fa-cog fa-spin"></span>
     </div>
 
+    <!-- Loading indicator (after angular is loaded) -->
     <div ng-if="pageLoading" id="pageLoadingIndicator" class="fadeInOut">
       <span class="fa fa-cog fa-spin"></span>
     </div>
 
-
-    <!-- Left Menu (Mobile) -->
+    <!-- Left Menu icons (Mobile) -->
     <div id="leftMenuContainer" class="leftMenuContainer hideInDesktop">
-      <span ng-click="leftMenuClick('work')" id="workMenuItemM" class="fa fa-home leftMenuIcon" style="top:0px;"></span>
-      <span ng-click="leftMenuClick('account')" id="accountMenuItemM" class="fa fa-cog leftMenuIcon" style="top:0px;"></span>
-      <span ng-click="leftMenuClick('support')" id="supportMenuItemM" class="fa fa-question-circle leftMenuIcon" style="top:0px;"></span>
+      <span ng-click="leftMenuClick('workable')" id="workableMenuItemM" class="fa fa-wrench leftMenuIcon" style="top:0px;"></span>
+      <span ng-click="leftMenuClick('inventorial')" id="inventorialMenuItemM" class="fa fa-cubes leftMenuIcon" style="top:0px;"></span>
+      <span ng-click="leftMenuClick('revisionable')" id="revisionableMenuItemM" class="fa fa-object-group leftMenuIcon" style="top:0px;"></span>
+      <span ng-click="leftMenuClick('basic')" id="basicMenuItemM" class="fa fa-inbox leftMenuIcon" style="top:0px;"></span>
     </div>
 
-    <!-- Left Menu (Desktop) -->
-    <span ng-click="leftMenuClick('work')" id="workMenuItemD" class="fa fa-home leftMenuIcon hideInMobile" style="top:25px;"></span>
-    <span ng-click="leftMenuClick('account')" id="accountMenuItemD" class="fa fa-cog leftMenuIcon hideInMobile" style="top:75px;"></span>
-    <span ng-click="leftMenuClick('support')" id="supportMenuItemD" class="fa fa-question-circle leftMenuIcon hideInMobile" style="top:125px;"></span>
+    <!-- Left Menu icons (Desktop) -->
+    <span ng-click="leftMenuClick('workable')" id="workableMenuItemD" class="fa fa-wrench leftMenuIcon hideInMobile" style="top:25px;">
+      <span class="leftMenuText">Work</span>
+    </span>
+
+    <span ng-click="leftMenuClick('inventorial')" id="inventorialMenuItemD" class="fa fa-cubes leftMenuIcon hideInMobile" style="top:75px;">
+      <span class="leftMenuText">Inventory</span>
+    </span>
+
+    <span ng-click="leftMenuClick('revisionable')" id="revisionableMenuItemD" class="fa fa-object-group leftMenuIcon hideInMobile" style="top:125px;">
+      <span class="leftMenuText">Rev Items</span>
+    </span>
+
+    <span ng-click="leftMenuClick('basic')" id="basicMenuItemD" class="fa fa-inbox leftMenuIcon hideInMobile" style="top:175px;">
+      <span class="leftMenuText">Basic Items</span>
+    </span>
+
+    <!-- Left/bottom portion of the nav that makes it appear as a solid bar -->
     <span class="leftMenuContainer hideInMobile"></span>
 
-    <!-- View Content --> 
+    <!-- View Content -->
     <div id="nav-content" class="contentPage" ng-view></div>
 
     <!-- Main Angular scipts are loaded last to prevent init of the -->
-    <!-- app, since we need info from the server to load the app.   -->
+    <!-- App, since we need info from the server to load the App.   -->
     <script src="/js/angular.min.js"></script>
     <script src="/js/angular-animate.js"></script>
     <script src="/js/angular-route.js"></script>
@@ -113,6 +124,6 @@
     <script src="/js/phone-formatter/utils.js"></script>
     <script src="/js/phone-formatter/ng-intl-tel-input.js"></script>
     <script src="app.js"></script>
-    <script src="initialize.js"></script>
+    <script src="initialize.js"></script><!-- Initialize always called last -->
   </body>
 </html>

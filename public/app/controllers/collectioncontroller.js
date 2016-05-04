@@ -8,14 +8,8 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
   $scope.collectionIconClass = 'collection-icon';
 
   $scope.collectionsLoading = false;
-
   $scope.startWorkSettingsTour = false;
   $scope.workSettingsTourConfig = tourConfig.getWorkSettingsTourConfig($scope);
-
-  $scope.workableCollections = [];
-  $scope.revisionableCollections = [];
-  $scope.inventorialCollections = [];
-  $scope.basicCollections = [];
 
   $scope.getAllCollections = function(collectionName) {
     $scope.collectionsLoading = true;
@@ -274,20 +268,14 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
         newCollectionType = 'workable';
       }
 
-            log.info('Creating new collection of type: ' + newCollectionType);
-
       $scope.currentAction = 'create';
       $scope.setPageLoading(false);
-
-      log.info('Types: ' + $scope.collectionTypes);
-      log.object($scope.collectionTypes);
-
 
       $scope.selectedCollection = $scope.collectionTypes[newCollectionType].defaults;
       $scope.setPageLoading(false);
 
       if (!$scope.startMainTour) {
-        $scope.tiggerWorkSettingsTour();
+        //$scope.tiggerWorkSettingsTour();
       }
       return;
     }
@@ -305,7 +293,7 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
     }
 
     // Get all
-    $scope.getAllCollections();
+    //$scope.getAllCollections();
   };
 
   $scope.initializeCollectionController();
