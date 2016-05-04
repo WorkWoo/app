@@ -33,6 +33,7 @@ function getWorkableCollection() {
 	defaults.singleLabel = '';
 	defaults.icon = 'fa-ellipsis-h';
 	defaults.stateChoices = ['Open', 'In Progress', 'Complete', 'Cancelled'];
+	defaults.referenceable = { 'workable' : false, 'revisionable' : true, 'inventorial' : true, 'basic' : true };
 
 	var defaultFields = [];
 
@@ -58,6 +59,7 @@ function getRevisionableCollection() {
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
 	defaults.icon = 'fa-ellipsis-h';
+	defaults.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : true, 'basic' : true };
 
 	var defaultFields = [];
 
@@ -83,6 +85,7 @@ function getInventorialCollection() {
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
 	defaults.icon = 'fa-ellipsis-h';
+	defaults.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : false, 'basic' : true };
 
 	var defaultFields = [];
 
@@ -109,6 +112,7 @@ function getBasicCollection() {
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
 	defaults.icon = 'fa-ellipsis-h';
+	defaults.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : false, 'basic' : false };
 
 	var defaultFields = [];
 
