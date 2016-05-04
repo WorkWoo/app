@@ -50,7 +50,6 @@ var currencyField = function ($filter) {
                 element.val(formattedValue);
                 
                 ctrl.$setViewValue(value);
-                scope.$apply();
 
                 return formattedValue;
             }
@@ -59,6 +58,7 @@ var currencyField = function ($filter) {
 
             element.bind('blur', function () {
                 formatter(element.val());
+                scope.$apply();
             });
         }  
     };
