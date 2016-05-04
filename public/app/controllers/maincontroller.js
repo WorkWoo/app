@@ -1,5 +1,5 @@
 function mainController($scope, $location, $sce, User) {
-  log.info('WorkWoo App initialized successully');
+  log.info('App initialized');
 
   $scope.pageLoading = true;
   $scope.trustAsHtml = $sce.trustAsHtml;

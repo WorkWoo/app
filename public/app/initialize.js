@@ -55,8 +55,6 @@ function getCollectionSettingsSuccess(response) {
   FIELDTYPES = JSON.parse(response).fieldTypes;
   COLLECTIONTYPES = JSON.parse(response).collectionTypes;
 
-  console.log(COLLECTIONS);
-
   angular.bootstrap(document, ['mainApp']);
 }
 

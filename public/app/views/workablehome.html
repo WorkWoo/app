@@ -1,5 +1,5 @@
+<button type="button" class="btn btn-primary" ng-click="logTest()">CLICK</button>
 <div class="container-fluid" style="margin-top:50px;">
-  <h1>TEST: {{ collectionCounts.buildorders.assignedto['Jesse'] }}</h1>
   <div ng-repeat="collection in workableCollections" class="col-md-6">
     <div class="collectionStatusContainer clearfix">
     
@@ -22,7 +22,7 @@
       <!-- Breakdown by state -->
       <div class="itemInfo clearfix">
         <div ng-repeat="state in collection.stateChoices" class="col-md-6">
-          <a ng-href="#/{{collection.name}}/search?state={{state}}"><strong>{{ state }}:</strong> 5</a>
+          <a ng-href="#/{{collection.name}}/search?state={{state}}"><strong>{{ state }}:</strong> {{ collectionCounts[collection.name].state[state] }}</a>
         </div>
       </div>
     </div>
@@ -43,9 +43,16 @@
           <span ng-if="field.displayType == 'choice'">
             <h4 class="mainColor">By {{ field.label }}:</h4>
 
+            <!-- Each choice -->
             <div ng-repeat="choice in field.choices">
-              <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}"><strong>{{ choice }}:</strong> 7</a>
+              <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}"><strong>{{ choice }}:</strong> {{ collectionCounts[collection.name][field.name][choice] }}</a>
             </div>
+
+            <!-- Empty (no choice selected) -->
+            <div>
+              <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}"><strong>Empty:</strong> {{ collectionCounts[collection.name][field.name]['empty'] }}</a>
+            </div>
+
           </span>
 
 

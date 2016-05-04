@@ -1,4 +1,5 @@
 function itemController($scope, $location, $routeParams, Item) {
+  log.info('Items Initialized');
   $scope.loadedItems = [];
   $scope.selectedItem = Item.selectedItem;
   $scope.selectedItemTitle = '';
@@ -118,41 +119,38 @@ function itemController($scope, $location, $routeParams, Item) {
   };
 
 
-  $scope.getItemCounts = function(collectionNames) {
-    log.info('Collection count: ' + collectionNames.length);
-
+  $scope.getItemCounts = function(collections) {
     $scope.setPageLoading(true);
     $scope.itemsLoading = true;
     $scope.collectionCounts = {};
 
     // Build each collection object
-    for(var i=0; i<collectionNames.length; i++) {
-      log.info('loop');
-      
-      $scope.collectionCounts[collectionNames[i].name] = {}
-      var countableFields = [];
+    for(var i=0; i<collections.length; i++) {
+      $scope.collectionCounts[collections[i].name] = {}
+      $scope.collectionCounts[collections[i].name].countableFields = [];
 
       // Build a property for each field
-      for(var y=0; y<collectionNames[i].fields.length; y++) {
-        var field = collectionNames[i].fields[y];
-        if(field.displayType == 'choice') {
-          countableFields.push(field);
+      for(var y=0; y<collections[i].fields.length; y++) {
+        var field = collections[i].fields[y];
+        if(field.displayType == 'choice' || field.displayType == 'state') {
+          $scope.collectionCounts[collections[i].name].countableFields.push(field);
 
-          $scope.collectionCounts[collectionNames[i].name][field.name] = {};
+          $scope.collectionCounts[collections[i].name][field.name] = {};
           for(var f=0; f<field.choices.length; f++) {
-            $scope.collectionCounts[collectionNames[i].name][field.name][field.choices[f]] = 0;
+            $scope.collectionCounts[collections[i].name][field.name][field.choices[f]] = 0;
           }
+          $scope.collectionCounts[collections[i].name][field.name]['empty'] = 0;
         } else if(field.displayType == 'currency') {
-          countableFields.push(field);
+          $scope.collectionCounts[collections[i].name].countableFields.push(field);
 
-          $scope.collectionCounts[collectionNames[i].name][field.name] = 0;
+          $scope.collectionCounts[collections[i].name][field.name] = 0;
         }
       } 
 
       // Now query and get the counts for each collection
       
       var queryParams = {
-        collectionName: collectionNames[i].name,
+        collectionName: collections[i].name,
         sortField: $scope.sortField,
         sortOrder: $scope.sortOrder,
         anchorValue: $scope.anchorValue,
@@ -163,30 +161,28 @@ function itemController($scope, $location, $routeParams, Item) {
 
       Item.getAll(queryParams,
         function(result){
-          // Update the counts for each field
-
-          for (var x=0; x<result.items.length; x++) {
-            var item = result.items[x];
-
-            for(var j=0; j<countableFields.length;j++) {
-              var fieldName = countableFields[j].name;
-              if(item[countableFields[j].name]) {
-                if(countableFields[j].displayType == 'currency') {
-
-                  $scope.collectionCounts[collections[i].name][fieldName] += item[fieldName];
-
-                } else if(countableFields[j].displayType == 'choice') {
-                    log.info('N: ' + item[fieldName]);
-
-                    $scope.collectionCounts[item.collectionName][fieldName][item[fieldName]] = $scope.collectionCounts[item.collectionName][fieldName][item[fieldName]] + 1;
+          var items = result.items;
+          for (var x=0; x<items.length; x++) {
+            var item = items[x];
+            var countableFields = $scope.collectionCounts[item.collectionName].countableFields;
+            for (var f = 0; f<countableFields.length; f++) {
+              var countableFieldName = countableFields[f].name;
+              if (item[countableFieldName] && (countableFields[f].displayType == 'choice' || countableFields[f].displayType == 'state')) {
+                if ($scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]]) {
+                  $scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] = $scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] + 1;
+                } else if($scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] == undefined) {
+                  $scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] = 0;
+                } else if($scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] == 0) {
+                  $scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] = 1;
                 }
+              } else if (!item[countableFieldName] && (countableFields[f].displayType == 'choice' || countableFields[f].displayType == 'state')) {
+                $scope.collectionCounts[item.collectionName][countableFieldName]['empty'] = $scope.collectionCounts[item.collectionName][countableFieldName]['empty'] + 1;
               }
             }
           }
 
           $scope.itemsLoading = false
           $scope.setPageLoading(false);
-
         },
         function() {
           $scope.itemsLoading = false;
@@ -196,7 +192,11 @@ function itemController($scope, $location, $routeParams, Item) {
       );
     
     }
-    log.info($scope.collectionCounts.buildorders.assignedto['Jesse']);
+  };
+
+  $scope.logTest = function() {
+    log.info('RESULT: ');
+    log.object($scope.collectionCounts.buildorders.category);
   };
 
 
