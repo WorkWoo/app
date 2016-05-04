@@ -111,7 +111,7 @@
 					</div>
 
 					<!-- Loop through each field -->
-					<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" ng-if="!field.sysProvided" class="col-md-12 noSpace customFieldRow swappableField">
+					<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" ng-if="!field.sysProvided" ng-attr-id="row_{{fieldIndex}}" class="col-md-12 noSpace customFieldRow swappableField">
 					
 						<!-- Field name -->
 						<div class="col-md-7" style="margin-bottom:5px;">
@@ -166,7 +166,7 @@
 
 			              	<!-- If the field is a item reference type, show the reference to field -->
 			              	<span ng-if="field.displayType == 'itemReference'" class="fade-in-out" ng-attr-id="{{fieldIndex}}_parent">
-								<ui-select ng-model="field.referenceTo" theme="bootstrap">
+								<ui-select ng-model="field.referenceTo" ng-click="bringFieldForward('row_' + fieldIndex)" theme="bootstrap">
 									<ui-select-match placeholder="Select or search a item type">{{$select.selected.name}}</ui-select-match>
 								    <ui-select-choices group-by="'type'" repeat="col in (collectionsArray | filter: $select.search) track by col.id">
 										<small class="fa" ng-class="col.icon"></small>

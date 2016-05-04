@@ -248,7 +248,6 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
     $("#iconSelector").modal('hide');
   }
 
-
   $scope.tiggerWorkSettingsTour = function() {
     $scope.startWorkSettingsTour = true;
   }
@@ -288,6 +287,11 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
         $scope.selectedCollectionSysFieldCount += 1;
       }
     }
+  };
+
+
+  $scope.bringFieldForward = function(elementID) {
+    $('#' + elementID).css('z-index', 99);
   };
 
 

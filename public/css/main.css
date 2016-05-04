@@ -1015,6 +1015,8 @@ a:hover {
 }
 
 .customFieldRow {
+  position: relative;
+  overflow: visible;
   padding: 7px;
   border-top: 1px dashed #d8d8d8;
 }
@@ -1133,4 +1135,9 @@ a:hover {
 
 .newCollectionButtonIcon {
   color: #67A88C;
+}
+
+.ui-select-choices {
+  position: absolute;
+  z-index: 99;
 }
