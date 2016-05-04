@@ -1,5 +1,6 @@
 <form name="collectionForm" ng-model="selectedCollection" ng-submit="submit(selectedCollection)" novalidate>
 	
+	<!-- Tour -->
 	<div ng-if="startWorkSettingsTour" id="workSettingsTour" ng-joy-ride="startWorkSettingsTour" config="workSettingsTourConfig" on-finish="finishWorkSettingsTour()" on-skip="skipWorkSettingsTour()"></div>
 
 	<!-- Page Header -->
@@ -85,6 +86,7 @@
 
 			<!-- Custom fields -->
 			<div id="customFieldsContainer" class="defaultInputGroup form-group col-md-8">
+				
 				<!-- System fields -->
 	        	<div id="sysFields" class="itemInfo clearfix hideInMobile">
 	        		<div class="col-md-12">
@@ -98,6 +100,7 @@
 
 				<label>Custom fields:</label>
 				<div class="choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
+					
 					<!-- Column header -->
 					<div class="col-md-7 hideInMobile">
 						<span class="customFieldColumnTitle">Field Name</span>
@@ -107,10 +110,17 @@
 					</div>
 
 					<!-- Loop through each field -->
-					<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" ng-if="!field.sysProvided" class="col-md-12 noSpace customFieldRow fadeInOutStagger">
+					<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" ng-if="!field.sysProvided" class="col-md-12 noSpace customFieldRow swappableField">
+					
 						<!-- Field name -->
 						<div class="col-md-7" style="margin-bottom:5px;">
-							<input ng-disabled="collectionsLoading || field.sysProvided" type="text" ng-model="field.label" ng-change="field.name = lowerAndRemoveSpace(field.label)" ng-init="field.name = lowerAndRemoveSpace(field.label)" class="form-control defaultInput" size="20" placeholder='New Field'>
+							<div class="input-group">
+								<span class="input-group-addon noSpace" style="border: 1px solid #e5e5e5;border-radius:0px;border-right:none;">
+									<div><span ng-click="swapFieldPosition(fieldIndex, -1)" class="fieldOrderUp fa fa-chevron-up"></span></div>
+									<div><span ng-click="swapFieldPosition(fieldIndex, 1)" class="fieldOrderDown fa fa-chevron-down"></span></div>
+								</span>
+								<input ng-disabled="collectionsLoading || field.sysProvided" type="text" ng-model="field.label" ng-change="field.name = lowerAndRemoveSpace(field.label)" ng-init="field.name = lowerAndRemoveSpace(field.label)" class="form-control defaultInput" size="20" placeholder='New Field'>
+							</div>
 						</div>
 						<!-- Field type -->
 						<div class="col-md-4" style="margin-bottom:5px;">
@@ -230,11 +240,11 @@
 		<!-- Upgrade indicator -->
 
     </div>
+    <!-- Page content -->
 
 	<!-- Modal icon selector -->
 	<div id="iconSelector" class="modal fade" role="dialog" >
 	  <div class="modal-dialog">
-
 	    <!-- Modal content-->
 	    <div class="modal-content" style="border-radius:0px;">
 	    	<button type="button" class="close" data-dismiss="modal"><span class="fa fa-close"></span></button>
@@ -246,8 +256,7 @@
 	        	</span>
 	    	</div>
 	    </div>
-
-	  </div>
 	</div>
+	<!-- Modal icon selector -->
 
 </form>

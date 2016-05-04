@@ -2,6 +2,7 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
   $scope.currentAction = null;
   $scope.loadedCollections = [];
   $scope.selectedCollection = null;
+  $scope.selectedCollectionSysFieldCount = 0;
 
   $scope.showIconSelection = false;
   $scope.collectionIcons = COLLECTION_ICONS;
@@ -57,6 +58,7 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
         $scope.collectionsLoading = false;
         $scope.setPageLoading(false);
         $scope.selectedCollection = collection;
+        $scope.setSysFieldCount($scope.selectedCollection.fields);
       },
       function() {
         $scope.setPageLoading(false);
@@ -254,6 +256,29 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
     return resultString;
   };
 
+  $scope.swapFieldPosition = function(fieldIndex, moveAmount) {
+    var totalFields = $scope.selectedCollection.fields.length;
+    var sysCount = $scope.selectedCollectionSysFieldCount - 1; // Account fore 0th index
+    
+    // Don't allow swap if they are already on top or bottom
+    if((fieldIndex + moveAmount) <= sysCount || (fieldIndex + moveAmount) >= totalFields) {
+      return;
+    }
+
+    var swappedField = $scope.selectedCollection.fields[fieldIndex + moveAmount];
+    $scope.selectedCollection.fields[fieldIndex + moveAmount] = $scope.selectedCollection.fields[fieldIndex];
+    $scope.selectedCollection.fields[fieldIndex] = swappedField;
+  };
+
+
+  $scope.setSysFieldCount = function(fieldsList) {
+    for(var i=0; i<fieldsList.length; i++) {
+      if(fieldsList[i].sysProvided) {
+        $scope.selectedCollectionSysFieldCount += 1;
+      }
+    }
+  };
+
 
   $scope.initializeCollectionController = function() {
     // Grab the current URL so we can determine what the user is trying to do
@@ -268,12 +293,12 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
         newCollectionType = 'workable';
       }
 
+      // Set the selected collection and determine the count of sys fields (used by the UI)
+      $scope.selectedCollection = $scope.collectionTypes[newCollectionType].defaults;
+      $scope.setSysFieldCount($scope.selectedCollection.fields);
+
       $scope.currentAction = 'create';
       $scope.setPageLoading(false);
-
-      $scope.selectedCollection = $scope.collectionTypes[newCollectionType].defaults;
-      $scope.setPageLoading(false);
-
       if (!$scope.startMainTour) {
         //$scope.tiggerWorkSettingsTour();
       }

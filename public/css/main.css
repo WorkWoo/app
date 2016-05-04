@@ -812,6 +812,26 @@ a:hover {
 
 
 /****************************** ANIMATIONS ******************************/
+.swappableField {
+  -webkit-transform: translateY(0px);
+  transform: translateY(0px);
+}
+
+.swappableField.ng-move {
+  -webkit-transition: .2s;
+  -moz-transition: .2s;
+  -ms-transition: .2s;
+  -o-transition: .2s;
+  transition: .2s;
+  -webkit-transform: translateY(60px);
+  transform: translateY(60px);
+}
+
+.swappableField.ng-move-active {
+  -webkit-transform: translateY(0px);
+  transform: translateY(0px);
+}
+
 
 
 /* Fade in and fade out */
@@ -1012,6 +1032,27 @@ a:hover {
 
 .customFieldRemoveIcon:hover {
   color: #999;
+  cursor: pointer;
+}
+
+.fieldOrderUp, .fieldOrderDown {
+  color: #fff;
+  background-color: #e5e5e5;
+  font-size: 18px;
+  padding: 0px 4px 1px 4px;
+  border:none;
+}
+
+.fieldOrderDown {
+  border-top: 1px solid #fff;
+}
+
+.fieldOrderUp {
+  border-bottom: 1px solid #fff;
+}
+
+.fieldOrderUp:hover, .fieldOrderDown:hover {
+  background-color: #67A88C;
   cursor: pointer;
 }
 
