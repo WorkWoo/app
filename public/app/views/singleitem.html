@@ -164,8 +164,8 @@
           <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'checkbox' || field.displayType == 'boolean'" type="checkbox" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]"/>
 
           <!-- Item Reference -->          
-          <span ng-if="field.displayType == 'itemReference'" ng-init="getRefItems(field.referenceTo)">
-              <ui-select ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refItems[field.referenceTo].totalCount == 0 || refItems[field.referenceTo].totalCount == -1">
+          <span class="input-group" ng-if="field.displayType == 'itemReference'" ng-init="getRefItems(field.referenceTo)">
+              <ui-select allow-clear ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refItems[field.referenceTo].totalCount == 0 || refItems[field.referenceTo].totalCount == -1">
                  <ui-select-match placeholder="Select from {{field.referenceTo}}">
                     {{$select.selected.number}}
                   </ui-select-match>
@@ -174,10 +174,16 @@
                   <small ng-bind-html="refItem.title | highlight: $select.search"></small>
                 </ui-select-choices>
               </ui-select>
+
+              <span class="input-group-btn">
+                <button type="button" ng-click="selectedItem[field.name] = null" class="btn btn-default">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </span>
           </span>
 
           <!-- User Reference -->          
-          <span ng-if="field.displayType == 'userReference'" ng-init="getRefUsers()">
+          <span class="input-group" ng-if="field.displayType == 'userReference'" ng-init="getRefUsers()">
               <ui-select ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refUsers.users && refUsers.users.length == 0">
                  <ui-select-match placeholder="Select a user">
                     {{$select.selected.firstName}} {{$select.selected.lastName}}
@@ -190,6 +196,12 @@
                   <small ng-bind-html="refUser.emailAddress | highlight: $select.search"></small>
                 </ui-select-choices>
               </ui-select>
+
+              <span class="input-group-btn">
+                <button type="button" ng-click="selectedItem[field.name] = null" class="btn btn-default">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
+              </span>
           </span>
 
         </div>
