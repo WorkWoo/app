@@ -1,5 +1,5 @@
 <div class="container-fluid" style="margin-top:25px;">
-  <div ng-repeat="collection in workableCollections" class="col-md-6">
+  <div ng-repeat="collection in workableCollections" ng-init="columnClass = (workableCollections.length == 1) ? 'col-md-12' : 'col-md-6'" ng-class="columnClass">
     <div class="collectionStatusContainer clearfix">
     
     <!-- Edit settings link -->
@@ -21,7 +21,10 @@
       <!-- Breakdown by state -->
       <div class="itemInfo clearfix">
         <div ng-repeat="state in collection.stateChoices" class="col-md-6">
-          <a ng-href="#/{{collection.name}}/search?state={{state}}"><span class="badge badgeDark">{{ collectionCounts[collection.name].state[state] }}</span> <strong>{{ state }}:</strong></a>
+          <a ng-href="#/{{collection.name}}/search?state={{state}}">
+            <span class="badge badgeDark">{{ collectionCounts[collection.name].state[state] }}</span>
+            <span><strong>{{ state }}</strong></span>
+          </a>
         </div>
       </div>
     </div>
@@ -34,7 +37,6 @@
           <!-- Currency field -->
           <div ng-if="field.displayType == 'currency'">
             <h4 class="mainColor">Total {{ field.label }}:</h4>
-
             <div><span class="badge badgeLight" style="font-size:14px;">{{ formatCurrency(collectionCounts[collection.name][field.name]) }}</span></div>
           </div>
 
@@ -44,7 +46,10 @@
 
             <!-- Each choice -->
             <div ng-repeat="choice in field.choices">
-              <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}"><span class="badge badgeLight">{{ collectionCounts[collection.name][field.name][choice] }}</span> <strong>{{ choice }}</strong></a>
+              <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}">
+                <span class="badge badgeLight">{{ collectionCounts[collection.name][field.name][choice] }}</span>
+                <span><strong> {{ choice }}</strong></span>
+              </a>
             </div>
 
             <!-- Empty (no choice selected) -->

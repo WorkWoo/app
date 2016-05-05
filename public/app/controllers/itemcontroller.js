@@ -4,7 +4,7 @@ function itemController($scope, $location, $routeParams, Item) {
   $scope.selectedItem = Item.selectedItem;
   $scope.selectedItemTitle = '';
 
-  $scope.totalItems = 0;;
+  $scope.totalItems = 0;
   $scope.baseCollection = null;
 
   $scope.itemsLoading = true;
@@ -177,7 +177,9 @@ function itemController($scope, $location, $routeParams, Item) {
 
       Item.getAll(queryParams,
         function(result){
+          $scope.totalItems = result.total;
           var items = result.items;
+
           // Add each item for the counts object
           for (var x=0; x<items.length; x++) {
             $scope.addItemToCounts(items[x]);
@@ -491,6 +493,30 @@ function itemController($scope, $location, $routeParams, Item) {
     // Grab the current URL so we can determine what the user is trying to do
     var currentURL = $location.url();
     $scope.setActiveCollection(currentURL);
+
+
+
+    // Looking at the base collection home
+    log.info(currentURL);
+    if(currentURL.indexOf('/workable') >= 0) {
+      $scope.selectedItem = {};
+      $scope.getAllCollectionCounts($scope.workableCollections);
+      return;
+    } else if(currentURL.indexOf('/inventorial') >= 0) {
+      $scope.selectedItem = {};
+      $scope.getAllCollectionCounts($scope.inventorialCollections);
+      return;
+    } else if(currentURL.indexOf('/revisionable') >= 0) {
+      $scope.selectedItem = {};
+      $scope.getAllCollectionCounts($scope.revisionableCollections);
+      return;
+    } else if(currentURL.indexOf('/basic') >= 0) {
+      $scope.selectedItem = {};
+      $scope.getAllCollectionCounts($scope.basicCollections);
+      return;
+    }
+
+
 
     // Searching
     var searching = currentURL.indexOf('/search?') > 0;

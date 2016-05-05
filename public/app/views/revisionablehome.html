@@ -1,9 +1,5 @@
-<div class="container-fluid" style="margin-top:50px;">
-  
-  <!-- Spacer if there is only 1 collection -->
-  <div ng-if="inventorialCollections.length == 1" class="col-md-3"></div>
-  
-  <div ng-repeat="collection in revisionableCollections" ng-init="columnClass = (revisionableCollections.length == 1) ? 'col-md-6' : 'col-md-12'" ng-class="columnClass">
+<div class="container-fluid" style="margin-top:25px;">
+  <div ng-repeat="collection in revisionableCollections" ng-init="columnClass = (revisionableCollections.length == 1) ? 'col-md-12' : 'col-md-12'" ng-class="columnClass">
     <div class="collectionStatusContainer clearfix">
 
     <!-- Edit settings link -->
@@ -17,37 +13,56 @@
       </h3>
     </div>
 
+    <!-- New button -->
     <div class="col-md-6 text-right">
+
+      <a ng-href="#/{{collection.name}}/new" class="btn btn-success">New {{ collection.singleLabel }}</a>
+    </div>
+
+    <div class="col-md-12">
+      <h4>Total {{ collection.pluralLabel }}: {{ totalItems }}</h4>
+    </div>
+
+    <div class="col-md-12">
+      <!-- Breakdown by other fields -->
+      <div>
+        <div ng-repeat="field in collection.fields" ng-if="field.displayType == 'currency' || field.displayType == 'choice'" class="col-md-6">
+
+          <!-- Currency field -->
+          <div ng-if="field.displayType == 'currency'">
+            <h4 class="mainColor">Total {{ field.label }}:</h4>
+
+            <div><span class="badge badgeLight" style="font-size:14px;">{{ formatCurrency(collectionCounts[collection.name][field.name]) }}</span></div>
+          </div>
+
+          <!-- Dropdown field -->
+          <span ng-if="field.displayType == 'choice'">
+            <h4 class="mainColor">By {{ field.label }}:</h4>
+
+            <!-- Each choice -->
+            <div ng-repeat="choice in field.choices">
+              <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}">
+                <span class="badge badgeLight">{{ collectionCounts[collection.name][field.name][choice] }}</span>
+                <span><strong> {{ choice }}</strong></span>
+              </a>
+            </div>
+
+            <!-- Empty (no choice selected) -->
+            <div>
+              <a ng-href="#/{{collection.name}}/search?{{field.name}}=null"><span class="badge badgeLight">{{ collectionCounts[collection.name][field.name]['empty'] }}</span> <strong>Empty</strong></a>
+            </div>
+
+          </span>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 text-right">
       <a ng-href="#/{{collection.name}}">See all {{ collection.pluralLabel }} <span class="fa fa-arrow-right"></span></a>
     </div>
 
-    <!-- Breakdown by state -->
-    <div class="col-md-12">
-      <div class="itemInfo clearfix">
-        <span>Total items: 5</span>
-      </div>
-    </div>
-
-    <!-- Breakdown by other fields -->
-    <div class="col-md-12">
-      
-      <div ng-repeat="field in collection.fields" ng-if="field.displayType == 'choice'" class="col-md-6">
-        <!-- Dropdown field -->
-        <span ng-if="field.displayType == 'choice'">
-          <h4 class="mainColor">By {{ field.label }}:</h4>
-
-          <div ng-repeat="choice in field.choices">
-            <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}"><strong>{{ choice }}:</strong> 7</a>
-          </div>
-        </span>
-
-      </div>
-    </div>
-
   </div>
-
-  <!-- Spacer if there is only 1 collection -->
-  <div ng-if="inventorialCollections.length == 1" class="col-md-3"></div>
-
 
 </div>
