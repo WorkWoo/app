@@ -184,7 +184,8 @@ itemSchema.statics.getItems = function(options, callback) {
 			var fullQuery = { $and: [defaultQuery, searchQuery, anchorQuery] };
 
 			// Lastly, grab the limit and reference fields for this collection so that they can be populated
-			var itemsPerPage = 40; // #################### TODO: Move to config
+			var itemsPerPage = options.itemCount;
+
 			var referenceFields = collectionInfo.collections[options.collectionName].referenceFields;
 
 			Item.find(fullQuery)

@@ -115,6 +115,118 @@ function itemController($scope, $location, $routeParams, Item) {
     );
   };
 
+$scope.refItemsLoading = false;
+$scope.refItemsSortField = "number";
+$scope.refItemsSortOrder = "asc";
+$scope.refItemsAnchorValue = null;
+$scope.refItemsAnchorID = null;
+$scope.refItemsQueryCriteria = null;
+$scope.refItems = {};
+
+/* IF WE EVER DO INFINITE SCROLLING WITH REFERENCES
+  $scope.refreshRefItems = function(refItemField, refItemCollection, searchTerm, withAnchors) {
+    // First initialize the reference field in the refItems object
+    if (!$scope.refItems[refItemField]) {
+      $scope.refItems[refItemField] = {};
+      $scope.refItems[refItemField].items = [];
+      $scope.refItems[refItemField].initialCount = -1;
+      $scope.refItems[refItemField].totalCount = -1;  
+    }
+
+    // If the initial count was 0, don't re-issue a call when the user types
+    if ($scope.refItems[refItemField].initialCount == 0) {
+      return;
+    }
+
+    $scope.refItemsLoading = true;
+    var queryParams = {
+      collectionName: refItemCollection,
+      sortField: $scope.refItemsSortField,
+      sortOrder: $scope.refItemsSortOrder,
+      anchorValue: null,
+      anchorID: null,
+      searchTerm: searchTerm,
+      additionalQuery: $scope.refItemsQueryCriteria,
+    };
+
+    // If we are using anchors, populate them
+    if (withAnchors) {
+      queryParams.anchorValue = $scope.refItemsAnchorValue;
+      queryParams.anchorID = $scope.refItemsAnchorID;
+    }
+
+    Item.getAll(queryParams,
+      function(result){
+        // Success
+        $scope.refItemsLoading = false;
+        // First, copy the search results (minus the actual items) into the scope.
+        $scope.refItemsAnchorValue = result.newAnchorValue;
+        $scope.refItemsAnchorID = result.newAnchorID;
+        //$scope.setActiveSort($scope.sortField, $scope.sortOrder);
+
+        // If this is the first time we are querying for this field reference, track the initial count
+        if ($scope.refItems[refItemField].initialCount == -1) {
+          $scope.refItems[refItemField].initialCount = result.total;
+        }
+
+        $scope.refItems[refItemField].totalCount = result.total;
+        console.log('Total ' + refItemField + ' = ' + $scope.refItems[refItemField].totalCount);
+        
+        // If we are not using anchors, we can just refresh the item list
+        if (!withAnchors) {
+          $scope.refItems[refItemField].items = result.items;
+        } else { // otherwise, add the additional items to the end of the array
+          $scope.refItems[refItemField].items = $scope.refItems[refItemField].items.concat(result.items);
+        }
+      },
+      function() {
+        $scope.refItemsLoading = false;
+        $scope.refItems[refItemField] = [];
+        $scope.alertUnknownError();
+      }
+    );
+  };
+*/
+
+  $scope.getRefItems = function(refItemCollection) {
+    // First initialize the reference field in the refItems object
+    if (!$scope.refItems[refItemCollection]) {
+      $scope.refItems[refItemCollection] = {};
+      $scope.refItems[refItemCollection].items = [];
+      $scope.refItems[refItemCollection].totalCount = -1;  
+    } else {
+      return;
+    }
+
+    $scope.refItemsLoading = true;
+    var queryParams = {
+      collectionName: refItemCollection,
+      sortField: $scope.refItemsSortField,
+      sortOrder: $scope.refItemsSortOrder,
+      anchorValue: null,
+      anchorID: null,
+      searchTerm: null,
+      additionalQuery: $scope.refItemsQueryCriteria,
+      itemCount: 0
+    };
+
+    Item.getAll(queryParams,
+      function(result){
+        // Success
+        $scope.refItemsLoading = false;
+
+        $scope.refItems[refItemCollection].totalCount = result.total;
+        console.log('Total ' + refItemCollection + ' = ' + $scope.refItems[refItemCollection].totalCount);
+        $scope.refItems[refItemCollection].items = result.items;
+      },
+      function() {
+        $scope.refItemsLoading = false;
+        $scope.refItems[refItemCollection] = [];
+        $scope.alertUnknownError();
+      }
+    );
+  };
+
 
   $scope.getItemStateButtonClass = function(stateChoice, selectedItemState) {
     if(stateChoice == selectedItemState) {
