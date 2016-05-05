@@ -144,6 +144,19 @@
               </ui-select>
           </span>
 
+          <!-- User Reference -->          
+          <span ng-if="field.displayType == 'userReference'" ng-init="getRefUsers()">
+              <ui-select ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refUsers.totalCount == 0 || refUsers.totalCount == -1">
+                 <ui-select-match placeholder="Select a user">
+                    {{$select.selected.firstName}}{{$select.selected.lastName}}
+                  </ui-select-match>
+                <ui-select-choices repeat="refUser._id as refUser in refUsers.users | filter: $select.search">
+                  <div ng-bind-html="refUser.firstName + ' ' + refUser.lastName | highlight: $select.search"></div>
+                  <small ng-bind-html="refItem.emailAddress | highlight: $select.search"></small>
+                </ui-select-choices>
+              </ui-select>
+          </span>
+
 
         </div>
         <!-- End Single field -->
