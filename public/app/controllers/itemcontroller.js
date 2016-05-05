@@ -1,4 +1,4 @@
-function itemController($scope, $location, $routeParams, Item) {
+function itemController($scope, $location, $routeParams, Item, User) {
   log.info('Items Initialized');
   $scope.loadedItems = [];
   $scope.selectedItem = Item.selectedItem;
@@ -215,9 +215,7 @@ function itemController($scope, $location, $routeParams, Item) {
       function(result){
         // Success
         $scope.refItemsLoading = false;
-
         $scope.refItems[refItemCollection].totalCount = result.total;
-        console.log('Total ' + refItemCollection + ' = ' + $scope.refItems[refItemCollection].totalCount);
         $scope.refItems[refItemCollection].items = result.items;
       },
       function() {
@@ -235,8 +233,7 @@ function itemController($scope, $location, $routeParams, Item) {
     // First initialize the refUsers object
     if (!$scope.refUsers.users) {
       $scope.refUsers = {};
-      $scope.refUsers.users = [];
-      $scope.refUsers.totalCount = -1;  
+      $scope.refUsers.users = []; 
     } else {
       return;
     }
@@ -249,34 +246,8 @@ function itemController($scope, $location, $routeParams, Item) {
         $scope.refUsers.users = users;
       },
       function() {
-        $scope.setPageLoading(false);
-        $scope.usersLoading = false;
-      }
-    );
-
-    var queryParams = {
-      collectionName: refItemCollection,
-      sortField: $scope.refItemsSortField,
-      sortOrder: $scope.refItemsSortOrder,
-      anchorValue: null,
-      anchorID: null,
-      searchTerm: null,
-      additionalQuery: $scope.refItemsQueryCriteria,
-      itemCount: 0
-    };
-
-    Item.getAll(queryParams,
-      function(result){
-        // Success
-        $scope.refItemsLoading = false;
-
-        $scope.refItems[refItemCollection].totalCount = result.total;
-        console.log('Total ' + refItemCollection + ' = ' + $scope.refItems[refItemCollection].totalCount);
-        $scope.refItems[refItemCollection].items = result.items;
-      },
-      function() {
-        $scope.refItemsLoading = false;
-        $scope.refItems[refItemCollection] = [];
+        $scope.refUsersLoading = false;
+        $scope.refUsers.users = [];
         $scope.alertUnknownError();
       }
     );
