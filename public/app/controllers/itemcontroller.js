@@ -30,6 +30,14 @@ function itemController($scope, $location, $routeParams, Item) {
   $scope.searchTerm = null;
   $scope.queryCriteria = null;
 
+  $scope.refItemsLoading = false;
+  $scope.refItemsSortField = "number";
+  $scope.refItemsSortOrder = "asc";
+  $scope.refItemsAnchorValue = null;
+  $scope.refItemsAnchorID = null;
+  $scope.refItemsQueryCriteria = null;
+  $scope.refItems = {};
+
   // This object holds a mapping of which CSS classes to apply for different column counts.
   $scope.cellClassInfo = {
     value: {
@@ -115,13 +123,6 @@ function itemController($scope, $location, $routeParams, Item) {
     );
   };
 
-$scope.refItemsLoading = false;
-$scope.refItemsSortField = "number";
-$scope.refItemsSortOrder = "asc";
-$scope.refItemsAnchorValue = null;
-$scope.refItemsAnchorID = null;
-$scope.refItemsQueryCriteria = null;
-$scope.refItems = {};
 
 /* IF WE EVER DO INFINITE SCROLLING WITH REFERENCES
   $scope.refreshRefItems = function(refItemField, refItemCollection, searchTerm, withAnchors) {
@@ -227,6 +228,59 @@ $scope.refItems = {};
     );
   };
 
+  $scope.refUsers = {};
+  $scope.refUsersLoading = false;
+
+  $scope.getRefUsers = function() {
+    // First initialize the refUsers object
+    if (!$scope.refUsers.users) {
+      $scope.refUsers = {};
+      $scope.refUsers.users = [];
+      $scope.refUsers.totalCount = -1;  
+    } else {
+      return;
+    }
+
+    $scope.refUsersLoading = true;
+
+    User.getAll(
+      function(users){
+        $scope.refUsersLoading = false;
+        $scope.refUsers.users = users;
+      },
+      function() {
+        $scope.setPageLoading(false);
+        $scope.usersLoading = false;
+      }
+    );
+
+    var queryParams = {
+      collectionName: refItemCollection,
+      sortField: $scope.refItemsSortField,
+      sortOrder: $scope.refItemsSortOrder,
+      anchorValue: null,
+      anchorID: null,
+      searchTerm: null,
+      additionalQuery: $scope.refItemsQueryCriteria,
+      itemCount: 0
+    };
+
+    Item.getAll(queryParams,
+      function(result){
+        // Success
+        $scope.refItemsLoading = false;
+
+        $scope.refItems[refItemCollection].totalCount = result.total;
+        console.log('Total ' + refItemCollection + ' = ' + $scope.refItems[refItemCollection].totalCount);
+        $scope.refItems[refItemCollection].items = result.items;
+      },
+      function() {
+        $scope.refItemsLoading = false;
+        $scope.refItems[refItemCollection] = [];
+        $scope.alertUnknownError();
+      }
+    );
+  };
 
   $scope.getItemStateButtonClass = function(stateChoice, selectedItemState) {
     if(stateChoice == selectedItemState) {
