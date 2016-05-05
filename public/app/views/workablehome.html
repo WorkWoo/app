@@ -1,5 +1,4 @@
-<button type="button" ng-click="logTest()" class="btn btn-primary">TEST</button>
-<div class="container-fluid" style="margin-top:50px;">
+<div class="container-fluid" style="margin-top:25px;">
   <div ng-repeat="collection in workableCollections" class="col-md-6">
     <div class="collectionStatusContainer clearfix">
     
@@ -15,14 +14,14 @@
     </div>
 
     <div class="col-md-6 text-right">
-      <a ng-href="#/{{collection.name}}">See all {{ collection.pluralLabel }} <span class="fa fa-arrow-right"></span></a>
+      <a ng-href="#/{{collection.name}}/new" class="btn btn-success">New {{ collection.singleLabel }}</a>
     </div>
 
     <div class="col-md-12">
       <!-- Breakdown by state -->
       <div class="itemInfo clearfix">
         <div ng-repeat="state in collection.stateChoices" class="col-md-6">
-          <a ng-href="#/{{collection.name}}/search?state={{state}}"><strong>{{ state }}:</strong> {{ collectionCounts[collection.name].state[state] }}</a>
+          <a ng-href="#/{{collection.name}}/search?state={{state}}"><span class="badge badgeDark">{{ collectionCounts[collection.name].state[state] }}</span> <strong>{{ state }}:</strong></a>
         </div>
       </div>
     </div>
@@ -36,7 +35,7 @@
           <div ng-if="field.displayType == 'currency'">
             <h4 class="mainColor">Total {{ field.label }}:</h4>
 
-            <div>{{ formatCurrency(collectionCounts[collection.name][field.name]) }}</div>
+            <div><span class="badge badgeLight" style="font-size:14px;">{{ formatCurrency(collectionCounts[collection.name][field.name]) }}</span></div>
           </div>
 
           <!-- Dropdown field -->
@@ -45,12 +44,12 @@
 
             <!-- Each choice -->
             <div ng-repeat="choice in field.choices">
-              <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}"><strong>{{ choice }}:</strong> {{ collectionCounts[collection.name][field.name][choice] }}</a>
+              <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}"><span class="badge badgeLight">{{ collectionCounts[collection.name][field.name][choice] }}</span> <strong>{{ choice }}</strong></a>
             </div>
 
             <!-- Empty (no choice selected) -->
             <div>
-              <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}"><strong>Empty:</strong> {{ collectionCounts[collection.name][field.name]['empty'] }}</a>
+              <a ng-href="#/{{collection.name}}/search?{{field.name}}=null"><span class="badge badgeLight">{{ collectionCounts[collection.name][field.name]['empty'] }}</span> <strong>Empty</strong></a>
             </div>
 
           </span>
@@ -58,6 +57,10 @@
 
         </div>
       </div>
+    </div>
+
+    <div class="col-md-12 text-right">
+      <a ng-href="#/{{collection.name}}">See all {{ collection.pluralLabel }} <span class="fa fa-arrow-right"></span></a>
     </div>
 
   </div>

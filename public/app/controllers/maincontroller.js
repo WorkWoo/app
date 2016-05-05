@@ -140,11 +140,21 @@ function mainController($scope, $location, $sce, User, $filter) {
     return formattedValue;
   }
 
+  /*
+   * Transforms the fields array into an object for easier access
+   */
+  $scope.initializeFieldsObject = function(collectionObject) {
+    var fieldsObject = {};
+    for(var i=0; i<collectionObject.fields.length; i++) {
+      fieldsObject[collectionObject.fields[i].name] = collectionObject.fields[i];
+    }
+    collectionObject.fieldsObject = fieldsObject;
+  }
+
 
   $scope.initializeCollections = function() {
     for(var collection in $scope.collections) {
       var collectionType = $scope.collections[collection].collectionType;
-
       if(collectionType == 'workable') {
         $scope.workableCollections.push($scope.collections[collection]);
       } else if(collectionType == 'revisionable') {
@@ -154,6 +164,9 @@ function mainController($scope, $location, $sce, User, $filter) {
       } else if(collectionType == 'basic') {
         $scope.basicCollections.push($scope.collections[collection]);
       }
+
+      $scope.initializeFieldsObject($scope.collections[collection]);
+
     }
   };
   

@@ -102,7 +102,7 @@ itemSchema.statics.getItems = function(options, callback) {
 		}
 
 		// Before we do the actual search to get the results to return,
-		//  we need to count the total number of possible items.
+		// we need to count the total number of possible items.
 		// No sorting or pagination is necessary at this point.
 		var countQuery = {
 			_org: options.org,
@@ -115,7 +115,11 @@ itemSchema.statics.getItems = function(options, callback) {
 
 		if (options.additionalQuery) {
 			for (var property in options.additionalQuery) {
-				countQuery[property] = options.additionalQuery[property];
+				if(options.additionalQuery[property] == 'null') {
+					countQuery[property] = { '$exists' : false };
+				} else {
+					countQuery[property] = options.additionalQuery[property];
+				}
 			}
 		}
 
@@ -163,7 +167,11 @@ itemSchema.statics.getItems = function(options, callback) {
 			// Add the additional query criteria, if given
 			if (options.additionalQuery) {
 				for (var property in options.additionalQuery) {
-					searchQuery[property] = options.additionalQuery[property];
+					if(options.additionalQuery[property] == 'null') {
+						searchQuery[property] = { '$exists' : false };
+					} else {
+						searchQuery[property] = options.additionalQuery[property];
+					}
 				}
 			}
 

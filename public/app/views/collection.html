@@ -5,8 +5,11 @@
 
 	<!-- Page Header -->
 	<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
-		<div class="col-md-12 breadCrumb noSpaceMobile">
-		    <a href="#/account/collections"><span class="fa fa-arrow-left"></span> Item configuration</a>
+		<div class="col-md-6 breadCrumb noSpaceMobile">
+		    <a href="#/account/collections"><span class="fa fa-arrow-left"></span> All item configurations</a>
+		</div>
+		<div class="col-md-6 breadCrumb noSpaceMobile text-right">
+		    <a ng-href="#/{{selectedCollection.name}}">See all {{ selectedCollection.pluralLabel }} <span class="fa fa-arrow-right"></span></a>
 		</div>
 
   		<!-- Title -->
@@ -15,7 +18,7 @@
 					<span data-toggle="modal" data-target="#iconSelector" class="fa fa-2x collectionIcon text-center" ng-class="selectedCollection.icon">
 						<span class="fa fa-pencil-square editCollectionIcon"></span>
 					</span>
-					<span ng-if="currentAction == 'update'"> {{ selectedCollection.pluralLabel }}</span><!-- Existing collections -->
+					<span ng-if="currentAction == 'update'"> {{ selectedCollection.singleLabel }} Configuration</span><!-- Existing collections -->
 					<span ng-if="currentAction == 'create'"> New Item Type</span><!-- New collections -->
 			</h3>
   		</div>
@@ -25,7 +28,7 @@
 		<div class="col-md-6 noSpace text-right">
 			<span ng-disabled="collectionsLoading" ng-click="tiggerWorkSettingsTour()" class="spanLink" style="margin-right:20px;">
 				<span class="fa fa-question-circle"></span>
-				<span> Help me through this!</span>
+				<span>Need help with this page?</span>
 			</span>
 		</div>
 		<!-- Start tour link -->
@@ -43,7 +46,7 @@
 				<!-- Collection name -->
 				<div class="row noSpaceMobile">
 					<div id='collectionNameContainer' class="defaultInputGroup form-group col-md-12">
-						<label for="collectionName">Your items:</label>
+						<label for="collectionName">Item name:</label>
 						<input ng-disabled="collectionsLoading" placeholder="Orders, Instructions, Sales, etc." type="text" id="collectionName" name="collectionName" class="form-control defaultInput" value="" ng-model="selectedCollection.pluralLabel" size="20" required/>
 						<span ng-if="collectionForm.collectionName.$invalid && collectionForm.collectionName.$touched" ng-init="initInvalidPopover('collectionNameRequired','Required!')" id="collectionNameRequired" class="fa fa-exclamation-circle collectionInputInvalid"></span>
 					</div>

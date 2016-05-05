@@ -1,16 +1,25 @@
-
 <div ng-if="!itemsLoading" class="fadeInOut">
 
   <form name="itemForm" ng-model="selectedItem" ng-submit="preSubmit(selectedItem)" novalidate>
 
     <!-- Page Header -->
-    <div class="container-fluid noSpaceMobile" style="margin-top:10px;">
+    <div class="container-fluid noSpace" style="margin-top:10px;">
       <!-- Title -->
-      <div class="col-md-8 noSpaceMobile">
+      <div class="col-md-6 noSpace">
         <div class="breadCrumb">
-          <a href="javascript:history.back()"><span class="fa fa-arrow-left"></span> All {{ collections[selectedItem.collectionName].pluralLabel }}</a>
+          <a ng-href="#/{{selectedItem.collectionName}}"><span class="fa fa-arrow-left"></span> All {{ collections[selectedItem.collectionName].pluralLabel }}</a>
         </div>
       </div>
+
+      <div class="col-md-6 noSpace text-right" style="padding-right:10px;">
+        <a ng-href="#/{{collection.name}}/new" class="btn btn-success"><span class="fa fa-plus"></span> New {{ collections[selectedItem.collectionName].singleLabel }}</a>
+      </div>
+
+      <!-- Alerts container -->
+      <div class="col-md-12 text-center noSpace">
+        <span ng-include="'views/includes/alerts.html'"></span>
+      </div>
+
     </div>
     <!-- Page Header -->
 

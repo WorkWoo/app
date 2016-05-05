@@ -77,6 +77,9 @@ function itemController($scope, $location, $routeParams, Item) {
   $scope.load = function() {
     $scope.setPageLoading(true);
     $scope.itemsLoading = true;
+    $scope.collectionCounts = {};
+    $scope.setupCollectionCounts($scope.collections[$scope.baseCollection]);
+    
     var queryParams = {
       collectionName: $scope.baseCollection,
       sortField: $scope.sortField,
@@ -97,6 +100,11 @@ function itemController($scope, $location, $routeParams, Item) {
         $scope.setActiveSort($scope.sortField, $scope.sortOrder);
         $scope.totalItems = result.total;
         $scope.loadedItems = $scope.loadedItems.concat(result.items);
+        // Count each item, so the breakdown can be shown
+        for(var i=0; i<result.items.length; i++) {
+          $scope.addItemToCounts(result.items[i]);
+        }
+
       },
       function() {
         $scope.itemsLoading = false;
@@ -117,36 +125,46 @@ function itemController($scope, $location, $routeParams, Item) {
   };
 
 
-  $scope.getItemCounts = function(collections) {
+  /*
+   * Build the collectionCounts object, including the list of "countable" fields
+   */
+  $scope.setupCollectionCounts = function(collectionObject) {
+    $scope.collectionCounts[collectionObject.name] = {}
+    $scope.collectionCounts[collectionObject.name].countableFields = [];
+
+    // Build a property for each field
+    for(var y=0; y<collectionObject.fields.length; y++) {
+      var field = collectionObject.fields[y];
+      
+      if(field.displayType == 'choice' || field.displayType == 'state') {
+        $scope.collectionCounts[collectionObject.name].countableFields.push(field);
+        
+        // If the field is a choice, create the proerty for the field as well as
+        // a property for each possible choice, so we get get the total in each.
+        $scope.collectionCounts[collectionObject.name][field.name] = {};
+        for(var f=0; f<field.choices.length; f++) {
+          $scope.collectionCounts[collectionObject.name][field.name][field.choices[f]] = 0;
+        }
+        // Also, create an "Empty" proprty for items that do not have a choice selected for the field.
+        $scope.collectionCounts[collectionObject.name][field.name]['empty'] = 0;
+      } else if(field.displayType == 'currency') {
+        $scope.collectionCounts[collectionObject.name].countableFields.push(field);
+        $scope.collectionCounts[collectionObject.name][field.name] = 0;
+      }
+    }
+  };
+
+
+  $scope.getAllCollectionCounts = function(collections) {
     $scope.setPageLoading(true);
     $scope.itemsLoading = true;
     $scope.collectionCounts = {};
 
-    // Build each collection object
     for(var i=0; i<collections.length; i++) {
-      $scope.collectionCounts[collections[i].name] = {}
-      $scope.collectionCounts[collections[i].name].countableFields = [];
-
-      // Build a property for each field
-      for(var y=0; y<collections[i].fields.length; y++) {
-        var field = collections[i].fields[y];
-        if(field.displayType == 'choice' || field.displayType == 'state') {
-          $scope.collectionCounts[collections[i].name].countableFields.push(field);
-
-          $scope.collectionCounts[collections[i].name][field.name] = {};
-          for(var f=0; f<field.choices.length; f++) {
-            $scope.collectionCounts[collections[i].name][field.name][field.choices[f]] = 0;
-          }
-          $scope.collectionCounts[collections[i].name][field.name]['empty'] = 0;
-        } else if(field.displayType == 'currency') {
-          $scope.collectionCounts[collections[i].name].countableFields.push(field);
-
-          $scope.collectionCounts[collections[i].name][field.name] = 0;
-        }
-      } 
+      // Build the counts object
+      $scope.setupCollectionCounts(collections[i]);
 
       // Now query and get the counts for each collection
-      
       var queryParams = {
         collectionName: collections[i].name,
         sortField: $scope.sortField,
@@ -160,25 +178,9 @@ function itemController($scope, $location, $routeParams, Item) {
       Item.getAll(queryParams,
         function(result){
           var items = result.items;
+          // Add each item for the counts object
           for (var x=0; x<items.length; x++) {
-            var item = items[x];
-            var countableFields = $scope.collectionCounts[item.collectionName].countableFields;
-            for (var f = 0; f<countableFields.length; f++) {
-              var countableFieldName = countableFields[f].name;
-              if (item[countableFieldName] && (countableFields[f].displayType == 'choice' || countableFields[f].displayType == 'state')) {
-                if ($scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]]) {
-                  $scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] = $scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] + 1;
-                } else if($scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] == undefined) {
-                  $scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] = 0;
-                } else if($scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] == 0) {
-                  $scope.collectionCounts[item.collectionName][countableFieldName][item[countableFieldName]] = 1;
-                }
-              } else if (!item[countableFieldName] && (countableFields[f].displayType == 'choice' || countableFields[f].displayType == 'state')) {
-                $scope.collectionCounts[item.collectionName][countableFieldName]['empty'] = $scope.collectionCounts[item.collectionName][countableFieldName]['empty'] + 1;
-              } else if (item[countableFieldName] && countableFields[f].displayType == 'currency') {
-                $scope.collectionCounts[item.collectionName][countableFieldName] = $scope.collectionCounts[item.collectionName][countableFieldName] + item[countableFieldName];
-              }
-            }
+            $scope.addItemToCounts(items[x]);
           }
 
           $scope.itemsLoading = false
@@ -194,9 +196,31 @@ function itemController($scope, $location, $routeParams, Item) {
     }
   };
 
+
+  $scope.addItemToCounts = function(itemObject) {
+    var countableFields = $scope.collectionCounts[itemObject.collectionName].countableFields;
+    for (var f = 0; f<countableFields.length; f++) {
+      var countableFieldName = countableFields[f].name;
+      if (itemObject[countableFieldName] && (countableFields[f].displayType == 'choice' || countableFields[f].displayType == 'state')) {
+        if ($scope.collectionCounts[itemObject.collectionName][countableFieldName][itemObject[countableFieldName]]) {
+          $scope.collectionCounts[itemObject.collectionName][countableFieldName][itemObject[countableFieldName]] = $scope.collectionCounts[itemObject.collectionName][countableFieldName][itemObject[countableFieldName]] + 1;
+        } else if($scope.collectionCounts[itemObject.collectionName][countableFieldName][itemObject[countableFieldName]] == undefined) {
+          $scope.collectionCounts[itemObject.collectionName][countableFieldName][itemObject[countableFieldName]] = 0;
+        } else if($scope.collectionCounts[itemObject.collectionName][countableFieldName][itemObject[countableFieldName]] == 0) {
+          $scope.collectionCounts[itemObject.collectionName][countableFieldName][itemObject[countableFieldName]] = 1;
+        }
+      } else if (!itemObject[countableFieldName] && (countableFields[f].displayType == 'choice' || countableFields[f].displayType == 'state')) {
+        $scope.collectionCounts[itemObject.collectionName][countableFieldName]['empty'] = $scope.collectionCounts[itemObject.collectionName][countableFieldName]['empty'] + 1;
+      } else if (itemObject[countableFieldName] && countableFields[f].displayType == 'currency') {
+        $scope.collectionCounts[itemObject.collectionName][countableFieldName] = $scope.collectionCounts[itemObject.collectionName][countableFieldName] + itemObject[countableFieldName];
+      }
+    }
+  };
+
+
   $scope.logTest = function() {
     log.info('RESULT: ');
-    log.object($scope.collectionCounts.purchaseorders);
+    log.object($scope.collections.purchaseorders.fieldsObject);
   };
 
 
@@ -231,15 +255,13 @@ function itemController($scope, $location, $routeParams, Item) {
     $scope.selectedItemSubmitting = true;
     // First, handle submiting a new item
     if ($scope.currentAction == 'create') {
-      
-
       Item.new(item.collectionName, item,
         function(newItem){
           $scope.totalItems.total = $scope.totalItems.total + 1; 
           $scope.selectedItemSubmitting = false;
-          $scope.url('#/' + newItem.collectionName + '/');
           $scope.toggleAlert('success', true, newItem.number + ' created');
-          $scope.setPageLoading(false);
+          $scope.changeView(item.collectionName + '/view/' + newItem.number);
+
         },
         function() {
           $scope.selectedItemSubmitting = false;
@@ -252,9 +274,7 @@ function itemController($scope, $location, $routeParams, Item) {
         function(updatedItem){
           // Success
           $scope.selectedItemSubmitting = false;
-          $scope.url('#/' + updatedItem.collectionName + '/');
           $scope.toggleAlert('success', true, $scope.selectedItem.number + ' updated');
-          $scope.selectedItem = null;
           $scope.setPageLoading(false);
         },
         function() {
@@ -539,13 +559,15 @@ function itemController($scope, $location, $routeParams, Item) {
 
     // If this point is reached, simply show the home
     if($scope.currentUser.org.primaryCollection) {
+      $scope.initializeScroll();
       $scope.baseCollection = $scope.currentUser.org.primaryCollection;
       $scope.selectedItem = {};
-      $scope.getItemCounts($scope.workableCollections);
+      $scope.getAllCollectionCounts($scope.workableCollections);
       return;
     }
 
     // If this point is reached, they are a new unconfigured user.
+    $scope.initializeScroll();
     $scope.setPageLoading(false);
   };
 

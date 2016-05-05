@@ -94,23 +94,23 @@
       <span class="leftMenuText">Work</span>
     </span>
 
-    <span ng-click="leftMenuClick('inventorial')" id="inventorialMenuItemD" class="fa fa-cubes leftMenuIcon hideInMobile" style="top:75px;">
+    <span ng-click="leftMenuClick('inventorial')" id="inventorialMenuItemD" class="fa fa-cubes leftMenuIcon hideInMobile" style="top:100px;">
       <span class="leftMenuText">Inventory</span>
     </span>
 
-    <span ng-click="leftMenuClick('revisionable')" id="revisionableMenuItemD" class="fa fa-object-group leftMenuIcon hideInMobile" style="top:125px;">
+    <span ng-click="leftMenuClick('revisionable')" id="revisionableMenuItemD" class="fa fa-object-group leftMenuIcon hideInMobile" style="top:175px;">
       <span class="leftMenuText">Rev Items</span>
     </span>
 
-    <span ng-click="leftMenuClick('basic')" id="basicMenuItemD" class="fa fa-inbox leftMenuIcon hideInMobile" style="top:175px;">
+    <span ng-click="leftMenuClick('basic')" id="basicMenuItemD" class="fa fa-inbox leftMenuIcon hideInMobile" style="top:250px;">
       <span class="leftMenuText">Basic Items</span>
     </span>
 
     <!-- Left/bottom portion of the nav that makes it appear as a solid bar -->
-    <span class="leftMenuContainer hideInMobile"></span>
+    <span class="leftMenuContainer hideInMobile" style="top:325px;"></span>
 
     <!-- View Content -->
-    <div id="nav-content" class="contentPage" ng-view></div>
+    <div id="nav-content" class="contentPage fadeInOut" ng-view></div>
 
     <!-- Main Angular scipts are loaded last to prevent init of the -->
     <!-- App, since we need info from the server to load the App.   -->

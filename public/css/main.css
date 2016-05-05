@@ -20,6 +20,16 @@ body {
   color: #67A88C;
 }
 
+.badgeLight {
+  color: #508c72;
+  background-color: #e9f2ee;
+}
+
+.badgeDark {
+  color: #fff;
+  background-color: #67A88C;
+}
+
 @media only screen and (min-width : 993px) {
   .contentPage {
     position: absolute;
@@ -134,7 +144,7 @@ a:hover {
   right: 0px;
   color: #fff;
   padding: 0px 5px 0px 15px;
-  background-color: #67A88C;
+  background-color: #508c72;
   z-index: 100;
 }
 
@@ -203,7 +213,6 @@ a:hover {
     background-color: #67A88C;
     width: 75px;
     position: fixed;
-    top: 225px;
     bottom: 0px;
     padding: 0px;
     z-index:9998;
@@ -215,8 +224,8 @@ a:hover {
     color: #fff;
     text-decoration: none;
     background-color: #67A88C;
-    padding: 5px 10px 10px 10px;
-    height: 50px;
+    padding: 15px 10px 10px 10px;
+    height: 75px;
     width: 75px;
     font-size: 30px;
     cursor: pointer;
@@ -233,11 +242,11 @@ a:hover {
   .leftMenuIconActive {
     text-align: center;
     position: fixed;
-    color: #67A88C;
+    color: #508c72;
     text-decoration: none;
-    background-color: #fff;
-    padding: 5px 10px 10px 10px;
-    height: 50px;
+    background-color: #efefef;
+    padding: 15px 10px 10px 10px;
+    height: 75px;
     width: 75px;
     font-size: 30px;
     cursor: pointer;
@@ -250,11 +259,11 @@ a:hover {
   .leftMenuIconActiveTop {
     text-align: center;
     position: fixed;
-    color: #67A88C;
+    color: #508c72;
     text-decoration: none;
-    background-color: #fff;
-    padding: 5px 10px 10px 10px;
-    height: 50px;
+    background-color: #efefef;
+    padding: 15px 10px 10px 10px;
+    height: 75px;
     width: 75px;
     font-size: 30px;
     cursor: pointer;
@@ -267,21 +276,20 @@ a:hover {
   .leftMenuIcon .leftMenuText {
     font-size: 12px;
     font-weight: bold;
-    color: #fff;
     position: absolute;
-    top: 35px;
+    top: 45px;
     left: 0px;
     width: 75px;
     text-align: center;
     font-family: 'Work Sans', sans-serif;
   }
 
+
   .leftMenuIconActiveTop .leftMenuText, .leftMenuIconActive .leftMenuText {
     font-size: 12px;
     font-weight: bold;
-    color: #67A88C;
     position: absolute;
-    top: 35px;
+    top: 45px;
     left: 0px;
     width: 75px;
     text-align: center;
@@ -375,8 +383,9 @@ a:hover {
 
 .itemCard, .itemCardActive {
   border-radius: 0px;
-  background-color: #fcfcfc;
-  border: 1px dashed #d8d8d8;
+  color: #508c72;
+  border: 1px solid #f0f0f0;
+  background-color: #fdfdfd;
   margin: 10px 0px 10px 0px;
   padding: 5px;
   height: 105px;
@@ -559,7 +568,7 @@ a:hover {
 }
 
 .itemInfo {
-  color: #477c65;
+  color: #508c72;
   border: 1px solid #c8e0d6;
   background-color: #e9f2ee;
   padding: 10px;

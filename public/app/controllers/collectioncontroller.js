@@ -296,6 +296,10 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
 
 
   $scope.bringFieldForward = function(elementID) {
+    $('.customFieldRow').each(function(){
+      $(this).css('z-index', 98);
+    });
+
     $('#' + elementID).css('z-index', 99);
   };
 
