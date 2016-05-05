@@ -39,6 +39,11 @@ exports.getItems = function(req, res) {
 		var lastItemID = req.query.anchorID;
 		var searchTerm = req.query.searchTerm;
 		var additionalQuery = req.query.additionalQuery;
+		var itemCount = 40; // #################### TODO: Move to config;
+		
+		if (req.query.itemCount &&  parseInt(req.query.itemCount) != 'NaN') {
+			itemCount = parseInt(req.query.itemCount);
+		}
 
 		log.info('|item.getItems| collectionName -> ' + collectionName, widget);
 		log.info('|item.getItems| sortField -> ' + sortField, widget);
@@ -47,6 +52,7 @@ exports.getItems = function(req, res) {
 		log.info('|item.getItems| lastItemID -> ' + lastItemID, widget);
 		log.info('|item.getItems| searchTerm -> ' + searchTerm, widget);
 		log.info('|item.getItems| additionalQuery -> ' + additionalQuery, widget);
+		log.info('|item.getItems| itemCount -> ' + itemCount, widget);
 
 		if (!collectionName) {
 			log.error('|item.getItems| No collectionName given', widget);
@@ -63,6 +69,7 @@ exports.getItems = function(req, res) {
 			lastFieldValue: lastFieldValue,
 			lastItemID: lastItemID,
 			searchTerm: searchTerm,
+			itemCount: itemCount
 		};
 
 		if (additionalQuery) {
