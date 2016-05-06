@@ -177,7 +177,7 @@
 			              	</span>
 
 			              	<!-- If the field is a item reference type, show the reference to field -->
-			              	<span ng-if="field.displayType == 'itemReference'" class="fade-in-out" ng-attr-id="{{fieldIndex}}_parent">
+			              	<span ng-if="field.displayType == 'itemReference' || field.displayType == 'itemReferenceList' " class="fade-in-out" ng-attr-id="{{fieldIndex}}_parent">
 			              		<div class="col-md-12 noSpace">
 									<ui-select ng-model="field.referenceTo" ng-click="bringFieldForward('row_' + fieldIndex)" theme="bootstrap">
 										<ui-select-match placeholder="Select or search a item type">{{$select.selected.label}}</ui-select-match>

@@ -558,7 +558,7 @@ function itemController($scope, $location, $routeParams, Item, User) {
 
 
   $scope.getItemFieldClass = function(item, field) {
-    if (field.displayType == 'textarea') {
+    if (field.displayType == 'textarea' || field.displayType == 'userReferenceList' || field.displayType == 'itemReferenceList' ) {
       return 'col-md-12';
     } else if (field.name == $scope.collections[item.collectionName].displayField) {
       return 'col-md-9';

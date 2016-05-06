@@ -193,7 +193,7 @@ itemSchema.statics.getItems = function(options, callback) {
 				.limit(itemsPerPage)
 				.populate('_created_by', 'firstName lastName')
 				.populate('_updated_by', 'firstName lastName')
-				.populate(referenceFields)
+				//.populate(referenceFields)
 				.exec( function (error, items) {
 					if (error) {
 						log.error('|Item.getItems.find| Unknown -> ' + error, widget);
@@ -287,8 +287,17 @@ itemSchema.statics.update = function(org, collectionName, itemID, updatedItem, c
 				}
 
 				log.info('|Item.update| Found item for update -> ' + itemID, widget);
-				for (var field in updatedItem) {
-					item[field] = updatedItem[field];
+
+				var itemFields = collectionObject.fields;
+				for (var i=0; i<itemFields.length; i++) {
+					if ((itemFields[i].displayType == 'userReferenceList' || itemFields[i].displayType == 'itemReferenceList') && updatedItem[itemFields[i].name]) {
+						item[itemFields[i].name] = [];
+						for (prop in updatedItem[itemFields[i].name]) {
+							item[itemFields[i].name].push(updatedItem[itemFields[i].name][prop]);
+						}
+					} else {
+						item[itemFields[i].name] = updatedItem[itemFields[i].name];
+					}
 				}
 
 				// If this is a revisionable item and this is a new revision
@@ -344,8 +353,11 @@ itemSchema.statics.update = function(org, collectionName, itemID, updatedItem, c
 							log.error('|Item.update| Unknown error while updating -> ' + error, widget);
 							return callback(error, false);
 						}
+						
+						return callback(null, item);
 
 						// If the save was successful, populate the reference fields and return the newly updated item
+						/*
 						item.populate(referenceFields, function(error, item) {
 							if (error) {
 								log.error('|Item.update| Unknown error populating references after update -> ' + error, widget);
@@ -353,6 +365,7 @@ itemSchema.statics.update = function(org, collectionName, itemID, updatedItem, c
 							}
 							return callback(null, item);
 						});
+						*/
 					});
 				}
 			}
@@ -458,17 +471,9 @@ function createItemSchema(collectionObject) {
 			} else if (itemFields[i].dbType == 'userReference') {
 				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: 'User' };
 			} else if (itemFields[i].dbType == 'itemReferenceList') {
-				var listItemSchema = new Schema({
-					_id: { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo }
-				});
-
-				itemModel[itemFields[i].name] = [listItemSchema];
+				itemModel[itemFields[i].name] = [{ type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo }];
 			} else if (itemFields[i].dbType == 'userReferenceList') {
-				var listUserSchema = new Schema({
-					_id: { type: Schema.Types.ObjectId, ref: 'User' }
-				});
-
-				itemModel[itemFields[i].name] = [listUserSchema];
+				itemModel[itemFields[i].name] = [{ type: Schema.Types.ObjectId, ref: 'User' }];
 			} else {
 				itemModel[itemFields[i].name] = { type: itemFields[i].dbType };
 			}
