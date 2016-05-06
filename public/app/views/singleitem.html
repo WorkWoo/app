@@ -167,10 +167,13 @@
           <span class="input-group" ng-if="field.displayType == 'itemReference'" ng-init="getRefItems(field.referenceTo)">
               <ui-select allow-clear ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refItems[field.referenceTo].totalCount == 0 || refItems[field.referenceTo].totalCount == -1">
                  <ui-select-match placeholder="Select or search from {{field.referenceTo}}">
-                    {{$select.selected.number}}
+                    <small class="fa" ng-class="collections[field.referenceTo].icon"></small> {{$select.selected.number}}
                   </ui-select-match>
                 <ui-select-choices repeat="refItem._id as refItem in refItems[field.referenceTo].items | propsFilter: {number: $select.search, title: $select.search}">
-                  <div ng-bind-html="refItem.number | highlight: $select.search"></div>
+                  <div>
+                    <small class="fa" ng-class="collections[field.referenceTo].icon"></small>
+                    <span ng-bind-html="refItem.number | highlight: $select.search"></span>
+                  </div>
                   <small ng-bind-html="refItem.title | highlight: $select.search"></small>
                 </ui-select-choices>
               </ui-select>
@@ -186,10 +189,13 @@
           <span class="input-group" ng-if="field.displayType == 'itemReferenceList'" ng-init="getRefItems(field.referenceTo)">
               <ui-select multiple ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refItems[field.referenceTo].totalCount == 0 || refItems[field.referenceTo].totalCount == -1" sortable="true" close-on-select="false" style="width: 500px">
                  <ui-select-match placeholder="Select or search from {{field.referenceTo}}">
-                    {{$item.number}}
+                    <small class="fa" ng-class="collections[field.referenceTo].icon"></small> {{$item.number}}
                   </ui-select-match>
                 <ui-select-choices repeat="refItem._id as refItem in refItems[field.referenceTo].items | propsFilter: {number: $select.search, title: $select.search}">
-                  <div ng-bind-html="refItem.number | highlight: $select.search"></div>
+                  <div>
+                    <small class="fa" ng-class="collections[field.referenceTo].icon"></small>
+                    <span ng-bind-html="refItem.number | highlight: $select.search"></span>
+                  </div>
                   <small ng-bind-html="refItem.title | highlight: $select.search"></small>
                 </ui-select-choices>
               </ui-select>
@@ -199,10 +205,11 @@
           <span class="input-group" ng-if="field.displayType == 'userReference'" ng-init="getRefUsers()">
               <ui-select ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refUsers.users && refUsers.users.length == 0">
                  <ui-select-match placeholder="Select or search a user">
-                    {{$select.selected.firstName}} {{$select.selected.lastName}}
+                    <small class="fa fa-user"></small> {{$select.selected.firstName}} {{$select.selected.lastName}}
                   </ui-select-match>
                 <ui-select-choices repeat="refUser._id as refUser in refUsers.users | propsFilter: {firstName: $select.search, lastName: $select.search, emailAddress: $select.search}">
                   <div>
+                    <small class="fa fa-user"></small>
                     <span ng-bind-html="refUser.firstName | highlight: $select.search"></span>
                     <span ng-bind-html="refUser.lastName | highlight: $select.search"></span>
                   </div>
@@ -220,9 +227,10 @@
           <!-- User Reference List -->
           <span ng-if="field.displayType == 'userReferenceList'" ng-init="getRefUsers()">
             <ui-select multiple ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refUsers.users && refUsers.users.length == 0" sortable="true" close-on-select="false" style="width: 500px">
-              <ui-select-match placeholder="Select or search a user">{{$item.firstName}} {{$item.lastName}}</ui-select-match>
+              <ui-select-match placeholder="Select or search a user"><small class="fa fa-user"></small> {{$item.firstName}} {{$item.lastName}}</ui-select-match>
               <ui-select-choices repeat="refUser._id as refUser in refUsers.users | propsFilter: {firstName: $select.search, lastName: $select.search, emailAddress: $select.search}">
                 <div>
+                  <small class="fa fa-user"></small>
                   <span ng-bind-html="refUser.firstName | highlight: $select.search"></span>
                   <span ng-bind-html="refUser.lastName | highlight: $select.search"></span>
                 </div>

@@ -558,8 +558,10 @@ function itemController($scope, $location, $routeParams, Item, User) {
 
 
   $scope.getItemFieldClass = function(item, field) {
-    if (field.displayType == 'textarea' || field.displayType == 'userReferenceList' || field.displayType == 'itemReferenceList' ) {
+    if (field.displayType == 'textarea') {
       return 'col-md-12';
+    } else if (field.displayType == 'userReferenceList' || field.displayType == 'itemReferenceList') {
+      return 'col-md-6';
     } else if (field.name == $scope.collections[item.collectionName].displayField) {
       return 'col-md-9';
     } else if (field.displayType == 'datetime') {
