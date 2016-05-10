@@ -22,10 +22,10 @@ exports.getFieldTypesArray = function () {
 		{ displayType: 'phone', label: 'Phone Number', dbType: 'String' },
 		{ displayType: 'currency', label: 'Currency', dbType: 'Number' },
 		{ displayType: 'choice', label: 'Dropdown', dbType: 'String' },
-		{ displayType: 'userReference', label: 'User (Pro only)', dbType: 'userReference', isPro: true },
-		{ displayType: 'userReferenceList', label: 'User List (Pro only)', dbType: 'userReferenceList', isPro: true },
-		{ displayType: 'itemReference', label: 'Item (Pro only)', dbType: 'itemReference', isPro: true },
-		{ displayType: 'itemReferenceList', label: 'Item List (Pro only)', dbType: 'itemReferenceList', isPro: true }
+		/*{ displayType: 'userReference', label: 'User (Pro only)', dbType: 'userReference', isPro: true },*/
+		{ displayType: 'userReferenceList', label: 'Users', dbType: 'userReferenceList', isPro: true },
+		/*{ displayType: 'itemReference', label: 'Item (Pro only)', dbType: 'itemReference', isPro: true },*/
+		{ displayType: 'itemReferenceList', label: 'Items', dbType: 'itemReferenceList', isPro: true }
 	];
 
 	return fieldTypes;

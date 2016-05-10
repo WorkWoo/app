@@ -14,11 +14,37 @@ exports.getCollectionTypesObject = function () {
 exports.getCollectionTypesArray = function () {
 	var collectionTypes = [];
 	collectionTypes.push(getWorkableCollection());
-	collectionTypes.push(getRevisionableCollection());
+	//collectionTypes.push(getRevisionableCollection());
 	collectionTypes.push(getInventorialCollection());
+	collectionTypes.push(getInventorialBundle());
 	collectionTypes.push(getBasicCollection());
-
+	
 	return collectionTypes;
+};
+
+function getInventorialBundle() {
+	var inventorialBundleCollection = {};
+	inventorialBundleCollection.label = 'Inventorial Bundle';
+
+	var defaults = {};
+	defaults.collectionType = 'inventorial_bundle';
+	defaults.name = '';
+	defaults.displayField = 'name';
+	defaults.pluralLabel = '';
+	defaults.singleLabel = '';
+	defaults.icon = 'fa-object-group';
+	defaults.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : true, 'basic' : false, 'inventorial_bundle' : false };
+
+	var defaultFields = [];
+
+	defaultFields.push({ 'displayType': 'autonumber', 'label': 'Number', 'name': 'number', 'dbType': 'String', 'showOnNew': false, 'showOnView': false, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': true });
+	defaultFields.push({ 'displayType': 'text', 'label': 'Title', 'name': 'title', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': true });
+	defaultFields.push({ 'displayType': 'textarea', 'label': 'Description', 'name': 'description', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
+
+	defaults.fields = defaultFields;
+	inventorialBundleCollection.defaults = defaults;
+
+	return inventorialBundleCollection;
 };
 
 function getWorkableCollection() {
@@ -31,9 +57,9 @@ function getWorkableCollection() {
 	defaults.displayField = 'name';
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
-	defaults.icon = 'fa-ellipsis-h';
+	defaults.icon = 'fa-wrench';
 	defaults.stateChoices = ['Open', 'In Progress', 'Complete', 'Cancelled'];
-	defaults.referenceable = { 'workable' : false, 'revisionable' : true, 'inventorial' : true, 'basic' : true };
+	defaults.referenceable = { 'workable' : false, 'revisionable' : true, 'inventorial' : true, 'basic' : true, 'inventorial_bundle' : true };
 
 	var defaultFields = [];
 
@@ -58,8 +84,8 @@ function getRevisionableCollection() {
 	defaults.displayField = 'name';
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
-	defaults.icon = 'fa-ellipsis-h';
-	defaults.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : true, 'basic' : true };
+	defaults.icon = 'fa-sitemap';
+	defaults.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : true, 'basic' : true, 'inventorial_bundle' : true };
 
 	var defaultFields = [];
 
@@ -84,8 +110,8 @@ function getInventorialCollection() {
 	defaults.displayField = 'name';
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
-	defaults.icon = 'fa-ellipsis-h';
-	defaults.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : false, 'basic' : true };
+	defaults.icon = 'fa-cubes';
+	defaults.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : false, 'basic' : true, 'inventorial_bundle' : false };
 
 	var defaultFields = [];
 
@@ -111,8 +137,8 @@ function getBasicCollection() {
 	defaults.displayField = 'name';
 	defaults.pluralLabel = '';
 	defaults.singleLabel = '';
-	defaults.icon = 'fa-ellipsis-h';
-	defaults.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : false, 'basic' : false };
+	defaults.icon = 'fa-pencil-square-o';
+	defaults.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : false, 'basic' : false, 'inventorial_bundle' : false };
 
 	var defaultFields = [];
 

@@ -20,6 +20,7 @@ function mainController($scope, $location, $sce, User, $filter) {
   $scope.workableCollections = [];
   $scope.revisionableCollections = [];
   $scope.inventorialCollections = [];
+  $scope.inventorialBundleCollections = [];
   $scope.basicCollections = [];
 
   $scope.accountType = $scope.currentUser.org.accountType;
@@ -38,8 +39,10 @@ function mainController($scope, $location, $sce, User, $filter) {
     $('#workableMenuItemM').removeClass('leftMenuIconActiveTop');
     $('#inventorialMenuItemD').removeClass('leftMenuIconActive');
     $('#inventorialMenuItemM').removeClass('leftMenuIconActive');
-    $('#revisionableMenuItemD').removeClass('leftMenuIconActive');
-    $('#revisionableMenuItemM').removeClass('leftMenuIconActive');
+    //$('#revisionableMenuItemD').removeClass('leftMenuIconActive');
+   // $('#revisionableMenuItemM').removeClass('leftMenuIconActive');
+    $('#inventorialBundleMenuItemD').removeClass('leftMenuIconActive');
+    $('#inventorialBundleMenuItemM').removeClass('leftMenuIconActive');
     $('#basicMenuItemD').removeClass('leftMenuIconActive');
     $('#basicMenuItemM').removeClass('leftMenuIconActive');
     $('#settingsMenuItemD').removeClass('leftMenuIconActive');
@@ -52,8 +55,10 @@ function mainController($scope, $location, $sce, User, $filter) {
     $('#workableMenuItemM').addClass('leftMenuIcon');
     $('#inventorialMenuItemD').addClass('leftMenuIcon');
     $('#inventorialMenuItemM').addClass('leftMenuIcon');
-    $('#revisionableMenuItemD').addClass('leftMenuIcon');
-    $('#revisionableMenuItemM').addClass('leftMenuIcon');
+    //$('#revisionableMenuItemD').addClass('leftMenuIcon');
+    //$('#revisionableMenuItemM').addClass('leftMenuIcon');
+    $('#inventorialBundleMenuItemD').addClass('leftMenuIcon');
+    $('#inventorialBundleMenuItemM').addClass('leftMenuIcon');
     $('#basicMenuItemD').addClass('leftMenuIcon');
     $('#basicMenuItemM').addClass('leftMenuIcon');
     $('#settingsMenuItemD').addClass('leftMenuIcon');
@@ -188,6 +193,8 @@ function mainController($scope, $location, $sce, User, $filter) {
         $scope.revisionableCollections.push($scope.collections[collection]);
       } else if(collectionType == 'inventorial') {
         $scope.inventorialCollections.push($scope.collections[collection]);
+      } else if(collectionType == 'inventorial_bundle') {
+        $scope.inventorialBundleCollections.push($scope.collections[collection]);
       } else if(collectionType == 'basic') {
         $scope.basicCollections.push($scope.collections[collection]);
       }

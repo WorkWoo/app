@@ -58,36 +58,36 @@
     </div>
   </div>
 
-
-  <!-- REVISIONABLE -->
+<!--
+  <!-- REVISIONABLE 
   <div class="col-md-3">
     <div class="col-md-12">
       <h3 class="text-center">Revisionable</h3>
     </div>
 
-    <!-- New collection -->
+    <!-- New collection 
     <div class="col-md-12">
-      <!-- Paid -->
+      <!-- Paid 
       <a ng-if="accountType == '1'" href="#/account/collections/new?type=revisionable" class="newCollectionButton">
         <span class="newCollectionButtonIcon fa fa-plus"></span> New
         <span class="cardTitleBreaker"></br></span>
         <span class="newCollectionButtonTitle">{{collection.pluralLabel}}</span>
       </a>
-      <!-- Free (Disabled) -->
+      <!-- Free (Disabled) 
       <span ng-if="accountType == '0'" class="menuCardContainerDisabled menuCardTitleDisabled">
         <span class="fa fa-plus"></span> New (Pro only)
         <span class="cardTitleBreaker"></br></span>
       </span>
     </div>
       
-    <!--  If there are none -->
+    <!--  If there are none 
     <div ng-if="!collectionsLoading && revisionableCollections.length == 0" class="col-md-12 text-center fadeInOut">
       <span class="menuCardContainerDisabled fadeInOut">
         <span class="menuCardTitleDisabled">None created yet!</span>
       </span>
     </div>
 
-    <!-- Each collection -->
+    <!-- Each collection 
     <div ng-repeat="(collectionIndex, collection) in revisionableCollections" class="col-md-12 fadeInOutStagger">
       <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
         <span class="menuCardIcon fa" ng-class="collection.icon"></span>
@@ -96,7 +96,7 @@
       </a>
     </div>
   </div>
-
+-->
 
   <!-- INVENTORIAL -->
   <div class="col-md-3">
@@ -136,6 +136,43 @@
     </div>
   </div>
 
+<!-- INVENTORIAL BUNDLE -->
+  <div class="col-md-3">
+    <div class="col-md-12">
+      <h3 class="text-center">Inventorial Bundle</h3>
+    </div>
+
+    <!-- New collection -->
+    <div class="col-md-12">
+      <!-- Paid -->
+      <a ng-if="accountType == '1'" href="#/account/collections/new?type=inventorial_bundle" class="newCollectionButton">
+        <span class="newCollectionButtonIcon fa fa-plus"></span> New
+        <span class="cardTitleBreaker"></br></span>
+        <span class="newCollectionButtonTitle">{{collection.pluralLabel}}</span>
+      </a>
+      <!-- Free (Disabled) -->
+      <span ng-if="accountType == '0'" class="menuCardContainerDisabled menuCardTitleDisabled">
+        <span class="fa fa-plus"></span> New (Pro only)
+        <span class="cardTitleBreaker"></br></span>
+      </span>
+    </div>
+      
+    <!--  If there are none -->
+    <div ng-if="!collectionsLoading && inventorialBundleCollections.length == 0" class="col-md-12 text-center fadeInOut">
+      <span class="menuCardContainerDisabled fadeInOut">
+        <span class="menuCardTitleDisabled">None created yet!</span>
+      </span>
+    </div>
+
+    <!-- Each collection -->
+    <div ng-repeat="(collectionIndex, collection) in inventorialBundleCollections" class="col-md-12 fadeInOutStagger">
+      <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
+        <span class="menuCardIcon fa" ng-class="collection.icon"></span>
+        <span class="cardTitleBreaker"></br></span>
+        <span class="menuCardTitle">{{collection.pluralLabel}}</span>
+      </a>
+    </div>
+  </div>
 
   <!-- BASIC -->
   <div class="col-md-3">

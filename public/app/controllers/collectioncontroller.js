@@ -143,6 +143,8 @@ function collectionController($scope, Collection, $location, $routeParams, GetSt
             $scope.revisionableCollections.push($scope.loadedCollections[i]);
           } else if($scope.loadedCollections[i].collectionType == 'inventorial') {
             $scope.inventorialCollections.push($scope.loadedCollections[i]);
+          } else if($scope.loadedCollections[i].collectionType == 'inventorial_bundle') {
+            $scope.inventorialBundleCollections.push($scope.loadedCollections[i]);
           } else if($scope.loadedCollections[i].collectionType == 'basic') {
             $scope.basicCollections.push($scope.loadedCollections[i]);
           }

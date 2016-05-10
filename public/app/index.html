@@ -85,7 +85,8 @@
     <div id="leftMenuContainer" class="leftMenuContainer hideInDesktop">
       <a href="#/workable" id="workableMenuItemM" class="fa fa-wrench leftMenuIcon" style="top:0px;"></a>
       <a href="#/inventorial" id="inventorialMenuItemM" class="fa fa-cubes leftMenuIcon" style="top:0px;"></a>
-      <a href="#/revisionable" id="revisionableMenuItemM" class="fa fa-object-group leftMenuIcon" style="top:0px;"></a>
+<!--      <a href="#/revisionable" id="revisionableMenuItemM" class="fa fa-object-group leftMenuIcon" style="top:0px;"></a>-->
+      <a href="#/inventorial_bundle" id="inventorialBundleMenuItemM" class="fa fa-object-group leftMenuIcon" style="top:0px;"></a>
       <a href="#/basic" id="basicMenuItemM" class="fa fa-inbox leftMenuIcon" style="top:0px;"></a>
       <a href="#/account" id="settingsMenuItemM" class="fa fa-cogs leftMenuIcon" style="top:0px;"></a>
       <a href="#/support" id="suportMenuItemM" class="fa fa-question-circle leftMenuIcon" style="top:0px;"></a>
@@ -99,10 +100,16 @@
     <a href="#/inventorial" ng-if="inventorialCollections.length > 0" id="inventorialMenuItemD" class="fa fa-cubes leftMenuIcon hideInMobile" style="top:100px;">
       <span class="leftMenuText">Inventory</span>
     </a>
-
+<!--
     <a href="#/revisionable" ng-if="revisionableCollections.length > 0" id="revisionableMenuItemD" class="fa fa-object-group leftMenuIcon hideInMobile" style="top:175px;">
       <span class="leftMenuText">Bundles</span>
     </a>
+-->
+    <a href="#/inventorial_bundle" ng-if="inventorialBundleCollections.length > 0" id="inventorialBundleMenuItemD" class="fa fa-object-group leftMenuIcon hideInMobile" style="top:175px;">
+      <span class="leftMenuText">Inventory</span><br>
+      <span class="leftMenuText">Bundles</span>
+    </a>
+
 
     <a href="#/basic" ng-if="basicCollections.length > 0" id="basicMenuItemD" class="fa fa-inbox leftMenuIcon hideInMobile" style="top:250px;">
       <span class="leftMenuText">Basic Items</span>
