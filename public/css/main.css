@@ -216,7 +216,7 @@ a:hover {
     position: fixed;
     bottom: 0px;
     padding: 0px;
-    z-index:9998;
+    z-index: 100;
   }
 
   .leftMenuIcon {
@@ -604,7 +604,7 @@ a:hover {
 .collectionStatusContainer {
   border: 1px dashed #d8d8d8;
   padding: 30px;
-  margin: 0px;
+  margin: 0px 0px 50px 0px;
 }
 
 .collectionStatusSettingsIcon {
@@ -1087,6 +1087,61 @@ a:hover {
   background-color: #67A88C;
   cursor: pointer;
 }
+
+
+/****************************** GET STARTED TEMPLATE ******************************/
+
+
+.workflowItemContainer {
+  padding: 0px 25px 25px 25px;
+  border-radius: 5px;
+  border: 2px solid #f0f0f0;
+  background-color: #fcfcfc;
+  margin-bottom: 25px;
+}
+
+.workflowItemContainer:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.workflowItemContainerActive {
+  padding: 0px 25px 25px 25px;
+  border-radius: 5px;
+  border: 2px solid #67A88C;
+  background-color: #fcfcfc;
+  margin-bottom: 25px;
+}
+
+.workflowItem1, .workflowItem2, .workflowItem3, .workflowItem4 {
+  border-radius: 5px;
+  width: 165px;
+  padding: 10px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.workflowItem1 {
+  background-color: #fff;
+  border: 1px solid #c8e0d6;
+  color: #508c72;
+}
+
+.workflowItemContainer:hover .templateCheck {
+  color: #888;
+}
+
+.workflowItemContainerActive .templateCheck{
+  color: #67A88C;
+}
+
+.templateCheck {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: #d8d8d8;
+}
+
 
 /****************************** BUTTONS ******************************/
 

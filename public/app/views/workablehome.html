@@ -16,7 +16,7 @@
 <!-- Page Header -->
 
 <div class="container-fluid" style="margin-top:25px;">
-  <div ng-repeat="collection in workableCollections" ng-init="columnClass = (workableCollections.length == 1) ? 'col-md-12' : 'col-md-6'" ng-class="columnClass">
+  <div ng-repeat="collection in workableCollections" ng-init="columnClass = (workableCollections.length == 1) ? 'col-md-12' : 'col-md-12'" ng-class="columnClass">
     <div class="collectionStatusContainer clearfix">
     
     <!-- Edit settings link -->
@@ -34,7 +34,7 @@
       <a ng-href="#/{{collection.name}}/new" class="btn btn-success">New {{ collection.singleLabel }}</a>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-6">
       <!-- Breakdown by state -->
       <div class="itemInfo clearfix">
         <div ng-repeat="state in collection.stateChoices" class="col-md-6">
@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-6">
       <!-- Breakdown by other fields -->
       <div>
         <div ng-repeat="field in collection.fields" ng-if="field.displayType == 'currency' || field.displayType == 'choice'" class="col-md-6">

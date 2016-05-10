@@ -49,9 +49,9 @@
 		<div class="row">
 			<div class="col-md-2" style="padding:10px;"></div><!-- Spacer -->
 			<div class="col-md-8 text-center" style="padding:10px;">
-				<a ng-href="#/account/collections/getstarted/step2" class="btn btn-success btn-block">
+				<button ng-disabled="!GetStarted.industry" type="button" ng-click="changeView('account/collections/getstarted/step2')" class="btn btn-success btn-block">
 					<h3 class="noSpace">Next <span class="fa fa-arrow-right"></span></h3>
-				</a>
+				</button>
 			</div>
 			<div class="col-md-2" style="padding:10px;"></div><!-- Spacer -->
 	  	</div>

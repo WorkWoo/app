@@ -9,42 +9,36 @@
 <div class="container-fluid" style="margin-top:50px;z-index:9999;">
 	<div class="row">
 		<div class="col-md-2 text-center" style="padding:10px;">
-			<button type="button" ng-click="changeView('account/collections/getstarted/step1')" class="btn btn-success btn-block">
+			<a ng-href="#/account/collections/getstarted/step1" class="btn btn-success btn-block">
 				<h3 class="noSpace"><span class="fa fa-arrow-left"></span> Previous</h3>
-			</button>
+			</a>
 		</div>
 
 		<div class="col-md-8 text-center" style="padding:10px;">
 			<h2 class="pageHeading">
 				<span class="mainColor fa fa-magic"></span>
-				<span> Choose a Template</span>
+				<span> {{ GetStarted.selectedTemplate.title }}</span>
 			</h2>
-			<p>Now, choose a workflow that best represents the way your business works.</p>
-			<p>(Don't worry, these are just starting points. Anything and everything is customizable)</p>
+			<p>(Remember, this setup is not permanent and can be customized in any way)</p>
 		</div>
 
 		<div class="col-md-2 text-center" style="padding:10px;">
-			<button type="button" ng-disabled="!GetStarted.selectedTemplate" ng-click="changeView('account/collections/getstarted/step3')" class="btn btn-success btn-block">
-				<h3 class="noSpace">Next <span class="fa fa-arrow-right"></span></h3>
-			</button>
+			<a ng-href="#/account/collections/getstarted/finalize" class="btn btn-success btn-block">
+				<h3 class="noSpace">Create! <span class="fa fa-arrow-right"></span></h3>
+			</a>
 		</div>
 	</div>
 
-	<div ng-repeat="option in GetStartedTemplates[GetStarted.industry] track by $index" ng-click="setSelectedTemplate($index)" class="row">
+
+	<div class="row">
 
 		<div class="col-md-1" style="padding:10px;"></div><!-- Spacer -->
-		<div class="col-md-10 workflowItemContainer text-center" ng-attr-id="{{$index}}_container">
-
-			<span class="templateCheck fa fa-check-circle fa-3x"></span>
-
-			<h3 class="mainColor">{{ option.title }}</h3>
-			<p ng-if="option.bestFor"><strong class="mainColor">Best For:</strong> {{ option.bestFor }}</p>
-			<p ng-if="option.work"><strong class="mainColor">Your work:</strong> {{ option.work }}</p>
-			<p ng-if="option.product"><strong class="mainColor">Your Product:</strong> {{ option.product }}</p>
+		<div class="col-md-10 text-center">
+			<p ng-if="GetStarted.selectedTemplate.bestFor"><strong class="mainColor">Best For:</strong> {{ GetStarted.selectedTemplate.bestFor }}</p>
 			<!-- Collection buttons -->
 			<div class="text-center" style="margin-top:25px;">
 				<!-- Workable -->
-				<span ng-repeat="collection in option.workable">
+				<span ng-repeat="collection in GetStarted.selectedTemplate.workable">
 					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
 						<span class="fa" ng-class="collection.icon"></span>
 						<span>{{ collection.name }}</span>
@@ -53,7 +47,7 @@
 				</span>
 
 				<!-- Revisionable -->
-				<span ng-repeat="collection in option.revisionable">
+				<span ng-repeat="collection in GetStarted.selectedTemplate.revisionable">
 					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
 						<span class="fa" ng-class="collection.icon"></span>
 						<span>{{ collection.name }}</span>
@@ -62,7 +56,7 @@
 				</span>
 
 				<!-- Inventorial -->
-				<span ng-repeat="collection in option.inventorial">
+				<span ng-repeat="collection in GetStarted.selectedTemplate.inventorial">
 					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
 						<span class="fa" ng-class="collection.icon"></span>
 						<span>{{ collection.name }}</span>
@@ -71,7 +65,7 @@
 				</span>
 
 				<!-- Basic -->
-				<span ng-repeat="collection in option.basic">
+				<span ng-repeat="collection in GetStarted.selectedTemplate.basic">
 					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
 						<span class="fa" ng-class="collection.icon"></span>
 						<span>{{ collection.name }}</span>

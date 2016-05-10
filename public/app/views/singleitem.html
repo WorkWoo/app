@@ -271,12 +271,12 @@
           <!-- Buttons -->
           <div class="col-md-2" style="padding:5px;">
             <!-- Create -->
-            <button ng-if="currentAction == 'create'" ng-disabled="selectedItemSubmitting" type="submit" class="btn btn-primary btn-block">
+            <button ng-if="currentAction == 'create'" ng-disabled="selectedItemSubmitting" type="submit" class="btn btn-success btn-block">
               <span ng-if="!selectedItemSubmitting">Submit</span>
               <span ng-if="selectedItemSubmitting"><span class="fa fa-refresh fa-spin"></span> Submitting</span>
             </button>
             <!-- Update -->
-            <button ng-if="currentAction == 'update'" ng-disabled="selectedItemSubmitting" type="submit" class="btn btn-primary btn-block">
+            <button ng-if="currentAction == 'update'" ng-disabled="selectedItemSubmitting" type="submit" class="btn btn-success btn-block">
               <span ng-if="!selectedItemSubmitting">Save</span>
               <span ng-if="selectedItemSubmitting"><span class="fa fa-refresh fa-spin"></span> Saving</span>
             </button>

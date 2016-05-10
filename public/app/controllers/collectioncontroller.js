@@ -106,8 +106,18 @@ function collectionController($scope, Collection, $location, $routeParams, GetSt
     ]
   };
  
-  $scope.setSelectedTemplate = function() {
-    
+  $scope.setSelectedTemplate = function(templateIndex) {
+    $scope.GetStarted.selectedTemplate = $scope.GetStartedTemplates[$scope.GetStarted.industry][templateIndex];
+    log.info('Selected Template: ' + $scope.GetStarted.selectedTemplate.title);
+
+    // Inactivate any previously selected options
+    $('.workflowItemContainerActive').each(function(){
+      $(this).removeClass('workflowItemContainerActive');
+      $(this).addClass('workflowItemContainer');
+    });
+
+
+    $('#' + templateIndex + '_container').removeClass('workflowItemContainer').addClass('workflowItemContainerActive');
   }
 
   $scope.getAllCollections = function(collectionName) {

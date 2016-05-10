@@ -9,56 +9,45 @@
 
 <div class="container singleItemOuterContainer noSpaceMobile">
   <div class="container noSpaceMobile" style="padding:25px;">
-    <form id="form1" name="form1" ng-model="formSubmission" accept-charset="UTF-8" autocomplete="off" enctype="multipart/form-data" method="post" action="https://workwoo.wufoo.com/forms/z1jm76wa1d5btwm/#public">
-    
-      <!-- POST key, required for Wufoo -->
-      <input type="hidden" id="idstamp" name="idstamp" value="EIhQ/TnJwQjTXgjIrPd9IUOpKRxlWXd6PGKk873D4cA=" />
+
+    <div class="col-md-2"></div><!-- Spacer -->
+    <div class="col-md-8">
+
+      <form id="form1" name="form1" ng-model="formSubmission" accept-charset="UTF-8" autocomplete="off" enctype="multipart/form-data" method="post" action="https://workwoo.wufoo.com/forms/z1jm76wa1d5btwm/#public">
       
-      <span style="display:none;">
-        <!-- User -->
-        <input id="Field5" name="Field5" type="text" class="field text medium" ng-model="currentUser.emailAddress" value="" />
-     
-        <!-- Org -->
-        <input id="Field4" name="Field4" type="text" class="field text medium" ng-model="currentUser.org.name" value="" />
-      </span>
+        <!-- POST key, required for Wufoo -->
+        <input type="hidden" id="idstamp" name="idstamp" value="EIhQ/TnJwQjTXgjIrPd9IUOpKRxlWXd6PGKk873D4cA=" />
+        
+        <!-- User & Org are provided by system -->
+        <span style="display:none;">
+          <input id="Field5" name="Field5" type="text" class="field text medium" ng-model="currentUser.emailAddress" value="" />
+          <input id="Field4" name="Field4" type="text" class="field text medium" ng-model="currentUser.org.name" value="" />
+        </span>
 
-      <!-- Issue -->
-      <div class="row noSpaceMobile">
-        <div class="col-md-12">
-          <label for="Field1">How may we help you?</label>
-          <textarea id="Field1" name="Field1" value="" ng-model="formSubmission.description" class="form-control defaultInput" style="resize:vertical;" spellcheck="true" rows="8" required></textarea>
-          <span ng-if="form1.Field1.$invalid && form1.Field1.$touched" ng-init="initInvalidPopover('descriptionRequired','Tell us something!')" id="descriptionRequired" class="fa fa-exclamation-circle inputInvalid"></span>
-        </div>
-      </div>
+        <!-- Message -->
+        <label for="Field1">How may we help you?</label>
+        <textarea id="Field1" name="Field1" value="" ng-model="formSubmission.description" class="form-control defaultInput" style="resize:vertical;" spellcheck="true" rows="8" required></textarea>
+        <span ng-if="form1.Field1.$invalid && form1.Field1.$touched" ng-init="initInvalidPopover('descriptionRequired','Tell us something!')" id="descriptionRequired" class="fa fa-exclamation-circle inputInvalid"></span>
 
-      <!-- Urgency -->
-      <div class="row noSpaceMobile">
-        <!-- Spacer -->
-        <div class="col-md-5">
-          <label for="Field2">How urgent is this?</label>
-          <select id="Field2" name="Field2" ng-disabled="formSubmitting" class="form-control defaultInput" value="" ng-model="helpSubmission.urgency">
-            <option value="Right now" selected="selected">Right now</option>
-            <option value="Today">Today</option>
-            <option value="This week">This week</option>
-          </select>
-        </div>
-        <!-- Spacer -->
-        <div class="col-md-8"></div>
-      </div>
+        <!-- Urgency -->
+        <label for="Field2">How urgent is this?</label>
+        <select id="Field2" name="Field2" ng-disabled="formSubmitting" class="form-control defaultInput" value="" ng-model="helpSubmission.urgency">
+          <option value="Right now" selected="selected">Right now</option>
+          <option value="Today">Today</option>
+          <option value="This week">This week</option>
+        </select>
 
-      <!-- Submit button -->
-      <div class="row noSpaceMobile">
-        <!-- Spacer -->
-        <div class="col-md-9"></div>
-        <div class="col-md-3">
-          <button  id="saveForm" name="saveForm" type="submit" ng-disabled="formSubmitting || helpSubmissionForm.$invalid" class="btn btn-primary btn-block" style="margin: 10px 0px 5px 0px">
-            <span ng-if="formSubmitting"><i class="fa fa-refresh fa-spin"></i> Submitting</span>
-            <span ng-if="!formSubmitting">Submit</span>
-          </button>
-        </div>
-      </div>
 
-    </form>
+        <!-- Submit button -->
+        <button  id="saveForm" name="saveForm" type="submit" ng-disabled="formSubmitting || helpSubmissionForm.$invalid" class="btn btn-success btn-block" style="margin: 10px 0px 5px 0px">
+          <span ng-if="formSubmitting"><i class="fa fa-refresh fa-spin"></i> Submitting</span>
+          <span ng-if="!formSubmitting">Submit</span>
+        </button>
+
+      </form>
+    </div>
+    <div class="col-md-2"></div><!-- Spacer -->
+
   </div>
 </div>
 

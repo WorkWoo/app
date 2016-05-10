@@ -103,6 +103,9 @@ mainApp.config(function($routeProvider) {
   $routeProvider.when('/account/collections/getstarted', { templateUrl: 'views/getstarted/step1.html', controller: 'collectionController'});
   $routeProvider.when('/account/collections/getstarted/step1', { templateUrl: 'views/getstarted/step1.html', controller: 'collectionController'});
   $routeProvider.when('/account/collections/getstarted/step2', { templateUrl: 'views/getstarted/step2.html', controller: 'collectionController'});
+  $routeProvider.when('/account/collections/getstarted/step3', { templateUrl: 'views/getstarted/step3.html', controller: 'collectionController'});
+  $routeProvider.when('/account/collections/getstarted/finalize', { templateUrl: 'views/getstarted/finalize.html', controller: 'collectionController'});
+
 
 
   // Finally, add the routes for each custom collection dynamically

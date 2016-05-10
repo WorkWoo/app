@@ -18,11 +18,11 @@
       <a ng-href="#/{{collection.name}}/new" class="btn btn-success">New {{ collection.singleLabel }}</a>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-2">
       <h4>Total {{ collection.pluralLabel }}: {{ totalItems }}</h4>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-10">
       <!-- Breakdown by other fields -->
       <div>
         <div ng-repeat="field in collection.fields" ng-if="field.displayType == 'currency' || field.displayType == 'choice'" class="col-md-6">

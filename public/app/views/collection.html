@@ -19,7 +19,7 @@
 						<span class="fa fa-pencil-square editCollectionIcon"></span>
 					</span>
 					<span ng-if="currentAction == 'update'"> {{ selectedCollection.singleLabel }} Configuration</span><!-- Existing collections -->
-					<span ng-if="currentAction == 'create'"> New Item Type</span><!-- New collections -->
+					<span ng-if="currentAction == 'create'"> New Collection</span><!-- New collections -->
 			</h3>
   		</div>
   		<!-- Title -->
@@ -237,7 +237,7 @@
 						</span>
 					</button>
 
-					<button id="saveChangesButton" ng-disabled="collectionsLoading" ng-if="currentAction == 'create'" type="submit" class="btn btn-primary btn-block">
+					<button id="saveChangesButton" ng-disabled="collectionsLoading" ng-if="currentAction == 'create'" type="submit" class="btn btn-success btn-block">
 						<!-- Not loading -->
 						<span ng-if="!collectionsLoading">Submit</span>
 						<!-- Submitting -->
