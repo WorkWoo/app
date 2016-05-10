@@ -26,6 +26,7 @@ mainApp.factory('TotalItems', TotalItems);
 mainApp.factory('SelectedItem', SelectedItem);
 mainApp.factory('User', User);
 mainApp.factory('SelectedUser', SelectedUser);
+mainApp.factory('GetStarted', GetStarted);
 
 // Directives
 mainApp.directive('dateTimePicker', dateTimePicker);
@@ -76,7 +77,6 @@ mainApp.config(function($routeProvider) {
   $routeProvider.when('/revisionable', { templateUrl: 'views/revisionablehome.html', controller: 'itemController'});
   $routeProvider.when('/basic', { templateUrl: 'views/basichome.html', controller: 'itemController'});
 
-
   // Then, define the permanant, hard-coded routes.
   $routeProvider.when('/changepassword', { templateUrl: 'views/changepassword.html', controller: 'accountController'});
   $routeProvider.when('/support', { templateUrl: 'views/support.html', controller: 'supportController'});
@@ -98,6 +98,12 @@ mainApp.config(function($routeProvider) {
   $routeProvider.when('/account/users/new', { templateUrl: 'views/user.html', controller: 'userController'});
   $routeProvider.when('/account/users/view', { templateUrl: 'views/users.html', controller: 'userController'});
   $routeProvider.when('/account/users/view/:user', { templateUrl: 'views/user.html', controller: 'userController'});
+
+  // Get started routes
+  $routeProvider.when('/account/collections/getstarted', { templateUrl: 'views/getstarted/step1.html', controller: 'collectionController'});
+  $routeProvider.when('/account/collections/getstarted/step1', { templateUrl: 'views/getstarted/step1.html', controller: 'collectionController'});
+  $routeProvider.when('/account/collections/getstarted/step2', { templateUrl: 'views/getstarted/step2.html', controller: 'collectionController'});
+
 
   // Finally, add the routes for each custom collection dynamically
   for (var collection in COLLECTIONS) {

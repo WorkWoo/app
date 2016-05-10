@@ -177,7 +177,6 @@
                 <small ng-bind-html="refItem.title | highlight: $select.search"></small>
               </ui-select-choices>
             </ui-select>
-
             <span class="input-group-btn">
               <button type="button" ng-click="selectedItem[field.name] = null" class="btn btn-default">
                 <span class="glyphicon glyphicon-trash"></span>
@@ -185,8 +184,9 @@
             </span>
           </span>
 
-          <!-- Item Reference List -->          
-          <span ng-if="field.displayType == 'itemReferenceList'" ng-init="getRefItems(field.referenceTo)">
+
+          <!-- Item Reference List (No quantity)-->          
+          <span ng-if="field.displayType == 'itemReferenceList' && collections[field.referenceTo].collectionType != 'inventorial'" ng-init="getRefItems(field.referenceTo)">
             <ui-select multiple ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refItems[field.referenceTo].totalCount == 0 || refItems[field.referenceTo].totalCount == -1" sortable="true" close-on-select="false" class="defaultInput" style="padding:5px;">
                <ui-select-match placeholder="Select {{collections[field.referenceTo].pluralLabel}}">
                   <small class="fa" ng-class="collections[field.referenceTo].icon"></small> {{$item.number}}
@@ -200,6 +200,19 @@
               </ui-select-choices>
             </ui-select>
           </span>
+
+          <!-- Item Reference List (With quantity)-->          
+          <div class="defaultInput" ng-if="field.displayType == 'itemReferenceList' && collections[field.referenceTo].collectionType == 'inventorial'" ng-init="getRefItems(field.referenceTo)">
+            <div class="row" ng-repeat="referenceItem in selectedItem[field.name]">
+              <div class="col-md-2">[ ]</div>
+              <div class="col-md-4">{{ referenceItem.number }}</div>
+              <div class="col-md-4">{{ referenceItem.title }}</div>
+              <div class="col-md-2">[ X ]</div>
+            </div>
+          </div>
+
+
+
 
           <!-- User Reference List -->
           <span ng-if="field.displayType == 'userReferenceList'" ng-init="getRefUsers()">

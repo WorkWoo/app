@@ -1,4 +1,5 @@
 function accountController($scope, $timeout, User) {
+  $scope.setActiveSection('settings');
   $scope.accountLoading = false;
   $scope.passwordInfo = {};
 

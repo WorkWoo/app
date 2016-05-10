@@ -3,11 +3,7 @@ $(document).ready(function() {
 });
 
 function initializeHome() {
-  $('#user-org-loaded').hide();
-  $('#nav-content').hide();
-  $('#user-name').hide();
-  $('#item-navigator').hide();
-  $('#pageLoadingIndicator').hide();
+  hideAngularElements();
 
   // Attempt to get an active session for this user. If none exists, a 401 will be returned and we will redirect to login.
   $.ajax({
@@ -18,6 +14,29 @@ function initializeHome() {
     error: getUserProfileFail
   });
 }
+
+
+function hideAngularElements() {
+  $('#user-org-loaded').hide();
+  $('#nav-content').hide();
+  $('#user-name').hide();
+  $('#item-navigator').hide();
+  $('#pageLoadingIndicator').hide();
+
+  $('#workableMenuItemD').hide();
+  $('#workableMenuItemM').hide();
+  $('#inventorialMenuItemD').hide();
+  $('#inventorialMenuItemM').hide();
+  $('#revisionableMenuItemD').hide();
+  $('#revisionableMenuItemM').hide();
+  $('#basicMenuItemD').hide();
+  $('#basicMenuItemM').hide();
+  $('#settingsMenuItemD').hide();
+  $('#settingsMenuItemM').hide();
+  $('#supportMenuItemD').hide();
+  $('#supportMenuItemM').hide();
+}
+
 
 function getUserProfileSuccess(response) {
   AUTHENTICATED = true;
@@ -44,12 +63,25 @@ function getUserProfileFail(response) {
 function getCollectionSettingsSuccess(response) {
   $('#pageLoadingIndicator').show();
   $('#pageLoadingIndicatorOnLoad').hide();
-  $('pageLoadingIndicator').show();
+  $('#pageLoadingIndicator').show();
   $('#nav-content').show();
   $('#user-org-loading').hide();
   $('#user-org-loaded').show();
   $('#user-name').show();
   $('#item-navigator').show();
+
+  $('#workableMenuItemD').show();
+  $('#workableMenuItemM').show();
+  $('#inventorialMenuItemD').show();
+  $('#inventorialMenuItemM').show();
+  $('#revisionableMenuItemD').show();
+  $('#revisionableMenuItemM').show();
+  $('#basicMenuItemD').show();
+  $('#basicMenuItemM').show();
+  $('#settingsMenuItemD').show();
+  $('#settingsMenuItemM').show();
+  $('#supportMenuItemD').show();
+  $('#supportMenuItemM').show();
 
   COLLECTIONS = JSON.parse(response).collections;
   FIELDTYPES = JSON.parse(response).fieldTypes;

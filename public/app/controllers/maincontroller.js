@@ -42,6 +42,10 @@ function mainController($scope, $location, $sce, User, $filter) {
     $('#revisionableMenuItemM').removeClass('leftMenuIconActive');
     $('#basicMenuItemD').removeClass('leftMenuIconActive');
     $('#basicMenuItemM').removeClass('leftMenuIconActive');
+    $('#settingsMenuItemD').removeClass('leftMenuIconActive');
+    $('#settingsMenuItemM').removeClass('leftMenuIconActive');
+    $('#supportMenuItemD').removeClass('leftMenuIconActive');
+    $('#supportMenuItemM').removeClass('leftMenuIconActive');
 
     // Set everything to default
     $('#workableMenuItemD').addClass('leftMenuIcon');
@@ -52,6 +56,10 @@ function mainController($scope, $location, $sce, User, $filter) {
     $('#revisionableMenuItemM').addClass('leftMenuIcon');
     $('#basicMenuItemD').addClass('leftMenuIcon');
     $('#basicMenuItemM').addClass('leftMenuIcon');
+    $('#settingsMenuItemD').addClass('leftMenuIcon');
+    $('#settingsMenuItemM').addClass('leftMenuIcon');
+    $('#supportMenuItemD').addClass('leftMenuIcon');
+    $('#supportMenuItemM').addClass('leftMenuIcon');
 
     // Then, set the given section as active
     $('#' + sectionID + 'MenuItemD').removeClass('leftMenuIcon');
@@ -139,6 +147,25 @@ function mainController($scope, $location, $sce, User, $filter) {
     var formattedValue = $filter('currency')(value);
     return formattedValue;
   }
+
+
+  $scope.getLeftMenuContainerOffset = function() {
+    var offset = 100;
+    if($scope.inventorialCollections.length > 0) {
+      offset += 75;
+    }
+
+    if($scope.revisionableCollections.length > 0) {
+      offset += 75;
+    }
+
+    if($scope.basicCollections.length > 0) {
+      offset += 75;
+    }
+
+    return { 'top' : offset + 'px' };
+  };
+
 
   /*
    * Transforms the fields array into an object for easier access

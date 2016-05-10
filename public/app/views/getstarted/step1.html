@@ -1,0 +1,60 @@
+<div class="container-fluid">
+	<div class="row text-right">
+		<div class="col-md-12">
+			<a href="#/support"><h4>Need help setting up? Contact us</h4></a>
+		</div>
+	</div>
+</div>
+
+<div class="container" style="margin-top:50px;max-width:750px;">
+	<div class="row">
+		<div class="col-md-12 text-center" style="padding:10px;">
+			<h2 class="pageHeading">
+				<span class="mainColor fa fa-magic"></span>
+				<span> Let's get started</span>
+				</h2>
+			<p>We'll need to know more about your business in order to give you the best experience</p>
+		</div>
+	</div>
+
+	<form name="industrySelect">
+		<div class="row">
+			<div class="col-md-2" style="padding:10px;"></div><!-- Spacer -->
+			<div class="col-md-8 text-center" style="padding:10px;">
+				<label>To begin, what industry best describes your business?</label>
+				<select ng-model="GetStarted.industry" class="form-control defaultInput" required>
+					<option value="Manufacturing">Aerospace</option>
+					<option value="Consumer Services">Automotive</option>
+					<option value="Consumer Goods">Consumer Goods</option>
+					<option value="Manufacturing">Consumer Services</option>
+					<option value="Consumer Services">Education</option>
+					<option value="Consumer Services">Entertainment</option>
+					<option value="Consumer Services">Food & Beverage</option>
+					<option value="Freelance">Graphic design</option>
+					<option value="Consumer Services">Health & Wellness</option>
+					<option value="Consumer Services">Legal</option>
+					<option value="Manufacturing">Manufacturing</option>
+					<option value="Freelance">Photography</option>
+					<option value="Freelance">Real Estate</option>
+					<option value="Consumer Goods">Retail</option>
+					<option value="Social Services">Social & Personal Services</option>
+					<option value="Freelance">Technology</option>
+					<option value="Consumer Services">Transportation</option>
+					<option value="Consumer Goods">-- Other --</option>
+				</select>
+			</div>
+			<div class="col-md-2" style="padding:10px;"></div><!-- Spacer -->
+		</div>
+
+		<div class="row">
+			<div class="col-md-2" style="padding:10px;"></div><!-- Spacer -->
+			<div class="col-md-8 text-center" style="padding:10px;">
+				<a ng-href="#/account/collections/getstarted/step2" class="btn btn-success btn-block">
+					<h3 class="noSpace">Next <span class="fa fa-arrow-right"></span></h3>
+				</a>
+			</div>
+			<div class="col-md-2" style="padding:10px;"></div><!-- Spacer -->
+	  	</div>
+  	</form>
+
+</div>

@@ -1,5 +1,5 @@
 function itemController($scope, $location, $routeParams, Item, User) {
-  log.info('Items Initialized');
+  log.info('Items initialized');
   $scope.loadedItems = [];
   $scope.selectedItem = Item.selectedItem;
   $scope.selectedItemTitle = '';
@@ -331,8 +331,9 @@ function itemController($scope, $location, $routeParams, Item, User) {
           $scope.alertUnknownError();
         }
       );
-    
     }
+    $scope.itemsLoading = false
+    $scope.setPageLoading(false);
   };
 
 
@@ -561,7 +562,7 @@ function itemController($scope, $location, $routeParams, Item, User) {
     if (field.displayType == 'textarea') {
       return 'col-md-12';
     } else if (field.displayType == 'userReferenceList' || field.displayType == 'itemReferenceList') {
-      return 'col-md-6';
+      return 'col-md-12';
     } else if (field.name == $scope.collections[item.collectionName].displayField) {
       return 'col-md-9';
     } else if (field.displayType == 'datetime') {
@@ -632,8 +633,6 @@ function itemController($scope, $location, $routeParams, Item, User) {
     // Grab the current URL so we can determine what the user is trying to do
     var currentURL = $location.url();
     $scope.setActiveCollection(currentURL);
-
-
 
     // Looking at the base collection home
     log.info(currentURL);

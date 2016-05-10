@@ -5,23 +5,21 @@
     <div class="breadCrumb">
       <a href="#/account"><span class="fa fa-arrow-left"></span> All settings</a>
     </div>
-    <h3 class="pageHeading">Item Configuration</h3>
+    <h3 class="pageHeading">WorkWoo Settings</h3>
   </div>
 </div>
 <!-- Page Header -->
 
-<!-- Message if they have not setup their primary collection -->
+<!-- Page header if they have not setup anything -->
 <div ng-if="!currentUser.org.primaryCollection" class="container-fluid text-center" style="margin-top:50px;">
   <div class="col-md-12">
-    <h2 class="pageHeading">You haven't set anything up yet!</h2>
-    <a id="setUpNow" class="btn btn-success" href="#/account/collections/new"><h3 class="noSpace">Set up now</h3></a>
+    <h2 class="pageHeading">You haven't set up your business yet</h2>
+    <a class="btn btn-success" href="#/account/collections/getstarted"><h3 class="noSpace">Get started now</h3></a>
   </div>
 </div>
 <!-- Page Header -->
 
-<div class="container-fluid">
-
-
+<div ng-if="currentUser.org.primaryCollection" class="container-fluid">
   <!-- WORKABLE -->
   <div class="col-md-3">
     <div class="col-md-12">

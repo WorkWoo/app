@@ -1,3 +1,20 @@
+<!-- Page Header -->
+<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
+  <div class="col-md-12 noSpaceMobile">
+    <h2 class="pageHeading">Your Work</h2>
+  </div>
+</div>
+<!-- Page Header -->
+
+<!-- Page header if they have not setup their primary collection -->
+<div ng-if="!currentUser.org.primaryCollection" class="container-fluid text-center" style="margin-top:50px;">
+  <div class="col-md-12">
+    <h2 class="pageHeading">You haven't set up your business yet</h2>
+    <a class="btn btn-success" href="#/account/collections/getstarted"><h3 class="noSpace">Get started now</h3></a>
+  </div>
+</div>
+<!-- Page Header -->
+
 <div class="container-fluid" style="margin-top:25px;">
   <div ng-repeat="collection in workableCollections" ng-init="columnClass = (workableCollections.length == 1) ? 'col-md-12' : 'col-md-6'" ng-class="columnClass">
     <div class="collectionStatusContainer clearfix">

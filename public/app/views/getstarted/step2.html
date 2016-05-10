@@ -1,0 +1,132 @@
+<div class="container-fluid">
+	<div class="row text-right">
+		<div class="col-md-12">
+			<a href="#/support"><h4>Need help setting up? Contact us</h4></a>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid" style="margin-top:50px;">
+	<div class="row">
+		<div class="col-md-2 text-center" style="padding:10px;">
+			<a ng-href="#/account/collections/getstarted/step1" class="btn btn-success btn-block">
+				<h3 class="noSpace"><span class="fa fa-arrow-left"></span> Previous</h3>
+			</a>
+		</div>
+
+		<div class="col-md-8 text-center" style="padding:10px;">
+			<h2 class="pageHeading">
+				<span class="mainColor fa fa-magic"></span>
+				<span> Choose a Base Setup</span>
+			</h2>
+			<p>Now, choose a workflow that best represents the way your business works.</p>
+			<p>(Don't worry, these are just starting points. Anything and everything is customizable)</p>
+		</div>
+
+		<div class="col-md-2 text-center" style="padding:10px;">
+			<a ng-href="#/account/collections/getstarted/step3" class="btn btn-success btn-block">
+				<h3 class="noSpace">Next <span class="fa fa-arrow-right"></span></h3>
+			</a>
+		</div>
+	</div>
+
+	<style>
+		.workflowItemContainer {
+			padding: 0px 25px 25px 25px;
+			border-radius: 5px;
+			border: 2px solid #f0f0f0;
+			background-color: #fcfcfc;
+			margin-bottom: 25px;
+		}
+
+		.workflowItemContainer:hover {
+			background-color: #f0f0f0;
+			cursor: pointer;
+		}
+
+		.workflowItem1, .workflowItem2, .workflowItem3, .workflowItem4 {
+			border-radius: 5px;
+			width: 165px;
+			padding: 10px;
+			display: inline-block;
+			cursor: pointer;
+		}
+
+		.workflowItem1 {
+			background-color: #fff;
+			border: 1px solid #c8e0d6;
+			color: #508c72;
+		}
+
+		.workflowItemContainer:hover .templateCheck{
+			color: #67A88C;
+		}
+
+		.templateCheck {
+			position: absolute;
+			right: 5px;
+			top: 5px;
+			color: #d8d8d8;
+		}
+
+	</style>
+
+
+	<div ng-repeat="option in GetStartedTemplates[GetStarted.industry]" class="row">
+
+		<div class="col-md-1" style="padding:10px;"></div><!-- Spacer -->
+		<div class="col-md-10 workflowItemContainer text-center">
+
+			<span class="templateCheck fa fa-check-circle fa-3x"></span>
+
+			<h3 class="mainColor">{{ option.title }}</h3>
+			<p ng-if="option.bestFor"><strong class="mainColor">Best For:</strong> {{ option.bestFor }}</p>
+			<p ng-if="option.work"><strong class="mainColor">Your work:</strong> {{ option.work }}</p>
+			<p ng-if="option.product"><strong class="mainColor">Your Product:</strong> {{ option.product }}</p>
+			<!-- Collection buttons -->
+			<div class="text-center" style="margin-top:25px;">
+				<!-- Workable -->
+				<span ng-repeat="collection in option.workable">
+					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
+						<span class="fa" ng-class="collection.icon"></span>
+						<span>{{ collection.name }}</span>
+					</span>
+					<span ng-if="collection.name == 'spacer'" class="fa fa-ellipsis-h"></span>
+				</span>
+
+				<!-- Revisionable -->
+				<span ng-repeat="collection in option.revisionable">
+					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
+						<span class="fa" ng-class="collection.icon"></span>
+						<span>{{ collection.name }}</span>
+					</span>
+					<span ng-if="collection.name == 'spacer'" class="fa fa-ellipsis-h"></span>
+				</span>
+
+				<!-- Inventorial -->
+				<span ng-repeat="collection in option.inventorial">
+					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
+						<span class="fa" ng-class="collection.icon"></span>
+						<span>{{ collection.name }}</span>
+					</span>
+					<span ng-if="collection.name == 'spacer'" class="fa fa-ellipsis-h"></span>
+				</span>
+
+				<!-- Basic -->
+				<span ng-repeat="collection in option.basic">
+					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
+						<span class="fa" ng-class="collection.icon"></span>
+						<span>{{ collection.name }}</span>
+					</span>
+					<span ng-if="collection.name == 'spacer'" class="fa fa-ellipsis-h"></span>
+				</span>
+			</div>
+
+		</div>
+		<div class="col-md-1" style="padding:10px;"></div><!-- Spacer -->
+	</div>
+
+
+
+
+</div>

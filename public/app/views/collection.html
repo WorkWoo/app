@@ -133,14 +133,15 @@
 							<select ng-disabled="collectionsLoading || field.sysProvided" class="form-control defaultInput" ng-model="field.displayType">
 								<option ng-repeat="fieldType in fieldTypes" value="{{ fieldType.displayType }}" ng-disabled="fieldType.isPro && accountType != 1" ng-selected="fieldType.displayType == field.displayType" >{{ fieldType.label }}</option>
 			            	</select>
-<!--
+			            	
+							<!--
 							<ui-select ng-model="field.displayType" ng-click="bringFieldForward('row_' + fieldIndex)" theme="bootstrap" search-enabled="false">
 						    	<ui-select-match placeholder="Select a field type">{{$select.selected.label}}</ui-select-match>
 						    	<ui-select-choices repeat="fieldType.displayType as fieldType in fieldTypes | filter: {label: $select.search, displayType: $select.search}">
 						      	<div ng-bind-html="fieldType.label | highlight: $select.search"></div>
 						    	</ui-select-choices>
 						  	</ui-select>
--->
+							-->
 
 
 			            	<!-- If the field is a choice type, show the choices editor -->

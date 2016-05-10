@@ -179,29 +179,29 @@ a:hover {
 }
 
 .userMenuDropdown {
-  box-shadow: 1px 1px 1px #999;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  color: #777;
-  margin-top: -5px;
-  margin-right: 10px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #67A88C;
+  border: none;
+  border-radius: 0px;
+  top: 23px;
+  left: 25px;
+  box-shadow: -2px 2px 5px #bebebe;
+  transition: all .25s linear;
+  -webkit-transition: all .25s linear;
+  -moz-transition: all .25s linear;
 }
 
-.userMenuItem {
-  color: #6783a8;
-  padding: 5px 5px 5px 20px;
-  width: 100%;
-  transition: all .1s linear;
-  -webkit-transition: all .1s linear;
-  -moz-transition: all .1s linear;
+.userMenuDropdown li a, 
+.userMenuDropdown li a:active,
+.userMenuDropdown li a:focus {
+  color: #fff;
 }
 
-.userMenuItem:hover {
-  padding: 5px 5px 5px 20px;
-  width: 100%;
-  color: #777;
-  cursor: pointer;
-  text-decoration: underline;
+.userMenuDropdown li a:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #bfbfbf;
 }
 
 
@@ -210,6 +210,7 @@ a:hover {
 
 @media only screen and (min-width : 993px) {
   .leftMenuContainer {
+    border-top: 2px solid #508c72;
     background-color: #67A88C;
     width: 75px;
     position: fixed;
@@ -235,11 +236,16 @@ a:hover {
     -moz-transition: all .1s linear;
   }
 
-  .leftMenuIcon:hover {
+  .leftMenuIcon:hover, .leftMenuIcon:active, .leftMenuIcon:focus {
+    color: #fff;
+    text-decoration: none;
     background-color: #bfbfbf;
   }
 
-  .leftMenuIconActive {
+  .leftMenuIconActive,
+  .leftMenuIconActive:hover,
+  .leftMenuIconActive:active,
+  .leftMenuIconActive:focus {
     text-align: center;
     position: fixed;
     color: #508c72;
@@ -256,7 +262,10 @@ a:hover {
     -moz-transition: all .1s linear;
   }
 
-  .leftMenuIconActiveTop {
+  .leftMenuIconActiveTop,
+  .leftMenuIconActiveTop:hover,
+  .leftMenuIconActiveTop:active,
+  .leftMenuIconActiveTop:focus {
     text-align: center;
     position: fixed;
     color: #508c72;
@@ -309,7 +318,7 @@ a:hover {
   text-align: center;
   background-color: #fcfcfc;
   border: 1px dashed #d8d8d8;
-  border-radius: 0px;
+  border-radius: 5px;
   display: block;
   font-size: 20px;
   transition: all .15s linear;
@@ -950,7 +959,7 @@ a:hover {
 
 
 .wiggle {
-  animation: wiggle .25s 6 linear;
+  animation: wiggle .25s 5 linear;
 }
 
 @keyframes wiggle {
@@ -958,10 +967,10 @@ a:hover {
       transform:rotate(0deg);
     }
     25%  {
-      transform:rotate(3deg);
+      transform:rotate(2deg);
     }
     75%  {
-      transform:rotate(-3deg);
+      transform:rotate(-2deg);
     }
     100% {
       transform:rotate(0deg);
@@ -1082,7 +1091,7 @@ a:hover {
 /****************************** BUTTONS ******************************/
 
 .btn {
-  border-radius: 0px;
+  border-radius: 5px;
   padding: 10px;
 }
 
@@ -1124,7 +1133,7 @@ a:hover {
 
 
 .btn-default, .btn-default:focus {
-  border-color: #fff;
+  border-color: #d8d8d8;
   background-color: #fcfcfc;
 }
 

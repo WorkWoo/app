@@ -5,6 +5,11 @@ function SelectedUser() { return {};}
 function SelectedCollection() { return {};}
 
 
+function GetStarted() {
+  var GetStarted = {};
+  return GetStarted;
+}
+
 // ############################## ITEM ############################## //
 
 

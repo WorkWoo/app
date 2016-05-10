@@ -40,9 +40,9 @@
   <body ng-controller="mainController" style="margin:0px;padding:0px;color:#777;">
     <div ng-if="startMainTour" id="mainTour" ng-joy-ride="startMainTour" config="mainTourConfig" on-finish="finishMainTour()" on-skip="skipMainTour()"></div>
     <!-- Header -->
-    <div class="header" style=>
+    <div class="header">
       <span class="headerTitle">
-        <i class="fa fa-coffee"></i>&nbsp;&nbsp;WorkWoo
+        <i class="fa fa-coffee fa-1x"></i>&nbsp;&nbsp;WorkWoo
       </span>
 
       <!-- Top-Right dropdown menu -->
@@ -50,22 +50,9 @@
         <span id="user-name">{{ currentUser.firstName }} @ {{ currentUser.org.name }}</span>
         <span class="fa fa-bars userMenuIcon" id="userMenuDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
         <ul class="dropdown-menu userMenuDropdown" aria-labelledby="userMenuDropdown">  
-          <li>
-            <div class="userMenuItem" ng-click="url('#/account/')">
-              <span class="fa fa-cog"></span> Settings
-            </div>
-          </li>
-          <li>
-            <div class="userMenuItem hideInMobile" ng-click="tiggerMainTour()">
-              <span class="fa fa-road"></span> Take the tour
-            </div>
-          </li>
-          <li>
-            <div class="userMenuItem" ng-click="url('/logout')">
-              <span class="fa fa-sign-out"></span> Logout
-            </div>
-          </li>
-
+          <li><a href="#/account"><span class="fa fa-cog"></span> Settings</a></li>
+          <li><a href="#" class="hideInMobile" ng-click="tiggerMainTour()"><span class="fa fa-road"></span> Take the tour</a></li>
+          <li><a href="/logout"><span class="fa fa-sign-out"></span> Logout</a></li>
         </ul>
       </div>
     </div>
@@ -83,31 +70,42 @@
 
     <!-- Left Menu icons (Mobile) -->
     <div id="leftMenuContainer" class="leftMenuContainer hideInDesktop">
-      <span ng-click="leftMenuClick('workable')" id="workableMenuItemM" class="fa fa-wrench leftMenuIcon" style="top:0px;"></span>
-      <span ng-click="leftMenuClick('inventorial')" id="inventorialMenuItemM" class="fa fa-cubes leftMenuIcon" style="top:0px;"></span>
-      <span ng-click="leftMenuClick('revisionable')" id="revisionableMenuItemM" class="fa fa-object-group leftMenuIcon" style="top:0px;"></span>
-      <span ng-click="leftMenuClick('basic')" id="basicMenuItemM" class="fa fa-inbox leftMenuIcon" style="top:0px;"></span>
+      <a href="#/workable" id="workableMenuItemM" class="fa fa-wrench leftMenuIcon" style="top:0px;"></a>
+      <a href="#/inventorial" id="inventorialMenuItemM" class="fa fa-cubes leftMenuIcon" style="top:0px;"></a>
+      <a href="#/revisionable" id="revisionableMenuItemM" class="fa fa-object-group leftMenuIcon" style="top:0px;"></a>
+      <a href="#/basic" id="basicMenuItemM" class="fa fa-inbox leftMenuIcon" style="top:0px;"></a>
+      <a href="#/account" id="settingsMenuItemM" class="fa fa-cogs leftMenuIcon" style="top:0px;"></a>
+      <a href="#/support" id="suportMenuItemM" class="fa fa-question-circle leftMenuIcon" style="top:0px;"></a>
     </div>
 
     <!-- Left Menu icons (Desktop) -->
-    <span ng-click="leftMenuClick('workable')" id="workableMenuItemD" class="fa fa-wrench leftMenuIcon hideInMobile" style="top:25px;">
-      <span class="leftMenuText">Work</span>
-    </span>
+    <a href="#/workable" id="workableMenuItemD" class="fa fa-home leftMenuIcon hideInMobile" style="top:25px;">
+      <span class="leftMenuText">Your Work</span>
+    </a>
 
-    <span ng-click="leftMenuClick('inventorial')" id="inventorialMenuItemD" class="fa fa-cubes leftMenuIcon hideInMobile" style="top:100px;">
+    <a href="#/inventorial" ng-if="inventorialCollections.length > 0" id="inventorialMenuItemD" class="fa fa-cubes leftMenuIcon hideInMobile" style="top:100px;">
       <span class="leftMenuText">Inventory</span>
-    </span>
+    </a>
 
-    <span ng-click="leftMenuClick('revisionable')" id="revisionableMenuItemD" class="fa fa-object-group leftMenuIcon hideInMobile" style="top:175px;">
-      <span class="leftMenuText">Rev Items</span>
-    </span>
+    <a href="#/revisionable" ng-if="revisionableCollections.length > 0" id="revisionableMenuItemD" class="fa fa-object-group leftMenuIcon hideInMobile" style="top:175px;">
+      <span class="leftMenuText">Bundles</span>
+    </a>
 
-    <span ng-click="leftMenuClick('basic')" id="basicMenuItemD" class="fa fa-inbox leftMenuIcon hideInMobile" style="top:250px;">
+    <a href="#/basic" ng-if="basicCollections.length > 0" id="basicMenuItemD" class="fa fa-inbox leftMenuIcon hideInMobile" style="top:250px;">
       <span class="leftMenuText">Basic Items</span>
-    </span>
+    </a>
 
-    <!-- Left/bottom portion of the nav that makes it appear as a solid bar -->
-    <span class="leftMenuContainer hideInMobile" style="top:325px;"></span>
+    <!-- Bottom portion of the nav that makes it appear as a solid bar -->
+    <span class="leftMenuContainer hideInMobile" ng-style="getLeftMenuContainerOffset()">
+      <!-- Settings icon -->
+      <a href="#/account" id="settingsMenuItemD" class="fa fa-cogs leftMenuIcon hideInMobile" style="top:0px;position:relative;">
+        <span class="leftMenuText">Settings</span>
+      </a>
+      <!-- Help icon -->
+      <a href="#/support" id="supportMenuItemD" class="fa fa-question-circle leftMenuIcon hideInMobile" style="position:relative;">
+        <span class="leftMenuText">Help</span>
+      </a>
+    </span>
 
     <!-- View Content -->
     <div id="nav-content" class="contentPage fadeInOut" ng-view></div>

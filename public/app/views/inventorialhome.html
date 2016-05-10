@@ -1,3 +1,20 @@
+<!-- Page Header -->
+<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
+  <div class="col-md-12 noSpaceMobile">
+    <h2 class="pageHeading">Inventory</h2>
+  </div>
+</div>
+<!-- Page Header -->
+
+<!-- Page header if they have not setup any inventorial collection -->
+<div ng-if="inventorialCollections.length == 0" class="container-fluid text-center" style="margin-top:50px;">
+  <div class="col-md-12">
+    <h2 class="pageHeading">You haven't set up your business yet</h2>
+    <a class="btn btn-success" href="#/account/collections/getstarted"><h3 class="noSpace">Get started now</h3></a>
+  </div>
+</div>
+<!-- Page Header -->
+
 <div class="container-fluid" style="margin-top:25px;">
   <div ng-repeat="collection in inventorialCollections" ng-init="columnClass = (inventorialCollections.length == 1) ? 'col-md-12' : 'col-md-12'" ng-class="columnClass">
     <div class="collectionStatusContainer clearfix">
