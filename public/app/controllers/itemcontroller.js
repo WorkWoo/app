@@ -17,11 +17,15 @@ function itemController($scope, $location, $routeParams, Item, User) {
   $scope.previousAction = null;
 
   $scope.selectedItems = [];
+  $scope.selectedRefItems = [];
   $scope.selectAll = true; // used by the "Select all" checkbox, to toggle back and forth between T/F
 
   $scope.referenceResults = null;
   $scope.referenceItems = null;
   $scope.referencesLoading = false;
+  $scope.refListCollection = null;
+  $scope.refListFieldName = null;
+
 
   $scope.anchorValue = null;
   $scope.anchorID = null;
@@ -188,6 +192,24 @@ function itemController($scope, $location, $routeParams, Item, User) {
     );
   };
 */
+
+  $scope.showRefListSelector = function(refItemCollection, refFieldName) {
+    $scope.refListCollection = refItemCollection;
+    $scope.refListFieldName = refFieldName;
+    $("#refListSelector").modal('show');
+  };
+
+  $scope.addSelectedReferences = function() {
+    $('.refListCheckbox').each(function(){
+      var singleRefItem = $scope.refItems[$scope.refListCollection].items[$(this).attr('id')];
+      $scope.selectedItem[$scope.refListFieldName].push(singleRefItem);
+    });
+    $("#refListSelector").modal('hide');
+    $scope.refListCollection = null;
+    $scope.refListFieldName = null;
+  }
+
+
 
   $scope.getRefItems = function(refItemCollection) {
     // First initialize the reference field in the refItems object
@@ -599,6 +621,22 @@ function itemController($scope, $location, $routeParams, Item, User) {
       $scope.selectedItems.splice(itemIndex, 1);
     } else { // Is newly selected, add it
       $scope.selectedItems.push(itemID);
+    }
+  };
+
+  $scope.toggleSelectedRefItem = function (event, itemID) {
+    // Check to see if they are selecting all by doing a ctrl or cmd click
+    if(event.ctrlKey || event.metaKey){
+        $('#selectAllCheckbox').prop('checked', $scope.selectAll);
+        $scope.toggleAll();
+        return;
+    }
+    // Determine if the selected item is already selected or not.
+    var itemIndex = $scope.selectedRefItems.indexOf(itemID);
+    if (itemIndex > -1) { // If it as previously selected, remove it from the list.
+      $scope.selectedRefItems.splice(itemIndex, 1);
+    } else { // Is newly selected, add it
+      $scope.selectedRefItems.push(itemID);
     }
   };
 
