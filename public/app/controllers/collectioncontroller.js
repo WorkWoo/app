@@ -59,23 +59,7 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
     $scope.setPageLoading(true);
     Collection.getOne(collectionName,
       function(collection){
-        //var referenceable = $scope.collectionTypes[collection.collectionType].defaults.referenceable;
-
         $scope.getReferencableCollections(collection.collectionType);
-        /*$scope.collectionsArray = [];
-
-        for (prop in $scope.collections) {
-          if (referenceable[$scope.collections[prop].collectionType] == true) {
-             $scope.collectionsArray.push({  id: $scope.collections[prop]._id, 
-                                          label: $scope.collections[prop].pluralLabel, 
-                                          name: $scope.collections[prop].name,
-                                          icon: $scope.collections[prop].icon, 
-                                          type: $scope.collectionTypes[$scope.collections[prop].collectionType].label });
-          }
-        }
-
-        $scope.collectionsArray.sort(function(a,b) {return (a.type > b.type) ? 1 : ((b.type > a.type) ? -1 : 0);} );
-*/
         $scope.collectionsLoading = false;
         $scope.setPageLoading(false);
         $scope.selectedCollection = collection;
@@ -90,7 +74,7 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
 
 
   $scope.getReferencableCollections = function(collectionType) {
-    var referenceable = $scope.collectionTypes[collectionType].defaults.referenceable;
+    var referenceable = $scope.collectionTypes[collectionType].referenceable;
     $scope.collectionsArray = [];
 
     for (prop in $scope.collections) {
@@ -352,7 +336,7 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
       $scope.getReferencableCollections(newCollectionType);
 
       // Set the selected collection and determine the count of sys fields (used by the UI)
-      $scope.selectedCollection = $scope.collectionTypes[newCollectionType].defaults;
+      $scope.selectedCollection = $scope.collectionTypes[newCollectionType];
       $scope.setSysFieldCount($scope.selectedCollection.fields);
 
       $scope.currentAction = 'create';

@@ -181,11 +181,11 @@
 			              		<div style="background-color:red;" class="col-md-12 noSpace">
 									<ui-select ng-model="field.referenceTo" ng-click="bringFieldForward('row_' + fieldIndex)" theme="bootstrap">
 										<ui-select-match placeholder="Select or search a item type">
-											<small class="fa" ng-class="$select.selected.icon"></small>AAA {{$select.selected.label}}
+											<small class="fa" ng-class="$select.selected.icon"></small> {{$select.selected.label}}
 										</ui-select-match>
 								    	<ui-select-choices group-by="'type'" repeat="col.name as col in collectionsArray | filter: { label: $select.search }">
-											<small class="fa" ng-class="col.icon">BBB</small>
-						            		<span ng-bind-html="col.label | highlight: $select.search"></span>CCC
+											<small class="fa" ng-class="col.icon"></small>
+						            		<span ng-bind-html="col.label | highlight: $select.search"></span>
 								    	</ui-select-choices>
 									</ui-select>
 								</div>
