@@ -15,7 +15,7 @@ mainApp.controller('userController', userController);
 mainApp.controller('itemController', itemController);
 mainApp.controller('accountController', accountController);
 mainApp.controller('collectionController', collectionController);
-mainApp.controller('userController', userController);
+mainApp.controller('getStartedController', getStartedController);
 
 // Factories
 mainApp.factory('Item', Item);
@@ -100,11 +100,11 @@ mainApp.config(function($routeProvider) {
   $routeProvider.when('/account/users/view/:user', { templateUrl: 'views/user.html', controller: 'userController'});
 
   // Get started routes
-  $routeProvider.when('/account/collections/getstarted', { templateUrl: 'views/getstarted/step1.html', controller: 'collectionController'});
-  $routeProvider.when('/account/collections/getstarted/step1', { templateUrl: 'views/getstarted/step1.html', controller: 'collectionController'});
-  $routeProvider.when('/account/collections/getstarted/step2', { templateUrl: 'views/getstarted/step2.html', controller: 'collectionController'});
-  $routeProvider.when('/account/collections/getstarted/step3', { templateUrl: 'views/getstarted/step3.html', controller: 'collectionController'});
-  $routeProvider.when('/account/collections/getstarted/finalize', { templateUrl: 'views/getstarted/finalize.html', controller: 'collectionController'});
+  $routeProvider.when('/account/collections/getstarted', { templateUrl: 'views/getstarted/step1.html', controller: 'getStartedController'});
+  $routeProvider.when('/account/collections/getstarted/step1', { templateUrl: 'views/getstarted/step1.html', controller: 'getStartedController'});
+  $routeProvider.when('/account/collections/getstarted/step2', { templateUrl: 'views/getstarted/step2.html', controller: 'getStartedController'});
+  $routeProvider.when('/account/collections/getstarted/step3', { templateUrl: 'views/getstarted/step3.html', controller: 'getStartedController'});
+  $routeProvider.when('/account/collections/getstarted/finalize', { templateUrl: 'views/getstarted/finalize.html', controller: 'getStartedController'});
 
 
 
