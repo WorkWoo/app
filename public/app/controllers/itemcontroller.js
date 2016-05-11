@@ -25,7 +25,7 @@ function itemController($scope, $location, $routeParams, Item, User) {
   $scope.referencesLoading = false;
   $scope.refListCollection = null;
   $scope.refListFieldName = null;
-
+  $scope.populatedReferences = {};
 
   $scope.anchorValue = null;
   $scope.anchorID = null;
@@ -55,6 +55,23 @@ function itemController($scope, $location, $routeParams, Item, User) {
       '3': 'col-lg-3',
       '4': 'col-lg-4',
       '5': 'col-lg-2'
+    }
+  }
+
+
+  $scope.initReferenceList = function(referenceTo, referenceList) {
+    // First, save all of the currently selected reference items, so that they can be populated by the request.
+    for(var i=0; i<referenceList.length; i++) {
+      $scope.initPopulatedReference(referenceList[i]._id, referenceList[i].qty);
+    }
+    // Then, request all possible reference items.
+    $scope.getRefItems(referenceTo);
+  };
+
+
+  $scope.initPopulatedReference = function(referenceID, qty) {
+    if(!$scope.populatedReferences[referenceID]) {
+      $scope.populatedReferences[referenceID] = { qty: qty };
     }
   }
 
@@ -101,6 +118,7 @@ function itemController($scope, $location, $routeParams, Item, User) {
       searchTerm: $scope.searchTerm,
       additionalQuery: $scope.queryCriteria,
     };
+
     Item.getAll(queryParams,
       function(result){
         // Success
@@ -116,7 +134,6 @@ function itemController($scope, $location, $routeParams, Item, User) {
         for(var i=0; i<result.items.length; i++) {
           $scope.addItemToCounts(result.items[i]);
         }
-
       },
       function() {
         $scope.itemsLoading = false;
@@ -193,6 +210,13 @@ function itemController($scope, $location, $routeParams, Item, User) {
   };
 */
 
+  $scope.removeReference = function(fieldName, referenceIndex) {
+    var referenceArray = $scope.selectedItem[fieldName];
+    referenceArray.splice(referenceIndex, 1);
+    $scope.selectedItem[fieldName] = referenceArray;
+  };
+
+
   $scope.showRefListSelector = function(refItemCollection, refFieldName) {
     $scope.refListCollection = refItemCollection;
     $scope.refListFieldName = refFieldName;
@@ -200,15 +224,29 @@ function itemController($scope, $location, $routeParams, Item, User) {
   };
 
   $scope.addSelectedReferences = function() {
+    // Iterate through each checkbox to grab the ones that are selected
+    var selectedReferenceItems = [];
+    $scope.populatedReferences = {};
     $('.refListCheckbox').each(function(){
-      var singleRefItem = $scope.refItems[$scope.refListCollection].items[$(this).attr('id')];
-      $scope.selectedItem[$scope.refListFieldName].push(singleRefItem);
+      if($(this).prop('checked')) {
+        var singleRefItem = $scope.refItems[$scope.refListCollection].items[$(this).attr('id')];
+        var refQuantity = $('#' + $(this).attr('id') + '_qty').val();
+        singleRefItem.qty = parseInt(refQuantity, 10);
+        selectedReferenceItems.push(singleRefItem);
+        // Also, push it to the populatedReferences list so it can be shown correctly
+        $scope.populatedReferences[singleRefItem._id] = { 
+          qty: singleRefItem.qty, 
+          number: singleRefItem.number,
+          title: singleRefItem.title
+        };
+      }
     });
-    $("#refListSelector").modal('hide');
+    // Finally, overwrite the previous values
+    $scope.selectedItem[$scope.refListFieldName] = selectedReferenceItems;
     $scope.refListCollection = null;
     $scope.refListFieldName = null;
+    $("#refListSelector").modal('hide');
   }
-
 
 
   $scope.getRefItems = function(refItemCollection) {
@@ -220,7 +258,6 @@ function itemController($scope, $location, $routeParams, Item, User) {
     } else {
       return;
     }
-
     $scope.refItemsLoading = true;
     var queryParams = {
       collectionName: refItemCollection,
@@ -239,6 +276,15 @@ function itemController($scope, $location, $routeParams, Item, User) {
         $scope.refItemsLoading = false;
         $scope.refItems[refItemCollection].totalCount = result.total;
         $scope.refItems[refItemCollection].items = result.items;
+
+        // For those items that are already on the selected item, populate their number and title.
+        for(var i=0; i<$scope.refItems[refItemCollection].items.length; i++) {
+          var singleItem = $scope.refItems[refItemCollection].items[i];
+          if($scope.populatedReferences[singleItem._id]) {
+            $scope.populatedReferences[singleItem._id].number = singleItem.number;
+            $scope.populatedReferences[singleItem._id].title = singleItem.title;
+          }
+        }
       },
       function() {
         $scope.refItemsLoading = false;
@@ -251,6 +297,7 @@ function itemController($scope, $location, $routeParams, Item, User) {
   $scope.refUsers = {};
   $scope.refUsersLoading = false;
 
+
   $scope.getRefUsers = function() {
     // First initialize the refUsers object
     if (!$scope.refUsers.users) {
@@ -259,9 +306,7 @@ function itemController($scope, $location, $routeParams, Item, User) {
     } else {
       return;
     }
-
     $scope.refUsersLoading = true;
-
     User.getAll(
       function(users){
         $scope.refUsersLoading = false;
@@ -274,6 +319,7 @@ function itemController($scope, $location, $routeParams, Item, User) {
       }
     );
   };
+
 
   $scope.getItemStateButtonClass = function(stateChoice, selectedItemState) {
     if(stateChoice == selectedItemState) {
@@ -294,7 +340,6 @@ function itemController($scope, $location, $routeParams, Item, User) {
     // Build a property for each field
     for(var y=0; y<collectionObject.fields.length; y++) {
       var field = collectionObject.fields[y];
-      
       if(field.displayType == 'choice' || field.displayType == 'state') {
         $scope.collectionCounts[collectionObject.name].countableFields.push(field);
         
@@ -380,12 +425,6 @@ function itemController($scope, $location, $routeParams, Item, User) {
   };
 
 
-  $scope.logTest = function() {
-    log.info('RESULT: ');
-    log.object($scope.collections.purchaseorders.fieldsObject);
-  };
-
-
   $scope.search = function(searchTerm) {
     $scope.searchTerm = searchTerm;
     $scope.loadedItems = [];
@@ -399,20 +438,14 @@ function itemController($scope, $location, $routeParams, Item, User) {
 
   $scope.preSubmit = function(item) {
     if ($scope.currentAction == 'create') {
-       $scope.submit(item, false);
+      $scope.submit(item, false);
     } else {
-      if ($scope.collections[item.collectionName].collectionType != 'static-revisionable') {
-        $scope.submit($scope.selectedItem, false);
-      } else {
-       //$('#modalRevisionDialog').modal();
-       $scope.submit($scope.selectedItem, false);
-      }
+      $scope.submit($scope.selectedItem, false);
     }
   };
 
 
   $scope.submit = function(item, createRevision) {
-    //$('#modalRevisionDialog').modal('hide');
     $scope.setPageLoading(true);
     $scope.selectedItemSubmitting = true;
     // First, handle submiting a new item
@@ -502,69 +535,6 @@ function itemController($scope, $location, $routeParams, Item, User) {
   };
 
 
-  $scope.loadReferenceItems = function(referenceCollectionName, referenceField, refType) {
-    // First, grab the collection and show the modal dialog
-    $scope.referenceCollection = referenceCollectionName;
-    $('#' + refType + 'ReferenceSelectPopup').modal();
-
-    $scope.referencesLoading = true;
-    $scope.referenceFieldSelected = referenceField;
-    $scope.referenceItems = [];
-
-    var queryParams = {
-      collectionName: $scope.referenceCollection,
-      sortField: 'number',
-      sortOrder: 'desc',
-      anchorValue: null,
-      searchTerm: null,
-      query: null
-    };
-
-    
-    Item.getAll(queryParams,
-      function(result){
-        $scope.referenceItems = result.items;
-
-        $scope.referenceResults = {};
-        $scope.referenceResults.total = result.total
-        $scope.referenceResults.firstDocID = result.firstDocID;
-        $scope.referenceResults.lastDocID = result.lastDocID;
-
-        $scope.referencesLoading = false;
-      },
-      function() {
-        log.error('References failed to load');
-        $('#modalSingleReferenceDialog').modal('hide');
-        $scope.alertUnknownError();
-      }
-    );
-  };
-
-
- $scope.selectSingleReference = function(referenceItem) {
-    $scope.selectedItem[$scope.referenceFieldSelected] = referenceItem;
-    $scope.closeReferenceSelector('single');
-  };
-
-
-  $scope.closeReferenceSelector = function(refType) {
-    $scope.referenceCollection = '';
-    $scope.referenceItems = [];
-    $('#' + refType + 'ReferenceSelectPopup').modal('hide');
-  };
-
-
-  $scope.reSort = function(fieldName, sortOrder) {
-    $scope.sortField = fieldName;
-    $scope.sortOrder = sortOrder;
-    $scope.anchorValue = null;
-    $scope.anchorID = null;
-    $scope.loadedItems = [];
-    $scope.load();
-    $scope.setActiveSort(fieldName, sortOrder);
-  };
-
-
   $scope.setActiveSort = function(fieldName, sortOrder) {
     // Make any other sort button inactive and set this one to active
     $('.sort-asc-button-active').each(function() {
@@ -608,39 +578,6 @@ function itemController($scope, $location, $routeParams, Item, User) {
   };
 
 
-  $scope.toggleSelectedItem = function (event, itemID) {
-    // Check to see if they are selecting all by doing a ctrl or cmd click
-    if(event.ctrlKey || event.metaKey){
-        $('#selectAllCheckbox').prop('checked', $scope.selectAll);
-        $scope.toggleAll();
-        return;
-    }
-    // Determine if the selected item is already selected or not.
-    var itemIndex = $scope.selectedItems.indexOf(itemID);
-    if (itemIndex > -1) { // If it as previously selected, remove it from the list.
-      $scope.selectedItems.splice(itemIndex, 1);
-    } else { // Is newly selected, add it
-      $scope.selectedItems.push(itemID);
-    }
-  };
-
-  $scope.toggleSelectedRefItem = function (event, itemID) {
-    // Check to see if they are selecting all by doing a ctrl or cmd click
-    if(event.ctrlKey || event.metaKey){
-        $('#selectAllCheckbox').prop('checked', $scope.selectAll);
-        $scope.toggleAll();
-        return;
-    }
-    // Determine if the selected item is already selected or not.
-    var itemIndex = $scope.selectedRefItems.indexOf(itemID);
-    if (itemIndex > -1) { // If it as previously selected, remove it from the list.
-      $scope.selectedRefItems.splice(itemIndex, 1);
-    } else { // Is newly selected, add it
-      $scope.selectedRefItems.push(itemID);
-    }
-  };
-
-
   $scope.initializeScroll = function() {
     $('#nav-content').bind('scroll', function() {
       if($(this).scrollTop() + $(this).innerHeight()>=$(this)[0].scrollHeight) {
@@ -656,8 +593,8 @@ function itemController($scope, $location, $routeParams, Item, User) {
   $scope.setActiveCollection = function(url) {
     if(url.indexOf('/workable') >= 0) {
       $scope.setActiveSection('workable');
-    } else if(url.indexOf('/revisionable') >= 0) {
-      $scope.setActiveSection('revisionable');
+    } else if(url.indexOf('/inventorialbundle') >= 0) {
+      $scope.setActiveSection('inventorialBundle');
     } else if(url.indexOf('/inventorial') >= 0) {
       $scope.setActiveSection('inventorial');
     } else if(url.indexOf('/basic') >= 0) {
@@ -678,13 +615,13 @@ function itemController($scope, $location, $routeParams, Item, User) {
       $scope.selectedItem = {};
       $scope.getAllCollectionCounts($scope.workableCollections);
       return;
+    } else if(currentURL.indexOf('/inventorialbundle') >= 0) {
+      $scope.selectedItem = {};
+      $scope.getAllCollectionCounts($scope.inventorialBundleCollections);
+      return;
     } else if(currentURL.indexOf('/inventorial') >= 0) {
       $scope.selectedItem = {};
       $scope.getAllCollectionCounts($scope.inventorialCollections);
-      return;
-    } else if(currentURL.indexOf('/revisionable') >= 0) {
-      $scope.selectedItem = {};
-      $scope.getAllCollectionCounts($scope.revisionableCollections);
       return;
     } else if(currentURL.indexOf('/basic') >= 0) {
       $scope.selectedItem = {};

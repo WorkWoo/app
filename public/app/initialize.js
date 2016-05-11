@@ -27,8 +27,8 @@ function hideAngularElements() {
   $('#workableMenuItemM').hide();
   $('#inventorialMenuItemD').hide();
   $('#inventorialMenuItemM').hide();
-  $('#revisionableMenuItemD').hide();
-  $('#revisionableMenuItemM').hide();
+  $('#inventorialBundleMenuItemD').hide();
+  $('#inventorialBundleMenuItemM').hide();
   $('#basicMenuItemD').hide();
   $('#basicMenuItemM').hide();
   $('#settingsMenuItemD').hide();
@@ -74,8 +74,8 @@ function getCollectionSettingsSuccess(response) {
   $('#workableMenuItemM').show();
   $('#inventorialMenuItemD').show();
   $('#inventorialMenuItemM').show();
-  $('#revisionableMenuItemD').show();
-  $('#revisionableMenuItemM').show();
+  $('#inventorialBundleMenuItemD').show();
+  $('#inventorialBundleMenuItemM').show();
   $('#basicMenuItemD').show();
   $('#basicMenuItemM').show();
   $('#settingsMenuItemD').show();

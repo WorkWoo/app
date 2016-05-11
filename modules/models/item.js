@@ -470,6 +470,12 @@ function createItemSchema(collectionObject) {
 				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo };
 			} else if (itemFields[i].dbType == 'userReference') {
 				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: 'User' };
+			} else if (itemFields[i].dbType == 'itemReferenceList' && itemFields[i].referenceType == 'inventorial') {
+				var qtyItemSchema = new Schema({
+					qty: { type: Number },
+					_id: { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo }
+				});
+				itemModel[itemFields[i].name] = [qtyItemSchema];
 			} else if (itemFields[i].dbType == 'itemReferenceList') {
 				itemModel[itemFields[i].name] = [{ type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo }];
 			} else if (itemFields[i].dbType == 'userReferenceList') {
@@ -477,26 +483,6 @@ function createItemSchema(collectionObject) {
 			} else {
 				itemModel[itemFields[i].name] = { type: itemFields[i].dbType };
 			}
-
-
-/*
-			// First, handle if it's a reference field
-			if (itemFields[i].dbType == 'SingleReference') {
-				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo };
-			} else if(itemFields[i].dbType == 'ReferenceList') {
-
-				var listItemSchema = new Schema({
-					qty: { type: Number },
-					_id: { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo }
-				});
-
-				//itemModel[itemFields[i].name] = { type: [Schema.Types.ObjectId], ref: collectionObject._org._id + '_' + itemFields[i].referenceTo };
-				itemModel[itemFields[i].name] = [listItemSchema];
-
-			} else {
-				itemModel[itemFields[i].name] = { type: itemFields[i].dbType };
-			}
-*/
 		}
 
 		var newItemSchema = new Schema(itemModel, cfg.mongoose.options);

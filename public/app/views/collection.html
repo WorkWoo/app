@@ -95,7 +95,6 @@
 	        		<div class="col-md-12">
 	        			<label><strong>{{ collectionTypes[selectedCollection.collectionType].label }} items have the following fields by default:</strong></label>
 	        		</div>
-
 	        		<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" ng-if="field.sysProvided" class="col-md-4">
 						{{ field.label }}
 					</div>
@@ -179,12 +178,14 @@
 
 			              	<!-- If the field is a item reference type, show the reference to field -->
 			              	<span ng-if="field.displayType == 'itemReference' || field.displayType == 'itemReferenceList' " class="fade-in-out" ng-attr-id="{{fieldIndex}}_parent">
-			              		<div class="col-md-12 noSpace">
+			              		<div style="background-color:red;" class="col-md-12 noSpace">
 									<ui-select ng-model="field.referenceTo" ng-click="bringFieldForward('row_' + fieldIndex)" theme="bootstrap">
-										<ui-select-match placeholder="Select or search a item type"><small class="fa" ng-class="$select.selected.icon"></small> {{$select.selected.label}}</ui-select-match>
+										<ui-select-match placeholder="Select or search a item type">
+											<small class="fa" ng-class="$select.selected.icon"></small>AAA {{$select.selected.label}}
+										</ui-select-match>
 								    	<ui-select-choices group-by="'type'" repeat="col.name as col in collectionsArray | filter: { label: $select.search }">
-											<small class="fa" ng-class="col.icon"></small>
-						            		<span ng-bind-html="col.label | highlight: $select.search"></span>
+											<small class="fa" ng-class="col.icon">BBB</small>
+						            		<span ng-bind-html="col.label | highlight: $select.search"></span>CCC
 								    	</ui-select-choices>
 									</ui-select>
 								</div>

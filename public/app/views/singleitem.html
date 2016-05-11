@@ -12,7 +12,7 @@
       </div>
 
       <div ng-if="currentAction == 'update'" class="col-md-6 noSpace text-right" style="padding-right:25px;">
-        <a ng-href="#/{{collection.name}}/new" class="btn btn-success"><span class="fa fa-plus"></span> New {{ collections[selectedItem.collectionName].singleLabel }}</a>
+        <a ng-href="#/{{selectedItem.collectionName}}/new" class="btn btn-success"><span class="fa fa-plus"></span> New {{ collections[selectedItem.collectionName].singleLabel }}</a>
       </div>
 
       <!-- Alerts container -->
@@ -184,7 +184,6 @@
             </span>
           </span>
 
-
           <!-- Item Reference List (No quantity)-->          
           <span ng-if="field.displayType == 'itemReferenceList' && collections[field.referenceTo].collectionType != 'inventorial'" ng-init="getRefItems(field.referenceTo)">
             <ui-select multiple ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refItems[field.referenceTo].totalCount == 0 || refItems[field.referenceTo].totalCount == -1" sortable="true" close-on-select="false" class="defaultInput" style="padding:5px;">
@@ -202,27 +201,40 @@
           </span>
 
           <!-- Item Reference List (With quantity)-->          
-          <div class="defaultInput" ng-if="field.displayType == 'itemReferenceList' && collections[field.referenceTo].collectionType == 'inventorial'" ng-init="getRefItems(field.referenceTo)">
-
+          <div class="defaultInput" ng-if="field.displayType == 'itemReferenceList' && collections[field.referenceTo].collectionType == 'inventorial'" ng-init="initReferenceList(field.referenceTo, selectedItem[field.name])">
+            <!-- Header -->
             <div class="row refListHeader">
-              <div class="col-md-1">&nbsp;</div>
-              <div class="col-md-3">Number</div>
-              <div class="col-md-6">Title</div>
-              <div class="col-md-2">Qty</div>
+              <div class="col-md-2">Number</div>
+              <div class="col-md-8">Title</div>
+              <div class="col-md-1 text-center">Qty</div>
+              <div class="col-md-1">&nbsp;</div><!-- Spacer -->
+            </div>
+            <!-- Create a row for each reference item -->
+            <div ng-if="!refItemsLoading" ng-repeat="referenceItem in selectedItem[field.name] track by $index" class="row refListRow fadeInOutStagger">
+              <div class="col-md-2">{{ populatedReferences[referenceItem._id].number }}</div>
+              <div class="col-md-8">{{ populatedReferences[referenceItem._id].title }}</div>
+              <div class="col-md-1 text-center"><input class="form-control defaultInput" type="number" style="padding:3px;text-align:center;" ng-model="referenceItem.qty"/></div>
+            
+              <!-- Remove item button -->
+              <div class="col-md-1 text-right">
+                <span ng-click="removeReference(field.name, $index)" class="customFieldRemoveIcon fa fa-remove"></span>
+              </div>
             </div>
 
-            <div ng-repeat="referenceItem in selectedItem[field.name] track by $index" class="row refListRow">
-              <div class="col-md-1"><input type="checkbox" name="checkbox"/></div>
-              <div class="col-md-3">{{ referenceItem.number }}</div>
-              <div class="col-md-6">{{ referenceItem.title }}</div>
-              <div class="col-md-2"><input type="number" class="form-control defaultInput" ng-model="referenceItem.quantity"/></div>
+            <!-- Loading indicator -->
+            <div ng-if="refItemsLoading" class="row refListRow">
+              <div class="col-md-12 text-center">
+                <span class="fa fa-refresh fa-spin"></span>
+                <span> Loading {{ collections[field.referenceTo].pluralLabel }}</span>
+              </div>
             </div>
 
+            <!-- If there are no items -->
             <div ng-if="selectedItem[field.name].length == 0" class="row refListRow">
               <div class="col-md-12 text-center">-- No {{ collections[field.referenceTo].pluralLabel }} selected --</div>
             </div>
 
-            <button type="button" class="btn btn-success" ng-click="showRefListSelector(field.referenceTo, field.name)">Add Items</button>
+            <button type="button" class="btn btn-success" ng-click="showRefListSelector(field.referenceTo, field.name)"><span class="fa fa-search"></span> Select {{ collections[field.referenceTo].pluralLabel }}</button>
           </div>
 
           <!-- User Reference List -->
@@ -265,8 +277,6 @@
               </button>
             </span>
           </span>
-
-
          
         </div>
         <!-- End Single field -->
@@ -320,35 +330,48 @@
 <!-- Reference List Selector -->
 <div id="refListSelector" class="modal fade" role="dialog" >
   <div class="modal-dialog">
+    
+
+
     <!-- Modal content-->
     <div class="modal-content" style="border-radius:0px;">
-      <button type="button" class="close" data-dismiss="modal"><span class="fa fa-close"></span></button>
-      <h4 class="text-center">Add {{ collections[refListCollection].pluralLabel }}</h4>
-      
-      <div class="row refListHeader text-center">
-        <div class="col-md-1">&nbsp;</div>
-        <div class="col-md-3">Number</div>
-        <div class="col-md-4">Title</div>
-        <div class="col-md-2">Add</div>
-        <div class="col-md-2">In stock</div>
+      <!-- Modal header-->
+      <div class="modal-header noSpace" style="border:none;">
+        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-close"></span></button>
+        <h4 class="text-center">Add {{ collections[refListCollection].pluralLabel }}</h4>
       </div>
 
-      <div ng-repeat="item in refItems[refListCollection].items track by $index" class="row refListRow">
-        <div class="col-md-1"><input ng-attr-id="{{ $index }}" type="checkbox" name="checkbox" class="refListCheckbox" ng-checked="selectedRefItems.indexOf(item._id) > -1" ng-click="toggleSelectedRefItem($event, item._id)"/></div>
-        <div class="col-md-3">{{ item.number }}</div>
-        <div class="col-md-4">{{ item.title }}</div>
-        <div class="col-md-2"><input type="number" class="form-control"/></div>
-        <div class="col-md-2">{{ item.quantity }}</div>
-      </div>
+      <!-- Modal body-->
+      <div class="modal-body">
+        <div class="row refListHeader text-center">
+          <div class="col-md-1">&nbsp;</div>
+          <div class="col-md-3">Number</div>
+          <div class="col-md-4">Title</div>
+          <div class="col-md-2">Add</div>
+          <div class="col-md-2">In stock</div>
+        </div>
 
-      <div class="row">
-        <div class="col-md-8"></div><!-- Spacer -->
-        <div class="col-md-4">
-          <button type="button" ng-click="addSelectedReferences()" class="btn btn-success btn-block">Add to {{ collections[selectedItem.collectionName].singleLabel }} </button>
+        <div style="max-height:500px;overflow-y:scroll;">
+          <div ng-repeat="item in refItems[refListCollection].items track by $index" class="row refListRow">
+            <div class="col-md-1"><input ng-attr-id="{{$index}}" ng-checked="populatedReferences[item._id]" type="checkbox" name="checkbox" class="refListCheckbox"/></div>
+            <div class="col-md-3">{{ item.number }}</div>
+            <div class="col-md-4">{{ item.title }}</div>
+            <div class="col-md-2"><input ng-attr-id="{{$index}}_qty" type="number" ng-value="populatedReferences[item._id].qty" class="form-control"/></div>
+            <div class="col-md-2">{{ item.quantity }}</div>
+          </div>
         </div>
       </div>
 
+      <!-- Modal footer-->
+      <div class="modal-footer noSpace" style="border:none;">
+        <div class="col-md-8"></div><!-- Spacer -->
+        <div class="col-md-4">
+          <button type="button" ng-click="addSelectedReferences()" class="btn btn-success btn-block">Save</button>
+        </div>
+      </div>
     </div>
+
+  </div>
 </div>
 <!-- Reference List Selector -->
 

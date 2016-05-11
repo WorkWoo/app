@@ -193,6 +193,7 @@ function collectionController($scope, Collection, $location, $routeParams, GetSt
     );
   };
 
+
   $scope.submit = function() {
     if ($scope.currentAction == 'create') {
       $scope.createCollection();
@@ -204,6 +205,14 @@ function collectionController($scope, Collection, $location, $routeParams, GetSt
 
   $scope.updateCollection = function() {
     $scope.collectionsLoading = true;
+
+    for(var i=0; i<$scope.selectedCollection.fields.length; i++) {
+      var fieldType = $scope.selectedCollection.fields[i].displayType;
+      if(fieldType == 'itemReference' || fieldType == 'itemReferenceList' ) {
+        $scope.selectedCollection.fields[i].referenceType = $scope.collections[$scope.selectedCollection.fields[i].referenceTo].collectionType;
+      }
+    }
+
     Collection.update($scope.selectedCollection,
       function(updatedCollections){
         $scope.collections = updatedCollections;

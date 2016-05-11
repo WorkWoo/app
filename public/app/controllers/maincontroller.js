@@ -154,13 +154,23 @@ function mainController($scope, $location, $sce, User, $filter) {
   }
 
 
+  $scope.getLeftMenuIconOffset = function(sectionName) {
+    if(sectionName == 'basic') {
+      if($scope.inventorialBundleCollections.length > 0) {
+        return { 'top' : '200px' };
+      } else {
+        return { 'top' : '175px' };
+      }
+    }
+  };
+
   $scope.getLeftMenuContainerOffset = function() {
     var offset = 100;
     if($scope.inventorialCollections.length > 0) {
       offset += 75;
     }
 
-    if($scope.revisionableCollections.length > 0) {
+    if($scope.inventorialBundleCollections.length > 0) {
       offset += 75;
     }
 
@@ -189,8 +199,6 @@ function mainController($scope, $location, $sce, User, $filter) {
       var collectionType = $scope.collections[collection].collectionType;
       if(collectionType == 'workable') {
         $scope.workableCollections.push($scope.collections[collection]);
-      } else if(collectionType == 'revisionable') {
-        $scope.revisionableCollections.push($scope.collections[collection]);
       } else if(collectionType == 'inventorial') {
         $scope.inventorialCollections.push($scope.collections[collection]);
       } else if(collectionType == 'inventorial_bundle') {
@@ -198,9 +206,7 @@ function mainController($scope, $location, $sce, User, $filter) {
       } else if(collectionType == 'basic') {
         $scope.basicCollections.push($scope.collections[collection]);
       }
-
       $scope.initializeFieldsObject($scope.collections[collection]);
-
     }
   };
   
