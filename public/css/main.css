@@ -578,7 +578,7 @@ a:hover {
 
 .itemInfo {
   color: #508c72;
-  border: 1px solid #c8e0d6;
+  border: 1px solid #cbe1d8;
   background-color: #e9f2ee;
   padding: 10px;
   margin: 8px 0px 10px 0px;
@@ -605,11 +605,13 @@ a:hover {
   margin: 0px;
 }
 
+
+
 .refListRow {
   background-color: #fff;
   padding: 5px;
   margin: 0px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 1px solid #cbe1d8;
 }
 
 

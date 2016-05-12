@@ -62,7 +62,8 @@
 				</div>
 
 
-				<!-- Item being bundled (Inventoryial Bundles only) -->
+				<!-- BUNDLES ONLY -->
+				<!-- Item being bundled -->
 				<div ng-if="selectedCollection.collectionType == 'inventorial_bundle'" class="row noSpaceMobile">
 					<div id='inventoryItemsContainer' class="defaultInputGroup form-group col-md-12">
 						<label for="numberPrefix">Which inventory items are being bundled?</label>
@@ -78,8 +79,8 @@
 					</div>
 				</div>
 
-
-				<!-- State choices (Workable only) -->
+				<!-- WORKABLE ONLY -->
+				<!-- State choices -->
 				<div ng-if="selectedCollection.collectionType == 'workable'" class="row noSpaceMobile">
 					<div id='stateContainer' class="defaultInputGroup form-group col-md-12">
 						<label for="stateChoices">State Choices:</label>

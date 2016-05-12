@@ -25,7 +25,8 @@ function itemController($scope, $location, $routeParams, Item, User) {
   $scope.referencesLoading = false;
   $scope.refListCollection = null;
   $scope.refListFieldName = null;
-  $scope.populatedReferences = {};
+  $scope.selectedReferences = {};
+  $scope.requiredInventory = {};
 
   $scope.anchorValue = null;
   $scope.anchorID = null;
@@ -58,24 +59,30 @@ function itemController($scope, $location, $routeParams, Item, User) {
     }
   }
 
-
-  $scope.initReferenceList = function(referenceTo, referenceList) {
+  $scope.initSelectedReferences = function(refCollectionName, referenceList) {
+    log.info('GETTING: ' + refCollectionName);
     if($scope.currentAction == 'create') {
       referenceList = [];
     }
-
     // First, save all of the currently selected reference items, so that they can be populated by the request.
     for(var i=0; i<referenceList.length; i++) {
-      $scope.initPopulatedReference(referenceList[i]._id, referenceList[i].qty);
+      $scope.selectedReferences[referenceList[i]._id] = true;
     }
     // Then, request all possible reference items.
-    $scope.getRefItems(referenceTo);
+    $scope.getRefItems(refCollectionName);
   };
 
 
-  $scope.initPopulatedReference = function(referenceID, qty) {
-    if(!$scope.populatedReferences[referenceID]) {
-      $scope.populatedReferences[referenceID] = { qty: qty };
+  $scope.initRequiredInventory = function(inventoryList, bundleCount) {
+    for(var i=0; i<inventoryList.length; i++) {
+      var singleItem = inventoryList[i];
+
+      if(!$scope.requiredInventory[singleItem._id]) {
+        $scope.requiredInventory[singleItem._id] = { qty: (singleItem.qty * bundleCount) };
+      } else {
+        $scope.requiredInventory[singleItem._id].qty = $scope.requiredInventory[singleItem._id].qty + (singleItem.qty * bundleCount);
+      }
+    
     }
   }
 
@@ -214,7 +221,11 @@ function itemController($scope, $location, $routeParams, Item, User) {
   };
 */
 
-  $scope.removeReference = function(fieldName, referenceIndex) {
+
+  /*
+   * Remove the reference list item from the currently selected item.
+   */
+  $scope.removeReference = function(fieldName, referenceIndex, refItemID) {
     var referenceArray = $scope.selectedItem[fieldName];
     referenceArray.splice(referenceIndex, 1);
     $scope.selectedItem[fieldName] = referenceArray;
@@ -226,11 +237,6 @@ function itemController($scope, $location, $routeParams, Item, User) {
     $scope.refListFieldName = refFieldName;
     $("#refListSelector").modal('show');
   };
-
-
-  $scope.updateReferenceQty = function(itemID, Qty) {
-
-  }
 
 
   $scope.markReferenceItem = function(itemIndex) {
@@ -246,19 +252,13 @@ function itemController($scope, $location, $routeParams, Item, User) {
   $scope.addSelectedReferences = function() {
     // Iterate through each checkbox to grab the ones that are selected
     var selectedReferenceItems = [];
-    $scope.populatedReferences = {};
+    $scope.selectedReferences = {};
     $('.refListCheckbox').each(function(){
       if($(this).prop('checked')) {
         var singleRefItem = $scope.refItems[$scope.refListCollection].items[$(this).attr('id')];
         var refQuantity = $('#' + $(this).attr('id') + '_qty').val();
         singleRefItem.qty = parseInt(refQuantity, 10);
         selectedReferenceItems.push(singleRefItem);
-        // Also, push it to the populatedReferences list so it can be shown correctly
-        $scope.populatedReferences[singleRefItem._id] = { 
-          qty: singleRefItem.qty, 
-          number: singleRefItem.number,
-          title: singleRefItem.title
-        };
       }
     });
     // Finally, overwrite the previous values
@@ -274,7 +274,8 @@ function itemController($scope, $location, $routeParams, Item, User) {
     if (!$scope.refItems[refItemCollection]) {
       $scope.refItems[refItemCollection] = {};
       $scope.refItems[refItemCollection].items = [];
-      $scope.refItems[refItemCollection].totalCount = -1;  
+      $scope.refItems[refItemCollection].totalCount = -1;
+      $scope.refItems[refItemCollection].itemObjects = {};
     } else {
       return;
     }
@@ -297,13 +298,10 @@ function itemController($scope, $location, $routeParams, Item, User) {
         $scope.refItems[refItemCollection].totalCount = result.total;
         $scope.refItems[refItemCollection].items = result.items;
 
-        // For those items that are already on the selected item, populate their number and title.
+        // Convert each item to an object (so we can get it by ID instead of iterating through an array)
         for(var i=0; i<$scope.refItems[refItemCollection].items.length; i++) {
           var singleItem = $scope.refItems[refItemCollection].items[i];
-          if($scope.populatedReferences[singleItem._id]) {
-            $scope.populatedReferences[singleItem._id].number = singleItem.number;
-            $scope.populatedReferences[singleItem._id].title = singleItem.title;
-          }
+          $scope.refItems[refItemCollection].itemObjects[singleItem._id] = singleItem;
         }
       },
       function() {
