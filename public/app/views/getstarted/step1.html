@@ -22,25 +22,25 @@
 			<div class="col-md-2" style="padding:10px;"></div><!-- Spacer -->
 			<div class="col-md-8 text-center" style="padding:10px;">
 				<label>To begin, what industry best describes your business?</label>
-				<select ng-model="GetStarted.industry" class="form-control defaultInput" required>
-					<option value="Manufacturing">Aerospace</option>
-					<option value="Consumer Services">Automotive</option>
-					<option value="Consumer Goods">Consumer Goods</option>
-					<option value="Consumer Services">Consumer Services</option>
-					<option value="Consumer Services">Education</option>
-					<option value="Consumer Services">Entertainment</option>
-					<option value="Consumer Services">Food & Beverage</option>
-					<option value="Freelance">Graphic design</option>
-					<option value="Consumer Services">Health & Wellness</option>
-					<option value="Consumer Services">Legal</option>
-					<option value="Manufacturing">Manufacturing</option>
-					<option value="Freelance">Photography</option>
-					<option value="Freelance">Real Estate</option>
-					<option value="Consumer Goods">Retail</option>
-					<option value="Social Services">Social & Personal Services</option>
-					<option value="Freelance">Technology</option>
-					<option value="Consumer Services">Transportation</option>
-					<option value="Consumer Goods">-- Other --</option>
+				<select ng-model="GetStarted.selectedIndustry" class="form-control defaultInput" required>
+					<option value="manufacturing">Aerospace</option>
+					<option value="consumerServices">Automotive</option>
+					<option value="consumerGoods">Consumer Goods</option>
+					<option value="consumerServices">Consumer Services</option>
+					<option value="consumerServices">Education</option>
+					<option value="consumerServices">Entertainment</option>
+					<option value="consumerServices">Food & Beverage</option>
+					<option value="freelancer">Graphic design</option>
+					<option value="consumerServices">Health & Wellness</option>
+					<option value="consumerServices">Legal</option>
+					<option value="manufacturing">Manufacturing</option>
+					<option value="freelancer">Photography</option>
+					<option value="freelancer">Real Estate</option>
+					<option value="consumerGoods">Retail</option>
+					<option value="socialServices">Social & Personal Services</option>
+					<option value="freelancer">Technology</option>
+					<option value="consumerServices">Transportation</option>
+					<option value="consumerGoods">-- Other --</option>
 				</select>
 			</div>
 			<div class="col-md-2" style="padding:10px;"></div><!-- Spacer -->
@@ -49,7 +49,7 @@
 		<div class="row">
 			<div class="col-md-2" style="padding:10px;"></div><!-- Spacer -->
 			<div class="col-md-8 text-center" style="padding:10px;">
-				<button ng-disabled="!GetStarted.industry" type="button" ng-click="changeView('account/collections/getstarted/step2')" class="btn btn-success btn-block">
+				<button ng-disabled="!GetStarted.selectedIndustry" type="button" ng-click="changeView('account/collections/getstarted/step2')" class="btn btn-success btn-block">
 					<h3 class="noSpace">Next <span class="fa fa-arrow-right"></span></h3>
 				</button>
 			</div>

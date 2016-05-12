@@ -5,8 +5,30 @@ function SelectedUser() { return {};}
 function SelectedCollection() { return {};}
 
 
-function GetStarted() {
+function GetStarted($http) {
   var GetStarted = {};
+
+  GetStarted.selectedIndustry = null;
+  GetStarted.selectedTemplate = null;
+  GetStarted.collectionTemplates = null;
+
+  GetStarted.getCollectionTemplates = function(onSuccess, onFail) {
+
+    if (!GetStarted.collectionTemplates) {
+      $http({ url: '/getCollectionTemplates', method: 'GET'} )
+      .then(function success(response) {
+          GetStarted.collectionTemplates = response.data.collectionTemplates
+          onSuccess(GetStarted.collectionTemplates);
+        },
+        function fail(response) {
+         onFail();
+        }
+      );
+    } else {
+      onSuccess(GetStarted.collectionTemplates);
+    }
+  };
+
   return GetStarted;
 }
 

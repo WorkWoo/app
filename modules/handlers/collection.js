@@ -11,12 +11,23 @@ var inflect = require('i')(true);
 
 // Custom modules
 var fieldTypes = require('../types/fieldType').getFieldTypesObject();
+var collectionTemplates = require('../types/collectionTemplate').getCollectionTemplates();
+
 var qpcache = require('workwoo-utils').cache;
 var utility = require('workwoo-utils').utility;
 var log = require('workwoo-utils').logger;
 var widget = 'Collection Handler';
 log.registerWidget(widget);
 
+exports.getCollectionTemplates = function(req, res) {
+	try {
+		log.info('|collection.getCollectionTemplates|', widget);
+		res.send(JSON.stringify({ collectionTemplates: collectionTemplates }));
+	} catch (error) {
+		log.error('|collection.getCollectionTemplates| Unknown -> ' + error, widget);
+		utility.errorResponseJSON(res, 'Unknown error returning collection templates');
+	}
+};
 
 exports.create = function(req, res) {
 	try {
