@@ -588,13 +588,28 @@ a:hover {
   font-size: 22px;
   font-weight: bold;
   margin: 0px;
-  padding: 0px;
+  padding: 5px;
   text-align: left;
 }
 
 .itemInfoUpdate {
   padding-top: 10px;
   text-align: right;
+}
+
+
+.refListHeader {
+  background-color: #67A88C;
+  color: #fff;
+  padding: 5px;
+  margin: 0px;
+}
+
+.refListRow {
+  background-color: #fff;
+  padding: 5px;
+  margin: 0px;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 
@@ -788,23 +803,6 @@ a:hover {
 
 /****************************** INPUTS ******************************/
 
-.ref-info-icon, .ref-info-icon:hover {
-  font-size: 22px;
-  padding: 0px 8px 0px 8px;
-  color: #fff;
-  border-style: dotted;
-}
-
-.ref-info-icon {
-  background-color: #c0c0c0;
-  border-color: #c0c0c0;  
-}
-
-.ref-info-icon:hover {
-  cursor: pointer;
-  background-color: #ccc;
-  border-color: #ccc;  
-}
 
 .searchIcon {
   font-weight: bold;
@@ -816,21 +814,6 @@ a:hover {
 .search-icon:hover {
   background-color: #f0f0f0;
   cursor: pointer;
-}
-
-.single-ref-select-button, .single-ref-select-button:hover {
-  color: #fff;
-}
-
-.single-ref-select-button {
-  background-color: #67A88C;
-  border-color: #67A88C;
-}
-
-.single-ref-select-button:hover {
-  cursor: pointer;
-  background-color: #87bba5;
-  border-color: #87bba5;
 }
 
 

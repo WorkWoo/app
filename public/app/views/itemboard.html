@@ -3,15 +3,14 @@
   <!-- Title -->
   <div class="col-md-8 noSpaceMobile">
     <div class="breadCrumb">
-      <a href="#/{{collections[baseCollection].collectionType}}"><span class="fa fa-arrow-left"></span> Back to summary</a>
+      <a ng-href="#/{{collections[baseCollection].collectionType}}"><span class="fa fa-arrow-left"></span> Back to summary</a>
     </div>
     <h3 class="pageHeading">
       <span class="mainColor fa" ng-class="collections[baseCollection].icon"></span>
       <span> {{ collections[baseCollection].pluralLabel }}</span>
     </h3>
-
   </div>
-  <!-- Search & New button -->
+  <!-- Search -->
   <div class="col-md-4 text-right noSpaceMobile">
     <form ng-submit="search(searchTerm)" class="input-group">
       <input type="text" class="form-control defaultInput" value="" ng-model="searchTerm" size="20"/>
@@ -20,18 +19,23 @@
   </div>
 
   <!-- Query indicator -->
-  <div class="col-md-6">
+  <div class="col-md-10">
     <h4 ng-repeat="(key, value) in queryCriteria">
       Showing items where 
       <span class="mainColor"><strong><i>{{ collections[baseCollection].fieldsObject[key].label }}</i></strong></span> is 
       <span ng-if="value == 'null'" class="mainColor"><strong><i>Empty</i></strong></span>
       <span ng-if="value != 'null'" class="mainColor"><strong><i>{{ value }}</i></strong></span>
     </h4>
+
+    <h4 ng-if="!queryCriteria">
+      <span class="mainColor"><strong><i>Showing all {{ collections[baseCollection].pluralLabel }}</i></strong></span>
+    </h4>
+
   </div>
 
   <!-- New button -->
-  <div class="col-md-6 text-right">
-    <a ng-if="!itemsLoading && loadedItems.length > 0" style="margin-top:5px;" ng-disabled="itemsLoading" class="btn btn-success" ng-href="#/{{baseCollection}}/new">New {{ collections[baseCollection].singleLabel }}</a>
+  <div class="col-md-2 text-right">
+    <a ng-if="!itemsLoading && loadedItems.length > 0" style="margin-top:5px;" ng-disabled="itemsLoading" class="btn btn-success btn-block" ng-href="#/{{baseCollection}}/new">New {{ collections[baseCollection].singleLabel }}</a>
   </div>
 
 </div>
@@ -82,6 +86,10 @@
         </div>
       </a>
     </div>
+  </div>
+
+  <div class="col-md-12 text-right">
+    <a ng-href="#/account/collections/view/{{baseCollection}}"><span class="fa fa-cog"></span> Configure {{ collections[baseCollection].pluralLabel }}</a>
   </div>
 
 

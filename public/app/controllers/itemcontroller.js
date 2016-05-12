@@ -60,6 +60,10 @@ function itemController($scope, $location, $routeParams, Item, User) {
 
 
   $scope.initReferenceList = function(referenceTo, referenceList) {
+    if($scope.currentAction == 'create') {
+      referenceList = [];
+    }
+
     // First, save all of the currently selected reference items, so that they can be populated by the request.
     for(var i=0; i<referenceList.length; i++) {
       $scope.initPopulatedReference(referenceList[i]._id, referenceList[i].qty);
@@ -222,6 +226,22 @@ function itemController($scope, $location, $routeParams, Item, User) {
     $scope.refListFieldName = refFieldName;
     $("#refListSelector").modal('show');
   };
+
+
+  $scope.updateReferenceQty = function(itemID, Qty) {
+
+  }
+
+
+  $scope.markReferenceItem = function(itemIndex) {
+    var value = $('#' + itemIndex + '_qty').val();
+    if(value && value > 0) {
+      $('#' + itemIndex).prop('checked', true);
+    } else {
+      $('#' + itemIndex).prop('checked', false);
+    }
+  };
+
 
   $scope.addSelectedReferences = function() {
     // Iterate through each checkbox to grab the ones that are selected
@@ -551,10 +571,10 @@ function itemController($scope, $location, $routeParams, Item, User) {
 
 
   $scope.getItemFieldClass = function(item, field) {
-    if (field.displayType == 'textarea') {
+    if (field.displayType == 'textarea' || (field.displayType == 'itemReferenceList' && (field.referenceType == 'inventorial' || field.referenceType == 'inventorial_bundle'))) {
       return 'col-md-12';
     } else if (field.displayType == 'userReferenceList' || field.displayType == 'itemReferenceList') {
-      return 'col-md-12';
+      return 'col-md-6';
     } else if (field.name == $scope.collections[item.collectionName].displayField) {
       return 'col-md-9';
     } else if (field.displayType == 'datetime') {
@@ -593,7 +613,7 @@ function itemController($scope, $location, $routeParams, Item, User) {
   $scope.setActiveCollection = function(url) {
     if(url.indexOf('/workable') >= 0) {
       $scope.setActiveSection('workable');
-    } else if(url.indexOf('/inventorialbundle') >= 0) {
+    } else if(url.indexOf('/inventorial_bundle') >= 0) {
       $scope.setActiveSection('inventorialBundle');
     } else if(url.indexOf('/inventorial') >= 0) {
       $scope.setActiveSection('inventorial');
@@ -615,7 +635,7 @@ function itemController($scope, $location, $routeParams, Item, User) {
       $scope.selectedItem = {};
       $scope.getAllCollectionCounts($scope.workableCollections);
       return;
-    } else if(currentURL.indexOf('/inventorialbundle') >= 0) {
+    } else if(currentURL.indexOf('/inventorial_bundle') >= 0) {
       $scope.selectedItem = {};
       $scope.getAllCollectionCounts($scope.inventorialBundleCollections);
       return;

@@ -157,7 +157,7 @@ function mainController($scope, $location, $sce, User, $filter) {
   $scope.getLeftMenuIconOffset = function(sectionName) {
     if(sectionName == 'basic') {
       if($scope.inventorialBundleCollections.length > 0) {
-        return { 'top' : '200px' };
+        return { 'top' : '250px' };
       } else {
         return { 'top' : '175px' };
       }

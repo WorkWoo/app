@@ -119,6 +119,7 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
   $scope.updateCollection = function() {
     $scope.collectionsLoading = true;
 
+    // For each reference field, record the referenced collection type (this is a workaround for now)
     for(var i=0; i<$scope.selectedCollection.fields.length; i++) {
       var fieldType = $scope.selectedCollection.fields[i].displayType;
       if(fieldType == 'itemReference' || fieldType == 'itemReferenceList' ) {
@@ -144,6 +145,15 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
 
   $scope.createCollection = function() {
     $scope.collectionsLoading = true;
+
+    // For each reference field, record the referenced collection type (this is a workaround for now)
+    for(var i=0; i<$scope.selectedCollection.fields.length; i++) {
+      var fieldType = $scope.selectedCollection.fields[i].displayType;
+      if(fieldType == 'itemReference' || fieldType == 'itemReferenceList' ) {
+        $scope.selectedCollection.fields[i].referenceType = $scope.collections[$scope.selectedCollection.fields[i].referenceTo].collectionType;
+      }
+    }
+
     Collection.create($scope.selectedCollection,
       function(updatedCollections){
         $scope.collections = updatedCollections;
@@ -260,6 +270,16 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
       choices: []
     }
     $scope.selectedCollection.fields.push(newField);
+  };
+
+
+  $scope.checkForCustomFields = function(fieldsArray) {
+    for(var i=0; i<fieldsArray.length; i++) {
+      if(fieldsArray[i].sysProvided == false) {
+        return false;
+      }
+    }
+    return true;
   };
 
 

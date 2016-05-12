@@ -40,28 +40,46 @@
 
     	<div class="container-fluid noSpaceMobile">
 
-			<!-- Basic settings & state choices -->
+			<!-- Basic Settings & State Choices -->
 			<div class="col-md-4">
 
-				<!-- Collection name -->
+				<!-- Collection Name-->
 				<div class="row noSpaceMobile">
 					<div id='collectionNameContainer' class="defaultInputGroup form-group col-md-12">
 						<label for="collectionName">Item name:</label>
-						<input ng-disabled="collectionsLoading" placeholder="Orders, Instructions, Sales, etc." type="text" id="collectionName" name="collectionName" class="form-control defaultInput" value="" ng-model="selectedCollection.pluralLabel" size="20" required/>
+						<input ng-disabled="collectionsLoading || currentAction == 'update'" placeholder="Orders, Instructions, Sales, etc." type="text" id="collectionName" name="collectionName" class="form-control defaultInput" value="" ng-model="selectedCollection.pluralLabel" size="20" required/>
 						<span ng-if="collectionForm.collectionName.$invalid && collectionForm.collectionName.$touched" ng-init="initInvalidPopover('collectionNameRequired','Required!')" id="collectionNameRequired" class="fa fa-exclamation-circle collectionInputInvalid"></span>
 					</div>
 				</div>
 
-				<!-- Number prefix -->
+				<!-- Number prefix (All collection types) -->
 				<div class="row noSpaceMobile">
 					<div id='numberPrefixContainer' class="defaultInputGroup form-group col-md-12">
 						<label for="numberPrefix">Number prefix:</label>
-						<input ng-disabled="collectionsLoading" placeholder="The prefix for each item's number, like 'IN1234'" type="text" id="numberPrefix" name="numberPrefix" class="form-control defaultInput" value="" ng-model="selectedCollection.numberPrefix" size="20" required/>
+						<input ng-disabled="collectionsLoading || currentAction == 'update'" placeholder="The prefix for each item's number, like 'IN1234'" type="text" id="numberPrefix" name="numberPrefix" class="form-control defaultInput" value="" ng-model="selectedCollection.numberPrefix" size="20" required/>
 						<span ng-if="collectionForm.numberPrefix.$invalid && collectionForm.numberPrefix.$touched" ng-init="initInvalidPopover('numberPrefixRequired','Required!')" id="numberPrefixRequired" class="fa fa-exclamation-circle collectionInputInvalid"></span>
 					</div>
 				</div>
 
-				<!-- State choices -->
+
+				<!-- Item being bundled (Inventoryial Bundles only) -->
+				<div ng-if="selectedCollection.collectionType == 'inventorial_bundle'" class="row noSpaceMobile">
+					<div id='inventoryItemsContainer' class="defaultInputGroup form-group col-md-12">
+						<label for="numberPrefix">Which inventory items are being bundled?</label>
+						<ui-select ng-model="selectedCollection.fields[2].referenceTo" ng-click="bringFieldForward('inventoryItemsContainer')">
+							<ui-select-match placeholder="Select or search a item type">
+								<small class="fa" ng-class="$select.selected.icon"></small> {{$select.selected.label}}
+							</ui-select-match>
+					    	<ui-select-choices group-by="'type'" repeat="col.name as col in collectionsArray | filter: { label: $select.search }">
+								<small class="fa" ng-class="col.icon"></small>
+			            		<span ng-bind-html="col.label | highlight: $select.search"></span>
+					    	</ui-select-choices>
+						</ui-select>
+					</div>
+				</div>
+
+
+				<!-- State choices (Workable only) -->
 				<div ng-if="selectedCollection.collectionType == 'workable'" class="row noSpaceMobile">
 					<div id='stateContainer' class="defaultInputGroup form-group col-md-12">
 						<label for="stateChoices">State Choices:</label>
@@ -87,10 +105,10 @@
 		        </div>
 			</div>
 
-			<!-- Custom fields -->
+			<!-- Collection Fields -->
 			<div id="customFieldsContainer" class="defaultInputGroup form-group col-md-8">
 				
-				<!-- System fields -->
+				<!-- System Fields -->
 	        	<div id="sysFields" class="itemInfo clearfix hideInMobile">
 	        		<div class="col-md-12">
 	        			<label><strong>{{ collectionTypes[selectedCollection.collectionType].label }} items have the following fields by default:</strong></label>
@@ -100,7 +118,7 @@
 					</div>
 				</div>
 
-
+				<!-- Custom Fields -->
 				<label>Custom fields:</label>
 				<div class="choiceOptionContainer clearfix" style="border: 1px solid #e5e5e5;">
 					
@@ -112,9 +130,9 @@
 						<span class="customFieldColumnTitle">Type</span>
 					</div>
 
-					<!-- Loop through each field -->
-					<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" ng-if="!field.sysProvided" ng-attr-id="row_{{fieldIndex}}" class="col-md-12 noSpace customFieldRow swappableField">
-					
+					<!-- Loop through each custom field -->
+					<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" ng-if="!field.sysProvided" ng-attr-id="row_{{fieldIndex}}" class="col-md-12 noSpace customFieldRow swappableField fadeInOutStagger">
+						
 						<!-- Field name -->
 						<div class="col-md-7" style="margin-bottom:5px;">
 							<div class="input-group">
@@ -125,9 +143,9 @@
 								<input ng-disabled="collectionsLoading || field.sysProvided" type="text" ng-model="field.label" ng-change="field.name = lowerAndRemoveSpace(field.label)" ng-init="field.name = lowerAndRemoveSpace(field.label)" class="form-control defaultInput" size="20" placeholder='New Field'>
 							</div>
 						</div>
+
 						<!-- Field type -->
 						<div class="col-md-4" style="margin-bottom:5px;">
-			              	
 			              	<!-- If a custom field, allow different types -->
 							<select ng-disabled="collectionsLoading || field.sysProvided" class="form-control defaultInput" ng-model="field.displayType">
 								<option ng-repeat="fieldType in fieldTypes" value="{{ fieldType.displayType }}" ng-disabled="fieldType.isPro && accountType != 1" ng-selected="fieldType.displayType == field.displayType" >{{ fieldType.label }}</option>
@@ -152,7 +170,8 @@
 				            	</button>
 				            	
 				            	<div ng-if="showChoices(fieldIndex + '_choices')" class="fadeExpandDown">
-				            		<!-- No options -->
+				            		
+				            		<!-- If there are no options defined -->
 				            		<div ng-if="field.choices.length == 0" class="col-md-12 noSpace">
 				            			<input disabled="true" class="form-control defaultInput" value="You haven't added any!" style="border-right:none;margin-bottom:2px;" type="text">
 				            		</div>
@@ -181,11 +200,11 @@
 			              		<div style="background-color:red;" class="col-md-12 noSpace">
 									<ui-select ng-model="field.referenceTo" ng-click="bringFieldForward('row_' + fieldIndex)" theme="bootstrap">
 										<ui-select-match placeholder="Select or search a item type">
-											<small class="fa" ng-class="$select.selected.icon"></small>AAA {{$select.selected.label}}
+											<small class="fa" ng-class="$select.selected.icon"></small> {{$select.selected.label}}
 										</ui-select-match>
 								    	<ui-select-choices group-by="'type'" repeat="col.name as col in collectionsArray | filter: { label: $select.search }">
-											<small class="fa" ng-class="col.icon">BBB</small>
-						            		<span ng-bind-html="col.label | highlight: $select.search"></span>CCC
+											<small class="fa" ng-class="col.icon"></small>
+						            		<span ng-bind-html="col.label | highlight: $select.search"></span>
 								    	</ui-select-choices>
 									</ui-select>
 								</div>
@@ -204,9 +223,15 @@
 					</div>
 					<!-- End loop through each field -->
 
+					<!-- If there are no custom fields -->
+					<div ng-if="checkForCustomFields(selectedCollection.fields)" class="col-md-12 text-center customFieldRow swappableField fadeInOut">
+						<span>-- No custom fields added --</span>
+					</div>
+
+
 					<!-- Add new field button-->
-					<div class="col-md-7"></div>
-					<div class="col-md-5">
+					<div class="col-md-9"></div>
+					<div class="col-md-3">
 						<button type="button" ng-disabled="collectionsLoading" type="button" ng-click="addNewField()" class="btn btn-success btn-block">
 							<span class="fa fa-plus"></span>
 							<span> Add new field</span>

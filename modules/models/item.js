@@ -470,7 +470,7 @@ function createItemSchema(collectionObject) {
 				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo };
 			} else if (itemFields[i].dbType == 'userReference') {
 				itemModel[itemFields[i].name] = { type: Schema.Types.ObjectId, ref: 'User' };
-			} else if (itemFields[i].dbType == 'itemReferenceList' && itemFields[i].referenceType == 'inventorial') {
+			} else if (itemFields[i].dbType == 'itemReferenceList' && (itemFields[i].referenceType == 'inventorial') || itemFields[i].referenceType == 'inventorial_bundle') {
 				var qtyItemSchema = new Schema({
 					qty: { type: Number },
 					_id: { type: Schema.Types.ObjectId, ref: collectionObject._org._id + '_' + itemFields[i].referenceTo }

@@ -74,7 +74,7 @@ mainApp.config(function($routeProvider) {
   $routeProvider.when('/', { templateUrl: 'views/workablehome.html', controller: 'itemController'});
   $routeProvider.when('/workable', { templateUrl: 'views/workablehome.html', controller: 'itemController'});
   $routeProvider.when('/inventorial', { templateUrl: 'views/inventorialhome.html', controller: 'itemController'});
-  $routeProvider.when('/inventorialbundle', { templateUrl: 'views/inventorialbundlehome.html', controller: 'itemController'});
+  $routeProvider.when('/inventorial_bundle', { templateUrl: 'views/inventorialbundlehome.html', controller: 'itemController'});
   $routeProvider.when('/basic', { templateUrl: 'views/basichome.html', controller: 'itemController'});
 
   // Then, define the permanant, hard-coded routes.
