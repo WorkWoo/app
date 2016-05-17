@@ -510,6 +510,25 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     );
   };
 
+  // inventory: A single object that contains keys which are IDs of items. Each has a property "qty" with the quantity to pull
+  $scope.pullInventoryItems = function(collectionName, inventory) {
+    Item.pullInventoryItems(collectionName, inventory,
+      function(result){
+        // Success
+        $scope.selectedItemSubmitting = false;
+        $scope.toggleAlert('success', true,' Inventory pulled');
+        $scope.setPageLoading(false);
+        $scope.reloadRoute();
+      },
+      function() {
+        // Fail
+        $scope.selectedItemSubmitting = false;
+        $scope.setPageLoading(false);
+        $scope.alertUnknownError();
+      }
+    );
+  };
+
   /* IF WE EVER DO INFINITE SCROLLING WITH REFERENCES
   $scope.refreshRefItems = function(refItemField, refItemCollection, searchTerm, withAnchors) {
     // First initialize the reference field in the refItems object

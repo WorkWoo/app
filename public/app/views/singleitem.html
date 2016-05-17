@@ -93,7 +93,6 @@
           </span>
         </span>
 
-
         <!-- Item Reference List (No quantity)-->          
         <span ng-if="field.displayType == 'itemReferenceList' && collections[field.referenceTo].collectionType != 'inventorial' && collections[field.referenceTo].collectionType != 'inventorial_bundle'" ng-init="getRefItems(field.referenceTo)">
           <ui-select multiple ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refItems[field.referenceTo].totalCount == 0 || refItems[field.referenceTo].totalCount == -1" sortable="true" close-on-select="false" class="defaultInput" style="padding:5px;">
@@ -213,7 +212,6 @@
                       <span>{{ inventoryItem.qty }} (x{{ referenceItem.qty }})</span>
                     </div>
                     <div class="col-md-1"></div><!-- Spacer -->
-
                   </div>
                 </div>
 
@@ -271,6 +269,7 @@
                   <span> Loading</span>
                 </div>
               </div>
+
               <!-- Inventory breakdown -->
               <div ng-if="currentAction == 'update' && inventoryInitialized && (selectedItem[field.name] && selectedItem[field.name].length > 0)" ng-repeat="(key, value) in requiredInventory" class="refListRow row noSpace fadeInOut" style="padding-bottom:5px;font-size:16px;">
                 <div class="col-md-2"></div><!-- Spacer -->
@@ -280,6 +279,12 @@
                   <span><strong> <a ng-href="#/{{collections[field.referenceTo].fields[2].referenceTo}}/view/{{refItems[collections[field.referenceTo].fields[2].referenceTo].itemObjects[key].number}}">{{ refItems[collections[field.referenceTo].fields[2].referenceTo].itemObjects[key].title }}</a></strong></span>
                 </div>
                 <div class="col-md-2"></div><!-- Spacer -->
+
+                <!-- Pull from inventory button -->
+                <div class="col-md-12">
+                  <button type="button" ng-click="pullInventoryItems(collections[field.referenceTo].fields[2].referenceTo, requiredInventory)" class="btn btn-success btn-block">Pull from Inventory</button>
+                </div>
+
               </div>
             </div>
           </div>

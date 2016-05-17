@@ -122,13 +122,21 @@ function Item($http) {
     );
   };
 
+  // inventory: A single object that contains keys which are IDs of items. Each has a property "qty" with the quantity to pull
+  Item.pullInventoryItems = function(collectionName, inventory) {
+
+
+  };
+
+
+
   Item.loadItems = function(items) {
     Item.loadedItems = items;
-  }
+  };
 
   Item.setSelectedItem = function(item) {
     Item.selectedItem = item;
-  } 
+  };
 
   Item.loadedItems = [];
   Item.selectedItem = {};
