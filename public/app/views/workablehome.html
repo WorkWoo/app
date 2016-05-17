@@ -1,11 +1,3 @@
-<!-- Page Header -->
-<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
-  <div class="col-md-12 noSpaceMobile">
-    <h2 class="pageHeading">Your Work</h2>
-  </div>
-</div>
-<!-- Page Header -->
-
 <!-- Page header if they have not setup their primary collection -->
 <div ng-if="!currentUser.org.primaryCollection" class="container-fluid text-center" style="margin-top:50px;">
   <div class="col-md-12">
@@ -15,76 +7,49 @@
 </div>
 <!-- Page Header -->
 
-<div class="container-fluid" style="margin-top:25px;">
-  <div ng-repeat="collection in workableCollections" ng-init="columnClass = (workableCollections.length == 1) ? 'col-md-12' : 'col-md-12'" ng-class="columnClass">
-    <div class="collectionStatusContainer clearfix">
-    
-    <!-- Edit settings link -->
-    <a ng-href="#/account/collections/view/{{collection.name}}" class="collectionStatusSettingsIcon fa fa-cog"></a>
+<style>
 
-    <!-- Collection icon & title -->
-    <div class="col-md-6">
-      <h3 class="noSpace">
-        <span class="mainColor fa" ng-class="collection.icon"></span>
-        <span> {{ collection.pluralLabel }}</span>
-      </h3>
-    </div>
+  .collectionReport {
+    border: 10px solid #e9f2ee;
+    border-radius: 20px;
+    padding-bottom: 20px;
+  }
 
-    <div class="col-md-6 text-right">
-      <a ng-href="#/{{collection.name}}/new" class="btn btn-success">New {{ collection.singleLabel }}</a>
-    </div>
+</style>
 
-    <div class="col-md-6">
+<!-- Page Content -->
+<div class="container-fluid">
+
+  <div ng-repeat="collection in workableCollections" class="col-md-6">
+    <div class="collectionReport">
+      
+      <!-- Collection icon & title -->
+      <div class="row noSpace">
+        <div class="col-md-10">
+          <h2>
+            <span class="mainColor fa" ng-class="collection.icon"></span>
+            <a ng-href="#/{{collection.name}}"><span> {{ collection.pluralLabel }}</span></a>
+          </h2>
+        </div>
+        <div class="col-md-2 text-right">
+          <a ng-href="#/account/collections/view/{{collection.name}}" class="collectionStatusSettingsIcon fa fa-cog"></a>
+        </div>
+      </div>
+
       <!-- Breakdown by state -->
-      <div class="itemInfo clearfix">
-        <div ng-repeat="state in collection.stateChoices" class="col-md-6">
-          <a ng-href="#/{{collection.name}}/search?state={{state}}">
-            <span class="badge badgeDark">{{ collectionCounts[collection.name].state[state] }}</span>
-            <span><strong>{{ state }}</strong></span>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-6">
-      <!-- Breakdown by other fields -->
-      <div>
-        <div ng-repeat="field in collection.fields" ng-if="field.displayType == 'currency' || field.displayType == 'choice'" class="col-md-6">
-
-          <!-- Currency field -->
-          <div ng-if="field.displayType == 'currency'">
-            <h4 class="mainColor">Total {{ field.label }}:</h4>
-            <div><span class="badge badgeLight" style="font-size:14px;">{{ formatCurrency(collectionCounts[collection.name][field.name]) }}</span></div>
+      <div class="row noSpace">
+        <div class="col-md-12">
+          <div ng-repeat="state in collection.stateChoices" style="padding: 5px;">
+            <a class="text-left" style="font-size:20px;text-align:left;padding-left:20px;" ng-href="#/{{collection.name}}/search?state={{state}}">
+              <span class="badge badgeDark">{{ collectionCounts[collection.name].state[state] }}</span>
+              <span><strong>{{ state }}</strong></span>
+            </a>
           </div>
-
-          <!-- Dropdown field -->
-          <span ng-if="field.displayType == 'choice'">
-            <h4 class="mainColor">By {{ field.label }}:</h4>
-
-            <!-- Each choice -->
-            <div ng-repeat="choice in field.choices">
-              <a ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}">
-                <span class="badge badgeLight">{{ collectionCounts[collection.name][field.name][choice] }}</span>
-                <span><strong> {{ choice }}</strong></span>
-              </a>
-            </div>
-
-            <!-- Empty (no choice selected) -->
-            <div>
-              <a ng-href="#/{{collection.name}}/search?{{field.name}}=null"><span class="badge badgeLight">{{ collectionCounts[collection.name][field.name]['empty'] }}</span> <strong>Empty</strong></a>
-            </div>
-
-          </span>
-
-
         </div>
       </div>
-    </div>
 
-    <div class="col-md-12 text-right">
-      <a ng-href="#/{{collection.name}}">See all {{ collection.pluralLabel }} <span class="fa fa-arrow-right"></span></a>
     </div>
-
   </div>
 
 </div>
+<!-- Page Content -->

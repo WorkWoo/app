@@ -1,11 +1,7 @@
 <!-- Page Header -->
-<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
-  <!-- Title -->
-  <div class="col-md-9">
-    <div class="breadCrumb">
-      <a href="#/account"><span class="fa fa-arrow-left"></span> All settings</a>
-    </div>
-    <h3 class="pageHeading">WorkWoo Settings</h3>
+<div class="container-fluid noSpaceMobile">
+  <div class="col-md-12 noSpaceMobile">
+    <h2 class="pageHeading">WorkWoo Settings</h2>
   </div>
 </div>
 <!-- Page Header -->
@@ -25,21 +21,6 @@
     <div class="col-md-12">
       <h3 class="text-center">Workable</h3>
     </div>
-
-    <!-- New collection -->
-    <div class="col-md-12">
-      <!-- Paid -->
-      <a ng-if="accountType == '1'" href="#/account/collections/new?type=workable" class="newCollectionButton">
-        <span class="newCollectionButtonIcon fa fa-plus"></span> New
-        <span class="cardTitleBreaker"></br></span>
-        <span class="newCollectionButtonTitle">{{collection.pluralLabel}}</span>
-      </a>
-      <!-- Free (Disabled) -->
-      <span ng-if="accountType == '0'" class="menuCardContainerDisabled menuCardTitleDisabled">
-        <span class="fa fa-plus"></span> New (Pro only)
-        <span class="cardTitleBreaker"></br></span>
-      </span>
-    </div>
       
     <!--  If there are none -->
     <div ng-if="!collectionsLoading && workableCollections.length == 0" class="col-md-12 text-center fadeInOut">
@@ -49,74 +30,24 @@
     </div>
 
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in workableCollections" class="col-md-12 fadeInOutStagger">
-      <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
-        <span class="menuCardIcon fa" ng-class="collection.icon"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitle">{{collection.pluralLabel}}</span>
-      </a>
+    <div ng-repeat="(collectionIndex, collection) in workableCollections" class="col-md-12 text-center fadeInOutStagger">
+      <div id="accountSettings" class="itemCard" style="padding-top:15px;margin-bottom:5px;">
+        <a ng-attr-id="{{collectionIndex}}_workSettings" ng-href="#/account/collections/view/{{collection.name}}">
+          <div class="col-md-12">
+            <span class="mainColor fa fa-3x" ng-class="collection.icon"></span>
+            <span class="cardTitleBreaker"></br></span>
+            <h4 class="noSpace">{{ collection.pluralLabel }}</h4>
+          </div>
+        </a>
+      </div>
     </div>
+
   </div>
-
-<!--
-  <!-- REVISIONABLE 
-  <div class="col-md-3">
-    <div class="col-md-12">
-      <h3 class="text-center">Revisionable</h3>
-    </div>
-
-    <!-- New collection 
-    <div class="col-md-12">
-      <!-- Paid 
-      <a ng-if="accountType == '1'" href="#/account/collections/new?type=revisionable" class="newCollectionButton">
-        <span class="newCollectionButtonIcon fa fa-plus"></span> New
-        <span class="cardTitleBreaker"></br></span>
-        <span class="newCollectionButtonTitle">{{collection.pluralLabel}}</span>
-      </a>
-      <!-- Free (Disabled) 
-      <span ng-if="accountType == '0'" class="menuCardContainerDisabled menuCardTitleDisabled">
-        <span class="fa fa-plus"></span> New (Pro only)
-        <span class="cardTitleBreaker"></br></span>
-      </span>
-    </div>
-      
-    <!--  If there are none 
-    <div ng-if="!collectionsLoading && revisionableCollections.length == 0" class="col-md-12 text-center fadeInOut">
-      <span class="menuCardContainerDisabled fadeInOut">
-        <span class="menuCardTitleDisabled">None created yet!</span>
-      </span>
-    </div>
-
-    <!-- Each collection 
-    <div ng-repeat="(collectionIndex, collection) in revisionableCollections" class="col-md-12 fadeInOutStagger">
-      <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
-        <span class="menuCardIcon fa" ng-class="collection.icon"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitle">{{collection.pluralLabel}}</span>
-      </a>
-    </div>
-  </div>
--->
 
   <!-- INVENTORIAL -->
   <div class="col-md-3">
     <div class="col-md-12">
       <h3 class="text-center">Inventorial</h3>
-    </div>
-
-    <!-- New collection -->
-    <div class="col-md-12">
-      <!-- Paid -->
-      <a ng-if="accountType == '1'" href="#/account/collections/new?type=inventorial" class="newCollectionButton">
-        <span class="newCollectionButtonIcon fa fa-plus"></span> New
-        <span class="cardTitleBreaker"></br></span>
-        <span class="newCollectionButtonTitle">{{collection.pluralLabel}}</span>
-      </a>
-      <!-- Free (Disabled) -->
-      <span ng-if="accountType == '0'" class="menuCardContainerDisabled menuCardTitleDisabled">
-        <span class="fa fa-plus"></span> New (Pro only)
-        <span class="cardTitleBreaker"></br></span>
-      </span>
     </div>
       
     <!--  If there are none -->
@@ -127,34 +58,24 @@
     </div>
 
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in inventorialCollections" class="col-md-12 fadeInOutStagger">
-      <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
-        <span class="menuCardIcon fa" ng-class="collection.icon"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitle">{{collection.pluralLabel}}</span>
-      </a>
+    <div ng-repeat="(collectionIndex, collection) in inventorialCollections" class="col-md-12 text-center fadeInOutStagger">
+      <div id="accountSettings" class="itemCard" style="padding-top:15px;margin-bottom:5px;">
+        <a ng-attr-id="{{collectionIndex}}_workSettings" ng-href="#/account/collections/view/{{collection.name}}">
+          <div class="col-md-12">
+            <span class="mainColor fa fa-3x" ng-class="collection.icon"></span>
+            <span class="cardTitleBreaker"></br></span>
+            <h4 class="noSpace">{{ collection.pluralLabel }}</h4>
+          </div>
+        </a>
+      </div>
     </div>
+
   </div>
 
-<!-- INVENTORIAL BUNDLE -->
+<!-- BUNDLE -->
   <div class="col-md-3">
     <div class="col-md-12">
-      <h3 class="text-center">Inventorial Bundle</h3>
-    </div>
-
-    <!-- New collection -->
-    <div class="col-md-12">
-      <!-- Paid -->
-      <a ng-if="accountType == '1'" href="#/account/collections/new?type=inventorial_bundle" class="newCollectionButton">
-        <span class="newCollectionButtonIcon fa fa-plus"></span> New
-        <span class="cardTitleBreaker"></br></span>
-        <span class="newCollectionButtonTitle">{{collection.pluralLabel}}</span>
-      </a>
-      <!-- Free (Disabled) -->
-      <span ng-if="accountType == '0'" class="menuCardContainerDisabled menuCardTitleDisabled">
-        <span class="fa fa-plus"></span> New (Pro only)
-        <span class="cardTitleBreaker"></br></span>
-      </span>
+      <h3 class="text-center">Bundles</h3>
     </div>
       
     <!--  If there are none -->
@@ -165,12 +86,16 @@
     </div>
 
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in inventorialBundleCollections" class="col-md-12 fadeInOutStagger">
-      <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
-        <span class="menuCardIcon fa" ng-class="collection.icon"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitle">{{collection.pluralLabel}}</span>
-      </a>
+    <div ng-repeat="(collectionIndex, collection) in inventorialBundleCollections" class="col-md-12 text-center fadeInOutStagger">
+      <div id="accountSettings" class="itemCard" style="padding-top:15px;margin-bottom:5px;">
+        <a ng-attr-id="{{collectionIndex}}_workSettings" ng-href="#/account/collections/view/{{collection.name}}">
+          <div class="col-md-12">
+            <span class="mainColor fa fa-3x" ng-class="collection.icon"></span>
+            <span class="cardTitleBreaker"></br></span>
+            <h4 class="noSpace">{{ collection.pluralLabel }}</h4>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -178,21 +103,6 @@
   <div class="col-md-3">
     <div class="col-md-12">
       <h3 class="text-center">Basic</h3>
-    </div>
-
-    <!-- New collection -->
-    <div class="col-md-12">
-      <!-- Paid -->
-      <a ng-if="accountType == '1'" href="#/account/collections/new?type=basic" class="newCollectionButton">
-        <span class="newCollectionButtonIcon fa fa-plus"></span> New
-        <span class="cardTitleBreaker"></br></span>
-        <span class="newCollectionButtonTitle">{{collection.pluralLabel}}</span>
-      </a>
-      <!-- Free (Disabled) -->
-      <span ng-if="accountType == '0'" class="menuCardContainerDisabled menuCardTitleDisabled">
-        <span class="fa fa-plus"></span> New (Pro only)
-        <span class="cardTitleBreaker"></br></span>
-      </span>
     </div>
       
     <!--  If there are none -->
@@ -203,14 +113,31 @@
     </div>
 
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in basicCollections" class="col-md-12 fadeInOutStagger">
-      <a id='{{collectionIndex}}_workSettings' ng-href="#/account/collections/view/{{collection.name}}" class="menuCardContainer">
-        <span class="menuCardIcon fa" ng-class="collection.icon"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitle">{{collection.pluralLabel}}</span>
-      </a>
+    <div ng-repeat="(collectionIndex, collection) in basicCollections" class="col-md-12 text-center fadeInOutStagger">
+      <div id="accountSettings" class="itemCard" style="padding-top:15px;margin-bottom:5px;">
+        <a ng-attr-id="{{collectionIndex}}_workSettings" ng-href="#/account/collections/view/{{collection.name}}">
+          <div class="col-md-12">
+            <span class="mainColor fa fa-3x" ng-class="collection.icon"></span>
+            <span class="cardTitleBreaker"></br></span>
+            <h4 class="noSpace">{{ collection.pluralLabel }}</h4>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 
+</div>
 
+<!-- Footer (with controls) -->
+<div class="controlFooter">
+  <div class="container-fluid">
+    <!-- Alerts -->
+    <div class="col-md-9 text-center">
+      <span ng-include="'views/includes/alerts.html'"></span>
+    </div>
+    <!-- Save/Create Buttons -->
+    <div class="col-md-3" style="padding:7px;">
+      <a class="btn btn-success btn-block btn-lg" href="#/account/collections/selecttype">Create New Collection <span class="fa fa-arrow-right"></span></a>
+    </div>
+  </div>
 </div>

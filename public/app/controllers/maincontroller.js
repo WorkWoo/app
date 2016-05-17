@@ -1,4 +1,4 @@
-function mainController($scope, $location, $sce, User, $filter) {
+function mainController($scope, $location, $route, $sce, User, $filter) {
   log.info('App initialized');
 
   $scope.pageLoading = true;
@@ -29,6 +29,10 @@ function mainController($scope, $location, $sce, User, $filter) {
   $scope.startMainTour = false;
   $scope.mainTourConfig = tourConfig.getMainTourConfig($scope);
   
+  $scope.reloadRoute = function() {
+     $route.reload();
+  }
+
   $scope.changeView = function(viewName) {
     $location.path(viewName);
   };

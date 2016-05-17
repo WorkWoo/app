@@ -15,11 +15,11 @@
   		<!-- Title -->
   		<div class="col-md-6">
 			<h3 class="pageHeading">
-					<span data-toggle="modal" data-target="#iconSelector" class="fa fa-2x collectionIcon text-center" ng-class="selectedCollection.icon">
-						<span class="fa fa-pencil-square editCollectionIcon"></span>
-					</span>
-					<span ng-if="currentAction == 'update'"> {{ selectedCollection.singleLabel }} Configuration</span><!-- Existing collections -->
-					<span ng-if="currentAction == 'create'"> New Collection</span><!-- New collections -->
+				<span data-toggle="modal" data-target="#iconSelector" class="fa fa-2x collectionIcon text-center" ng-class="selectedCollection.icon">
+					<span class="fa fa-pencil-square editCollectionIcon"></span>
+				</span>
+				<span ng-if="currentAction == 'update'"> {{ selectedCollection.singleLabel }} Configuration</span><!-- Existing collections -->
+				<span ng-if="currentAction == 'create'"> New Collection</span><!-- New collections -->
 			</h3>
   		</div>
   		<!-- Title -->
@@ -198,7 +198,7 @@
 
 			              	<!-- If the field is a item reference type, show the reference to field -->
 			              	<span ng-if="field.displayType == 'itemReference' || field.displayType == 'itemReferenceList' " class="fade-in-out" ng-attr-id="{{fieldIndex}}_parent">
-			              		<div style="background-color:red;" class="col-md-12 noSpace">
+			              		<div class="col-md-12 noSpace">
 									<ui-select ng-model="field.referenceTo" ng-click="bringFieldForward('row_' + fieldIndex)" theme="bootstrap">
 										<ui-select-match placeholder="Select or search a item type">
 											<small class="fa" ng-class="$select.selected.icon"></small> {{$select.selected.label}}

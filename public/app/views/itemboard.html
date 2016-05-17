@@ -2,9 +2,6 @@
 <div class="container-fluid noSpaceMobile" style="margin-top:10px;">
   <!-- Title -->
   <div class="col-md-8 noSpaceMobile">
-    <div class="breadCrumb">
-      <a ng-href="#/{{collections[baseCollection].collectionType}}"><span class="fa fa-arrow-left"></span> Back to summary</a>
-    </div>
     <h3 class="pageHeading">
       <span class="mainColor fa" ng-class="collections[baseCollection].icon"></span>
       <span> {{ collections[baseCollection].pluralLabel }}</span>
@@ -19,7 +16,7 @@
   </div>
 
   <!-- Query indicator -->
-  <div class="col-md-10">
+  <div class="col-md-12 text-left">
     <h4 ng-repeat="(key, value) in queryCriteria">
       Showing items where 
       <span class="mainColor"><strong><i>{{ collections[baseCollection].fieldsObject[key].label }}</i></strong></span> is 
@@ -30,50 +27,43 @@
     <h4 ng-if="!queryCriteria">
       <span class="mainColor"><strong><i>Showing all {{ collections[baseCollection].pluralLabel }}</i></strong></span>
     </h4>
-
-  </div>
-
-  <!-- New button -->
-  <div class="col-md-2 text-right">
-    <a ng-if="!itemsLoading && loadedItems.length > 0" style="margin-top:5px;" ng-disabled="itemsLoading" class="btn btn-success btn-block" ng-href="#/{{baseCollection}}/new">New {{ collections[baseCollection].singleLabel }}</a>
   </div>
 
 </div>
 <!-- Page Header -->
 
+<!-- Loading indicator -->
+<h1 ng-if="itemsLoading" class="container-fluid fadeInOut text-center">
+  <span class="fa fa-cog fa-spin largeLoadingIndicator"></span>
+</h1>
+
 <!-- Content -->
-<div class="container-fluid noSpace">
+<div ng-if="!itemsLoading" class="container-fluid noSpace fadeInOut">
   <div class="col-md-12 text-center noSpaceMobile" style="margin-bottom:10px;">
     <span ng-include="'views/includes/alerts.html'"></span>
   </div>
 
   <!-- Message if they have not setup their primary collection -->
-  <div ng-if="!itemsLoading && loadedItems.length == 0" class="container-fluid text-center fadeInOut" style="margin-top:50px;">
+  <div ng-if="!itemsLoading && loadedItems.length == 0" class="container-fluid text-center" style="margin-top:50px;">
     <div class="col-md-12">
       <h2 ng-if="!queryCriteria" class="pageHeading">No {{ collections[baseCollection].pluralLabel }} found!</h2>
       <h2 ng-if="queryCriteria" class="pageHeading">No matching {{ collections[baseCollection].pluralLabel }} found!</h2>
-
       <a class="btn btn-success" ng-href="#/{{baseCollection}}/new"><h3 class="noSpace">Create one now</h3></a>
     </div>
   </div>
   <!-- Page Header -->
 
-    <!-- Loading indicator -->
-  <div ng-if="itemsLoading" class="col-md-12 fadeInOut largeLoadingIndicator text-center">
-    <span class="fa fa-refresh fa-spin"></span>
-    <span>Loading {{ collections[baseCollection].pluralLabel }}</span>
-  </div>
-
   <!-- Create a card for each item -->
   <div ng-repeat="item in loadedItems" class="col-md-4 noSpaceMobile fadeInOutStagger">
     <div class="itemCard">
       <a class="noUnderline" style="color:#508c72;" ng-href="#/{{baseCollection}}/view/{{item.number}}">
-        <div class="col-md-12 clearfix">
-          <span class="pull-left text-left itemCardTitle">{{ item.number }}</span>
-          <span class="pull-right text-right">
-            <div class="itemCardState">{{ item.state }}</div>
-          </span>
+        <div class="col-md-6 text-left">
+          <h4 class="noSpace">{{ item.number }}</h4>
         </div>
+        <div class="col-md-6 text-right">
+          <h4 class="noSpace mainColor">{{ item.state }}</h4>
+        </div>
+
         <div class="col-md-12">
           <span class="itemCardUpdateInfo">Updated: {{ formattedDateTime(item.updated_at) }} By: {{ item._updated_by.firstName }}</span>
         </div>
@@ -88,9 +78,22 @@
     </div>
   </div>
 
-  <div class="col-md-12 text-right">
-    <a ng-href="#/account/collections/view/{{baseCollection}}"><span class="fa fa-cog"></span> Configure {{ collections[baseCollection].pluralLabel }}</a>
+</div>
+
+<!-- Footer (with controls) -->
+<div class="controlFooter">
+  <div class="container-fluid">
+    <!-- Configure button -->
+    <div class="col-md-2 text-left" style="padding:7px;">
+      <button type="button" ng-click="changeView('account/collections/view/' + baseCollection)" class="btn btn-success"><span class="fa fa-cog"></span> Configure {{ collections[baseCollection].pluralLabel }}</a>
+    </div>
+    <!-- Alerts -->
+    <div class="col-md-8 text-center">
+      <span ng-include="'views/includes/alerts.html'"></span>
+    </div>
+    <!-- Save/Create Buttons -->
+    <div class="col-md-2" style="padding:7px;">
+      <a ng-if="!itemsLoading && loadedItems.length > 0" ng-disabled="itemsLoading" class="btn btn-success btn-block btn-lg" ng-href="#/{{baseCollection}}/new">New {{ collections[baseCollection].singleLabel }}</a>
+    </div>
   </div>
-
-
 </div>

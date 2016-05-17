@@ -1,43 +1,48 @@
 <!-- Page Header -->
-<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
+<div class="container-fluid noSpaceMobile">
   <div class="col-md-12 noSpaceMobile">
-    <h2 class="pageHeading">My Account</h2>
+    <h2 class="pageHeading">Settings</h2>
   </div>
 </div>
 <!-- Page Header -->
 
 <!-- Page Content -->
-<div class="container-fluid noSpace">
-  <div class="row noSpace" style="margin-bottom:25px;">
-    <div class="col-md-12 text-center">
-      <span ng-include="'views/includes/alerts.html'"></span>
+<div class="container-fluid noSpace text-center">
+
+  <div class="col-md-4">
+    <div id="accountSettings" class="itemCard" style="padding-top:15px;">
+      <a href="#/account/summary">
+        <div class="col-md-12">
+          <span class="mainColor fa fa-credit-card fa-3x"></span>
+          <span class="cardTitleBreaker"></br></span>
+          <h4 class="noSpace">Account & Billing</h4>
+        </div>
+      </a>
     </div>
   </div>
 
-  <div class="row noSpace">
-    <div class="col-md-4 noSpaceMobile">
-      <a id='accountSettings' href="#/account/summary" class="menuCardContainer">
-        <span class="menuCardIcon fa fa-credit-card"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitle">Account & Billing</span>
+  <div class="col-md-4">
+    <div id="accountSettings" class="itemCard" style="padding-top:15px;">
+      <a href="#/account/users">
+        <div class="col-md-12">
+          <span class="mainColor fa fa-users fa-3x"></span>
+          <span class="cardTitleBreaker"></br></span>
+          <h4 class="noSpace">Users</h4>
+        </div>
       </a>
     </div>
-
-    <div class="col-md-4 noSpaceMobile">
-      <a id='userSettings' href="#/account/users" class="menuCardContainer">
-        <span class="menuCardIcon fa fa-users"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitle">Users</span>
-      </a>
-    </div>
-
-    <div class="col-md-4 noSpaceMobile">
-      <a id='workSettings' ng-href="#/account/collections" class="menuCardContainer">
-        <span class="menuCardIcon fa fa-cogs"></span>
-        <span class="cardTitleBreaker"></br></span>
-        <span class="menuCardTitle">WorkWoo Settings</span>
-      </a>
-    </div>
-
   </div>
+
+  <div class="col-md-4">
+    <div id="accountSettings" class="itemCard" style="padding-top:15px;">
+      <a ng-href="#/account/collections">
+        <div class="col-md-12">
+          <span class="mainColor fa fa-cogs fa-3x"></span>
+          <span class="cardTitleBreaker"></br></span>
+          <h4 class="noSpace">WorkWoo Settings</h4>
+        </div>
+      </a>
+    </div>
+  </div>
+
 </div>

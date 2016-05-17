@@ -1,8 +1,7 @@
 <!-- Page Header -->
-<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
-  <!-- Title -->
+<div class="container-fluid noSpaceMobile">
   <div class="col-md-12 noSpaceMobile">
-    <h2 class="pageHeading">Get help or ask a question</h2>
+    <h2 class="pageHeading">Get Help</h2>
   </div>
 </div>
 <!-- Page Header -->
@@ -10,8 +9,8 @@
 <div class="container singleItemOuterContainer noSpaceMobile">
   <div class="container noSpaceMobile" style="padding:25px;">
 
-    <div class="col-md-2"></div><!-- Spacer -->
-    <div class="col-md-8">
+    <div class="col-md-3"></div><!-- Spacer -->
+    <div class="col-md-6">
 
       <form id="form1" name="form1" ng-model="formSubmission" accept-charset="UTF-8" autocomplete="off" enctype="multipart/form-data" method="post" action="https://workwoo.wufoo.com/forms/z1jm76wa1d5btwm/#public">
       
@@ -39,14 +38,14 @@
 
 
         <!-- Submit button -->
-        <button  id="saveForm" name="saveForm" type="submit" ng-disabled="formSubmitting || helpSubmissionForm.$invalid" class="btn btn-success btn-block" style="margin: 10px 0px 5px 0px">
+        <button  id="saveForm" name="saveForm" type="submit" ng-disabled="formSubmitting || helpSubmissionForm.$invalid" class="btn btn-success btn-lg btn-block" style="margin: 10px 0px 5px 0px">
           <span ng-if="formSubmitting"><i class="fa fa-refresh fa-spin"></i> Submitting</span>
           <span ng-if="!formSubmitting">Submit</span>
         </button>
 
       </form>
     </div>
-    <div class="col-md-2"></div><!-- Spacer -->
+    <div class="col-md-3"></div><!-- Spacer -->
 
   </div>
 </div>

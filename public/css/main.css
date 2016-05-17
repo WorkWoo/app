@@ -9,6 +9,7 @@
 body {
   font-family: 'Work Sans', sans-serif;
   font-size: 16px;
+  background-color: #fff;
 }
 
 .pageHeading {
@@ -21,11 +22,13 @@ body {
 }
 
 .badgeLight {
+  font-size: 18px;
   color: #508c72;
   background-color: #e9f2ee;
 }
 
 .badgeDark {
+  font-size: 18px;
   color: #fff;
   background-color: #67A88C;
 }
@@ -33,11 +36,11 @@ body {
 @media only screen and (min-width : 993px) {
   .contentPage {
     position: absolute;
-    padding: 0px;
+    padding: 10px;
     top: 25px;
-    left: 85px;
+    left: 75px;
     right: 0px;
-    
+    margin-bottom: 50px;
   }
 }
 
@@ -64,13 +67,17 @@ body {
 }
 
 .largeLoadingIndicator {
-  font-size: 30px;
-  color: #d8d8d8;
-  padding: 20px 0px 20px 100px;
+  color: #f0f0f0;
+  font-size: 100px;
 }
 
 .spanLink {
   color: #6783a8;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .spanLink:hover {
@@ -85,10 +92,16 @@ body {
 
 a {
   color: #6783a8;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 a:hover {
   color: #a6a6a6;
+  text-decoration: none;
 }
 
 .clear {
@@ -107,6 +120,11 @@ a:hover {
 
 .noUnderline {
   text-decoration: none;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .noUnderline:hover {
@@ -165,9 +183,11 @@ a:hover {
 .userMenuIcon {
   margin-left: 10px;
   font-size: 18px;
-  transition: all .1s linear;
-  -webkit-transition: all .1s linear;
-  -moz-transition: all .1s linear;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .userMenuIcon:hover {
@@ -195,6 +215,11 @@ a:hover {
 .userMenuDropdown li a, 
 .userMenuDropdown li a:active,
 .userMenuDropdown li a:focus {
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
   color: #fff;
 }
 
@@ -231,9 +256,11 @@ a:hover {
     font-size: 30px;
     cursor: pointer;
     text-decoration: none;
-    transition: all .1s linear;
-    -webkit-transition: all .1s linear;
-    -moz-transition: all .1s linear;
+    -webkit-transition: .25s;
+    -moz-transition: .25s;
+    -ms-transition: .25s;
+    -o-transition: .25s;
+    transition: .25s;
   }
 
   .leftMenuIcon:hover, .leftMenuIcon:active, .leftMenuIcon:focus {
@@ -321,9 +348,11 @@ a:hover {
   border-radius: 5px;
   display: block;
   font-size: 20px;
-  transition: all .15s linear;
-  -webkit-transition: all .15s linear;
-  -moz-transition: all .15s linear;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .menuCardContainer:hover, .menuCardContainerActive:hover {
@@ -366,6 +395,11 @@ a:hover {
   .workHomeStateContainerActive {
     border: 1px dashed #c8e0d6;
     background-color: #e9f2ee;
+    -webkit-transition: .25s;
+    -moz-transition: .25s;
+    -ms-transition: .25s;
+    -o-transition: .25s;
+    transition: .25s;
   }
 
   .workHomeStateContainer:hover {
@@ -391,53 +425,27 @@ a:hover {
 
 
 .itemCard, .itemCardActive {
-  border-radius: 0px;
+  border-radius: 10px;
+  border: 5px solid #e9f2ee;
   color: #508c72;
-  border: 1px solid #f0f0f0;
-  background-color: #fdfdfd;
-  margin: 10px 0px 10px 0px;
+  margin: 10px;
   padding: 5px;
   height: 105px;
   display: block;
-  transition: all .15s linear;
-  -webkit-transition: all .15s linear;
-  -moz-transition: all .15s linear;
-}
-
-.itemCardActive {
-  border: 1px dashed #c8e0d6;
-  background-color: #e9f2ee;
-  padding: 15px;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .itemCard:hover, .itemCardActive:hover {
   cursor: pointer;
-  background-color: #fff;
-  border: 1px solid #67A88C;
+  border-color: #67A88C;
 }
 
 .itemCardActiveLink:hover {
   text-decoration: none;
-}
-
-.itemCardTitle {
-  font-weight: bold;
-}
-
-.itemCardActiveIcon {
-  font-size: 40px;
-  color: #67A88C;
-}
-
-.itemCardActiveTitle {
-  font-size: 18px;
-  display: inline-block;
-}
-
-.itemCardState {
-  font-size: 14px;
-  color: #67A88C;
-  font-weight: bold;
 }
 
 .itemCardUpdateInfo {
@@ -471,7 +479,7 @@ a:hover {
   -moz-box-sizing: content-box;
   float: right;
   position: relative;
-  top: -25px;
+  top: -26px;
   left: 100%;
   width: 3em;
   margin-left: -3em;
@@ -498,6 +506,19 @@ a:hover {
   width: 700px;
 }
 
+.expandBundleItem {
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
+  color: #67A88C; 
+}
+
+.expandBundleItem:hover {
+  color: #cbe1d8;
+  cursor: pointer;
+}
 
 .singleItemOuterContainer {
   padding: 0px 10px 0px 0px;
@@ -514,7 +535,7 @@ a:hover {
 
 .defaultInput {
   font-size: 16px;
-  margin: 0px;
+  margin: 0px 0px 10px 0px;
   padding: 20px;
   border: 1px solid #e5e5e5;
   box-shadow: none;
@@ -576,44 +597,56 @@ a:hover {
   padding: 10px;
 }
 
-.itemInfo {
-  color: #508c72;
-  border: 1px solid #cbe1d8;
-  background-color: #e9f2ee;
-  padding: 10px;
-  margin: 8px 0px 10px 0px;
-}
-
-.itemInfoNumber {
-  font-size: 22px;
-  font-weight: bold;
-  margin: 0px;
-  padding: 5px;
-  text-align: left;
-}
-
 .itemInfoUpdate {
   padding-top: 10px;
   text-align: right;
 }
 
-
 .refListHeader {
-  background-color: #67A88C;
-  color: #fff;
+  background-color: #cbe1d8;
+  color: #508c72;
+  font-weight: bold;
   padding: 5px;
   margin: 0px;
+  border-radius: 5px 5px 0px 0px
 }
 
-
-
-.refListRow {
+.refListRow, .refListRowLast {
   background-color: #fff;
-  padding: 5px;
+  padding: 10px 0px 0px 0px;
   margin: 0px;
+  border-bottom: 1px solid #cbe1d8;
+  font-size: 16px;
+}
+
+.refListRowLast {
   border-bottom: 1px solid #cbe1d8;
 }
 
+.bundleRefListRow, .bundleRefListRowLast {
+  font-size: 14px;
+  padding: 3px;
+  border-bottom: 1px dashed #cbe1d8;
+}
+
+.bundleRefListRowLast {
+  border-bottom: 1px solid #fff;
+}
+
+.bundleItemInventoryContainer {
+  padding: 0px 10px 20px 10px;
+}
+
+.controlFooter {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  color: #fff;
+  padding: 0px;
+  background-color: #508c72;
+  z-index: 100;
+}
 
 /****************************** Collection Status ******************************/
 
@@ -627,9 +660,14 @@ a:hover {
 .collectionStatusSettingsIcon {
   position: absolute;
   top: 5px;
-  right: 20px;
+  right: 5px;
   color: #d8d8d8;
   font-size: 25px;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .collectionStatusSettingsIcon:hover {
@@ -670,8 +708,8 @@ a:hover {
 
 
 .alert {
-  max-height: 200px;
-  padding: 10px 40px 10px 30px;
+  max-height: 100px;
+  padding: 5px;
   margin-top: 10px;
   margin-right: auto;
   margin-left: auto;
@@ -680,12 +718,12 @@ a:hover {
   font-size: 20px;
   border-style: solid;
   border-width: 1px;
-  border-radius: 0px;
+  border-radius: 10px;
 }
 
 .alert-success {
   color: #67A88C;
-  background-color: #fff;
+  background-color: #e9f2ee;
   border-color: #d9e9e2;
 }
 
@@ -698,7 +736,7 @@ a:hover {
 
 .alert-danger {
   color: #a86c67;
-  background-color: #fff;
+  background-color: #e9dad9;
   border-color: #e9dad9;
 }
 
@@ -713,16 +751,21 @@ a:hover {
 }
 
 .alertClose {
-  font-size: 16px;
+  font-size: 30px;
   cursor: pointer;
   position: absolute;
-  top: 1px;
-  right: 4px;
-  opacity: .65;
+  top: 2px;
+  right: 5px;
+  color: #999;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .alertClose:hover {
-  color: #999;
+  color: #bebebe;
   cursor: pointer;
 }
 
@@ -762,46 +805,6 @@ a:hover {
   color: #67A88C;
 }
 
-.list-row {
-  border-bottom: 1px dashed #e8e8e8;
-  background-color: #fff;
-  border-left: 2px solid #fff;
-  padding: 0px;
-  margin: 0px;
-}
-
-.list-row-no-hover {
-  background-color: #fff;
-  border-left: 2px solid #fff;
-  padding: 10px;
-  margin: 0px;
-}
-
-.list-row:hover {
-  background-color: #fcfcfc;
-  border-left: 2px solid #67A88C;
-}
-
-.list-row-link {
-  color: #6783a8;
-}
-
-.list-row-link:hover {
-  color: #6783a8;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.list-button-container {
-  float: right;
-  margin: 10px 5px 0px 0px;
-}
-
-
-/****************************** CARD VIEW ******************************/
-
-
-
 
 /****************************** INPUTS ******************************/
 
@@ -811,6 +814,11 @@ a:hover {
   color: #67A88C;
   background-color: #fcfcfc;
   border-style: dotted;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .search-icon:hover {
@@ -847,15 +855,13 @@ a:hover {
   transform: translateY(0px);
 }
 
-
-
 /* Fade in and fade out */
 .fadeInOut.ng-enter {
-  -webkit-transition: .25s;
-  -moz-transition: .25s;
-  -ms-transition: .25s;
-  -o-transition: .25s;
-  transition: .25s;
+  -webkit-transition: .2s;
+  -moz-transition: .2s;
+  -ms-transition: .2s;
+  -o-transition: .2s;
+  transition: .2s;
   opacity: 0;
 }
 
@@ -864,6 +870,11 @@ a:hover {
 }
 
 .fadeInOut.ng-leave {
+  -webkit-transition: 0s;
+  -moz-transition: 0s;
+  -ms-transition: 0s;
+  -o-transition: 0s;
+  transition: 0s;
   opacity: 1;
 }
 
@@ -878,7 +889,7 @@ a:hover {
   opacity: 0;
 }
 .fadeInOutStagger.ng-enter-stagger {
-  transition-delay: 0.05s;
+  transition-delay: 0.1s;
   transition-duration: 0s;
 }
 .fadeInOutStagger.ng-enter-active {
@@ -921,7 +932,11 @@ a:hover {
 
 /* Fade and expand down */
 .fadeExpandDown.ng-enter {
-  transition: .25s;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
   max-height: 0px;
   opacity: 0;
 }
@@ -932,7 +947,11 @@ a:hover {
 }
 
 .fadeExpandDown.ng-leave {
-  transition: .25s;
+  -webkit-transition: .5s;
+  -moz-transition: .5s;
+  -ms-transition: .5s;
+  -o-transition: .5s;
+  transition: .5s;
   max-height: 200px;
   opacity: 1;
 }
@@ -972,6 +991,11 @@ a:hover {
   border: 1px solid #f0f0f0;
   height: 48px;
   width: 48px;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .collectionIconSelectionActive {
@@ -997,6 +1021,11 @@ a:hover {
   padding: 5px;
   height: 65px;
   width: 70px;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .collectionIcon:hover {
@@ -1022,6 +1051,11 @@ a:hover {
   border-radius: 0px;
   border: 1px solid #e5e5e5;
   box-shadow: none;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .removeChoiceIcon:hover {
@@ -1045,6 +1079,11 @@ a:hover {
   color: #a86c67;
   font-size: 20px;
   padding-top: 5px;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .customFieldRemoveIcon:hover {
@@ -1058,6 +1097,11 @@ a:hover {
   font-size: 18px;
   padding: 0px 4px 1px 4px;
   border:none;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .fieldOrderDown {
@@ -1083,6 +1127,11 @@ a:hover {
   border: 2px solid #f0f0f0;
   background-color: #fcfcfc;
   margin-bottom: 25px;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .workflowItemContainer:hover {
@@ -1121,6 +1170,11 @@ a:hover {
 }
 
 .templateCheck {
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
   position: absolute;
   right: 5px;
   top: 5px;
@@ -1133,54 +1187,71 @@ a:hover {
 .btn {
   border-radius: 5px;
   padding: 10px;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .btn-success, .btn-success:focus {
-  border-color: #fff;
+  border-color: #67A88C;
   background-color: #67A88C;
 }
 
 .btn-success:hover {
-  border-color: #fff;
-  background-color: #599c7f;
+  border-color: #67A88C;
+  background-color: #508c72;
 }
 
 .btn:active:focus {
   background-color: #999;
 }
 
-
 .btn-primary, .btn-primary:focus {
-  border-color: #fff;
+  border-color: #6783a8;
   background-color: #6783a8;
 }
 
 .btn-primary:hover {
-  border-color: #fff;
+  border-color: #59769c;
   background-color: #59769c;
 }
 
-
 .btn-danger, .btn-danger:focus {
-  border-color: #fff;
-  background-color: #c09491;
+  border-color: #c09491;
+  background-color: #a86c67;
 }
 
 .btn-danger:hover {
-  border-color: #fff;
+  border-color: #a86c67;
   background-color: #9c5f59;
 }
 
-
 .btn-default, .btn-default:focus {
-  border-color: #d8d8d8;
-  background-color: #fcfcfc;
+  border-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 .btn-default:hover {
-  border-color: #fff;
-  background-color: #efefef;
+  border-color: #d8d8d8;
+  background-color: #d8d8d8;
 }
+
+.btn.disabled, 
+.btn[disabled],
+.btn.disabled:hover, 
+.btn[disabled]:hover, 
+.btn.disabled:focus, 
+.btn[disabled]:focus, 
+.btn.disabled:active, 
+.btn[disabled]:active,
+.btn.disabled.active, 
+.btn[disabled].active, 
+.btn.active { 
+  background-color: #777; 
+  border-color: #999; 
+} 
 
 .newCollectionButton, .newCollectionButtonDisabled {
   padding: 10px 10px 10px 10px;
@@ -1191,9 +1262,11 @@ a:hover {
   border-radius: 0px;
   display: block;
   font-size: 20px;
-  transition: all .15s linear;
-  -webkit-transition: all .15s linear;
-  -moz-transition: all .15s linear;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
 }
 
 .newCollectionButton:hover {
