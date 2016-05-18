@@ -150,6 +150,7 @@ function initializeApp() {
 		app.route('/createNewItem').post(validateRequest(), item.create);
 		app.route('/deleteItems').post(validateRequest(), item.deleteItems);
 		app.route('/searchItems').get(validateRequest(), item.search);
+		app.route('/pullInventoryItems').post(validateRequest(), item.pullInventory);
 
 		// Collection routes
 		app.route('/getAllCollections').get(validateRequest(), collection.getAll);

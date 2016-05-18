@@ -602,6 +602,11 @@ a:hover {
   text-align: right;
 }
 
+.refListContainer {
+  border: 5px solid #cbe1d8;
+  border-radius: 10px;
+}
+
 .refListHeader {
   background-color: #cbe1d8;
   color: #508c72;

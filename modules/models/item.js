@@ -377,6 +377,36 @@ itemSchema.statics.update = function(org, collectionName, itemID, updatedItem, c
 };
 
 
+itemSchema.statics.updateInventory = function(org, collectionName, itemID, updateQty, callback) {
+	try {
+		log.info('|Item.updateInventory| org -> ' + org + ' collectionName -> ' + collectionName + ' itemID -> ' + itemID + ' updateQty -> ' + updateQty, widget);
+
+		// Try to get a cached model for the given collection. If one does not exist, create and cache it.
+		var collectionInfo = qpcache.get(org);
+		var Item = collectionInfo.models[collectionName];
+
+		// Execute the update
+		Item.findById(itemID, function (error, item) {
+			if (error) {
+				log.error('|Item.updateInventory| Unknown -> ' + error, widget);
+				return callback(error, false);
+			} else {
+				log.info('Qty: ' + item.quantity);
+
+				item.quantity = item.quantity + updateQty;
+
+				item.save(function(error, updatedItem){
+					return callback(null, updatedItem);
+				});
+			}
+		});
+	} catch (error) {
+		log.error('|Item.updateInventory| Unknown -> ' + error, widget);
+		return callback(error, false);
+	}
+};
+
+
 itemSchema.statics.create = function(org, collectionName, newItemDetails, callback) {
 	try {
 		log.info('|Item.create| org -> ' + org + ' collectionName -> ' + collectionName, widget);

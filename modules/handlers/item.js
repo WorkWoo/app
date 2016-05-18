@@ -222,3 +222,39 @@ exports.search = function(req, res) {
 		log.error('|item.searchItems| -> ' + error, widget);
 	}
 };
+
+
+exports.pullInventory = function(req, res) {
+	try {
+		var collectionName = req.body.collectionName;
+		var inventoryList = req.body.inventoryList;
+		var totalItems = inventoryList.length;
+		var itemsProcessed = 0;
+
+		log.info('|item.pullInventory| Collection -> ' + collectionName, widget);
+		
+
+		function processItem(error, result) {
+			itemsProcessed++;
+			if (itemsProcessed == totalItems) {
+				log.info('Complete', widget);
+				res.send(JSON.stringify({ test: 'good' }));
+			} else {
+				log.info('Incomplete', widget);
+			}
+		};
+
+		for(var i=0; i<inventoryList.length; i++) {
+			var itemID = inventoryList[i].id;
+			var updateQty = inventoryList[i].qty;
+
+			Item.updateInventory(req.session.userprofile.org._id, collectionName, itemID, updateQty, function(error, result) {
+				processItem(error, result);
+			})
+		}
+		
+
+	} catch (error) {
+		log.error('|item.pullInventory| Unknown -> ' + error, widget);
+	}
+};

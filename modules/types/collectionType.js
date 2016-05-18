@@ -17,7 +17,6 @@ exports.getCollectionTypesObject = function () {
 exports.getCollectionTypesArray = function () {
 	var collectionTypes = [];
 	collectionTypes.push(this.WORKABLE);
-	//collectionTypes.push(getRevisionableCollection());
 	collectionTypes.push(this.INVENTORIAL);
 	collectionTypes.push(this.INVENTORIAL_BUNDLE);
 	collectionTypes.push(this.BASIC);
@@ -104,43 +103,15 @@ function getBasicCollection() {
 	basicCollection.pluralLabel = '';
 	basicCollection.singleLabel = '';
 	basicCollection.icon = 'fa-pencil-square-o';
-	basicCollection.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : false, 'basic' : false, 'inventorial_bundle' : false };
+	basicCollection.referenceable = { 'workable' : true, 'revisionable' : false, 'inventorial' : true, 'basic' : false, 'inventorial_bundle' : false };
 
 	var defaultFields = [];
 
 	defaultFields.push({ 'displayType': 'autonumber', 'label': 'Number', 'name': 'number', 'dbType': 'String', 'showOnNew': false, 'showOnView': false, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': true });
-	defaultFields.push({ 'displayType': 'text', 'label': 'Title', 'title': 'name', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': true });
+	defaultFields.push({ 'displayType': 'text', 'label': 'Title', 'name': 'title', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': true });
 	defaultFields.push({ 'displayType': 'textarea', 'label': 'Description', 'name': 'description', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
 
 	basicCollection.fields = defaultFields;
 
 	return basicCollection;
 };
-
-/*
-function getRevisionableCollection() {
-	var revisionableCollection = {};
-	revisionableCollection.label = 'Revisionable';
-
-	var defaults = {};
-	defaults.collectionType = 'revisionable';
-	defaults.name = '';
-	defaults.displayField = 'name';
-	defaults.pluralLabel = '';
-	defaults.singleLabel = '';
-	defaults.icon = 'fa-sitemap';
-	defaults.referenceable = { 'workable' : false, 'revisionable' : false, 'inventorial' : true, 'basic' : true, 'inventorial_bundle' : true };
-
-	var defaultFields = [];
-
-	defaultFields.push({ 'displayType': 'autonumber', 'label': 'Number', 'name': 'number', 'dbType': 'String', 'showOnNew': false, 'showOnView': false, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': true });
-	defaultFields.push({ 'displayType': 'decimal', 'label': 'Revision', 'name': 'revision', 'dbType': 'Number', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': true });
-	defaultFields.push({ 'displayType': 'text', 'label': 'Title', 'name': 'title', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': true });
-	defaultFields.push({ 'displayType': 'textarea', 'label': 'Description', 'name': 'description', 'dbType': 'String', 'showOnNew': true, 'showOnView': true, 'showOnList': true, 'required': true, 'readonly': false, 'sysProvided': false });
-
-	defaults.fields = defaultFields;
-	revisionableCollection.defaults = defaults;
-
-	return revisionableCollection;
-}
-*/

@@ -122,10 +122,16 @@ function Item($http) {
     );
   };
 
-  // inventory: A single object that contains keys which are IDs of items. Each has a property "qty" with the quantity to pull
-  Item.pullInventoryItems = function(collectionName, inventory) {
 
-
+  Item.pullInventoryItems = function(collectionName, inventoryList, onSuccess, onFail) {
+    $http({ url: '/pullInventoryItems', method: 'POST', data: {collectionName: collectionName, inventoryList: inventoryList } })
+      .then(function success(response) {
+        onSuccess(response);
+      },
+      function fail(response) {
+        onFail();
+      }
+    );
   };
 
 

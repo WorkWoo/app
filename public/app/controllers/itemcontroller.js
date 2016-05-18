@@ -47,6 +47,15 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   $scope.refItemsQueryCriteria = null;
   $scope.refItems = {};
 
+
+  $scope.relatedItemsLoading = false;
+  $scope.relatedItemsSortField = "number";
+  $scope.relatedItemsSortOrder = "asc";
+  $scope.relatedItemsAnchorValue = null;
+  $scope.relatedItemsAnchorID = null;
+  $scope.relatedItemsQueryCriteria = null;
+  $scope.relatedItems = {};
+
   // This object holds a mapping of which CSS classes to apply for different column counts.
   $scope.cellClassInfo = {
     value: {
@@ -510,15 +519,35 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     );
   };
 
-  // inventory: A single object that contains keys which are IDs of items. Each has a property "qty" with the quantity to pull
+  /*
+   * inventory: A single object that contains keys which are IDs of items. Each has a property "qty" with the quantity to pull
+   * Example:
+   * inventory = {
+   *     '90823d7491873a4da6': { qty: 3 },
+   *     '0a93d2f8749e871234': { qty:4 }
+   * }
+   */
   $scope.pullInventoryItems = function(collectionName, inventory) {
-    Item.pullInventoryItems(collectionName, inventory,
+    $scope.selectedItemSubmitting = true;
+    // Before sending the request, invert the quantities, since the server works by adding the given inventory
+    var inventoryList = [];
+    for(var item in inventory) {
+      var singleItem = {
+        id: item,
+        qty: -inventory[item].qty
+      }
+      inventoryList.push(singleItem);
+    }
+
+    Item.pullInventoryItems(collectionName, inventoryList,
       function(result){
         // Success
+
+        log.object(result);
+
         $scope.selectedItemSubmitting = false;
         $scope.toggleAlert('success', true,' Inventory pulled');
         $scope.setPageLoading(false);
-        $scope.reloadRoute();
       },
       function() {
         // Fail
@@ -595,6 +624,66 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   */
 
   /****************************** REFERENCE OPERATIONS ******************************/
+
+
+  /********************************** RELATED ITEMS **********************************/
+
+
+  $scope.getRelatedItems = function(relatedItemCollection, queryCriteria) {
+    $scope.relatedItemsLoading = true;
+    var queryParams = {
+      collectionName: relatedItemCollection,
+      sortField: $scope.relatedItemsSortField,
+      sortOrder: $scope.relatedItemsSortOrder,
+      anchorValue: null,
+      anchorID: null,
+      searchTerm: null,
+      additionalQuery: queryCriteria,
+      itemCount: 0
+    };
+
+    Item.getAll(queryParams,
+      function(result){
+        // Success
+        $scope.relatedItemsLoading = false;
+        $scope.relatedItems[relatedItemCollection].totalCount = result.total;
+        $scope.relatedItems[relatedItemCollection].items = result.items;
+      },
+      function() {
+        $scope.refItemsLoading = false;
+        $scope.relatedItems[relatedItemCollection] = [];
+        $scope.alertUnknownError();
+      }
+    );
+  };
+
+
+
+
+  $scope.initRelatedItems = function() {
+    log.info('Initializing related items');
+
+    for(var collection in $scope.collections) {
+      log.info($scope.collections[collection].name);
+      var fields = $scope.collections[collection].fields;
+      for(var i=0; i<fields.length; i++) {
+        if(fields[i].referenceTo == $scope.selectedItem.collectionName) {
+          $scope.relatedItems[$scope.collections[collection].name] = { totalCount: 0, items: [] };
+          var queryCriteria = {};
+          queryCriteria[fields[i].name] = $scope.selectedItem._id;
+          $scope.getRelatedItems($scope.collections[collection].name, queryCriteria);
+        }
+      }
+    }
+  };
+
+
+
+
+
+
+
+  /********************************** RELATED ITEMS **********************************/
 
 
   /****************************** COUNTING & REPORTING ******************************/
