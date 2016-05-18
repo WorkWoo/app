@@ -4,6 +4,25 @@ var inventorialType = collectionType.INVENTORIAL.collectionType;
 var inventorialBundleType = collectionType.INVENTORIAL_BUNDLE.collectionType;
 var basicType = collectionType.BASIC.collectionType;
 
+var industryChoices = [	{ name: 'Aerospace', value: 'manufacturing' },
+						{ name: 'Automotive', value: 'consumerServices' },
+						{ name: 'Consumer Goods', value: 'consumerGoods' },
+						{ name: 'Consumer Services', value: 'consumerServices' },
+						{ name: 'Education', value: 'consumerServices' },
+						{ name: 'Entertainment', value: 'consumerServices' },
+						{ name: 'Food & Beverage', value: 'consumerServices' },
+						{ name: 'Graphic design', value: 'freelancer' },
+						{ name: 'Health & Wellness', value: 'consumerServices' },
+						{ name: 'Legal', value: 'consumerServices' },
+						{ name: 'Manufacturing', value: 'manufacturing' },
+						{ name: 'Photography', value: 'freelancer' },
+						{ name: 'Real Estate', value: 'freelancer' },
+						{ name: 'Retail', value: 'consumerGoods' },
+						{ name: 'Social & Personal Services', value: '' },
+						{ name: 'Technology', value: 'freelancer' },
+						{ name: 'Transportation', value: 'consumerServices' },
+						{ name: '-- Other --', value: 'consumerGoods' } ];
+
 exports.getCollectionTemplates = function() {
 	var collectionTemplates = {};
 	collectionTemplates.manufacturing = getManufacturingTemplates();
@@ -13,6 +32,10 @@ exports.getCollectionTemplates = function() {
 	collectionTemplates.freelancer = getFreelancerTemplates();
 
 	return collectionTemplates;
+};
+
+exports.getIndustryChoices = function() {
+	return industryChoices;
 };
 
 function getManufacturingTemplates() {

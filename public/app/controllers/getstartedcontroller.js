@@ -3,9 +3,29 @@ function getStartedController($scope, $location, $routeParams, GetStarted) {
   $scope.setActiveSection('settings');
  
   $scope.GetStarted = GetStarted;
+
+  $scope.industryChoices = [  { name: 'Aerospace', value: 'manufacturing' },
+                              { name: 'Automotive', value: 'consumerServices' },
+                              { name: 'Consumer Goods', value: 'consumerGoods' },
+                              { name: 'Consumer Services', value: 'consumerServices' },
+                              { name: 'Education', value: 'consumerServices' },
+                              { name: 'Entertainment', value: 'consumerServices' },
+                              { name: 'Food & Beverage', value: 'consumerServices' },
+                              { name: 'Graphic design', value: 'freelancer' },
+                              { name: 'Health & Wellness', value: 'consumerServices' },
+                              { name: 'Legal', value: 'consumerServices' },
+                              { name: 'Manufacturing', value: 'manufacturing' },
+                              { name: 'Photography', value: 'freelancer' },
+                              { name: 'Real Estate', value: 'freelancer' },
+                              { name: 'Retail', value: 'consumerGoods' },
+                              { name: 'Social & Personal Services', value: '' },
+                              { name: 'Technology', value: 'freelancer' },
+                              { name: 'Transportation', value: 'consumerServices' },
+                              { name: '-- Other --', value: 'consumerGoods' } ];
+
  
   $scope.setSelectedTemplate = function(templateIndex) {
-    $scope.GetStarted.selectedTemplate = $scope.collectionTemplates[$scope.GetStarted.selectedIndustry][templateIndex];
+    $scope.GetStarted.selectedTemplate = $scope.GetStarted.collectionTemplates[$scope.GetStarted.selectedIndustry.value][templateIndex];
     log.info('Selected Template: ' + $scope.GetStarted.selectedTemplate.title);
 
     // Inactivate any previously selected options
@@ -20,25 +40,37 @@ function getStartedController($scope, $location, $routeParams, GetStarted) {
 
   $scope.submitTemplate = function() {
     $scope.changeView('account/collections/getstarted/finalize');
-    
-    log.info("Industry: " +  $scope.GetStarted.selectedIndustry);
-    log.info("Template: " + $scope.GetStarted.selectedTemplate.title);
+    $scope.setPageLoading(true);
+
+    GetStarted.submitTemplate(
+      function(updatedCollections){
+        //$scope.collections = updatedCollections;
+        //$scope.selectedCollection = {};
+        //$scope.currentAction = null;
+        $scope.setPageLoading(false);
+        //$scope.changeView('/');
+        //location.reload();
+      }, 
+      function() {
+        $scope.setPageLoading(false);
+      }
+    );
   }
 
 
   $scope.initializeCollectionTemplateController = function() {
     $scope.setPageLoading(true);
-    if (!$scope.collectionTemplates) {
-      GetStarted.getCollectionTemplates(
-        function(templates){
-          $scope.collectionTemplates = templates;
-          $scope.setPageLoading(false);
-        }, 
-        function() {
-          $scope.setPageLoading(false);
+    GetStarted.getCollectionTemplates(
+      function(url){
+        $scope.setPageLoading(false);
+        if (url) {
+          $scope.changeView('account/collections/getstarted/step1');
         }
-      );
-    };
+      }, 
+      function() {
+        $scope.setPageLoading(false);
+      }
+    );
   }
 
   $scope.initializeCollectionTemplateController();

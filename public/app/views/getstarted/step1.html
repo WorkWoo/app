@@ -22,7 +22,8 @@
 			<div class="col-md-2" style="padding:10px;"></div><!-- Spacer -->
 			<div class="col-md-8 text-center" style="padding:10px;">
 				<label>To begin, what industry best describes your business?</label>
-				<select ng-model="GetStarted.selectedIndustry" class="form-control defaultInput" required>
+				<!--
+				<select ng-model="GetStarted.selectedIndustry" class="form-control defaultInput" placeholder='Select an Industry' required>
 					<option value="manufacturing">Aerospace</option>
 					<option value="consumerServices">Automotive</option>
 					<option value="consumerGoods">Consumer Goods</option>
@@ -42,6 +43,14 @@
 					<option value="consumerServices">Transportation</option>
 					<option value="consumerGoods">-- Other --</option>
 				</select>
+-->
+				<ui-select ng-model="GetStarted.selectedIndustry" theme="bootstrap">
+            		<ui-select-match placeholder="Select or search an industry in the list">{{$select.selected.name}}</ui-select-match>
+            		<ui-select-choices repeat="industry in GetStarted.industryChoices | filter: { name: $select.search }">
+              			<div ng-bind-html="industry.name | highlight: $select.search"></div>
+            		</ui-select-choices>
+          		</ui-select>
+
 			</div>
 			<div class="col-md-2" style="padding:10px;"></div><!-- Spacer -->
 		</div>

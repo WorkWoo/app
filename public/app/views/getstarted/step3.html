@@ -9,7 +9,7 @@
 <div class="container-fluid" style="margin-top:50px;z-index:9999;">
 	<div class="row">
 		<div class="col-md-2 text-center" style="padding:10px;">
-			<a ng-href="#/account/collections/getstarted/step1" class="btn btn-success btn-block">
+			<a ng-href="#/account/collections/getstarted/step2" class="btn btn-success btn-block">
 				<h3 class="noSpace"><span class="fa fa-arrow-left"></span> Previous</h3>
 			</a>
 		</div>
@@ -34,46 +34,20 @@
 
 		<div class="col-md-1" style="padding:10px;"></div><!-- Spacer -->
 		<div class="col-md-10 text-center">
+
 			<p ng-if="GetStarted.selectedTemplate.bestFor"><strong class="mainColor">Best For:</strong> {{ GetStarted.selectedTemplate.bestFor }}</p>
+			<p ng-if="GetStarted.selectedTemplate.work"><strong class="mainColor">Your work:</strong> {{ GetStarted.selectedTemplate.work }}</p>
+			<p ng-if="GetStarted.selectedTemplate.product"><strong class="mainColor">Your Product:</strong> {{ GetStarted.selectedTemplate.product }}</p>
 			<!-- Collection buttons -->
 			<div class="text-center" style="margin-top:25px;">
-				<!-- Workable -->
-				<span ng-repeat="collection in GetStarted.selectedTemplate.workable">
+				<span ng-repeat="collection in GetStarted.selectedTemplate.collections track by $index">
 					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
 						<span class="fa" ng-class="collection.icon"></span>
 						<span>{{ collection.name }}</span>
 					</span>
-					<span ng-if="collection.name == 'spacer'" class="fa fa-ellipsis-h"></span>
-				</span>
-
-				<!-- Revisionable -->
-				<span ng-repeat="collection in GetStarted.selectedTemplate.revisionable">
-					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
-						<span class="fa" ng-class="collection.icon"></span>
-						<span>{{ collection.name }}</span>
-					</span>
-					<span ng-if="collection.name == 'spacer'" class="fa fa-ellipsis-h"></span>
-				</span>
-
-				<!-- Inventorial -->
-				<span ng-repeat="collection in GetStarted.selectedTemplate.inventorial">
-					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
-						<span class="fa" ng-class="collection.icon"></span>
-						<span>{{ collection.name }}</span>
-					</span>
-					<span ng-if="collection.name == 'spacer'" class="fa fa-ellipsis-h"></span>
-				</span>
-
-				<!-- Basic -->
-				<span ng-repeat="collection in GetStarted.selectedTemplate.basic">
-					<span ng-if="collection.name != 'spacer'" class="workflowItem1">
-						<span class="fa" ng-class="collection.icon"></span>
-						<span>{{ collection.name }}</span>
-					</span>
-					<span ng-if="collection.name == 'spacer'" class="fa fa-ellipsis-h"></span>
+					<span ng-if="$index != GetStarted.selectedTemplate.collections.length-1" class="fa fa-ellipsis-h"></span>
 				</span>
 			</div>
-
 		</div>
 		<div class="col-md-1" style="padding:10px;"></div><!-- Spacer -->
 	</div>

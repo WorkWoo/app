@@ -158,6 +158,7 @@ function initializeApp() {
 		app.route('/updateCollection').post(validateRequest(), collection.update);
 		app.route('/createCollection').post(validateRequest(), collection.create);
 		app.route('/getCollectionTemplates').get(validateRequest(), collection.getCollectionTemplates);
+		app.route('/submitCollectionTemplate').post(validateRequest(), collection.submitCollectionTemplate);
 
 		// User routes
 		app.route('/createUser').post(validateRequest(), user.create);
