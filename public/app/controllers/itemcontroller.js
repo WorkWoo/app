@@ -1,4 +1,5 @@
 function itemController($scope, $location, $routeParams, $timeout, Item, User) {
+  log.info('Items initialized');
   $scope.loadedItems = [];
   $scope.selectedItem = Item.selectedItem;
   $scope.selectedItemTitle = '';
@@ -9,8 +10,6 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   $scope.itemsLoading = true;
   $scope.setPageLoading(true);
   $scope.selectedItemSubmitting = false;
-
-  $scope.itemCountByState = {};
 
   $scope.currentAction = null;
   $scope.previousAction = null;
@@ -30,6 +29,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   $scope.refUsersLoading = false;
   $scope.inventoryInitialized = false;
 
+  $scope.collectionCounts = {};
   $scope.countsCompleted = false;
 
   $scope.anchorValue = null;
@@ -40,38 +40,20 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   $scope.queryCriteria = null;
 
   $scope.refItemsLoading = false;
-  $scope.refItemsSortField = "number";
-  $scope.refItemsSortOrder = "asc";
+  $scope.refItemsSortField = 'number';
+  $scope.refItemsSortOrder = 'asc';
   $scope.refItemsAnchorValue = null;
   $scope.refItemsAnchorID = null;
   $scope.refItemsQueryCriteria = null;
   $scope.refItems = {};
 
-
   $scope.relatedItemsLoading = false;
-  $scope.relatedItemsSortField = "number";
-  $scope.relatedItemsSortOrder = "asc";
+  $scope.relatedItemsSortField = 'number';
+  $scope.relatedItemsSortOrder = 'asc';
   $scope.relatedItemsAnchorValue = null;
   $scope.relatedItemsAnchorID = null;
   $scope.relatedItemsQueryCriteria = null;
   $scope.relatedItems = {};
-
-  // This object holds a mapping of which CSS classes to apply for different column counts.
-  $scope.cellClassInfo = {
-    value: {
-      '2': 'col-lg-5',
-      '3': 'col-lg-3',
-      '4': 'col-lg-2',
-      '5': 'col-lg-2'
-    },
-    checkbox: {
-      '2': 'col-lg-2',
-      '3': 'col-lg-3',
-      '4': 'col-lg-4',
-      '5': 'col-lg-2'
-    }
-  }
-
 
   /****************************** UI UTILITIES *******************************/
 
@@ -139,7 +121,6 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     $scope.selectAll = !$scope.selectAll; // The opposite action will happen on next click
   };
 
-
   $scope.initializeScroll = function() {
     $('#nav-content').bind('scroll', function() {
       if($(this).scrollTop() + $(this).innerHeight()>=$(this)[0].scrollHeight) {
@@ -152,20 +133,6 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     });
   };
 
-  $scope.setActiveCollection = function(url) {
-    if(url.indexOf('/workable') >= 0) {
-      $scope.setActiveSection('workable');
-    } else if(url.indexOf('/inventorial_bundle') >= 0) {
-      $scope.setActiveSection('inventorialBundle');
-    } else if(url.indexOf('/inventorial') >= 0) {
-      $scope.setActiveSection('inventorial');
-    } else if(url.indexOf('/basic') >= 0) {
-      $scope.setActiveSection('basic');
-    } else {
-      $scope.setActiveSection('workable');
-    }
-  };
-
   $scope.getRefListRowClass = function(index, arrayLength) {
     if(index == arrayLength) {
       return 'refListRowLast';
@@ -174,14 +141,13 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     }
   };
 
-    $scope.getBundleRefListRowClass = function(index, arrayLength) {
+  $scope.getBundleRefListRowClass = function(index, arrayLength) {
     if(index == arrayLength) {
       return 'bundleRefListRowLast';
     } else {
       return 'bundleRefListRow';
     }
   };
-
 
   /****************************** UI UTILITIES *******************************/
 
@@ -412,15 +378,6 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     $("#refListSelector").modal('show');
   };
 
-  $scope.markReferenceItem = function(itemIndex) {
-    var value = $('#' + itemIndex + '_qty').val();
-    if(value && value > 0) {
-      $('#' + itemIndex).prop('checked', true);
-    } else {
-      $('#' + itemIndex).prop('checked', false);
-    }
-  };
-
   $scope.addSelectedReferences = function() {
     // Iterate through each checkbox to grab the ones that are selected
     $('.refListCheckbox').each(function(){
@@ -529,7 +486,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
    */
   $scope.pullInventoryItems = function(collectionName, inventory) {
     $scope.selectedItemSubmitting = true;
-    // Before sending the request, invert the quantities, since the server works by adding the given inventory
+    // Before sending the request, convert to arry & invert the quantities, since the server works by adding
     var inventoryList = [];
     for(var item in inventory) {
       var singleItem = {
@@ -542,9 +499,6 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     Item.pullInventoryItems(collectionName, inventoryList,
       function(result){
         // Success
-
-        log.object(result);
-
         $scope.selectedItemSubmitting = false;
         $scope.toggleAlert('success', true,' Inventory pulled');
         $scope.setPageLoading(false);
@@ -657,30 +611,28 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     );
   };
 
-
-
-
   $scope.initRelatedItems = function() {
-    log.info('Initializing related items');
-
     for(var collection in $scope.collections) {
-      log.info($scope.collections[collection].name);
       var fields = $scope.collections[collection].fields;
       for(var i=0; i<fields.length; i++) {
         if(fields[i].referenceTo == $scope.selectedItem.collectionName) {
+          // Initialize the object for the collection
           $scope.relatedItems[$scope.collections[collection].name] = { totalCount: 0, items: [] };
-          var queryCriteria = {};
-          queryCriteria[fields[i].name] = $scope.selectedItem._id;
+          
+
+          // Initialize the find criteria, which could be a qty list of objects or a normal list
+          var singleCritera = {};
+          singleCritera[fields[i].name] = $scope.selectedItem._id;
+
+          var listCritera = {};
+          listCritera[fields[i].name] = { $elemMatch: { _id: $scope.selectedItem._id } };
+
+          var queryCriteria = { $or: [singleCritera, listCritera] };
           $scope.getRelatedItems($scope.collections[collection].name, queryCriteria);
         }
       }
     }
   };
-
-
-
-
-
 
 
   /********************************** RELATED ITEMS **********************************/
@@ -776,6 +728,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     }
   };
 
+
   /****************************** COUNTING & REPORTING ******************************/
 
 
@@ -783,8 +736,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
 
 
   $scope.initDropdownChart = function(collectionName, fieldObject) {
-    log.info('Loading chart');
-    log.info(collectionName);
+    log.info('Loading chart for: ' + collectionName);
 
     // Because the page is loaded async, we need to wait until counts are completed
     if(!$scope.countsCompleted) {
@@ -805,11 +757,6 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
       // Lastly, push the 'empty' value
       labels.push('Empty');
       series.push($scope.collectionCounts[collectionName][fieldObject.name]['empty']);
-
-      log.info('E: ' + $scope.collectionCounts[collectionName][fieldObject.name]['empty']);
-      log.info(labels);
-      log.info(series);
-
       var data = {
         labels: labels,
         series: series
@@ -835,15 +782,10 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
         }]
       ];
 
-      log.info(Chartist);
-
       new Chartist.Bar('#' + fieldObject.name + '_piechart', data, options, responsiveOptions);
 
     }
   };
-
-
-
 
 
   /************************************* CHARTS *************************************/
@@ -851,32 +793,39 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
 
   /****************************** INITIALIZATION ******************************/
 
+  $scope.setActiveCollection = function(collectionName) {
+    var collectionType = $scope.collections[collectionName].collectionType;
+
+    if(collectionType == 'inventorial' || collectionType == 'inventorialBundle') {
+      $scope.setActiveSection('inventory');
+    } else {
+      $scope.setActiveSection(collectionType);
+    }
+  };
+
   $scope.initializeItemController = function() {
     // Grab the current URL so we can determine what the user is trying to do
     var currentURL = $location.url();
-    $scope.setActiveCollection(currentURL);
 
     // Looking at the base collection home
-
     if(currentURL.indexOf('/workable') >= 0) {
+      $scope.setActiveSection('workable');
       $scope.selectedItem = {};
       $scope.getAllCollectionCounts($scope.workableCollections);
       return;
-    } else if(currentURL.indexOf('/inventorial_bundle') >= 0) {
+    } else if(currentURL.indexOf('/inventory') >= 0) {
+      $scope.setActiveSection('inventory');
       $scope.selectedItem = {};
-      $scope.getAllCollectionCounts($scope.inventorialBundleCollections);
-      return;
-    } else if(currentURL.indexOf('/inventorial') >= 0) {
-      $scope.selectedItem = {};
-      $scope.getAllCollectionCounts($scope.inventorialCollections);
+      $scope.getAllCollectionCounts($scope.inventoryCollections);
       return;
     } else if(currentURL.indexOf('/basic') >= 0) {
+      $scope.setActiveSection('basic');
       $scope.selectedItem = {};
       $scope.getAllCollectionCounts($scope.basicCollections);
       return;
     }
 
-
+    // Now, check to see if the given collection is valid
 
     // Searching
     var searching = currentURL.indexOf('/search?') > 0;
@@ -933,8 +882,11 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
 
     var validCollection = $scope.collections[$scope.baseCollection];
 
-    // If the collection was passed, go to it's list. Otherwise, go to the work home.
+    // If the collection was passed, go to it's list.
     if (validCollection) {
+
+      $scope.setActiveCollection($scope.baseCollection);
+
       $scope.initializeScroll();
       $scope.load($scope.baseCollection);
       $scope.setPageLoading(false);

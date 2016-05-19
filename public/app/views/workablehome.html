@@ -1,5 +1,5 @@
 <!-- Page header if they have not setup their primary collection -->
-<div ng-if="!currentUser.org.primaryCollection" class="container-fluid text-center" style="margin-top:50px;">
+<div ng-if="!currentUser.org.primaryCollection" class="container-fluid text-center">
   <div class="col-md-12">
     <h2 class="pageHeading">You haven't set up your business yet</h2>
     <a class="btn btn-success" href="#/account/collections/getstarted"><h3 class="noSpace">Get started now</h3></a>
@@ -7,20 +7,10 @@
 </div>
 <!-- Page Header -->
 
-<style>
-
-  .collectionReport {
-    border: 10px solid #e9f2ee;
-    border-radius: 20px;
-    padding-bottom: 20px;
-  }
-
-</style>
-
 <!-- Page Content -->
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top:25px;">
 
-  <div ng-repeat="collection in workableCollections" class="col-md-6">
+  <div ng-repeat="collection in workableCollections" ng-init="columnClass = (workableCollections.length == 1) ? 'col-md-12' : 'col-md-6'" ng-class="columnClass">
     <div class="collectionReport">
       
       <!-- Collection icon & title -->

@@ -233,7 +233,6 @@ exports.pullInventory = function(req, res) {
 
 		log.info('|item.pullInventory| Collection -> ' + collectionName, widget);
 		
-
 		function processItem(error, result) {
 			itemsProcessed++;
 			if (itemsProcessed == totalItems) {

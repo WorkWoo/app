@@ -41,20 +41,9 @@
     <link rel="stylesheet" href="/css/main-small.css">
     <link rel="stylesheet" href="/css/animate.css">
 
-    <style>
-
-      .pageOverlay {
-        background-color: #d8d8d8;
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        z-index: 9998;
-      }
-    </style>
-
   </head>
   
-  <body ng-controller="mainController" style="margin:0px;padding:0px;color:#777;opacity: 1;">
+  <body ng-controller="mainController" style="margin:0px;padding:0px;color:#777;">
 
     <div ng-if="startMainTour" id="mainTour" ng-joy-ride="startMainTour" config="mainTourConfig" on-finish="finishMainTour()" on-skip="skipMainTour()"></div>
     <!-- Header -->
@@ -89,8 +78,7 @@
     <!-- Left Menu icons (Mobile) -->
     <div id="leftMenuContainer" class="leftMenuContainer hideInDesktop">
       <a href="#/workable" id="workableMenuItemM" class="fa fa-wrench leftMenuIcon" style="top:0px;"></a>
-      <a href="#/inventorial" id="inventorialMenuItemM" class="fa fa-cubes leftMenuIcon" style="top:0px;"></a>
-      <a href="#/inventorialbundle" id="inventorialBundleMenuItemM" class="fa fa-object-group leftMenuIcon" style="top:0px;"></a>
+      <a href="#/inventory" id="inventoryyMenuItemM" class="fa fa-cubes leftMenuIcon" style="top:0px;"></a>
       <a href="#/basic" id="basicMenuItemM" class="fa fa-inbox leftMenuIcon" style="top:0px;"></a>
       <a href="#/account" id="settingsMenuItemM" class="fa fa-cogs leftMenuIcon" style="top:0px;"></a>
       <a href="#/support" id="suportMenuItemM" class="fa fa-question-circle leftMenuIcon" style="top:0px;"></a>
@@ -101,12 +89,8 @@
       <span class="leftMenuText">Your Work</span>
     </a>
 
-    <a href="#/inventorial" ng-if="inventorialCollections.length > 0" id="inventorialMenuItemD" class="fa fa-cubes leftMenuIcon hideInMobile" style="top:100px;">
+    <a href="#/inventory" ng-if="inventoryCollections.length > 0" id="inventoryMenuItemD" class="fa fa-cubes leftMenuIcon hideInMobile" style="top:100px;">
       <span class="leftMenuText">Inventory</span>
-    </a>
-
-    <a href="#/inventorial_bundle" ng-if="inventorialBundleCollections.length > 0" id="inventorialBundleMenuItemD" class="fa fa-object-group leftMenuIcon hideInMobile" style="top:175px;">
-      <span class="leftMenuText">Inventory Bundles</span>
     </a>
 
     <a href="#/basic" ng-if="basicCollections.length > 0" id="basicMenuItemD" class="fa fa-inbox leftMenuIcon hideInMobile" ng-style="getLeftMenuIconOffset('basic')">

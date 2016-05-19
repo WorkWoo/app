@@ -1,16 +1,16 @@
-<div ng-if="!itemsLoading" class="fadeInOut">
+<div ng-if="!itemsLoading" class="fadeInOut noSpace">
   <form name="itemForm" ng-submit="preSubmit(selectedItem)" ng-model="selectedItem" novalidate>
 
     <!-- Page Content -->
-    <div class="container-fluid">
+    <div class="container-fluid noSpace" style="margin-top:10px;">
 
       <!-- Icon & title of the item -->
       <div class="col-md-4">
-        <h2>
+        <h3>
           <span class="mainColor fa" ng-class="collections[selectedItem.collectionName].icon"></span>
           <span ng-if="currentAction == 'create'"><strong>New {{ collections[selectedItem.collectionName].singleLabel }}</strong></span>
           <span ng-if="currentAction == 'update'"><strong>{{ collections[selectedItem.collectionName].singleLabel }} #{{ selectedItem.number }}</strong></span>
-        </h2>
+        </h3>
       </div>
 
       <!-- State (Workable only) -->
@@ -329,15 +329,27 @@
 
     <!-- Related Items -->
     <div class="container-fluid">
-      <div class="col-md-12">
-        <h3 ng-if="currentAction == 'update'">Items related to {{ selectedItem.number }}:</h3>
+      <div class="col-md-12" style="margin-bottom:10px;">
+        <h3 ng-if="currentAction == 'update'"><strong>Additional Info:</strong></h3>
       </div>
 
       <span ng-init="initRelatedItems()"></span>
-      <div class="col-md-6" ng-repeat="(key, value) in relatedItems">
-        <h3>{{ collections[key].pluralLabel }}</h3>
-        <div ng-repeat="relatedItem in relatedItems[key].items track by $index">
-          <span>{{ relatedItem.number }}</span>
+      <div class="col-md-4" ng-repeat="(key, value) in relatedItems">
+        
+        <div class="refListContainer" style="padding: 0px 20px 20px 20px;">
+          <h4 ng-if="collections[key].collectionType == 'inventorial_bundle'" class="text-center">{{ collections[key].pluralLabel }} that contain this {{ collections[selectedItem.collectionName].singleLabel }}</h4>
+          <h4 ng-if="collections[key].collectionType != 'inventorial_bundle'" class="text-center">{{ collections[key].pluralLabel }} for this {{ collections[selectedItem.collectionName].singleLabel }}</h4>
+          <div ng-repeat="relatedItem in relatedItems[key].items track by $index" style="padding: 10px;border-bottom:1px solid #cbe1d8;">
+            <span class="mainColor"><strong>{{ relatedItem.number }}</strong></span>
+            <a ng-href="#/{{ relatedItem.collectionName }}/view/{{relatedItem.number}}">
+              <span>{{ relatedItem.title }}</span>
+            </a>
+          </div>
+
+          <div ng-if="relatedItems[key].items.length == 0" class="text-center" style="padding: 10px;">
+            <span>-- None found --</span>
+          </div>
+
         </div>
 
       </div>

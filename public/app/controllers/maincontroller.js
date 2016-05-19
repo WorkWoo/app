@@ -23,6 +23,8 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
   $scope.inventorialBundleCollections = [];
   $scope.basicCollections = [];
 
+  $scope.inventoryCollections = [];
+
   $scope.accountType = $scope.currentUser.org.accountType;
   $scope.primaryCollection = $scope.currentUser.org.primaryCollection;
 
@@ -41,32 +43,32 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
     // First, deactivate any other active sections
     $('#workableMenuItemD').removeClass('leftMenuIconActiveTop');
     $('#workableMenuItemM').removeClass('leftMenuIconActiveTop');
-    $('#inventorialMenuItemD').removeClass('leftMenuIconActive');
-    $('#inventorialMenuItemM').removeClass('leftMenuIconActive');
-    //$('#revisionableMenuItemD').removeClass('leftMenuIconActive');
-   // $('#revisionableMenuItemM').removeClass('leftMenuIconActive');
-    $('#inventorialBundleMenuItemD').removeClass('leftMenuIconActive');
-    $('#inventorialBundleMenuItemM').removeClass('leftMenuIconActive');
+
+    $('#inventoryMenuItemD').removeClass('leftMenuIconActive');
+    $('#inventoryMenuItemM').removeClass('leftMenuIconActive');
+
     $('#basicMenuItemD').removeClass('leftMenuIconActive');
     $('#basicMenuItemM').removeClass('leftMenuIconActive');
+
     $('#settingsMenuItemD').removeClass('leftMenuIconActive');
     $('#settingsMenuItemM').removeClass('leftMenuIconActive');
+
     $('#supportMenuItemD').removeClass('leftMenuIconActive');
     $('#supportMenuItemM').removeClass('leftMenuIconActive');
 
     // Set everything to default
     $('#workableMenuItemD').addClass('leftMenuIcon');
     $('#workableMenuItemM').addClass('leftMenuIcon');
-    $('#inventorialMenuItemD').addClass('leftMenuIcon');
-    $('#inventorialMenuItemM').addClass('leftMenuIcon');
-    //$('#revisionableMenuItemD').addClass('leftMenuIcon');
-    //$('#revisionableMenuItemM').addClass('leftMenuIcon');
-    $('#inventorialBundleMenuItemD').addClass('leftMenuIcon');
-    $('#inventorialBundleMenuItemM').addClass('leftMenuIcon');
+
+    $('#inventoryMenuItemD').addClass('leftMenuIcon');
+    $('#inventoryMenuItemM').addClass('leftMenuIcon');
+
     $('#basicMenuItemD').addClass('leftMenuIcon');
     $('#basicMenuItemM').addClass('leftMenuIcon');
+
     $('#settingsMenuItemD').addClass('leftMenuIcon');
     $('#settingsMenuItemM').addClass('leftMenuIcon');
+
     $('#supportMenuItemD').addClass('leftMenuIcon');
     $('#supportMenuItemM').addClass('leftMenuIcon');
 
@@ -160,28 +162,26 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
 
   $scope.getLeftMenuIconOffset = function(sectionName) {
     if(sectionName == 'basic') {
-      if($scope.inventorialBundleCollections.length > 0) {
-        return { 'top' : '250px' };
+      if($scope.inventoryCollections.length > 0) {
+        return { 'top' : '175px' };
       } else {
         return { 'top' : '175px' };
       }
     }
   };
 
+
   $scope.getLeftMenuContainerOffset = function() {
-    var offset = 100;
+    var offset = 25;
     if($scope.inventorialCollections.length > 0) {
       offset += 75;
     }
-
-    if($scope.inventorialBundleCollections.length > 0) {
+    if($scope.inventoryCollections.length > 0) {
       offset += 75;
     }
-
     if($scope.basicCollections.length > 0) {
       offset += 75;
     }
-
     return { 'top' : offset + 'px' };
   };
 
@@ -205,8 +205,10 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
         $scope.workableCollections.push($scope.collections[collection]);
       } else if(collectionType == 'inventorial') {
         $scope.inventorialCollections.push($scope.collections[collection]);
+        $scope.inventoryCollections.push($scope.collections[collection]);
       } else if(collectionType == 'inventorial_bundle') {
         $scope.inventorialBundleCollections.push($scope.collections[collection]);
+        $scope.inventoryCollections.push($scope.collections[collection]);
       } else if(collectionType == 'basic') {
         $scope.basicCollections.push($scope.collections[collection]);
       }
@@ -214,25 +216,13 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
     }
   };
   
-  $scope.initializeMainController = function() {
-    /*
-    var currentView = $location.path();
-    if (currentView.indexOf('/account') >= 0) {
-      $scope.setActiveSection('account');
-    } else if(currentView.indexOf('/support') >= 0) {
-      $scope.setActiveSection('support');
-    } else {
-      $scope.setActiveSection('work');
-    }
-    */
 
+  $scope.initializeMainController = function() {
     if ($scope.currentUser.newUser) {
       $scope.startMainTour = true;
       $scope.setIsNewUser();
     }
-
     $scope.initializeCollections();
-    
   };
 
   $scope.initializeMainController();

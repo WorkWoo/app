@@ -36,11 +36,11 @@ body {
 @media only screen and (min-width : 993px) {
   .contentPage {
     position: absolute;
-    padding: 10px;
+    padding: 0px;
     top: 25px;
     left: 75px;
     right: 0px;
-    margin-bottom: 50px;
+    margin-bottom: 70px;
   }
 }
 
@@ -378,7 +378,14 @@ a:hover {
 
 
 /****************************** ITEM HOME ******************************/
+  
 
+  .collectionReport {
+    border: 10px solid #e9f2ee;
+    border-radius: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+  }
 
   .workHomeStateContainer {
     border-radius: 0px;
@@ -424,7 +431,7 @@ a:hover {
 /****************************** ITEM CARD BOARD ******************************/
 
 
-.itemCard, .itemCardActive {
+.itemCard {
   border-radius: 10px;
   border: 5px solid #e9f2ee;
   color: #508c72;
@@ -1191,7 +1198,6 @@ a:hover {
 
 .btn {
   border-radius: 5px;
-  padding: 10px;
   -webkit-transition: .25s;
   -moz-transition: .25s;
   -ms-transition: .25s;

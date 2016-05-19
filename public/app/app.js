@@ -36,7 +36,6 @@ mainApp.directive('currencyField', currencyField);
 mainApp.filter('propsFilter', function() {
   return function(items, props) {
     var out = [];
-
     if (angular.isArray(items)) {
       items.forEach(function(item) {
         var itemMatches = false;
@@ -50,7 +49,6 @@ mainApp.filter('propsFilter', function() {
             break;
           }
         }
-
         if (itemMatches) {
           out.push(item);
         }
@@ -59,7 +57,6 @@ mainApp.filter('propsFilter', function() {
       // Let the output be the input untouched
       out = items;
     }
-
     return out;
   }
 });
@@ -73,8 +70,7 @@ mainApp.config(function($routeProvider) {
   // First, define the base routes
   $routeProvider.when('/', { templateUrl: 'views/workablehome.html', controller: 'itemController'});
   $routeProvider.when('/workable', { templateUrl: 'views/workablehome.html', controller: 'itemController'});
-  $routeProvider.when('/inventorial', { templateUrl: 'views/inventorialhome.html', controller: 'itemController'});
-  $routeProvider.when('/inventorial_bundle', { templateUrl: 'views/inventorialbundlehome.html', controller: 'itemController'});
+  $routeProvider.when('/inventory', { templateUrl: 'views/inventoryhome.html', controller: 'itemController'});
   $routeProvider.when('/basic', { templateUrl: 'views/basichome.html', controller: 'itemController'});
 
   // Then, define the permanant, hard-coded routes.
