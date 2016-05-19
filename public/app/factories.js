@@ -11,22 +11,35 @@ function GetStarted($http) {
   GetStarted.selectedIndustry = null;
   GetStarted.selectedTemplate = null;
   GetStarted.collectionTemplates = null;
+  GetStarted.industryChoices = null;
 
   GetStarted.getCollectionTemplates = function(onSuccess, onFail) {
-
     if (!GetStarted.collectionTemplates) {
       $http({ url: '/getCollectionTemplates', method: 'GET'} )
       .then(function success(response) {
-          GetStarted.collectionTemplates = response.data.collectionTemplates
-          onSuccess(GetStarted.collectionTemplates);
+          GetStarted.collectionTemplates = response.data.collectionTemplates;
+          GetStarted.industryChoices = response.data.industryChoices;
+          onSuccess('account/collections/getstarted/step1');
         },
         function fail(response) {
          onFail();
         }
       );
     } else {
-      onSuccess(GetStarted.collectionTemplates);
+      onSuccess();
     }
+  };
+
+  GetStarted.submitTemplate = function(onSuccess, onFail) {
+    $http({ url: '/submitCollectionTemplate', method: 'POST', data: { templateType: GetStarted.selectedIndustry.value, templateTitle: GetStarted.selectedTemplate.title } })
+    .then(function success(response) {
+      console.log(response.data.result);
+        onSuccess(response.data.collections);
+      },
+      function fail(response) {
+       onFail();
+      }
+    );
   };
 
   return GetStarted;

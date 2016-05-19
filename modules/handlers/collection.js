@@ -11,7 +11,7 @@ var inflect = require('i')(true);
 
 // Custom modules
 var fieldTypes = require('../types/fieldType').getFieldTypesObject();
-var collectionTemplates = require('../types/collectionTemplate').getCollectionTemplates();
+var collectionTemplate = require('../types/collectionTemplate');
 
 var qpcache = require('workwoo-utils').cache;
 var utility = require('workwoo-utils').utility;
@@ -22,10 +22,36 @@ log.registerWidget(widget);
 exports.getCollectionTemplates = function(req, res) {
 	try {
 		log.info('|collection.getCollectionTemplates|', widget);
-		res.send(JSON.stringify({ collectionTemplates: collectionTemplates }));
+		res.send(JSON.stringify({ collectionTemplates: collectionTemplate.getCollectionTemplates(), industryChoices: collectionTemplate.getIndustryChoices() }));
 	} catch (error) {
 		log.error('|collection.getCollectionTemplates| Unknown -> ' + error, widget);
 		utility.errorResponseJSON(res, 'Unknown error returning collection templates');
+	}
+};
+
+exports.submitCollectionTemplate = function(req, res) {
+	try {
+		log.info('|collection.submitCollectionTemplate|', widget);
+
+		// TODO: Scrub request body
+		log.info('Type: ' + req.body.templateType);
+		log.info('Title: ' + req.body.templateTitle);
+		
+		var selectedTemplateType = collectionTemplate.getCollectionTemplates()[req.body.templateType];
+		var selectedTemplate = null;
+
+		for (var i = 0; i < selectedTemplateType.length; ++i) {
+			if (selectedTemplateType[i].title === req.body.templateTitle) {
+				selectedTemplate = selectedTemplateType[i];
+			}
+		}
+
+		utility.logObject(selectedTemplate);
+
+		res.send(JSON.stringify({result:"Yes"}));
+	} catch (error) {
+		log.error('|collection.submitCollectionTemplate| Unknown -> ' + error, widget);
+		utility.errorResponseJSON(res, 'Unknown error submitting collection template');
 	}
 };
 

@@ -30,7 +30,7 @@
 		</div>
 	</div>
 
-	<div ng-repeat="option in collectionTemplates[GetStarted.selectedIndustry] track by $index" ng-click="setSelectedTemplate($index)" class="row">
+	<div ng-repeat="option in GetStarted.collectionTemplates[GetStarted.selectedIndustry.value] track by $index" ng-click="setSelectedTemplate($index)" class="row">
 
 		<div class="col-md-1" style="padding:10px;"></div><!-- Spacer -->
 		<div class="col-md-10 workflowItemContainer text-center" ng-attr-id="{{$index}}_container">
