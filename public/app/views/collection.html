@@ -18,7 +18,7 @@
 				<span data-toggle="modal" data-target="#iconSelector" class="fa fa-2x collectionIcon text-center" ng-class="selectedCollection.icon">
 					<span class="fa fa-pencil-square editCollectionIcon"></span>
 				</span>
-				<span ng-if="currentAction == 'update'"> {{ selectedCollection.singleLabel }} Configuration</span><!-- Existing collections -->
+				<span ng-if="currentAction == 'update'"> Configure {{ selectedCollection.pluralLabel }}</span><!-- Existing collections -->
 				<span ng-if="currentAction == 'create'"> New Collection</span><!-- New collections -->
 			</h3>
   		</div>
@@ -67,7 +67,7 @@
 				<div ng-if="selectedCollection.collectionType == 'inventorial_bundle'" class="row noSpaceMobile">
 					<div id='inventoryItemsContainer' class="defaultInputGroup form-group col-md-12">
 						<label for="numberPrefix">Which inventory items are being bundled?</label>
-						<ui-select ng-model="selectedCollection.fields[2].referenceTo" ng-click="bringFieldForward('inventoryItemsContainer')">
+						<ui-select ng-model="selectedCollection.fields[2].referenceTo">
 							<ui-select-match placeholder="Select or search a item type">
 								<small class="fa" ng-class="$select.selected.icon"></small> {{$select.selected.label}}
 							</ui-select-match>
@@ -112,7 +112,7 @@
 				<!-- System Fields -->
 	        	<div id="sysFields" class="itemInfo clearfix hideInMobile">
 	        		<div class="col-md-12">
-	        			<label><strong>{{ collectionTypes[selectedCollection.collectionType].label }} items have the following fields by default:</strong></label>
+	        			<label><strong>{{ selectedCollection.pluralLabel }} have the following fields by default:</strong></label>
 	        		</div>
 	        		<div ng-repeat="(fieldIndex, field) in selectedCollection.fields" ng-if="field.sysProvided" class="col-md-4">
 						{{ field.label }}
@@ -225,7 +225,7 @@
 					<!-- End loop through each field -->
 
 					<!-- If there are no custom fields -->
-					<div ng-if="checkForCustomFields(selectedCollection.fields)" class="col-md-12 text-center customFieldRow swappableField fadeInOut">
+					<div ng-if="selectedCollectionCustomFieldCount == 0" class="col-md-12 text-center customFieldRow swappableField fadeInOut">
 						<span>-- No custom fields added --</span>
 					</div>
 

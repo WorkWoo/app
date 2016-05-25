@@ -244,7 +244,7 @@ exports.pullInventory = function(req, res) {
 		};
 
 		for(var i=0; i<inventoryList.length; i++) {
-			var itemID = inventoryList[i].id;
+			var itemID = inventoryList[i]._id;
 			var updateQty = inventoryList[i].qty;
 
 			Item.updateInventory(req.session.userprofile.org._id, collectionName, itemID, updateQty, function(error, result) {

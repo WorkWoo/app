@@ -76,8 +76,6 @@ exports.create = function(req, res) {
 		newCollection.displayField = req.body.collection.displayField;
 		newCollection.stateChoices = req.body.collection.stateChoices;
 
-		utility.logObject(req.body.collection);
-
 		// Then, calculate the collection name and labels, since the
 		// user only provides the "Plural" value for the collection.
 		newCollection.pluralLabel = inflect.pluralize(req.body.collection.pluralLabel);
@@ -111,7 +109,6 @@ exports.create = function(req, res) {
 				}
 			} else {
 				var fieldType = fieldTypes[field.displayType];
-
 				if (fieldType) {
 					field.dbType = fieldType.dbType;
 				}
@@ -184,7 +181,6 @@ exports.create = function(req, res) {
 	 			});
     		}
 		});
-
 	} catch (error) {
 		log.error('|collection.create| Unknown -> ' + error, widget);
 		utility.errorResponseJSON(res, 'Unknown error creating collection');

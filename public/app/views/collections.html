@@ -1,7 +1,7 @@
 <!-- Page Header -->
-<div class="container-fluid noSpaceMobile">
+<div class="container-fluid noSpaceMobile" style="margin-top:25px;">
   <div class="col-md-12 noSpaceMobile">
-    <h2 class="pageHeading">WorkWoo Settings</h2>
+    <h2 class="noSpace pageHeading">WorkWoo Settings</h2>
   </div>
 </div>
 <!-- Page Header -->
@@ -16,22 +16,21 @@
 <!-- Page Header -->
 
 <div ng-if="currentUser.org.primaryCollection" class="container-fluid">
+  
   <!-- WORKABLE -->
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="col-md-12">
       <h3 class="text-center">Workable</h3>
     </div>
-      
     <!--  If there are none -->
     <div ng-if="!collectionsLoading && workableCollections.length == 0" class="col-md-12 text-center fadeInOut">
-      <span class="menuCardContainerDisabled fadeInOut">
-        <span class="menuCardTitleDisabled">None created yet!</span>
-      </span>
+      <div class="itemCardInactive" style="padding-top:25px;margin-bottom:5px;">
+        <h4 style="color:#d8d8d8;">None created yet!</h4>
+      </div>
     </div>
-
     <!-- Each collection -->
     <div ng-repeat="(collectionIndex, collection) in workableCollections" class="col-md-12 text-center fadeInOutStagger">
-      <div id="accountSettings" class="itemCard" style="padding-top:15px;margin-bottom:5px;">
+      <div class="itemCard" style="padding-top:15px;margin-bottom:5px;">
         <a ng-attr-id="{{collectionIndex}}_workSettings" ng-href="#/account/collections/view/{{collection.name}}">
           <div class="col-md-12">
             <span class="mainColor fa fa-3x" ng-class="collection.icon"></span>
@@ -41,53 +40,22 @@
         </a>
       </div>
     </div>
-
   </div>
 
-  <!-- INVENTORIAL -->
-  <div class="col-md-3">
+  <!-- INVENTORY -->
+  <div class="col-md-4">
     <div class="col-md-12">
-      <h3 class="text-center">Inventorial</h3>
+      <h3 class="text-center">Inventory</h3>
     </div>
-      
     <!--  If there are none -->
-    <div ng-if="!collectionsLoading && inventorialCollections.length == 0" class="col-md-12 text-center fadeInOut">
-      <span class="menuCardContainerDisabled fadeInOut">
-        <span class="menuCardTitleDisabled">None created yet!</span>
-      </span>
-    </div>
-
-    <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in inventorialCollections" class="col-md-12 text-center fadeInOutStagger">
-      <div id="accountSettings" class="itemCard" style="padding-top:15px;margin-bottom:5px;">
-        <a ng-attr-id="{{collectionIndex}}_workSettings" ng-href="#/account/collections/view/{{collection.name}}">
-          <div class="col-md-12">
-            <span class="mainColor fa fa-3x" ng-class="collection.icon"></span>
-            <span class="cardTitleBreaker"></br></span>
-            <h4 class="noSpace">{{ collection.pluralLabel }}</h4>
-          </div>
-        </a>
+    <div ng-if="!collectionsLoading && inventoryCollections.length == 0" class="col-md-12 text-center fadeInOut">
+      <div class="itemCardInactive" style="padding-top:25px;margin-bottom:5px;">
+        <h4 style="color:#d8d8d8;">None created yet!</h4>
       </div>
     </div>
-
-  </div>
-
-<!-- BUNDLE -->
-  <div class="col-md-3">
-    <div class="col-md-12">
-      <h3 class="text-center">Bundles</h3>
-    </div>
-      
-    <!--  If there are none -->
-    <div ng-if="!collectionsLoading && inventorialBundleCollections.length == 0" class="col-md-12 text-center fadeInOut">
-      <span class="menuCardContainerDisabled fadeInOut">
-        <span class="menuCardTitleDisabled">None created yet!</span>
-      </span>
-    </div>
-
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in inventorialBundleCollections" class="col-md-12 text-center fadeInOutStagger">
-      <div id="accountSettings" class="itemCard" style="padding-top:15px;margin-bottom:5px;">
+    <div ng-repeat="(collectionIndex, collection) in inventoryCollections" class="col-md-12 text-center fadeInOut">
+      <div class="itemCard" style="padding-top:15px;margin-bottom:5px;">
         <a ng-attr-id="{{collectionIndex}}_workSettings" ng-href="#/account/collections/view/{{collection.name}}">
           <div class="col-md-12">
             <span class="mainColor fa fa-3x" ng-class="collection.icon"></span>
@@ -100,21 +68,19 @@
   </div>
 
   <!-- BASIC -->
-  <div class="col-md-3">
+  <div class="col-md-4">
     <div class="col-md-12">
-      <h3 class="text-center">Basic</h3>
+      <h3 class="text-center">Other</h3>
     </div>
-      
     <!--  If there are none -->
     <div ng-if="!collectionsLoading && basicCollections.length == 0" class="col-md-12 text-center fadeInOut">
-      <span class="menuCardContainerDisabled fadeInOut">
-        <span class="menuCardTitleDisabled">None created yet!</span>
-      </span>
+      <div class="itemCardInactive" style="padding-top:25px;margin-bottom:5px;">
+        <h4 style="color:#d8d8d8;">None created yet!</h4>
+      </div>
     </div>
-
     <!-- Each collection -->
     <div ng-repeat="(collectionIndex, collection) in basicCollections" class="col-md-12 text-center fadeInOutStagger">
-      <div id="accountSettings" class="itemCard" style="padding-top:15px;margin-bottom:5px;">
+      <div class="itemCard" style="padding-top:15px;margin-bottom:5px;">
         <a ng-attr-id="{{collectionIndex}}_workSettings" ng-href="#/account/collections/view/{{collection.name}}">
           <div class="col-md-12">
             <span class="mainColor fa fa-3x" ng-class="collection.icon"></span>
@@ -125,7 +91,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <!-- Footer (with controls) -->

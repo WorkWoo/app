@@ -112,44 +112,50 @@
 
         <!-- REFERENCE LIST: Inventory Items (With quantity) -->      
         <div class="container-fluid noSpace" ng-if="field.displayType == 'itemReferenceList' && collections[field.referenceTo].collectionType == 'inventorial'" ng-init="initSelectedReferences(field.referenceTo, selectedItem[field.name])">
-          <!-- Header -->
-          <div class="row refListHeader noSpace">
-            <div class="col-md-1"></div><!-- Spacer -->
-            <div class="col-md-2">Number</div>
-            <div class="col-md-7">Title</div>
-            <div class="col-md-2 text-center">Qty</div>
-          </div>
+          <div class="col-md-12">
+            <div class="refListContainer">
 
-          <!-- Create a row for each reference item -->
-          <div ng-if="!refItemsLoading" ng-repeat="referenceItem in selectedItem[field.name] track by $index" class="row refListRow noSpace fadeInOut" ng-class="getRefListRowClass($index, selectedItem[field.name].length-1)">
-            <!-- Remove item button -->
-            <div class="col-md-1 text-right">
-              <span ng-click="removeReference(field.name, $index, referenceItem._id)" class="customFieldRemoveIcon fa fa-remove"></span>
-            </div>
-            <div class="col-md-2"><a ng-href="#/{{field.referenceTo}}/view/{{refItems[field.referenceTo].itemObjects[referenceItem._id].number}}">{{ refItems[field.referenceTo].itemObjects[referenceItem._id].number }}</a></div>
-            <div class="col-md-7"><a ng-href="#/{{field.referenceTo}}/view/{{refItems[field.referenceTo].itemObjects[referenceItem._id].number}}">{{ refItems[field.referenceTo].itemObjects[referenceItem._id].title }}</a></div>
-            <div class="col-md-2 text-center"><input class="form-control defaultInput" type="number" style="padding:3px;text-align:center;" ng-model="referenceItem.qty"/></div>
-          </div>
+              <!-- Header -->
+              <div class="row refListHeader noSpace">
+                <div class="col-md-1"></div><!-- Spacer -->
+                <div class="col-md-2">Number</div>
+                <div class="col-md-7">Title</div>
+                <div class="col-md-2 text-center">Qty</div>
+              </div>
 
-          <!-- If there are no items -->
-          <div ng-if="!refItemsLoading && (selectedItem[field.name].length == 0 || !selectedItem[field.name])" class="row refListRow noSpace fadeInOut">
-            <div class="col-md-12 text-center" style="padding-bottom:10px;">
-              <span>-- No {{ collections[field.referenceTo].pluralLabel }} selected --</span>
-            </div>
-          </div>
+              <!-- Create a row for each reference item -->
+              <div ng-if="!refItemsLoading" ng-repeat="referenceItem in selectedItem[field.name] track by $index" class="row refListRow noSpace fadeInOut" ng-class="getRefListRowClass($index, selectedItem[field.name].length-1)">
+                <!-- Remove item button -->
+                <div class="col-md-1 text-right">
+                  <span ng-click="removeReference(field.name, $index, referenceItem._id)" class="customFieldRemoveIcon fa fa-remove"></span>
+                </div>
+                <div class="col-md-2"><a ng-href="#/{{field.referenceTo}}/view/{{refItems[field.referenceTo].itemObjects[referenceItem._id].number}}">{{ refItems[field.referenceTo].itemObjects[referenceItem._id].number }}</a></div>
+                <div class="col-md-7"><a ng-href="#/{{field.referenceTo}}/view/{{refItems[field.referenceTo].itemObjects[referenceItem._id].number}}">{{ refItems[field.referenceTo].itemObjects[referenceItem._id].title }}</a></div>
+                <div class="col-md-2 text-center"><input class="form-control defaultInput" type="number" style="padding:3px;text-align:center;" ng-model="referenceItem.qty"/></div>
+              </div>
 
-          <!-- Loading indicator -->
-          <div ng-if="refItemsLoading" class="row refListRow noSpace">
-            <div class="col-md-12 text-center" style="padding-bottom:10px;">
-              <span class="fa fa-refresh fa-spin"></span>
-              <span> Loading {{ collections[field.referenceTo].pluralLabel }}</span>
-            </div>
-          </div>
+              <!-- If there are no items -->
+              <div ng-if="!refItemsLoading && (selectedItem[field.name].length == 0 || !selectedItem[field.name])" class="row refListRow noSpace fadeInOut">
+                <div class="col-md-12 text-center" style="padding-bottom:10px;">
+                  <span>-- No {{ collections[field.referenceTo].pluralLabel }} selected --</span>
+                </div>
+              </div>
 
-          <!-- Select Items Button -->
-          <div class="row noSpace">
-            <div class="col-md-12 text-right noSpace" style="padding-top:5px;">
-              <button type="button" ng-click="showRefListSelector(field.referenceTo, field.name)" class="btn btn-success"><span class="fa fa-search"></span> Select {{ collections[field.referenceTo].pluralLabel }}</button>
+              <!-- Loading indicator -->
+              <div ng-if="refItemsLoading" class="row refListRow noSpace">
+                <div class="col-md-12 text-center" style="padding-bottom:10px;">
+                  <span class="fa fa-refresh fa-spin"></span>
+                  <span> Loading {{ collections[field.referenceTo].pluralLabel }}</span>
+                </div>
+              </div>
+
+              <!-- Select Items Button -->
+              <div class="row noSpace">
+                <div class="col-md-12 text-right noSpace" style="padding:5px;">
+                  <button type="button" ng-click="showRefListSelector(field.referenceTo, field.name)" class="btn btn-success"><span class="fa fa-search"></span> Select {{ collections[field.referenceTo].pluralLabel }}</button>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -245,35 +251,43 @@
                 </div>
               </div>
 
-              <!-- If nothing is selected yet -->
-              <div ng-if="currentAction == 'update' && inventoryInitialized && (!selectedItem[field.name] || selectedItem[field.name].length == 0)" class="refListRow row noSpace" style="padding-bottom:5px;">
-                <div class="col-md-12 text-center">
-                  <span> No items selected</span>
+              <!-- Loading indicator -->
+              <div class="refListRow row noSpace fadeInOut" ng-if="currentAction == 'update' && !refItemsLoading && (!selectedItem[field.name] || selectedItem[field.name].length == 0)">
+                <div class="col-md-12 text-center" style="padding-bottom:10px;">
+                  <span>No items selected</span>
                 </div>
               </div>
-              <!-- Loading indicator -->
-              <div ng-if="currentAction == 'update' && !inventoryInitialized" class="refListRow row noSpace" style="padding-bottom:5px;">
-                <div class="col-md-12 text-center">
+
+              <!-- Nothing selected indicator -->
+              <div class="refListRow row noSpace fadeInOut" ng-if="currentAction == 'update' && !inventoryInitialized && refItemsLoading">
+                <div class="col-md-12 text-center" style="padding-bottom:10px;">
                   <span class="fa fa-refresh fa-spin"></span>
                   <span> Loading</span>
                 </div>
               </div>
 
+
               <!-- Inventory breakdown -->
               <div ng-if="currentAction == 'update' && inventoryInitialized && (selectedItem[field.name] && selectedItem[field.name].length > 0)" ng-repeat="(key, value) in requiredInventory" class="refListRow row noSpace fadeInOut" style="padding-bottom:5px;font-size:16px;">
-                <div class="col-md-2"></div><!-- Spacer -->
-                <div class="col-md-8">
-                  <span class="badge badgeLight" style="font-size:16px;">{{ value.qty }}</span>
-                  <span><strong> <a ng-href="#/{{collections[field.referenceTo].fields[2].referenceTo}}/view/{{refItems[collections[field.referenceTo].fields[2].referenceTo].itemObjects[key].number}}">{{ refItems[collections[field.referenceTo].fields[2].referenceTo].itemObjects[key].number }}</a></strong></span>
-                  <span><strong> <a ng-href="#/{{collections[field.referenceTo].fields[2].referenceTo}}/view/{{refItems[collections[field.referenceTo].fields[2].referenceTo].itemObjects[key].number}}">{{ refItems[collections[field.referenceTo].fields[2].referenceTo].itemObjects[key].title }}</a></strong></span>
+                <div class="col-md-2 text-center noSpace">
+                  <span class="badge badgeLight" style="font-size:16px;">{{ value.qty }}</span> 
                 </div>
-                <div class="col-md-2"></div><!-- Spacer -->
+                <div class="col-md-10 noSpace">
+                  <span>
+                    <strong>
+                      <a ng-href="#/{{collections[field.referenceTo].fields[2].referenceTo}}/view/{{refItems[collections[field.referenceTo].fields[2].referenceTo].itemObjects[key].number}}">
+                         {{ refItems[collections[field.referenceTo].fields[2].referenceTo].itemObjects[key].number }} 
+                        {{ refItems[collections[field.referenceTo].fields[2].referenceTo].itemObjects[key].title }}
+                      </a>
+                    </strong>
+                  </span>
+                </div>
               </div>
 
               <!-- Pull from inventory button -->
               <div class="row noSpace">
-                <div class="col-md-12">
-                  <button ng-disabled="selectedItemSubmitting" type="button" ng-click="pullInventoryItems(collections[field.referenceTo].fields[2].referenceTo, requiredInventory)" class="btn btn-success btn-block" style="margin:20px 20px 20px 0px;">Pull from Inventory</button>
+                <div class="col-md-12 noSpace text-right" style="padding:5px;">
+                  <button ng-disabled="selectedItemSubmitting" type="button" ng-click="pullInventoryItems(collections[field.referenceTo].fields[2].referenceTo, requiredInventory)" class="btn btn-success">Pull from Inventory</button>
                 </div>
               </div>
 
@@ -328,31 +342,27 @@
     <!-- Page Content -->
 
     <!-- Related Items -->
-    <div class="container-fluid">
+    <span ng-if="currentAction == 'update'" ng-init="initRelatedItems(selectedItem)"></span>
+    <div ng-if="relatedCollectionCount > 0 && currentAction == 'update'" class="container-fluid fadeInOut">
       <div class="col-md-12" style="margin-bottom:10px;">
-        <h3 ng-if="currentAction == 'update'"><strong>Additional Info:</strong></h3>
+        <h3><strong>Additional Info:</strong></h3>
       </div>
-
-      <span ng-init="initRelatedItems()"></span>
-      <div class="col-md-4" ng-repeat="(key, value) in relatedItems">
-        
+      <div class="col-md-6" ng-repeat="(key, value) in relatedItems">
         <div class="refListContainer" style="padding: 0px 20px 20px 20px;">
-          <h4 ng-if="collections[key].collectionType == 'inventorial_bundle'" class="text-center">{{ collections[key].pluralLabel }} that contain this {{ collections[selectedItem.collectionName].singleLabel }}</h4>
-          <h4 ng-if="collections[key].collectionType != 'inventorial_bundle'" class="text-center">{{ collections[key].pluralLabel }} for this {{ collections[selectedItem.collectionName].singleLabel }}</h4>
+          <h4 ng-if="collections[key].collectionType == 'inventorial_bundle' || collections[key].collectionType == 'workable'" class="text-center">{{ collections[key].pluralLabel }} that contain this {{ collections[selectedItem.collectionName].singleLabel }}</h4>
+          <h4 ng-if="collections[key].collectionType != 'inventorial_bundle' && collections[key].collectionType != 'workable'" class="text-center">{{ collections[key].pluralLabel }} for this {{ collections[selectedItem.collectionName].singleLabel }}</h4>
           <div ng-repeat="relatedItem in relatedItems[key].items track by $index" style="padding: 10px;border-bottom:1px solid #cbe1d8;">
             <span class="mainColor"><strong>{{ relatedItem.number }}</strong></span>
             <a ng-href="#/{{ relatedItem.collectionName }}/view/{{relatedItem.number}}">
               <span>{{ relatedItem.title }}</span>
             </a>
           </div>
-
           <div ng-if="relatedItems[key].items.length == 0" class="text-center" style="padding: 10px;">
             <span>-- None found --</span>
           </div>
-
         </div>
-
       </div>
+
     </div>
 
 
@@ -414,20 +424,24 @@
     <div class="controlFooter">
       <div class="container-fluid">
         <!-- Configure button -->
-        <div class="col-md-1 text-left" style="padding:7px;">
-          <button type="button" ng-click="changeView('account/collections/view/' + selectedItem.collectionName)" class="btn btn-success btn-block"><span class="fa fa-cog"></span></a>
+        <div class="col-md-1 text-left hideInMobile" style="padding:7px;">
+          <button type="button" ng-click="changeView('account/collections/view/' + selectedItem.collectionName)" class="btn btn-success btn-lg"><span class="fa fa-cog"></span></a>
         </div>
-        <div ng-if="currentAction == 'update'" class="col-md-2 text-left" style="padding:7px;">
-          <button type="button" ng-click="changeView(selectedItem.collectionName + '/new')" class="btn btn-success btn-block"><span class="fa fa-plus"></span> Create New {{ collections[selectedItem.collectionName].singleLabel }}</a>
+        <div ng-if="currentAction == 'update'" class="col-md-2 text-left hideInMobile" style="padding:7px;">
+          <button type="button" ng-click="changeView(selectedItem.collectionName + '/new')" class="btn btn-lg btn-success btn-block"><span class="fa fa-plus"></span> New {{ collections[selectedItem.collectionName].singleLabel }}</a>
         </div>
         <!-- Alerts -->
         <div class="col-md-5 text-center">
           <span ng-include="'views/includes/alerts.html'"></span>
         </div>
         <!-- Delete button -->
-        <div class="col-md-2" style="padding:7px;">
-          <button ng-if="currentAction == 'update'" ng-disabled="selectedItemSubmitting" ng-click="deleteOne(selectedItem)" class="btn btn-danger btn-lg btn-block">Delete</button>
+        <div ng-if="currentAction == 'update'" class="col-md-2" style="padding:7px;">
+          <button  ng-disabled="selectedItemSubmitting" ng-click="deleteOne(selectedItem)" class="btn btn-danger btn-lg btn-block">Delete</button>
         </div>
+
+        <!-- Spacer for if we're creating since the delete button won't be there-->
+        <div ng-if="currentAction == 'create'" class="col-md-4 hideInMobile" style="padding:7px;"></div>
+
         <!-- Save/Create Buttons -->
         <div class="col-md-2" style="padding:7px;">
           <!-- Create -->
@@ -445,10 +459,5 @@
     </div>
 
 
-
-
-
   </form>
 </div>
-
-

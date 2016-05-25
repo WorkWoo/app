@@ -68,10 +68,10 @@ mainApp.run(function($templateCache) {
 mainApp.config(function($routeProvider) {
 
   // First, define the base routes
-  $routeProvider.when('/', { templateUrl: 'views/workablehome.html', controller: 'itemController'});
-  $routeProvider.when('/workable', { templateUrl: 'views/workablehome.html', controller: 'itemController'});
-  $routeProvider.when('/inventory', { templateUrl: 'views/inventoryhome.html', controller: 'itemController'});
-  $routeProvider.when('/basic', { templateUrl: 'views/basichome.html', controller: 'itemController'});
+  $routeProvider.when('/', { templateUrl: 'views/workhome.html', controller: 'itemController'});
+  $routeProvider.when('/work/home', { templateUrl: 'views/workhome.html', controller: 'itemController'});
+  $routeProvider.when('/inventory/home', { templateUrl: 'views/inventoryhome.html', controller: 'itemController'});
+  $routeProvider.when('/other/home', { templateUrl: 'views/otherhome.html', controller: 'itemController'});
 
   // Then, define the permanant, hard-coded routes.
   $routeProvider.when('/changepassword', { templateUrl: 'views/changepassword.html', controller: 'accountController'});

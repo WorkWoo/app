@@ -12,6 +12,33 @@ body {
   background-color: #fff;
 }
 
+.spinCustom.ng-animate { -webkit-animation: none 0s; }
+
+.spinCustom {
+    -webkit-animation: spin 1.25s infinite linear;
+    animation: spin 1.25s infinite linear;
+}
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
 .pageHeading {
   margin-top: 0px;
   padding-top: 0px;
@@ -31,6 +58,13 @@ body {
   font-size: 18px;
   color: #fff;
   background-color: #67A88C;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
 }
 
 @media only screen and (min-width : 993px) {
@@ -451,8 +485,14 @@ a:hover {
   border-color: #67A88C;
 }
 
-.itemCardActiveLink:hover {
-  text-decoration: none;
+.itemCardInactive {
+  border-radius: 10px;
+  border: 5px solid #f0f0f0;
+  color: #508c72;
+  margin: 10px;
+  padding: 5px;
+  height: 105px;
+  display: block;
 }
 
 .itemCardUpdateInfo {
@@ -627,12 +667,12 @@ a:hover {
   background-color: #fff;
   padding: 10px 0px 0px 0px;
   margin: 0px;
-  border-bottom: 1px solid #cbe1d8;
+  border-bottom: 1px dashed #cbe1d8;
   font-size: 16px;
 }
 
 .refListRowLast {
-  border-bottom: 1px solid #cbe1d8;
+  border-bottom: 1px dashed #cbe1d8;
 }
 
 .bundleRefListRow, .bundleRefListRowLast {
@@ -869,11 +909,11 @@ a:hover {
 
 /* Fade in and fade out */
 .fadeInOut.ng-enter {
-  -webkit-transition: .2s;
-  -moz-transition: .2s;
-  -ms-transition: .2s;
-  -o-transition: .2s;
-  transition: .2s;
+  -webkit-transition: .25s;
+  -moz-transition: .25s;
+  -ms-transition: .25s;
+  -o-transition: .25s;
+  transition: .25s;
   opacity: 0;
 }
 
@@ -908,7 +948,7 @@ a:hover {
   opacity: 1;
 }
 .fadeInOutStagger.ng-leave {
-  transition: .25s;
+  transition: 0s;
   opacity: 1;
 }
 .fadeInOutStagger.ng-leave-active {

@@ -31,6 +31,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
 
   $scope.collectionCounts = {};
   $scope.countsCompleted = false;
+  $scope.countedCollections = 0;
 
   $scope.anchorValue = null;
   $scope.anchorID = null;
@@ -54,6 +55,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   $scope.relatedItemsAnchorID = null;
   $scope.relatedItemsQueryCriteria = null;
   $scope.relatedItems = {};
+  $scope.relatedCollectionCount = 0;
 
   /****************************** UI UTILITIES *******************************/
 
@@ -96,14 +98,18 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   };
 
   $scope.getItemFieldClass = function(item, field) {
-    if (field.displayType == 'textarea' || (field.displayType == 'itemReferenceList' && (field.referenceType == 'inventorial' || field.referenceType == 'inventorial_bundle'))) {
+    if (field.displayType == 'itemReferenceList' && field.referenceType == 'inventorial') {
+      return 'col-md-9';
+    } else if (field.displayType == 'itemReferenceList' && field.referenceType == 'inventorial_bundle') {
+      return 'col-md-12';
+    } else if(field.displayType == 'textarea') {
       return 'col-md-12';
     } else if (field.displayType == 'userReferenceList' || field.displayType == 'itemReferenceList') {
       return 'col-md-6';
     } else if (field.name == $scope.collections[item.collectionName].displayField) {
       return 'col-md-9';
     } else if (field.displayType == 'datetime') {
-      return 'col-md-4';
+      return 'col-md-3';
     } else {
       return 'col-md-3';
     }
@@ -341,6 +347,9 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   };
 
   $scope.initRequiredInventory = function(refCollection, refItemID, refItemQty) {
+  
+    log.info('Init');
+
     var refCollectionObject = $scope.refItems[refCollection];
     var refItemObject = $scope.refItems[refCollection].itemObjects[refItemID];
     $scope.inventoryInitialized = false;
@@ -411,7 +420,8 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     $("#refListSelector").modal('hide');
   };
 
-  $scope.getRefItems = function(refItemCollection, loadBundledItems) {
+  $scope.getRefItems = function(refItemCollection) {
+
     // First initialize the reference field in the refItems object
     if (!$scope.refItems[refItemCollection]) {
       $scope.refItems[refItemCollection] = {};
@@ -485,12 +495,14 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
    * }
    */
   $scope.pullInventoryItems = function(collectionName, inventory) {
+
+    log.info('Pulling inventory');
     $scope.selectedItemSubmitting = true;
     // Before sending the request, convert to arry & invert the quantities, since the server works by adding
     var inventoryList = [];
     for(var item in inventory) {
       var singleItem = {
-        id: item,
+        _id: item,
         qty: -inventory[item].qty
       }
       inventoryList.push(singleItem);
@@ -499,18 +511,39 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     Item.pullInventoryItems(collectionName, inventoryList,
       function(result){
         // Success
-        $scope.selectedItemSubmitting = false;
-        $scope.toggleAlert('success', true,' Inventory pulled');
-        $scope.setPageLoading(false);
+        var newActivity = {
+          title: 'Inventory Pull for ' + $scope.selectedItem.number,
+          activitytype: 'Pull from stock',
+          items: inventoryList,
+          source: [{ _id: $scope.selectedItem._id }]
+        };
+        Item.new('inventoryactivities', newActivity,
+          function(newActivity){
+            log.info('Pulling inventory: pass');
+            $scope.selectedItemSubmitting = false;
+            $scope.toggleAlert('success', true,' Inventory pulled');
+            $scope.setPageLoading(false);
+            $scope.reloadRoute();
+          },
+          function() {
+            // Fail
+            log.info('Pulling inventory: fail');
+            $scope.selectedItemSubmitting = false;
+            $scope.setPageLoading(false);
+            $scope.alertUnknownError();
+          }
+        );
       },
       function() {
         // Fail
+        log.info('Pulling inventory: fail');
         $scope.selectedItemSubmitting = false;
         $scope.setPageLoading(false);
         $scope.alertUnknownError();
       }
     );
   };
+
 
   /* IF WE EVER DO INFINITE SCROLLING WITH REFERENCES
   $scope.refreshRefItems = function(refItemField, refItemCollection, searchTerm, withAnchors) {
@@ -611,14 +644,13 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     );
   };
 
-  $scope.initRelatedItems = function() {
+  $scope.initRelatedItems = function(selectedItem) {
     for(var collection in $scope.collections) {
       var fields = $scope.collections[collection].fields;
       for(var i=0; i<fields.length; i++) {
         if(fields[i].referenceTo == $scope.selectedItem.collectionName) {
           // Initialize the object for the collection
           $scope.relatedItems[$scope.collections[collection].name] = { totalCount: 0, items: [] };
-          
 
           // Initialize the find criteria, which could be a qty list of objects or a normal list
           var singleCritera = {};
@@ -629,9 +661,11 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
 
           var queryCriteria = { $or: [singleCritera, listCritera] };
           $scope.getRelatedItems($scope.collections[collection].name, queryCriteria);
+
         }
       }
     }
+    $scope.relatedCollectionCount = Object.keys($scope.relatedItems).length;
   };
 
 
@@ -644,6 +678,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   $scope.setupCollectionCounts = function(collectionObject) {
     $scope.collectionCounts[collectionObject.name] = {}
     $scope.collectionCounts[collectionObject.name].countableFields = [];
+    $scope.collectionCounts[collectionObject.name].totalItems = 0;
 
     // Build a property for each field
     for(var y=0; y<collectionObject.fields.length; y++) {
@@ -670,6 +705,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     $scope.setPageLoading(true);
     $scope.itemsLoading = true;
     $scope.collectionCounts = {};
+    $scope.countedCollections = 0;
     for(var i=0; i<collections.length; i++) {
       // Build the counts object
       $scope.setupCollectionCounts(collections[i]);
@@ -685,6 +721,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
       };
       Item.getAll(queryParams,
         function(result){
+          $scope.countedCollections = $scope.countedCollections + 1;
           $scope.totalItems = result.total;
           var items = result.items;
 
@@ -693,9 +730,13 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
             $scope.addItemToCounts(items[x]);
           }
 
-          $scope.itemsLoading = false
-          $scope.setPageLoading(false);
-          $scope.countsCompleted = true;
+          if($scope.countedCollections == collections.length) {
+            log.info(i);
+            $scope.itemsLoading = false
+            $scope.setPageLoading(false);
+            $scope.countsCompleted = true; 
+          }
+
         },
         function() {
           $scope.itemsLoading = false;
@@ -709,6 +750,8 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   };
 
   $scope.addItemToCounts = function(itemObject) {
+    $scope.collectionCounts[itemObject.collectionName].totalItems = $scope.collectionCounts[itemObject.collectionName].totalItems + 1;
+
     var countableFields = $scope.collectionCounts[itemObject.collectionName].countableFields;
     for (var f = 0; f<countableFields.length; f++) {
       var countableFieldName = countableFields[f].name;
@@ -736,17 +779,8 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
 
 
   $scope.initDropdownChart = function(collectionName, fieldObject) {
-    log.info('Loading chart for: ' + collectionName);
-
-    // Because the page is loaded async, we need to wait until counts are completed
-    if(!$scope.countsCompleted) {
-      $timeout(function () {
-          $scope.initDropdownChart(collectionName, fieldObject);
-      }, 500);
-    } else {
-
+    $timeout(function () {
       var choices = fieldObject.choices;
-
       var labels = [];
       var series = [];
       for(var i=0; i<choices.length; i++) {
@@ -782,9 +816,9 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
         }]
       ];
 
-      new Chartist.Bar('#' + fieldObject.name + '_piechart', data, options, responsiveOptions);
+      new Chartist.Pie('#' + fieldObject.name + '_piechart', data, options, responsiveOptions);
 
-    }
+    }, 500);
   };
 
 
@@ -795,9 +829,12 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
 
   $scope.setActiveCollection = function(collectionName) {
     var collectionType = $scope.collections[collectionName].collectionType;
-
-    if(collectionType == 'inventorial' || collectionType == 'inventorialBundle') {
+    if(collectionType == 'workable') {
+      $scope.setActiveSection('work');
+    } else if(collectionType == 'inventorial' || collectionType == 'inventorialBundle') {
       $scope.setActiveSection('inventory');
+    } else if(collectionType == 'basic') {
+      $scope.setActiveSection('other');
     } else {
       $scope.setActiveSection(collectionType);
     }
@@ -808,18 +845,18 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     var currentURL = $location.url();
 
     // Looking at the base collection home
-    if(currentURL.indexOf('/workable') >= 0) {
-      $scope.setActiveSection('workable');
+    if(currentURL.indexOf('/work/home') >= 0) {
+      $scope.setActiveSection('work');
       $scope.selectedItem = {};
       $scope.getAllCollectionCounts($scope.workableCollections);
       return;
-    } else if(currentURL.indexOf('/inventory') >= 0) {
+    } else if(currentURL.indexOf('/inventory/home') >= 0) {
       $scope.setActiveSection('inventory');
       $scope.selectedItem = {};
       $scope.getAllCollectionCounts($scope.inventoryCollections);
       return;
-    } else if(currentURL.indexOf('/basic') >= 0) {
-      $scope.setActiveSection('basic');
+    } else if(currentURL.indexOf('/other/home') >= 0) {
+      $scope.setActiveSection('other');
       $scope.selectedItem = {};
       $scope.getAllCollectionCounts($scope.basicCollections);
       return;
@@ -863,6 +900,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
       var itemNumber = currentURL.slice(currentURL.indexOf('/view') + 6, currentURL.length); // The item number will be after "/view"
       currentURL = currentURL.slice(0, currentURL.indexOf('/view'));
       $scope.baseCollection = currentURL.slice(1);
+      $scope.setActiveCollection($scope.baseCollection);
       if (itemNumber) {
         $scope.currentAction = 'update';
         if (!$scope.selectedItem || $scope.selectedItem.number != itemNumber) {
@@ -879,14 +917,11 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     
     // Check to see if the given collection is a valid item collection
     $scope.baseCollection = currentURL.slice(1);;
-
     var validCollection = $scope.collections[$scope.baseCollection];
 
     // If the collection was passed, go to it's list.
     if (validCollection) {
-
       $scope.setActiveCollection($scope.baseCollection);
-
       $scope.initializeScroll();
       $scope.load($scope.baseCollection);
       $scope.setPageLoading(false);
@@ -899,6 +934,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
       $scope.baseCollection = $scope.currentUser.org.primaryCollection;
       $scope.selectedItem = {};
       $scope.getAllCollectionCounts($scope.workableCollections);
+      $scope.setActiveSection('work');
       return;
     }
 

@@ -18,7 +18,7 @@
       <!-- Total -->
       <div class="row noSpace">
         <div class="col-md-12">
-          <h4 class="noSpace"><a ng-href="#/{{collection.name}}">Total {{ collection.pluralLabel }}: {{ totalItems }}</a></h4>
+          <h4 class="noSpace"><a ng-href="#/{{collection.name}}">Total {{ collection.pluralLabel }}: {{ collectionCounts[collection.name].totalItems }}</a></h4>
         </div>
       </div>
 
@@ -35,19 +35,23 @@
           <!-- Dropdown choices field -->
           <div ng-if="field.displayType == 'choice'">
             <h4 class="mainColor">By {{ field.label }}:</h4>
+
             <div ng-repeat="choice in field.choices" style="padding:5px;">
               <a style="font-size:20px;text-align:left;padding-left:50px;" ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}">
-                <span class="badge badgeDark">{{ collectionCounts[collection.name][field.name][choice] }}</span>
+                <span class="badge badgeLight">{{ collectionCounts[collection.name][field.name][choice] }}</span>
                 <span><strong>{{ choice }}</strong></span>
               </a>
             </div>
+            
             <!-- Empty (no choice selected) -->
-            <div style="padding:5px;">
+            
+            <div ng-if="collection.collectionType != 'inventory_activity'" style="padding:5px;">
               <a style="font-size:20px;text-align:left;padding-left:50px;" ng-href="#/{{collection.name}}/search?{{field.name}}=null">
-                <span class="badge badgeDark">{{ collectionCounts[collection.name][field.name]['empty'] }}</span>
+                <span class="badge badgeLight">{{ collectionCounts[collection.name][field.name]['empty'] }}</span>
                 <span><strong>Empty</strong></span>
               </a>
             </div>
+
           </div>
 
         </div>

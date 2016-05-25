@@ -41,14 +41,14 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
 
   $scope.setActiveSection = function(sectionID) {
     // First, deactivate any other active sections
-    $('#workableMenuItemD').removeClass('leftMenuIconActiveTop');
-    $('#workableMenuItemM').removeClass('leftMenuIconActiveTop');
+    $('#workMenuItemD').removeClass('leftMenuIconActiveTop');
+    $('#workMenuItemM').removeClass('leftMenuIconActiveTop');
 
     $('#inventoryMenuItemD').removeClass('leftMenuIconActive');
     $('#inventoryMenuItemM').removeClass('leftMenuIconActive');
 
-    $('#basicMenuItemD').removeClass('leftMenuIconActive');
-    $('#basicMenuItemM').removeClass('leftMenuIconActive');
+    $('#otherMenuItemD').removeClass('leftMenuIconActive');
+    $('#otherMenuItemM').removeClass('leftMenuIconActive');
 
     $('#settingsMenuItemD').removeClass('leftMenuIconActive');
     $('#settingsMenuItemM').removeClass('leftMenuIconActive');
@@ -57,14 +57,14 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
     $('#supportMenuItemM').removeClass('leftMenuIconActive');
 
     // Set everything to default
-    $('#workableMenuItemD').addClass('leftMenuIcon');
-    $('#workableMenuItemM').addClass('leftMenuIcon');
+    $('#workMenuItemD').addClass('leftMenuIcon');
+    $('#workMenuItemM').addClass('leftMenuIcon');
 
     $('#inventoryMenuItemD').addClass('leftMenuIcon');
     $('#inventoryMenuItemM').addClass('leftMenuIcon');
 
-    $('#basicMenuItemD').addClass('leftMenuIcon');
-    $('#basicMenuItemM').addClass('leftMenuIcon');
+    $('#otherMenuItemD').addClass('leftMenuIcon');
+    $('#otherMenuItemM').addClass('leftMenuIcon');
 
     $('#settingsMenuItemD').addClass('leftMenuIcon');
     $('#settingsMenuItemM').addClass('leftMenuIcon');
@@ -75,7 +75,7 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
     // Then, set the given section as active
     $('#' + sectionID + 'MenuItemD').removeClass('leftMenuIcon');
     $('#' + sectionID + 'MenuItemM').removeClass('leftMenuIcon');
-    if (sectionID == 'workable') {
+    if (sectionID == 'work') {
       $('#' + sectionID + 'MenuItemD').addClass('leftMenuIconActiveTop');
       $('#' + sectionID + 'MenuItemM').addClass('leftMenuIconActiveTop');
       sectionID = '';
@@ -172,10 +172,7 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
 
 
   $scope.getLeftMenuContainerOffset = function() {
-    var offset = 25;
-    if($scope.inventorialCollections.length > 0) {
-      offset += 75;
-    }
+    var offset = 100;
     if($scope.inventoryCollections.length > 0) {
       offset += 75;
     }
@@ -207,6 +204,9 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
         $scope.inventorialCollections.push($scope.collections[collection]);
         $scope.inventoryCollections.push($scope.collections[collection]);
       } else if(collectionType == 'inventorial_bundle') {
+        $scope.inventorialBundleCollections.push($scope.collections[collection]);
+        $scope.inventoryCollections.push($scope.collections[collection]);
+      } else if(collectionType == 'inventory_activity') {
         $scope.inventorialBundleCollections.push($scope.collections[collection]);
         $scope.inventoryCollections.push($scope.collections[collection]);
       } else if(collectionType == 'basic') {

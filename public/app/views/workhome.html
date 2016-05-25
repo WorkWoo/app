@@ -31,7 +31,10 @@
         <div class="col-md-12">
           <div ng-repeat="state in collection.stateChoices" style="padding: 5px;">
             <a class="text-left" style="font-size:20px;text-align:left;padding-left:20px;" ng-href="#/{{collection.name}}/search?state={{state}}">
-              <span class="badge badgeDark">{{ collectionCounts[collection.name].state[state] }}</span>
+              <span class="badge badgeLight">
+                <span ng-if="!countsCompleted" class="fa fa-refresh spinCustom fadeInOut"></span>
+                <span ng-if="countsCompleted" class="fadeInOut">{{ collectionCounts[collection.name].state[state] }}</span>
+              </span>
               <span><strong>{{ state }}</strong></span>
             </a>
           </div>

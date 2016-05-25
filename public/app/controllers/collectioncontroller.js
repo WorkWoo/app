@@ -3,8 +3,9 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
   $scope.setActiveSection('settings');
   $scope.currentAction = null;
   $scope.loadedCollections = [];
-  $scope.selectedCollection = null;
+  $scope.selectedCollection = {};
   $scope.selectedCollectionSysFieldCount = 0;
+  $scope.selectedCollectionCustomFieldCount = 0;
 
   $scope.showIconSelection = false;
   $scope.collectionIcons = COLLECTION_ICONS;
@@ -63,7 +64,7 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
         $scope.collectionsLoading = false;
         $scope.setPageLoading(false);
         $scope.selectedCollection = collection;
-        $scope.setSysFieldCount($scope.selectedCollection.fields);
+        $scope.setFieldCount($scope.selectedCollection.fields);
       },
       function() {
         $scope.setPageLoading(false);
@@ -134,7 +135,7 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
     for(var i=0; i<$scope.selectedCollection.fields.length; i++) {
       var fieldType = $scope.selectedCollection.fields[i].displayType;
       if(fieldType == 'itemReference' || fieldType == 'itemReferenceList' ) {
-        $scope.selectedCollection.fields[i].referenceType = $scope.collections[$scope.selectedCollection.fields[i].referenceTo].collectionType;
+        $scope.selectedCollection.fields[i].referenceType = 'inventorial';
       }
     }
 
@@ -257,16 +258,6 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
   };
 
 
-  $scope.checkForCustomFields = function(fieldsArray) {
-    for(var i=0; i<fieldsArray.length; i++) {
-      if(fieldsArray[i].sysProvided == false) {
-        return false;
-      }
-    }
-    return true;
-  };
-
-
   $scope.toggleFieldChoices = function(fieldID) {
     if ($scope['show' + fieldID] == undefined) {
       $scope['show' + fieldID] = true;
@@ -322,10 +313,12 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
   };
 
 
-  $scope.setSysFieldCount = function(fieldsList) {
+  $scope.setFieldCount = function(fieldsList) {
     for(var i=0; i<fieldsList.length; i++) {
       if(fieldsList[i].sysProvided) {
         $scope.selectedCollectionSysFieldCount += 1;
+      } else {
+        $scope.selectedCollectionCustomFieldCount += 1;
       }
     }
   };
@@ -357,7 +350,7 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
 
       // Set the selected collection and determine the count of sys fields (used by the UI)
       $scope.selectedCollection = $scope.collectionTypes[newCollectionType];
-      $scope.setSysFieldCount($scope.selectedCollection.fields);
+      $scope.setFieldCount($scope.selectedCollection.fields);
 
       $scope.currentAction = 'create';
       $scope.setPageLoading(false);

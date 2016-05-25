@@ -104,9 +104,6 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 						return callback(error, null);
 		    		}
 
-		    		log.info('ORG: ' + savedCollection._org);
-		    		log.info('COLLECTION: ' + savedCollection.name);
-
 		    		// Before returning, update the counter for this collection
 		    		Counter.findOne({ _id: savedCollection._counter, _org: savedCollection._org })
 		    			.exec(
@@ -115,8 +112,6 @@ collectionSchema.statics.update = function(updatedCollection, callback) {
 			    				log.error('|Collection.update.save.counter.find| Unknown -> ' + error, widget);
 								return callback(error, null);
 			    			}
-
-		    				log.info('Counter: ' + counter);
 
 		    				counter.prefix = savedCollection.numberPrefix;
 		    				counter.collectionName = savedCollection.name;

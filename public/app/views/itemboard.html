@@ -39,9 +39,6 @@
 
 <!-- Content -->
 <div ng-if="!itemsLoading" class="container-fluid noSpace fadeInOut">
-  <div class="col-md-12 text-center noSpaceMobile" style="margin-bottom:10px;">
-    <span ng-include="'views/includes/alerts.html'"></span>
-  </div>
 
   <!-- Message if they have not setup their primary collection -->
   <div ng-if="!itemsLoading && loadedItems.length == 0" class="container-fluid text-center" style="margin-top:50px;">
@@ -85,7 +82,7 @@
   <div class="container-fluid">
     <!-- Configure button -->
     <div class="col-md-2 text-left" style="padding:7px;">
-      <button type="button" ng-click="changeView('account/collections/view/' + baseCollection)" class="btn btn-success"><span class="fa fa-cog"></span></a>
+      <button type="button" ng-click="changeView('account/collections/view/' + baseCollection)" class="btn btn-lg btn-success"><span class="fa fa-cog"></span></a>
     </div>
     <!-- Alerts -->
     <div class="col-md-8 text-center">
@@ -93,7 +90,10 @@
     </div>
     <!-- Save/Create Buttons -->
     <div class="col-md-2" style="padding:7px;">
-      <a ng-if="!itemsLoading && loadedItems.length > 0" ng-disabled="itemsLoading" class="btn btn-success btn-block btn-lg" ng-href="#/{{baseCollection}}/new">New {{ collections[baseCollection].singleLabel }}</a>
+      <a ng-if="!itemsLoading && loadedItems.length > 0" ng-disabled="itemsLoading" class="btn btn-success btn-block btn-lg" ng-href="#/{{baseCollection}}/new">
+        <span class="fa fa-plus"></span>
+        <span>New {{ collections[baseCollection].singleLabel }}</span>
+      </a>
     </div>
   </div>
 </div>
