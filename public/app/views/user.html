@@ -1,75 +1,90 @@
-<form name="userForm" ng-model="selectedUser" ng-submit="updateUser(selectedUser)" novalidate>
+<div ng-if="!usersLoading" class="fadeInOut noSpace">
+	<form name="userForm" ng-model="selectedUser" ng-submit="updateUser(selectedUser)" novalidate>
 
-	<!-- Page Header -->
-	<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
-	  <!-- Title -->
-	  <div class="col-md-8 noSpaceMobile">
-	   	<div class="breadCrumb">
-	      <a href="#/account/users"><span class="fa fa-arrow-left"></span> All users</a>
-	    </div>
-	    <h3 class="pageHeading">
-			<span ng-if="currentAction == 'update' && !usersLoading" class="fadeInOut">{{ selecedUserName }}</span>
-			<span ng-if="currentAction == 'update' && usersLoading" class="fadeInOut"><span class="fa fa-refresh fa-spin"></span></span>
-			<span ng-if="currentAction == 'create'" class="fadeInOut">New User</span>
-	    </h3>
-	  </div>
-	</div>
-	<!-- Page Header -->
+		<!-- Page Content -->
+		<div class="container-fluid noSpace" style="margin-top:10px;">
 
-
-	<div class="container singleItemOuterContainer noSpaceMobile fadeInOut">
-		<div class="container noSpaceMobile" style="padding:25px;">
-
-	    	<!-- First, last name & phone number -->
-	    	<div class="row noSpaceMobile">
-				<div class="col-md-4">
-					<div class="inputContainer">
-						<label for="firstName">First name:</label>
-						<input ng-disabled="usersLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="selectedUser.firstName" size="20" required/>
-						<span ng-if="userForm.firstName.$invalid && userForm.firstName.$touched" ng-init="initInvalidPopover('firstNameRequired','Everyone has a name!')" id="firstNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="inputContainer">
-						<label for="lastName">Last name:</label>
-						<input ng-disabled="usersLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="selectedUser.lastName" size="20" required/>
-						<span ng-if="userForm.lastName.$invalid && userForm.lastName.$touched" ng-init="initInvalidPopover('lastNameRequired','Everyone has a name!')" id="lastNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="inputContainer">
-						<label for="phoneNumber">Phone Number:</label>
-						<input ng-disabled="usersLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="selectedUser.phone" size="20" ng-intl-tel-input required/>
-						<span ng-if="userForm.phoneNumber.$invalid && userForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to call')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
-					</div>
-				</div>
-			</div>
-				
-			<!-- Email Address -->
-			<div class="row noSpaceMobile">
-				<div class="col-md-8">
-					<div class="inputContainer">
-						<label for="emailAddress">Email Address:</label>
-						<input ng-disabled="usersLoading" type="email" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="selectedUser.emailAddress" size="20" required/>
-						<span ng-if="userForm.emailAddress.$invalid && userForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We might need to send stuff')" id="emailAddressRequired" class="fa fa-exclamation-circle inputInvalid"></span>
-					</div>
-				</div>
-			</div>
-
-			<!-- Submit button -->
-			<div class="row noSpaceMobile">
-				<!-- Spacer -->
-				<div class="col-md-8"></div>
-				<div class="col-md-4">
-					<div class="inputContainer">
-						<button ng-disabled="usersLoading" type="submit" class="btn btn-success btn-block">
-							<span ng-if="!usersLoading">Save Changes</span>
-							<span ng-if="usersLoading"><span class="fa fa-refresh fa-spin"></span> Saving</span>
-						</button>
-					</div>
-				</div>
-			</div>
-
+		<!-- Icon & user name -->
+		<div class="col-md-12">
+			<h3>
+			  	<span class="mainColor fa fa-user"></span>
+			  	<span ng-if="currentAction == 'update'"><strong>{{ selectedUser.firstName }}  {{ selectedUser.lastName }}</strong></span>
+				<span ng-if="currentAction == 'create'"><strong> New User</strong></span>
+			</h3>
 		</div>
-	</div>
-</form>
+
+		<!-- First name -->
+		<div class="col-md-4 form-group">
+			<div class="inputContainer">
+				<label for="firstName">First name:</label>
+				<input ng-disabled="usersLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="selectedUser.firstName" size="20" required/>
+				<span ng-if="userForm.firstName.$invalid && userForm.firstName.$touched" ng-init="initInvalidPopover('firstNameRequired','Everyone has a name!')" id="firstNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+			</div>
+		</div>
+
+		<!-- Last name -->
+		<div class="col-md-4 form-group">
+			<div class="inputContainer">
+				<label for="lastName">Last name:</label>
+				<input ng-disabled="usersLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="selectedUser.lastName" size="20" required/>
+				<span ng-if="userForm.lastName.$invalid && userForm.lastName.$touched" ng-init="initInvalidPopover('lastNameRequired','Everyone has a name!')" id="lastNameRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+			</div>
+		</div>
+
+		<!-- Phone number -->
+		<div class="col-md-4 form-group">
+			<div class="inputContainer">
+				<label for="phoneNumber">Phone Number:</label>
+				<input ng-disabled="usersLoading" type="text" id="phoneNumber" name="phoneNumber" class="form-control defaultInput" value="" ng-model="selectedUser.phone" size="20" ng-intl-tel-input required/>
+				<span ng-if="userForm.phoneNumber.$invalid && userForm.phoneNumber.$touched" ng-init="initInvalidPopover('phoneNumberRequired','We may need to call')" id="phoneNumberRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+			</div>
+		</div>
+
+		<!-- Email -->	
+		<div class="col-md-8 form-group">
+			<div class="inputContainer">
+				<label for="emailAddress">Email Address:</label>
+				<input ng-disabled="usersLoading" type="email" id="emailAddress" name="emailAddress" class="form-control defaultInput" value="" ng-model="selectedUser.emailAddress" size="20" required/>
+				<span ng-if="userForm.emailAddress.$invalid && userForm.emailAddress.$touched" ng-init="initInvalidPopover('emailAddressRequired','We might need to send stuff')" id="emailAddressRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+			</div>
+		</div>
+
+		<!-- Footer (with controls) -->
+		<div class="controlFooter">
+			<div class="container-fluid">
+
+				<!-- New user button -->
+			    <div ng-if="currentAction == 'update'" class="col-md-2 text-left hideInMobile" style="padding:7px;">
+			      <button type="button" ng-click="changeView('account/users/new')" class="btn btn-lg btn-success btn-block"><span class="fa fa-user-plus"></span> New User</a>
+			    </div>
+
+			    <!-- Alerts -->
+			    <div class="col-md-6 text-center">
+			      <span ng-include="'views/includes/alerts.html'"></span>
+			    </div>
+
+			    <!-- Delete button -->
+			    <div ng-if="currentAction == 'update'" class="col-md-2" style="padding:7px;">
+			      <button ng-disabled="selectedItemSubmitting" ng-click="deleteSelectedUser()" class="btn btn-danger btn-lg btn-block">Delete</button>
+			    </div>
+
+			    <!-- Spacer for if we're creating since the delete button won't be there-->
+			    <div ng-if="currentAction == 'create'" class="col-md-4 hideInMobile" style="padding:7px;"></div>
+
+			    <!-- Save Button -->
+			    <div class="col-md-2" style="padding:7px;">
+					<button type="submit" ng-if="currentAction == 'create'" ng-disabled="usersLoading" class="btn btn-success btn-lg btn-block">
+						<span ng-if="!usersLoading">Save</span>
+						<span ng-if="usersLoading"><span class="fa fa-refresh fa-spin"></span> Submitting</span>
+					</button>
+			    	<button type="submit" ng-if="currentAction == 'update'" ng-disabled="usersLoading" class="btn btn-success btn-lg btn-block">
+			        	<span ng-if="!usersLoading">Save</span>
+			        	<span ng-if="usersLoading"><span class="fa fa-refresh fa-spin"></span> Submitting</span>
+			      	</button>
+		    	</div>
+		  	</div>
+		</div>
+
+
+	</form>
+</div>

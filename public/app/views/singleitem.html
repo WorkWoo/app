@@ -2,11 +2,11 @@
   <form name="itemForm" ng-submit="preSubmit(selectedItem)" ng-model="selectedItem" novalidate>
 
     <!-- Page Content -->
-    <div class="container-fluid noSpace" style="margin-top:10px;">
+    <div class="container-fluid noSpace">
 
       <!-- Icon & title of the item -->
       <div class="col-md-4">
-        <h3>
+        <h3 class="centerInMobile">
           <span class="mainColor fa" ng-class="collections[selectedItem.collectionName].icon"></span>
           <span ng-if="currentAction == 'create'"><strong>New {{ collections[selectedItem.collectionName].singleLabel }}</strong></span>
           <span ng-if="currentAction == 'update'"><strong>{{ collections[selectedItem.collectionName].singleLabel }} #{{ selectedItem.number }}</strong></span>
@@ -20,7 +20,7 @@
           <button type="button" class="btn" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
         </div>
         <!-- Mobile -->
-        <div class="row hideInDesktop noSpace" style="padding: 10px 0px 10px 0px; margin: 5px 0px 5px 0px;background-color:#fcfcfc;border-radius:5px;">
+        <div class="row hideInDesktop noSpace" style="padding:0px;margin:0px;">
           <div class="col-md-12" ng-repeat="choice in collections[selectedItem.collectionName].stateChoices">
             <button style="margin:3px;" type="button" class="btn btn-block" ng-class="getItemStateButtonClass(choice, selectedItem.state)" ng-click="selectedItem.state = choice">{{ choice }}</button>
           </div>

@@ -1,10 +1,20 @@
+var angularRequiredItems = [
+  '#pageLoadingIndicator',
+  '#userInfo',
+  '#workMenuItem',
+  '#inventoryMenuItem',
+  '#otherMenuItem',
+  '#settingsMenuItem',
+  '#supportMenuItem',
+  '#leftMenuContainer'
+];
+
 $(document).ready(function() {
+  hideAngularElements();
   initializeHome();
 });
 
 function initializeHome() {
-  hideAngularElements();
-
   // Attempt to get an active session for this user. If none exists, a 401 will be returned and we will redirect to login.
   $.ajax({
     type: 'GET',
@@ -17,24 +27,15 @@ function initializeHome() {
 
 
 function hideAngularElements() {
-  $('#user-org-loaded').hide();
-  $('#nav-content').hide();
-  $('#user-name').hide();
-  $('#item-navigator').hide();
-  $('#pageLoadingIndicator').hide();
+  for(var i=0; i<angularRequiredItems.length; i++) {
+    $(angularRequiredItems[i]).addClass('hidden');
+  }
+}
 
-  $('#workableMenuItemD').hide();
-  $('#workableMenuItemM').hide();
-  $('#inventorialMenuItemD').hide();
-  $('#inventorialMenuItemM').hide();
-  $('#inventorialBundleMenuItemD').hide();
-  $('#inventorialBundleMenuItemM').hide();
-  $('#basicMenuItemD').hide();
-  $('#basicMenuItemM').hide();
-  $('#settingsMenuItemD').hide();
-  $('#settingsMenuItemM').hide();
-  $('#supportMenuItemD').hide();
-  $('#supportMenuItemM').hide();
+function showAngularElements() {
+  for(var i=0; i<angularRequiredItems.length; i++) {
+    $(angularRequiredItems[i]).removeClass('hidden');
+  }
 }
 
 
@@ -61,27 +62,7 @@ function getUserProfileFail(response) {
 }
 
 function getCollectionSettingsSuccess(response) {
-  $('#pageLoadingIndicator').show();
-  $('#pageLoadingIndicatorOnLoad').hide();
-  $('#pageLoadingIndicator').show();
-  $('#nav-content').show();
-  $('#user-org-loading').hide();
-  $('#user-org-loaded').show();
-  $('#user-name').show();
-  $('#item-navigator').show();
-
-  $('#workableMenuItemD').show();
-  $('#workableMenuItemM').show();
-  $('#inventorialMenuItemD').show();
-  $('#inventorialMenuItemM').show();
-  $('#inventorialBundleMenuItemD').show();
-  $('#inventorialBundleMenuItemM').show();
-  $('#basicMenuItemD').show();
-  $('#basicMenuItemM').show();
-  $('#settingsMenuItemD').show();
-  $('#settingsMenuItemM').show();
-  $('#supportMenuItemD').show();
-  $('#supportMenuItemM').show();
+  showAngularElements();
 
   COLLECTIONS = JSON.parse(response).collections;
   FIELDTYPES = JSON.parse(response).fieldTypes;

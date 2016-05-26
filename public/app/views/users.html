@@ -1,61 +1,43 @@
 <!-- Page Header -->
-<div class="container-fluid noSpaceMobile" style="margin-top:10px;">
-  <!-- Title -->
-  <div class="col-md-8 noSpaceMobile">
-    <div class="breadCrumb">
-      <a href="#/account"><span class="fa fa-arrow-left"></span> All settings</a>
-    </div>
-    <h3 class="pageHeading">Users</h3>
+<div class="container-fluid noSpaceMobile" style="margin-top:25px;">
+  <div class="col-md-12 noSpaceMobile">
+    <h2 class="noSpace pageHeading">Users</h2>
   </div>
 </div>
 <!-- Page Header -->
 
 <!-- Page Content -->
-<div class="container-fluid noSpace">
-
-  <!-- Create new button -->
-  <div class="col-md-3 noSpaceMobile fadeInOut">
-    <!-- Basic users -->
-    <span ng-if="accountType == '0'" class="menuCardContainerDisabled fadeInOut">
-      <span class="menuCardIconDisabled fa fa-user-plus"></span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitleDisabled">New User</span>
-    </span>
-
-    <!-- Pro users -->
-    <a ng-href="#/account/users/new" ng-if="accountType == '1'" class="menuCardContainer fadeInOut">
-      <span class="menuCardIcon fa fa-user-plus"></span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">New User</span>
-    </a>
-  </div>
-
-  <!-- Loading indicator -->
-  <div ng-if="usersLoading" class="col-md-9 fadeInOut largeLoadingIndicator">
-    <span class="fa fa-refresh fa-spin"></span>
-    <span>Loading users</span>
-  </div>
-
-  <!-- One card for each user -->
-  <div ng-repeat="user in loadedUsers" class="col-md-3 noSpaceMobile fadeInOutStagger" >
-    <a ng-href="#/account/users/view/{{user.number}}" class="menuCardContainer">
-      <span class="menuCardIcon fa fa-user"></span>
-      <span class="cardTitleBreaker"></br></span>
-      <span class="menuCardTitle">{{ user.firstName }} {{ user.lastName }}</span>
-    </a>
-  </div>
-
-</div>
-
-<!-- Upgrade indicator -->
-<div ng-if="accountType == '0'" class="container-fluid">
-  <div class="upgradeAlert clearfix text-left">
-    <span class="upgradeAlertIcon"><i class="fa fa-users iconXL"></i></span>
-    <span class="upgradeAlertText"><strong>Empower your employees!</strong><br/> Your free account includes 1 user. Upgrade now to add additional users for only $10 a month per user</span>
-    <span class="upgradeAlertButton">
-      <a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
-    </span>
+<div class="container-fluid noSpace text-center">
+  <!-- Create one card for each user -->
+  <div ng-repeat="user in loadedUsers" class="col-md-4">
+    <div id="accountSettings" class="itemCard" style="padding-top:15px;">
+      <a ng-href="#/account/users/view/{{user.number}}">
+        <div class="col-md-12">
+          <span class="mainColor fa fa-user fa-3x"></span>
+          <span class="cardTitleBreaker"></br></span>
+          <h4 class="noSpace">{{ user.firstName }} {{ user.lastName }}</h4>
+        </div>
+      </a>
+    </div>
   </div>
 </div>
 
-<!-- Page Content -->
+<!-- Footer (with controls) -->
+<div class="controlFooter">
+  <div class="container-fluid">
+
+    <!-- Alerts -->
+    <div class="col-md-10 text-center">
+      <span ng-include="'views/includes/alerts.html'"></span>
+    </div>
+
+    <!-- Create Button -->
+    <div class="col-md-2" style="padding:7px;">
+      <!-- Create -->
+      <a href="#/account/users/new" type="button" ng-disabled="usersLoading" class="btn btn-success btn-lg btn-block">
+        <span class="fa fa-user-plus"></span> New User
+      </a>
+    </div>
+
+  </div>
+</div>

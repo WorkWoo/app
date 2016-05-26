@@ -41,47 +41,26 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
 
   $scope.setActiveSection = function(sectionID) {
     // First, deactivate any other active sections
-    $('#workMenuItemD').removeClass('leftMenuIconActiveTop');
-    $('#workMenuItemM').removeClass('leftMenuIconActiveTop');
-
-    $('#inventoryMenuItemD').removeClass('leftMenuIconActive');
-    $('#inventoryMenuItemM').removeClass('leftMenuIconActive');
-
-    $('#otherMenuItemD').removeClass('leftMenuIconActive');
-    $('#otherMenuItemM').removeClass('leftMenuIconActive');
-
-    $('#settingsMenuItemD').removeClass('leftMenuIconActive');
-    $('#settingsMenuItemM').removeClass('leftMenuIconActive');
-
-    $('#supportMenuItemD').removeClass('leftMenuIconActive');
-    $('#supportMenuItemM').removeClass('leftMenuIconActive');
+    $('#workMenuItem').removeClass('leftMenuIconActiveTop');
+    $('#inventoryMenuItem').removeClass('leftMenuIconActive');
+    $('#otherMenuItem').removeClass('leftMenuIconActive');
+    $('#settingsMenuItem').removeClass('leftMenuIconActive');
+    $('#supportMenuItem').removeClass('leftMenuIconActive');
 
     // Set everything to default
-    $('#workMenuItemD').addClass('leftMenuIcon');
-    $('#workMenuItemM').addClass('leftMenuIcon');
-
-    $('#inventoryMenuItemD').addClass('leftMenuIcon');
-    $('#inventoryMenuItemM').addClass('leftMenuIcon');
-
-    $('#otherMenuItemD').addClass('leftMenuIcon');
-    $('#otherMenuItemM').addClass('leftMenuIcon');
-
-    $('#settingsMenuItemD').addClass('leftMenuIcon');
-    $('#settingsMenuItemM').addClass('leftMenuIcon');
-
-    $('#supportMenuItemD').addClass('leftMenuIcon');
-    $('#supportMenuItemM').addClass('leftMenuIcon');
+    $('#workMenuItem').addClass('leftMenuIcon');
+    $('#inventoryMenuItem').addClass('leftMenuIcon');
+    $('#otherMenuItem').addClass('leftMenuIcon');
+    $('#settingsMenuItem').addClass('leftMenuIcon');
+    $('#supportMenuItem').addClass('leftMenuIcon');
 
     // Then, set the given section as active
-    $('#' + sectionID + 'MenuItemD').removeClass('leftMenuIcon');
-    $('#' + sectionID + 'MenuItemM').removeClass('leftMenuIcon');
+    $('#' + sectionID + 'MenuItem').removeClass('leftMenuIcon');
     if (sectionID == 'work') {
-      $('#' + sectionID + 'MenuItemD').addClass('leftMenuIconActiveTop');
-      $('#' + sectionID + 'MenuItemM').addClass('leftMenuIconActiveTop');
+      $('#' + sectionID + 'MenuItem').addClass('leftMenuIconActiveTop');
       sectionID = '';
     } else {
-      $('#' + sectionID + 'MenuItemD').addClass('leftMenuIconActive');
-      $('#' + sectionID + 'MenuItemM').addClass('leftMenuIconActive');
+      $('#' + sectionID + 'MenuItem').addClass('leftMenuIconActive');
     }
   };
 

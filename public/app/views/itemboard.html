@@ -17,7 +17,7 @@
 
   <!-- Query indicator -->
   <div class="col-md-12 text-left">
-    <h4 ng-repeat="(key, value) in queryCriteria">
+    <h4 class="centerInMobile" ng-repeat="(key, value) in queryCriteria">
       Showing items where 
       <span class="mainColor"><strong><i>{{ collections[baseCollection].fieldsObject[key].label }}</i></strong></span> is 
       <span ng-if="value == 'null'" class="mainColor"><strong><i>Empty</i></strong></span>
@@ -81,7 +81,7 @@
 <div class="controlFooter">
   <div class="container-fluid">
     <!-- Configure button -->
-    <div class="col-md-2 text-left" style="padding:7px;">
+    <div class="col-md-2 text-left hideInMobile" style="padding:7px;">
       <button type="button" ng-click="changeView('account/collections/view/' + baseCollection)" class="btn btn-lg btn-success"><span class="fa fa-cog"></span></a>
     </div>
     <!-- Alerts -->
