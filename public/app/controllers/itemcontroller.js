@@ -77,9 +77,9 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
 
   $scope.getItemStateButtonClass = function(stateChoice, selectedItemState) {
     if(stateChoice == selectedItemState) {
-      return 'btn-success btn-sm';
+      return 'btn-success';
     } else {
-      return 'btn-default btn-sm';
+      return 'btn-default';
     }
   };
 

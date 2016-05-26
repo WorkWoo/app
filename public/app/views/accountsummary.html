@@ -5,7 +5,10 @@
 
     		<!-- Personal Info -->
     		<div class="col-md-6">
-    			<h3>Personal Info:</h3>
+    			<h3 class="centerInMobile">
+    				<span class="fa fa-user mainColor"></span>
+    				<span> Your Personal Info</span>
+    			</h3>
 
 				<!-- First Name -->
 				<div class="col-md-12">
@@ -42,7 +45,7 @@
 				<!-- Password reset button -->
 				<div class="col-md-12 text-center">
 					<div class="inputContainer">
-						<a href="#/changepassword">Change your password <span class="fa fa-arrow-right"></span></a>
+						<a href="#/changepassword"><span class="fa fa-lock"></span> Change your password</a>
 					</div>
 				</div>
     		</div>
@@ -51,7 +54,10 @@
 
     		<!-- Company Info -->
     		<div class="col-md-6">
-    			<h3>Your business:</h3>
+    			<h3 class="centerInMobile">
+    				<span class="fa fa-university mainColor"></span>
+    				<span> Your business</span>
+    			</h3>
 
     			<!-- Company Name -->
 				<div class="col-md-12">
@@ -121,30 +127,30 @@
     		</div>
     		<!-- End company info -->
 
-    		<!-- Buttons -->
-    		<div class="col-md-9"></div>
-    		<div class="col-md-3">
-    			<button style="margin:15px;" class="btn btn-success btn-block" type="submit">Save</button>
-    		</div>
-
 		</div>
-
-		<!-- Upgrade message -->
-		<div ng-if="accountType == '0'" class="container-fluid noSpace">
-			<div class="col-md-12 noSpace">
-				<div class="upgradeAlert clearfix">
-					<span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
-					<span class="upgradeAlertText"><strong>Take your work to the next level!</strong><br/> With WorkWoo Pro, import and track items that relate to {{ collections[primaryCollection].pluralLabel }}, like documents, employees, or inventory</span>
-					<span class="upgradeAlertButton">
-						<a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
-					</span>
-				</div>
-			</div>
-		</div>
-		<!-- Upgrade message -->
 
 	</div>
 	<!-- Page Content -->
+
+
+	<!-- Footer (with controls) -->
+	<div class="controlFooter">
+	  <div class="container-fluid">
+
+	    <!-- Alerts -->
+	    <div class="col-md-10 text-center">
+	      <span ng-include="'views/includes/alerts.html'"></span>
+	    </div>
+
+	    <!-- Create Button -->
+	    <div class="col-md-2" style="padding:7px;">
+	      <!-- Create -->
+	      <button type="submit" ng-disabled="accountLoading" class="btn btn-success btn-lg btn-block">Save</button>
+	    </div>
+
+	  </div>
+	</div>
+
 
 </form>
 

@@ -46,18 +46,17 @@
   <body ng-controller="mainController" style="margin:0px;padding:0px;color:#777;position:relative;">
 
     <div ng-if="startMainTour" id="mainTour" ng-joy-ride="startMainTour" config="mainTourConfig" on-finish="finishMainTour()" on-skip="skipMainTour()"></div>
-    <!-- Header -->
-    <div class="header">
+    
+    <!-- Desktop Header -->
+    <div class="header hideInMobile">
       <span class="headerTitle">
         <i class="fa fa-coffee fa-1x"></i>&nbsp;&nbsp;WorkWoo
       </span>
-
       <!-- Top-Right dropdown menu -->
       <div class="dropdown pull-right">
         <span id="userInfo">{{ currentUser.firstName }} @ {{ currentUser.org.name }}</span>
         <span class="fa fa-bars userMenuIcon" id="userMenuDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
         <ul class="dropdown-menu userMenuDropdown" aria-labelledby="userMenuDropdown">  
-          
           <li><a href="#/work/home"><span class="fa fa-home"></span> My Work</a></li>
           <li ng-if="inventoryCollections.length > 0"><a href="#/inventory/home"><span class="fa fa-cubes"></span> Inventory</a></li>
           <li ng-if="basicCollections.length > 0"><a href="#/other/home"><span class="fa fa-inbox"></span> Other Items</a></li>
@@ -68,7 +67,29 @@
         </ul>
       </div>
     </div>
-    <!-- Header -->
+    <!-- Desktop Header -->
+
+    <!-- Mobile Header -->
+    <div class="mobileHeader hideInDesktop">
+      <span class="headerTitle">
+        <i class="fa fa-coffee"></i>&nbsp;&nbsp;WorkWoo
+      </span>
+      <!-- Top-Right dropdown menu -->
+      <div class="dropdown pull-right">
+        <span class="fa fa-bars fa-2x userMenuIcon" data-toggle="collapse" data-target="#myNavbar"></span>
+      </div>
+      <div class="collapse" id="myNavbar">
+        <ul class="nav navbar-nav mobileHeaderMenu">
+          <li class="mobileHeaderMenuItem"><a href="#/work/home"><span class="fa fa-home mobileHeaderMenuItemIcon"></span> My Work</a></li>
+          <li class="mobileHeaderMenuItem" ng-if="inventoryCollections.length > 0"><a href="#/inventory/home"><span class="fa fa-cubes mobileHeaderMenuItemIcon"></span> Inventory</a></li>
+          <li class="mobileHeaderMenuItem" ng-if="basicCollections.length > 0"><a href="#/other/home"><span class="fa fa-inbox mobileHeaderMenuItemIcon"></span> Other Items</a></li>
+          <li class="mobileHeaderMenuItem"><a href="#/account"> <span class="fa fa-cogs mobileHeaderMenuItemIcon"></span> Settings</a></li>
+          <li class="mobileHeaderMenuItem"><a href="#/support"><span class="fa fa-question-circle mobileHeaderMenuItemIcon"></span> Get Help</a></li>
+          <li class="mobileHeaderMenuItem"><a href="/logout"><span class="fa fa-sign-out mobileHeaderMenuItemIcon"></span> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Mobile Header -->
 
     <!-- Left Menu icons (Desktop) -->
     <a href="#/work/home" id="workMenuItem" class="fa fa-home leftMenuIcon hideInMobile" style="top:25px;">

@@ -343,48 +343,6 @@
 
   }
 
-
-  /****************************** PAGE STYLING ******************************/
-
-
-  .menuCardContainer, .menuCardContainerActive, .menuCardContainerDisabled {
-    padding: 10px 10px 10px 10px;
-    margin: 5px;
-    text-align: center;
-    background-color: #fcfcfc;
-    border: 1px dashed #d8d8d8;
-    border-radius: 5px;
-    display: block;
-    font-size: 20px;
-    -webkit-transition: .25s;
-    -moz-transition: .25s;
-    -ms-transition: .25s;
-    -o-transition: .25s;
-    transition: .25s;
-  }
-
-  .menuCardContainer:hover, .menuCardContainerActive:hover {
-    text-decoration: none;
-    cursor: pointer;
-    background-color: #fff;
-    border: 1px solid #67A88C;
-  }
-
-  .menuCardIcon {
-    font-size: 35px;
-    color: #67A88C;
-  }
-
-  .menuCardIconDisabled {
-    font-size: 35px;
-    color: #d8d8d8;
-  }
-
-  .menuCardTitleDisabled {
-    color: #d8d8d8;
-  }
-
-
   /****************************** ITEM HOME ******************************/
     .collectionReportTitle {
       text-align: left;
@@ -625,12 +583,29 @@
 
   .choiceOptionContainer {
     background-color: #fff;
+    border-radius: 10px;
     padding: 10px;
   }
 
   .itemInfoUpdate {
     padding-top: 10px;
     text-align: right;
+  }
+
+  .refRemoveIcon {
+    color: #a86c67;
+    font-size: 20px;
+    padding-top: 5px;
+    -webkit-transition: .25s;
+    -moz-transition: .25s;
+    -ms-transition: .25s;
+    -o-transition: .25s;
+    transition: .25s;
+  }
+
+  .refRemoveIcon:hover {
+    color: #999;
+    cursor: pointer;
   }
 
   .refListContainer {
@@ -1047,6 +1022,13 @@
 
   /****************************** MANAGE COLLECTIONS ******************************/
 
+  .collectionFieldContainer {
+    background-color: #e9f2ee;
+    border-radius: 10px;
+    padding-bottom:15px;
+    color: #508c72;
+  }
+
   .collectionIconSelection {
     margin: 5px;
     padding: 5px;
@@ -1078,12 +1060,11 @@
   }
 
   .collectionIcon {
+    border-radius: 10px;
     border: 1px solid #f0f0f0;
     color: #fff;
     background-color: #67A88C;
     padding: 5px;
-    height: 65px;
-    width: 70px;
     -webkit-transition: .25s;
     -moz-transition: .25s;
     -ms-transition: .25s;

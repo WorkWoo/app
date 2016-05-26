@@ -9,6 +9,16 @@
     text-align: center;
   }
 
+  .blockInMobile {
+    display: block;
+    width: 100%;
+  }
+
+  .noSpaceMobile {
+    padding: 0px;
+    margin: 0px;
+  }
+
   .hideInMobile {
     display: none;
   }
@@ -48,6 +58,7 @@
     top: 25px;
     left: 0px;
     right: 0px;
+    margin-bottom: 125px;
   }
 
   .breadCrumb {
@@ -161,13 +172,13 @@
   /****************************** HEADER ******************************/
 
 
-  .header {
+  .mobileHeader {
     position: fixed;
     top: 0px;
     left: 0px;
     right: 0px;
     color: #fff;
-    padding: 0px 5px 0px 15px;
+    padding: 0px;
     background-color: #508c72;
     z-index: 100;
   }
@@ -180,59 +191,66 @@
   }
 
   .headerTitle {
-    font-size: 18px;
+    font-size: 24px;
+    position: relative;
+    left: 10px;
   }
 
-  /****************************** USER MENU ******************************/
+
+  /****************************** HEADER MENU ******************************/
 
 
   .userMenuIcon {
-    margin-left: 10px;
-    font-size: 18px;
     -webkit-transition: .25s;
     -moz-transition: .25s;
     -ms-transition: .25s;
     -o-transition: .25s;
     transition: .25s;
+    position: relative;
+    right: 10px;
   }
 
   .userMenuIcon:hover {
     cursor: pointer;
-    color: #67A88C;
-    text-shadow:
-      0px 0px 1px #fff,
-      0px 0px 1px #fff;
+    color: #bebebe;
   }
 
-  .userMenuDropdown {
-    font-size: 16px;
+  .mobileHeaderMenu {
+    background-color: #e9f2ee;
+    border-bottom: 5px solid #c9dfd5;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    font-size: 20px;
+    box-shadow: 
+      0px 0px 10px #508c72,
+      0px 0px 10px #999;
+  }
+
+  .mobileHeaderMenuItem {
+    border-bottom: 1px solid #c9dfd5;
+    background-color: #e9f2ee;
+  }
+
+  .nav li a {
+    padding-left: 25px;
+    color: #508c72;
+  }
+
+  .nav li a:hover {
+    padding-left: 50px;
+    color: #67A88C;
+    background-color: #fff;
+  }
+
+  .nav li a:focus {
+    padding-left: 50px;
     color: #fff;
     background-color: #67A88C;
-    border: none;
-    border-radius: 0px;
-    top: 23px;
-    left: 25px;
-    box-shadow: -2px 2px 5px #bebebe;
-    transition: all .25s linear;
-    -webkit-transition: all .25s linear;
-    -moz-transition: all .25s linear;
   }
 
-  .userMenuDropdown li a, 
-  .userMenuDropdown li a:active,
-  .userMenuDropdown li a:focus {
-    -webkit-transition: .25s;
-    -moz-transition: .25s;
-    -ms-transition: .25s;
-    -o-transition: .25s;
-    transition: .25s;
-    color: #fff;
-  }
-
-  .userMenuDropdown li a:hover {
-    color: #fff;
-    text-decoration: none;
-    background-color: #bfbfbf;
+  .mobileHeaderMenuItemIcon {
+    margin-left: 25px;
   }
 
 
@@ -339,47 +357,6 @@
     }
 
 
-  }
-
-
-  /****************************** PAGE STYLING ******************************/
-
-
-  .menuCardContainer, .menuCardContainerActive, .menuCardContainerDisabled {
-    padding: 10px 10px 10px 10px;
-    margin: 5px;
-    text-align: center;
-    background-color: #fcfcfc;
-    border: 1px dashed #d8d8d8;
-    border-radius: 5px;
-    display: block;
-    font-size: 20px;
-    -webkit-transition: .25s;
-    -moz-transition: .25s;
-    -ms-transition: .25s;
-    -o-transition: .25s;
-    transition: .25s;
-  }
-
-  .menuCardContainer:hover, .menuCardContainerActive:hover {
-    text-decoration: none;
-    cursor: pointer;
-    background-color: #fff;
-    border: 1px solid #67A88C;
-  }
-
-  .menuCardIcon {
-    font-size: 35px;
-    color: #67A88C;
-  }
-
-  .menuCardIconDisabled {
-    font-size: 35px;
-    color: #d8d8d8;
-  }
-
-  .menuCardTitleDisabled {
-    color: #d8d8d8;
   }
 
 
@@ -621,21 +598,41 @@
 
   .itemInfoUpdate {
     padding-top: 10px;
-    text-align: right;
+    text-align: center;
+  }
+
+  .refRemoveIcon {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    color: #a86c67;
+    font-size: 30px;
+    padding-top: 5px;
+    -webkit-transition: .25s;
+    -moz-transition: .25s;
+    -ms-transition: .25s;
+    -o-transition: .25s;
+    transition: .25s;
+  }
+
+  .refRemoveIcon:hover {
+    color: #999;
+    cursor: pointer;
   }
 
   .refListContainer {
     border: 5px solid #cbe1d8;
-    border-radius: 10px;
+    border-radius: 0px;
+    margin-bottom: 25px;
   }
 
   .refListHeader {
     background-color: #cbe1d8;
     color: #508c72;
     font-weight: bold;
-    padding: 5px;
+    padding-bottom: 5px;
     margin: 0px;
-    border-radius: 5px 5px 0px 0px
+    border-radius: 0px
   }
 
   .refListRow, .refListRowLast {
@@ -1051,8 +1048,7 @@
     color: #fff;
     background-color: #67A88C;
     padding: 5px;
-    height: 65px;
-    width: 70px;
+    border-radius: 10px;
     -webkit-transition: .25s;
     -moz-transition: .25s;
     -ms-transition: .25s;
