@@ -45,9 +45,13 @@
         <textarea ng-disabled="selectedItemSubmitting || currentAction == 'preview'" style="resize:vertical;" ng-if="field.displayType == 'textarea'" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" rows="5" size="20"></textarea>
 
         <!-- Choice list -->
-        <select ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'choice'" ng-options="option for option in field.choices" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" style="border-radius:0px;">
-          <option value="">- Select an option -</option>
-        </select>
+        <ui-select ng-model="selectedItem[field.name]" ng-if="field.displayType == 'choice'" ng-required="field.required" theme="bootstrap">
+          <ui-select-match placeholder="Select or search an option">{{$select.selected}}</ui-select-match>
+          <ui-select-choices repeat="choice in field.choices | filter: $select.search">
+              <div ng-bind-html="choice | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+
 
         <!-- Date Time Picker -->
         <div ng-if="field.displayType == 'datetime'" class='input-group date'>
@@ -72,8 +76,8 @@
         <!-- Checkbox -->
         <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'checkbox' || field.displayType == 'boolean'" type="checkbox" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]"/>
 
-        <!-- Item Reference -->          
-        <span class="input-group" ng-if="field.displayType == 'itemReference'" ng-init="getRefItems(field.referenceTo)">
+        <!-- Item Reference -->  
+        <span class="input-group" ng-if="field.displayType == 'itemReference'" ng-init="getRefItems(field.referenceTo)">   
           <ui-select allow-clear ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refItems[field.referenceTo].totalCount == 0 || refItems[field.referenceTo].totalCount == -1">
              <ui-select-match placeholder="Select or search from {{field.referenceTo}}">
                 <small class="fa" ng-class="collections[field.referenceTo].icon"></small> {{$select.selected.number}}

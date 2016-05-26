@@ -193,7 +193,7 @@ itemSchema.statics.getItems = function(options, callback) {
 				.limit(itemsPerPage)
 				.populate('_created_by', 'firstName lastName')
 				.populate('_updated_by', 'firstName lastName')
-				.populate(referenceFields)
+				//.populate(referenceFields)
 				.exec( function (error, items) {
 					if (error) {
 						log.error('|Item.getItems.find| Unknown -> ' + error, widget);
