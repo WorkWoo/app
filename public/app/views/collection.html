@@ -6,8 +6,13 @@
 	<!-- Page Header -->
 	<div class="container-fluid noSpaceMobile" style="margin-top:25px;">
 
+	<!-- Loading indicator -->
+	<h1 ng-if="collectionsLoading" class="container-fluid fadeInOut text-center">
+	  <span class="fa fa-cog fa-spin largeLoadingIndicator"></span>
+	</h1>
+
   		<!-- Title -->
-  		<div class="col-md-6">
+  		<div ng-if="!collectionsLoading" class="col-md-6">
 			<h3 class="pageHeading">
 				<span data-toggle="modal" data-target="#iconSelector" class="fa collectionIcon text-center" ng-class="selectedCollection.icon"></span>
 				<span ng-if="currentAction == 'update'"> Configure {{ selectedCollection.pluralLabel }}</span><!-- Existing collections -->
@@ -17,7 +22,7 @@
   		<!-- Title -->
 
   		<!-- Start tour link -->
-		<div class="col-md-6 noSpace text-right hideInMo">
+		<div class="col-md-6 noSpace text-right hideInMobile">
 			<span ng-disabled="collectionsLoading" ng-click="tiggerWorkSettingsTour()" class="spanLink" style="margin-right:20px;">
 				<span class="fa fa-question-circle"></span>
 				<span>Need help with this page?</span>
@@ -28,7 +33,7 @@
 	<!-- Page Header -->
 
 	<!-- Page Content -->
-	<div class="container-fluid singleItemOuterContainer noSpaceMobile">
+	<div ng-if="!collectionsLoading" class="container-fluid singleItemOuterContainer noSpaceMobile">
 
     	<div class="container-fluid noSpaceMobile">
 
@@ -232,61 +237,48 @@
 				</div>
 			</div>
 			<!-- Custom fields -->
-
-
-			<!-- Buttons -->
-			<div class="col-md-12" style="margin-bottom:10px;">
-				<!-- Spacer -->
-				<div class="col-md-10"></div>
-
-				<div class="col-md-2">
-					<button id="saveChangesButton" ng-disabled="collectionsLoading" ng-if="currentAction == 'update'" type="submit" class="btn btn-primary btn-block">
-						<!-- Loading -->
-						<span ng-if="collectionsLoading && !selectedCollection">
-							<i class="fa fa-refresh fa-spin"></i>
-							<span> Loading</span>
-						</span>
-						<!-- Not loading -->
-						<span ng-if="!collectionsLoading">Save changes</span>
-						<!-- Submitting -->
-						<span ng-if="collectionsLoading && selectedCollection">
-							<i class="fa fa-refresh fa-spin"></i>
-							<span> Saving</span>
-						</span>
-					</button>
-
-					<button id="saveChangesButton" ng-disabled="collectionsLoading" ng-if="currentAction == 'create'" type="submit" class="btn btn-success btn-block">
-						<!-- Not loading -->
-						<span ng-if="!collectionsLoading">Submit</span>
-						<!-- Submitting -->
-						<span ng-if="collectionsLoading">
-							<i class="fa fa-refresh fa-spin"></i>
-							<span> Saving</span>
-						</span>
-					</button>
-
-				</div>
-				<div class="col-md-12 text-right" style="margin-top:5px;">
-					<span class="fa fa-info-circle"></span> <span><i>After submitting, your browser will reload in order for your changes to take effect</i></span>
-				</div>
-
-			</div>
     	</div>
-
-		<!-- Upgrade indicator -->
-		<div ng-if="accountType == '0'" class="col-md-12 noSpace">
-			<div class="upgradeAlert clearfix">
-				<span class="upgradeAlertIcon"><i class="fa fa-bolt iconXL"></i></span>
-				<span class="upgradeAlertText"><strong>Supercharge your {{ selectedCollection.pluralLabel }}</strong><br/> With WorkWoo Pro, import and track items that relate to {{ selectedCollection.pluralLabel }}, like documents, employees, or inventory</span>
-				<span class="upgradeAlertButton">
-					<a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
-				</span>
-			</div>
-		</div>
-		<!-- Upgrade indicator -->
-
     </div>
     <!-- Page content -->
+
+
+	<!-- Footer (with controls) -->
+	<div class="controlFooter">
+	  <div class="container-fluid">
+	    <!-- Alerts -->
+	    <div class="col-md-9 text-center">
+	      <span class="hideInMobile" ng-include="'views/includes/alerts.html'"></span>
+	    </div>
+	    <!-- Save/Create Buttons -->
+	    <div class="col-md-3" style="padding:7px;">
+			<button id="saveChangesButton" ng-disabled="collectionsLoading" ng-if="currentAction == 'update'" type="submit" class="btn btn-success btn-lg btn-block">
+				<!-- Loading -->
+				<span ng-if="collectionsLoading && !selectedCollection">
+					<i class="fa fa-refresh fa-spin"></i>
+					<span> Loading</span>
+				</span>
+				<!-- Not loading -->
+				<span ng-if="!collectionsLoading">Save changes</span>
+				<!-- Submitting -->
+				<span ng-if="collectionsLoading && selectedCollection">
+					<i class="fa fa-refresh fa-spin"></i>
+					<span> Saving</span>
+				</span>
+			</button>
+
+			<button id="saveChangesButton" ng-disabled="collectionsLoading" ng-if="currentAction == 'create'" type="submit" class="btn btn-success btn-lg btn-block">
+				<!-- Not loading -->
+				<span ng-if="!collectionsLoading">Submit</span>
+				<!-- Submitting -->
+				<span ng-if="collectionsLoading">
+					<i class="fa fa-refresh fa-spin"></i>
+					<span> Saving</span>
+				</span>
+			</button>
+	    </div>
+	  </div>
+	</div>
+
 
 	<!-- Modal icon selector -->
 	<div id="iconSelector" class="modal fade" role="dialog" >

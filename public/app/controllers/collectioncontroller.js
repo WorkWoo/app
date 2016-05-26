@@ -368,12 +368,14 @@ function collectionController($scope, Collection, $location, $routeParams, COLLE
         $scope.currentAction = 'update';
         $scope.getOneCollection(collectionName);
         $scope.setPageLoading(false);
+        $scope.toggleAlert('success', true, 'After submitting, your browser will reload in order for your changes to take effect');
         return;
       }
     }
 
     // Showing all
     $scope.setPageLoading(false);
+    $scope.clearAlerts();
   };
 
   $scope.initializeCollectionController();

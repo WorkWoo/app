@@ -111,6 +111,7 @@ function userController($scope, $location, User, SelectedUser) {
       }
     }
     $scope.getAllUsers();
+    $scope.clearAlerts();
   };
 
   $scope.initializeUserController();

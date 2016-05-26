@@ -6,6 +6,11 @@
 </div>
 <!-- Page Header -->
 
+<!-- Loading indicator -->
+<h1 ng-if="usersLoading" class="container-fluid fadeInOut text-center">
+  <span class="fa fa-cog fa-spin largeLoadingIndicator"></span>
+</h1>
+
 <!-- Page Content -->
 <div class="container-fluid noSpace text-center">
   <!-- Create one card for each user -->
@@ -28,7 +33,7 @@
 
     <!-- Alerts -->
     <div class="col-md-10 text-center">
-      <span ng-include="'views/includes/alerts.html'"></span>
+      <span class="hideInMobile" ng-include="'views/includes/alerts.html'"></span>
     </div>
 
     <!-- Create Button -->

@@ -877,6 +877,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
 
       $scope.initializeScroll();
       $scope.load($scope.baseCollection);
+      $scope.clearAlerts();
       return;
     }
 
@@ -925,6 +926,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
       $scope.initializeScroll();
       $scope.load($scope.baseCollection);
       $scope.setPageLoading(false);
+      $scope.clearAlerts();
       return;
     }
 
@@ -935,12 +937,14 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
       $scope.selectedItem = {};
       $scope.getAllCollectionCounts($scope.workableCollections);
       $scope.setActiveSection('work');
+      $scope.clearAlerts();
       return;
     }
 
     // If this point is reached, they are a new unconfigured user.
     $scope.initializeScroll();
     $scope.setPageLoading(false);
+    $scope.clearAlerts();
   };
 
   $scope.initializeItemController();
