@@ -1,0 +1,38 @@
+<!-- Modal Inventory Control -->
+<div id="inventoryControl" class="modal fade" role="dialog" >
+  <div class="modal-dialog">
+    <div class="modal-content" style="border-radius:0px;">
+      
+      <!-- Header -->
+      <div class="modal-header noSpace" style="border:none;">
+        <button type="button" class="close" data-dismiss="modal"><span class="fa fa-close"></span></button>
+        <h4 class="text-center">Modify Inventory</h4>            
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <div class="row noSpace">
+          <div class="col-md-2"></div><!-- Spacer -->
+          <div class="col-md-8">
+            <label for="qty">Quantity to {{ inventoryAction }}</label>
+            <input ng-model="inventoryActionAmount" type="text" class="form-control defaultInput"/>
+          </div>
+          <div class="col-md-2"></div><!-- Spacer -->
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer noSpace" style="border:none;">
+        <div class="row noSpace">
+          <div class="col-md-2"></div><!-- Spacer -->
+          <div class="col-md-8">
+            <button type="button" ng-click="modifyInventory()" class="btn btn-success btn-block">Save</button>
+          </div>
+          <div class="col-md-2"></div><!-- Spacer -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Modal Inventory Control -->

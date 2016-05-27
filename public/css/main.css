@@ -659,6 +659,24 @@
     z-index: 100;
   }
 
+
+  .inventoryControlButton {
+    border: none;
+    border-right: 1px solid #508c72;
+    color: #fff;
+    background-color: #67A88C;
+    transition: all .15s linear;
+    -webkit-transition: all .15s linear;
+    -moz-transition: all .15s linear;
+  }
+
+  .inventoryControlButton:hover {
+    background-color: #508c72;
+    cursor: pointer;
+  }
+
+
+
   /****************************** Collection Status ******************************/
 
 

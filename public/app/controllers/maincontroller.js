@@ -77,6 +77,10 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
     window.location.replace(url);
   };
 
+  $scope.toggleModal = function(modalID, action) {
+    $('#' + modalID).modal(action);
+  };
+
   $scope.clearAlerts = function() {
     $scope.successAlertVisible = false;
     $scope.successAlertText = '';

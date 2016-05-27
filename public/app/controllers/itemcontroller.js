@@ -13,6 +13,8 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
 
   $scope.currentAction = null;
   $scope.previousAction = null;
+  $scope.inventoryAction = null;
+  $scope.inventoryActionAmount = 0;
 
   $scope.selectedItems = [];
   $scope.selectedRefItems = [];
@@ -486,6 +488,33 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     );
   };
 
+
+  $scope.showInventoryControl = function(action) {
+    $scope.toggleModal('inventoryControl', 'show');
+    $scope.inventoryAction = action;
+
+  };
+
+
+  $scope.manualModifyInventory = function() {
+    $scope.toggleModal('inventoryControl', 'hide');
+
+    var inventoryObject = {};
+    inventoryObject[$scope.selectedItem._id] = { qty: inventoryActionAmount };
+    var activityTitle = 'Manual ' + $scope.inventoryAction + ' for ' + $scope.selectedItem.title;
+
+    var activityType = '';
+    if($scope.inventoryAction == 'pull') {
+      activityType = 'Pull from stock';
+    } else if($scope.inventoryAction == 'pull') {
+      activityType = 'Add to stock';
+    }
+
+    $scope.modifyInventory($scope.selectedItem.collectionName, inventory, activityTitle, activityType, null);
+
+  };
+
+
   /*
    * inventory: A single object that contains keys which are IDs of items. Each has a property "qty" with the quantity to pull
    * Example:
@@ -493,18 +522,25 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
    *     '90823d7491873a4da6': { qty: 3 },
    *     '0a93d2f8749e871234': { qty:4 }
    * }
+   *
+   * Full example: modifyInventory('parts', [object], "manual pull for B0001", "Pull from stock", '1234a423b453e5');
    */
-  $scope.pullInventoryItems = function(collectionName, inventory) {
+  $scope.modifyInventory = function(collectionName, inventory, activityTitle, type, sourceID) {
 
     log.info('Pulling inventory');
     $scope.selectedItemSubmitting = true;
-    // Before sending the request, convert to arry & invert the quantities, since the server works by adding
+    // Before sending the request, convert to array
     var inventoryList = [];
     for(var item in inventory) {
       var singleItem = {
         _id: item,
-        qty: -inventory[item].qty
+        qty: inventory[item].qty
       }
+      // If the action is pull, invert the quantities, since the server works by adding
+      if(type == 'Pull from stock') {
+        singleItem.qty = -inventory[item].qty;
+      }
+
       inventoryList.push(singleItem);
     }
 
@@ -512,11 +548,15 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
       function(result){
         // Success
         var newActivity = {
-          title: 'Inventory Pull for ' + $scope.selectedItem.number,
-          activitytype: 'Pull from stock',
+          title: activityTitle,
+          activitytype: type,
           items: inventoryList,
-          source: [{ _id: $scope.selectedItem._id }]
         };
+
+        if(sourceID) {
+          newActivity.source = [{ _id: sourceID }]
+        }
+
         Item.new('inventoryactivities', newActivity,
           function(newActivity){
             log.info('Pulling inventory: pass');

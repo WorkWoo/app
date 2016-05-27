@@ -34,8 +34,20 @@
         <input ng-disabled="selectedItemSubmitting" type="text" class="form-control defaultInput" placeholder="Title" value="" ng-model="selectedItem.title" size="20"/>
       </div>
 
+
+      <!-- Inventory info & controls (Inventorial only) -->
+      <div class="col-md-4" ng-if="collections[selectedItem.collectionName].collectionType == 'inventorial'">
+        <label for="instock"><strong>In Stock:</strong></label>
+        <div class="input-group">
+          <input ng-disabled="selectedItemSubmitting" type="text" class="form-control defaultInput" placeholder="Qty" value="" ng-model="selectedItem.instock" readonly="true" size="20"/>
+          <span ng-click="showInventoryControl('pull')" class="input-group-addon inventoryControlButton">Pull</span>
+          <span ng-click="showInventoryControl('add')" class="input-group-addon inventoryControlButton">Add</span>
+        </div>
+      </div>
+
+
       <!-- START OF LOOPING THROUGH FIELDS -->
-      <div ng-repeat="field in collections[selectedItem.collectionName].fields" ng-if="field.name != 'number' && field.name != 'state' && field.name != 'title'" class="form-group fadeInOut" ng-class="getItemFieldClass(selectedItem, field)">
+      <div ng-repeat="field in collections[selectedItem.collectionName].fields" ng-if="field.name != 'number' && field.name != 'state' && field.name != 'title' && field.name != 'instock'" class="form-group fadeInOut" ng-class="getItemFieldClass(selectedItem, field)">
         <label for="{{ field.name }}"><strong>{{ field.label }}:</strong></label>
 
         <!-- Short text input -->
@@ -76,26 +88,6 @@
         <!-- Checkbox -->
         <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'checkbox' || field.displayType == 'boolean'" type="checkbox" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]"/>
 
-        <!-- Item Reference -->  
-        <span class="input-group" ng-if="field.displayType == 'itemReference'" ng-init="getRefItems(field.referenceTo)">   
-          <ui-select allow-clear ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refItems[field.referenceTo].totalCount == 0 || refItems[field.referenceTo].totalCount == -1">
-             <ui-select-match placeholder="Select or search from {{field.referenceTo}}">
-                <small class="fa" ng-class="collections[field.referenceTo].icon"></small> {{$select.selected.number}}
-              </ui-select-match>
-            <ui-select-choices repeat="refItem._id as refItem in refItems[field.referenceTo].items | propsFilter: {number: $select.search, title: $select.search}">
-              <div>
-                <small class="fa" ng-class="collections[field.referenceTo].icon"></small>
-                <span ng-bind-html="refItem.number | highlight: $select.search"></span>
-              </div>
-              <small ng-bind-html="refItem.title | highlight: $select.search"></small>
-            </ui-select-choices>
-          </ui-select>
-          <span class="input-group-btn">
-            <button type="button" ng-click="selectedItem[field.name] = null" class="btn btn-default">
-              <span class="glyphicon glyphicon-trash"></span>
-            </button>
-          </span>
-        </span>
 
         <!-- Item Reference List (No quantity)-->          
         <span ng-if="field.displayType == 'itemReferenceList' && collections[field.referenceTo].collectionType != 'inventorial' && collections[field.referenceTo].collectionType != 'inventorial_bundle'" ng-init="getRefItems(field.referenceTo)">
@@ -295,7 +287,10 @@
               <!-- Pull from inventory button -->
               <div class="row noSpace">
                 <div class="col-md-12 noSpace text-right" style="padding:5px;">
-                  <button ng-disabled="currentAction == 'update' && !refItemsLoading && (!selectedItem[field.name] || selectedItem[field.name].length == 0)" type="button" ng-click="pullInventoryItems(collections[field.referenceTo].fields[2].referenceTo, requiredInventory)" class="btn btn-success blockInMobile">Pull from Inventory</button>
+                  <button ng-disabled="relatedItems.inventoryactivities.items.length > 0 || (!refItemsLoading && (!selectedItem[field.name] || selectedItem[field.name].length == 0))" type="button" ng-click="modifyInventory(collections[field.referenceTo].fields[2].referenceTo, requiredInventory, 'Inventory Pull for ' + selectedItem.number, 'Pull from stock', selectedItem._id)" class="btn btn-success blockInMobile">
+                    <span ng-if="relatedItems.inventoryactivities.items.length == 0">Pull From Inventory</span>
+                    <span ng-if="relatedItems.inventoryactivities.items.length > 0">Inventory Already Pulled</span>
+                  </button>
                 </div>
               </div>
 
@@ -372,6 +367,10 @@
       </div>
 
     </div>
+
+
+    <!-- Modal Inventory Control -->
+    <span ng-include="'views/includes/inventorycontrol.html'"></span>
 
 
     <!-- Modal Reference Selector -->
