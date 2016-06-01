@@ -1,62 +1,71 @@
-<!-- Page Header -->
-<div class="container-fluid noSpaceMobile" style="margin-top:25px;">
-  <div class="col-md-12 noSpaceMobile">
-    <h2 class="noSpace pageHeading">Ask a Question!</h2>
-  </div>
-</div>
-<!-- Page Header -->
+<form id="form1" name="form1" ng-model="formSubmission" accept-charset="UTF-8" autocomplete="off" enctype="multipart/form-data" method="post" action="https://workwoo.wufoo.com/forms/z1jm76wa1d5btwm/#public">
+  <!-- POST key, required for Wufoo -->
+  <input type="hidden" id="idstamp" name="idstamp" value="EIhQ/TnJwQjTXgjIrPd9IUOpKRxlWXd6PGKk873D4cA=" /> 
+  
+  <!-- User & Org are provided by system -->
+  <span style="display:none;">
+    <input id="Field5" name="Field5" type="text" class="field text medium" ng-model="currentUser.emailAddress" value="" />
+    <input id="Field4" name="Field4" type="text" class="field text medium" ng-model="currentUser.org.name" value="" />
+  </span>
 
-<div class="container singleItemOuterContainer noSpaceMobile">
-  <div class="container noSpaceMobile" style="padding:25px;">
-
-    <div class="col-md-3"></div><!-- Spacer -->
-    <div class="col-md-6">
-
-      <form id="form1" name="form1" ng-model="formSubmission" accept-charset="UTF-8" autocomplete="off" enctype="multipart/form-data" method="post" action="https://workwoo.wufoo.com/forms/z1jm76wa1d5btwm/#public">
+  <!-- Page Content -->
+  <div class="container-fluid singleItemOuterContainer noSpaceMobile" style="margin-top:25px;"s>
+      <div class="container-fluid noSpace">
       
-        <!-- POST key, required for Wufoo -->
-        <input type="hidden" id="idstamp" name="idstamp" value="EIhQ/TnJwQjTXgjIrPd9IUOpKRxlWXd6PGKk873D4cA=" />
-        
-        <!-- User & Org are provided by system -->
-        <span style="display:none;">
-          <input id="Field5" name="Field5" type="text" class="field text medium" ng-model="currentUser.emailAddress" value="" />
-          <input id="Field4" name="Field4" type="text" class="field text medium" ng-model="currentUser.org.name" value="" />
-        </span>
+      <!-- Title -->
+      <div class="row noSpace">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <h3 class="text-center">
+            <span class="fa fa-question-circle mainColor"></span>
+            <span> Get Help</span>
+          </h3>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
 
-        <!-- Message -->
-        <label for="Field1">How may we help you?</label>
-        <textarea id="Field1" name="Field1" value="" ng-model="formSubmission.description" class="form-control defaultInput" style="resize:vertical;" spellcheck="true" rows="8" required></textarea>
-        <span ng-if="form1.Field1.$invalid && form1.Field1.$touched" ng-init="initInvalidPopover('descriptionRequired','Tell us something!')" id="descriptionRequired" class="fa fa-exclamation-circle inputInvalid"></span>
+      <!-- Message -->
+      <div class="row noSpace">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <div class="inputContainer">
+            <label for="Field1">What can we help you with?</label>
+            <textarea id="Field1" name="Field1" value="" ng-model="formSubmission.description" class="form-control defaultInput" style="resize:vertical;" spellcheck="true" rows="8" required></textarea>
+          </div>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
 
-        <!-- Urgency -->
-        <label for="Field2">How urgent is this?</label>
-        <select id="Field2" name="Field2" ng-disabled="formSubmitting" class="form-control defaultInput" value="" ng-model="helpSubmission.urgency">
-          <option value="Right now" selected="selected">Right now</option>
-          <option value="Today">Today</option>
-          <option value="This week">This week</option>
-        </select>
+      <!-- Urgency -->
+      <div class="row noSpace">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <div class="inputContainer">
+            <label for="Field2">How urgent is this?</label>
+            <select id="Field2" name="Field2" ng-disabled="formSubmitting" class="form-control defaultInput" value="" ng-model="helpSubmission.urgency">
+              <option value="Right now" selected="selected">Right now</option>
+              <option value="Today">Today</option>
+              <option value="This week">This week</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
 
+      <!-- Submit button -->
+      <div class="row noSpace">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <button  id="saveForm" name="saveForm" type="submit" ng-disabled="formSubmitting || helpSubmissionForm.$invalid" class="btn btn-success btn-lg btn-block" style="margin: 10px 0px 5px 0px">
+            <span ng-if="formSubmitting"><i class="fa fa-refresh fa-spin"></i> Submitting</span>
+            <span ng-if="!formSubmitting">Submit</span>
+          </button>          </div>
+        <div class="col-md-4"></div>
+      </div>
 
-        <!-- Submit button -->
-        <button  id="saveForm" name="saveForm" type="submit" ng-disabled="formSubmitting || helpSubmissionForm.$invalid" class="btn btn-success btn-lg btn-block" style="margin: 10px 0px 5px 0px">
-          <span ng-if="formSubmitting"><i class="fa fa-refresh fa-spin"></i> Submitting</span>
-          <span ng-if="!formSubmitting">Submit</span>
-        </button>
-
-      </form>
     </div>
-    <div class="col-md-3"></div><!-- Spacer -->
-
   </div>
-</div>
+  <!-- Page Content -->
 
-<!-- Upgrade indicator -->
-<div ng-if="accountType == '0'" class="container noSpaceMobile fadeInOut">
-  <div class="upgradeAlert clearfix">
-    <span class="upgradeAlertIcon"><i class="fa fa-trophy iconXL"></i></span>
-    <span class="upgradeAlertText"><strong>Want to go Pro?</strong><br/> Supercharge your Stories by importing and tracking related items like inventory, documentation, and employees</span>
-    <span class="upgradeAlertButton">
-      <a href="#/account/upgrade" class="btn btn-success">See the full benefits <i class="fa fa-arrow-right"></i></a>
-    </span>
-  </div>
-</div>
+</form>
+

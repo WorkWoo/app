@@ -110,3 +110,5 @@ config.collection.icons = [
 'fa-umbrella',
 'fa-wheelchair',
 'fa-wrench'];
+
+

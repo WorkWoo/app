@@ -22,7 +22,6 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
   $scope.inventorialCollections = [];
   $scope.inventorialBundleCollections = [];
   $scope.basicCollections = [];
-
   $scope.inventoryCollections = [];
 
   $scope.accountType = $scope.currentUser.org.accountType;
@@ -31,6 +30,14 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
   $scope.startMainTour = false;
   $scope.mainTourConfig = tourConfig.getMainTourConfig($scope);
   
+
+  /****************************** VIEW & ROUTE RELATED *******************************/
+
+
+  $scope.setPageLoading = function(state) {
+    $scope.pageLoading = state;
+  }
+
   $scope.reloadRoute = function() {
      $route.reload();
   }
@@ -64,6 +71,15 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
     }
   };
 
+
+  $scope.url = function(url) {
+    window.location.replace(url);
+  };
+
+
+  /****************************** LEFT MENU RELATED *******************************/
+
+
   $scope.leftMenuClick = function(sectionID) {
     $scope.setActiveSection(sectionID);
     if (sectionID == 'workable') {
@@ -73,13 +89,39 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
     }
   };
 
-  $scope.url = function(url) {
-    window.location.replace(url);
+    $scope.getLeftMenuIconOffset = function(sectionName) {
+    if(sectionName == 'basic') {
+      if($scope.inventoryCollections.length > 0) {
+        return { 'top' : '175px' };
+      } else {
+        return { 'top' : '175px' };
+      }
+    }
   };
+
+
+  $scope.getLeftMenuContainerOffset = function() {
+    var offset = 100;
+    if($scope.inventoryCollections.length > 0) {
+      offset += 75;
+    }
+    if($scope.basicCollections.length > 0) {
+      offset += 75;
+    }
+    return { 'top' : offset + 'px' };
+  };
+
+
+  /****************************** MODAL DIALOG RELATED *******************************/
+
 
   $scope.toggleModal = function(modalID, action) {
     $('#' + modalID).modal(action);
   };
+
+
+  /****************************** ALERTS *******************************/
+
 
   $scope.clearAlerts = function() {
     $scope.successAlertVisible = false;
@@ -102,6 +144,15 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
     $scope.toggleAlert('danger', true, 'An error has occured. <a href="/app/#/help"><strong>Contact support</strong></a>');
   };
 
+
+  /****************************** VALIDATION & FORMATTING *******************************/
+
+  $scope.formatCurrency = function(value) {
+    value = value ? parseFloat(value.toString().replace(/[^0-9._-]/g, '')) || 0 : 0;
+    var formattedValue = $filter('currency')(value);
+    return formattedValue;
+  }
+
   $scope.formattedDateTime = function(dateTime) {
     return moment(dateTime).format('MM/DD/YYYY hh:mm A').slice(0, 5);
   } ;
@@ -110,9 +161,9 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
     $('#' + elementID).popover({content: popoverText, placement: 'auto right', trigger: 'hover', viewport: { selector: 'body', padding: 0}, html : true, container: 'body'});
   };
 
-  $scope.setPageLoading = function(state) {
-    $scope.pageLoading = state;
-  }
+
+  /****************************** TOUR CONTROLS *******************************/
+
 
   $scope.tiggerMainTour = function() {
     $scope.startMainTour = true;
@@ -136,39 +187,30 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
   };
 
 
-  $scope.formatCurrency = function(value) {
-    value = value ? parseFloat(value.toString().replace(/[^0-9._-]/g, '')) || 0 : 0;
-    var formattedValue = $filter('currency')(value);
-    return formattedValue;
-  }
+  /****************************** ROLES & ACCESS *******************************/
 
-
-  $scope.getLeftMenuIconOffset = function(sectionName) {
-    if(sectionName == 'basic') {
-      if($scope.inventoryCollections.length > 0) {
-        return { 'top' : '175px' };
-      } else {
-        return { 'top' : '175px' };
-      }
-    }
+  $scope.setCurrentUser = function(userObject) {
+    $scope.currentUser = userObject;
   };
 
 
-  $scope.getLeftMenuContainerOffset = function() {
-    var offset = 100;
-    if($scope.inventoryCollections.length > 0) {
-      offset += 75;
-    }
-    if($scope.basicCollections.length > 0) {
-      offset += 75;
-    }
-    return { 'top' : offset + 'px' };
+  $scope.canEditCollections = function() {
+    return ($scope.currentUser.role == 'Owner' || $scope.currentUser.role == 'Admin' || $scope.currentUser.role == 'Superuser');
+  };
+
+  $scope.canEditAccount = function() {
+    return ($scope.currentUser.role == 'Owner' || $scope.currentUser.role == 'Admin' || $scope.currentUser.role == 'Superuser');
+  };
+
+  $scope.canEditSys = function() {
+    return ($scope.currentUser.role == 'Superuser');
   };
 
 
-  /*
-   * Transforms the fields array into an object for easier access
-   */
+  /****************************** INITIALIZATION *******************************/
+
+  
+  // Transforms the fields array into an object for easier access
   $scope.initializeFieldsObject = function(collectionObject) {
     var fieldsObject = {};
     for(var i=0; i<collectionObject.fields.length; i++) {
@@ -176,7 +218,6 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
     }
     collectionObject.fieldsObject = fieldsObject;
   }
-
 
   $scope.initializeCollections = function() {
     for(var collection in $scope.collections) {
@@ -198,7 +239,6 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
       $scope.initializeFieldsObject($scope.collections[collection]);
     }
   };
-  
 
   $scope.initializeMainController = function() {
     if ($scope.currentUser.newUser) {

@@ -393,7 +393,7 @@ itemSchema.statics.updateInventory = function(org, collectionName, itemID, updat
 			} else {
 				log.info('Qty: ' + item.instock);
 
-				item.instock = item.instock + updateQty;
+				item.instock = parseInt(item.instock,10) + parseInt(updateQty,10);
 
 				item.save(function(error, updatedItem){
 					return callback(null, updatedItem);

@@ -4,14 +4,14 @@
     	<div class="container-fluid noSpace">
 
     		<!-- Personal Info -->
-    		<div class="col-md-6">
+    		<div ng-init="pageClass = (canEditAccount) ? 'col-md-12' : 'col-md-6'" ng-class="pageClass">
     			<h3 class="centerInMobile">
     				<span class="fa fa-user mainColor"></span>
     				<span> Your Personal Info</span>
     			</h3>
 
 				<!-- First Name -->
-				<div class="col-md-12">
+				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="firstName">First name:</label>
 						<input ng-disabled="accountLoading" type="text" id="firstName" name="firstName" class="form-control defaultInput" value="" ng-model="accountInfo.user.firstName" size="20" required/>
@@ -19,10 +19,34 @@
 				</div>
 
 				<!-- Last Name -->
-				<div class="col-md-12">
+				<div class="col-md-6">
 					<div class="inputContainer">
 						<label for="lastName">Last name:</label>
 						<input ng-disabled="accountLoading" type="text" id="lastName" name="lastName" class="form-control defaultInput" value="" ng-model="accountInfo.user.lastName" size="20" required/>
+					</div>
+				</div>
+
+				<!-- Phone Number -->
+				<div class="col-md-6">
+					<div class="inputContainer">
+						<label for="userPhone">Phone Number:</label>
+						<input ng-disabled="accountLoading" type="text" id="userPhone" name="userPhone" class="form-control defaultInput" value="" ng-model="accountInfo.user.phone" size="20" ng-intl-tel-input required/>
+					</div>
+				</div>
+
+				<!-- Role -->
+				<div class="col-md-6">
+					<div class="inputContainer">
+						<label for="userPhone">Role:</label>
+
+				        <!-- Choice list -->
+				        <ui-select ng-disabled="!canEditAccount()"ng-model="accountInfo.user.role" theme="bootstrap">
+				          <ui-select-match placeholder="Select or search an option">{{$select.selected}}</ui-select-match>
+				          <ui-select-choices repeat="choice in ['Owner', 'Admin', 'Worker'] | filter: $select.search">
+				              <div ng-bind-html="choice | highlight: $select.search"></div>
+				          </ui-select-choices>
+				        </ui-select>
+
 					</div>
 				</div>
 
@@ -31,14 +55,6 @@
 					<div class="inputContainer">
 						<label for="userEmail">Email Address:</label>
 						<input ng-disabled="accountLoading" type="email" id="userEmail" name="userEmail" class="form-control defaultInput" value="" ng-model="accountInfo.user.emailAddress" size="20" required/>
-					</div>
-				</div>
-
-				<!-- Phone Number -->
-				<div class="col-md-12">
-					<div class="inputContainer">
-						<label for="userPhone">Phone Number:</label>
-						<input ng-disabled="accountLoading" type="text" id="userPhone" name="userPhone" class="form-control defaultInput" value="" ng-model="accountInfo.user.phone" size="20" ng-intl-tel-input required/>
 					</div>
 				</div>
 
@@ -53,7 +69,7 @@
 
 
     		<!-- Company Info -->
-    		<div class="col-md-6">
+    		<div ng-if="canEditCollections()" class="col-md-6">
     			<h3 class="centerInMobile">
     				<span class="fa fa-university mainColor"></span>
     				<span> Your business</span>
@@ -142,10 +158,12 @@
 	      <span ng-include="'views/includes/alerts.html'"></span>
 	    </div>
 
-	    <!-- Create Button -->
+	    <!-- Save Button -->
 	    <div class="col-md-2" style="padding:7px;">
-	      <!-- Create -->
-	      <button type="submit" ng-disabled="accountLoading" class="btn btn-success btn-lg btn-block">Save</button>
+	      <button type="submit" ng-disabled="accountLoading" class="btn btn-success btn-lg btn-block">
+	      	<span ng-if="!accountLoading">Save</span>
+            <span ng-if="accountLoading"><span class="fa fa-refresh fa-spin"></span> Saving</span>
+	      </button>
 	    </div>
 
 	  </div>

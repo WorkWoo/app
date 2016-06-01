@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>WorkWoo</title>
+    <title>--</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -43,7 +43,7 @@
 
   </head>
   
-  <body ng-controller="mainController" style="margin:0px;padding:0px;color:#777;position:relative;">
+  <body ng-controller="mainController" style="margin:0px;padding:0px;color:#777;position:relative;opacity:1;">
 
     <div ng-if="startMainTour" id="mainTour" ng-joy-ride="startMainTour" config="mainTourConfig" on-finish="finishMainTour()" on-skip="skipMainTour()"></div>
     
@@ -60,7 +60,13 @@
           <li><a href="#/work/home"><span class="fa fa-home"></span> My Work</a></li>
           <li ng-if="inventoryCollections.length > 0"><a href="#/inventory/home"><span class="fa fa-cubes"></span> Inventory</a></li>
           <li ng-if="basicCollections.length > 0"><a href="#/other/home"><span class="fa fa-inbox"></span> Other Items</a></li>
-          <li style="border-top:5px solid #508c72;"><a href="#/account"> <span class="fa fa-cogs"></span> Settings</a></li>
+
+          <!-- For admins -->
+          <li ng-if="canEditAccount()" style="border-top:5px solid #508c72;"><a href="#/account"> <span class="fa fa-cogs"></span> Settings</a></li>
+          
+          <!-- For non admins -->
+          <li ng-if="!canEditAccount()" style="border-top:5px solid #508c72;"><a href="#/account/summary"> <span class="fa fa-user"></span> My Profile</a></li>
+          
           <li><a href="#/support"><span class="fa fa-question-circle"></span> Get Help</a></li>
           <li><a href="#" class="hideInMobile" ng-click="tiggerMainTour()"><span class="fa fa-road"></span> Take the tour</a></li>
           <li style="border-top:5px solid #508c72;"><a href="/logout"><span class="fa fa-sign-out"></span> Logout</a></li>
@@ -83,7 +89,9 @@
           <li class="mobileHeaderMenuItem"><a href="#/work/home"><span class="fa fa-home mobileHeaderMenuItemIcon"></span> My Work</a></li>
           <li class="mobileHeaderMenuItem" ng-if="inventoryCollections.length > 0"><a href="#/inventory/home"><span class="fa fa-cubes mobileHeaderMenuItemIcon"></span> Inventory</a></li>
           <li class="mobileHeaderMenuItem" ng-if="basicCollections.length > 0"><a href="#/other/home"><span class="fa fa-inbox mobileHeaderMenuItemIcon"></span> Other Items</a></li>
-          <li class="mobileHeaderMenuItem"><a href="#/account"> <span class="fa fa-cogs mobileHeaderMenuItemIcon"></span> Settings</a></li>
+          <li class="mobileHeaderMenuItem" ng-if="canEditAccount()"><a href="#/account"> <span class="fa fa-cogs mobileHeaderMenuItemIcon"></span> Settings</a></li>
+          <li class="mobileHeaderMenuItem" ng-if="!canEditAccount()"><a href="#/account/summary"> <span class="fa fa-user mobileHeaderMenuItemIcon"></span> My Profile</a></li>
+
           <li class="mobileHeaderMenuItem"><a href="#/support"><span class="fa fa-question-circle mobileHeaderMenuItemIcon"></span> Get Help</a></li>
           <li class="mobileHeaderMenuItem"><a href="/logout"><span class="fa fa-sign-out mobileHeaderMenuItemIcon"></span> Logout</a></li>
         </ul>
@@ -106,10 +114,18 @@
 
     <!-- Bottom portion of the nav that makes it appear as a solid bar -->
     <span id="leftMenuContainer" class="leftMenuContainer hideInMobile" ng-style="getLeftMenuContainerOffset()">
-      <!-- Settings icon -->
-      <a href="#/account" id="settingsMenuItem" class="fa fa-cogs leftMenuIcon" style="top:0px;position:relative;">
+      
+
+      <!-- Settings icon (for admins) -->
+      <a ng-if="canEditAccount()" href="#/account" id="settingsMenuItem" class="fa fa-cogs leftMenuIcon" style="top:0px;position:relative;">
         <span class="leftMenuText">Settings</span>
       </a>
+
+      <!-- Settings icon (for non-admin) -->
+      <a ng-if="!canEditAccount()" href="#/account/summary" id="settingsMenuItem" class="fa fa-user leftMenuIcon" style="top:0px;position:relative;">
+        <span class="leftMenuText">My Profile</span>
+      </a>
+
       <!-- Help icon -->
       <a href="#/support" id="supportMenuItem" class="fa fa-question-circle leftMenuIcon" style="position:relative;">
         <span class="leftMenuText">Help</span>

@@ -22,7 +22,7 @@
   		<!-- Title -->
 
   		<!-- Start tour link -->
-		<div class="col-md-6 noSpace text-right hideInMobile">
+		<div ng-if="!collectionsLoading" class="col-md-6 noSpace text-right hideInMobile">
 			<span ng-disabled="collectionsLoading" ng-click="tiggerWorkSettingsTour()" class="spanLink" style="margin-right:20px;">
 				<span class="fa fa-question-circle"></span>
 				<span>Need help with this page?</span>

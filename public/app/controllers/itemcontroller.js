@@ -496,21 +496,23 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   };
 
 
-  $scope.manualModifyInventory = function() {
+  $scope.manualModifyInventory = function(amount) {
     $scope.toggleModal('inventoryControl', 'hide');
 
     var inventoryObject = {};
-    inventoryObject[$scope.selectedItem._id] = { qty: inventoryActionAmount };
+    inventoryObject[$scope.selectedItem._id] = { qty: amount };
     var activityTitle = 'Manual ' + $scope.inventoryAction + ' for ' + $scope.selectedItem.title;
 
     var activityType = '';
     if($scope.inventoryAction == 'pull') {
       activityType = 'Pull from stock';
-    } else if($scope.inventoryAction == 'pull') {
+      $scope.selectedItem.instock = parseInt($scope.selectedItem.instock, 10) - parseInt(amount, 10);
+    } else if($scope.inventoryAction == 'add') {
+      $scope.selectedItem.instock = parseInt($scope.selectedItem.instock, 10) + parseInt(amount, 10);
       activityType = 'Add to stock';
     }
 
-    $scope.modifyInventory($scope.selectedItem.collectionName, inventory, activityTitle, activityType, null);
+    $scope.modifyInventory($scope.selectedItem.collectionName, inventoryObject, activityTitle, activityType, null);
 
   };
 
@@ -526,7 +528,6 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
    * Full example: modifyInventory('parts', [object], "manual pull for B0001", "Pull from stock", '1234a423b453e5');
    */
   $scope.modifyInventory = function(collectionName, inventory, activityTitle, type, sourceID) {
-
     log.info('Pulling inventory');
     $scope.selectedItemSubmitting = true;
     // Before sending the request, convert to array
@@ -542,6 +543,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
       }
 
       inventoryList.push(singleItem);
+
     }
 
     Item.pullInventoryItems(collectionName, inventoryList,
@@ -771,7 +773,6 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
           }
 
           if($scope.countedCollections == collections.length) {
-            log.info(i);
             $scope.itemsLoading = false
             $scope.setPageLoading(false);
             $scope.countsCompleted = true; 
@@ -868,10 +869,12 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
   /****************************** INITIALIZATION ******************************/
 
   $scope.setActiveCollection = function(collectionName) {
+    log.info('Setting active: ' + collectionName);
+
     var collectionType = $scope.collections[collectionName].collectionType;
     if(collectionType == 'workable') {
       $scope.setActiveSection('work');
-    } else if(collectionType == 'inventorial' || collectionType == 'inventorialBundle') {
+    } else if(collectionType == 'inventorial' || collectionType == 'inventorial_bundle') {
       $scope.setActiveSection('inventory');
     } else if(collectionType == 'basic') {
       $scope.setActiveSection('other');

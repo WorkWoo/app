@@ -1,4 +1,6 @@
 function accountController($scope, $timeout, User) {
+  log.info('Account Initialized');
+
   $scope.setActiveSection('settings');
   $scope.accountLoading = false;
   $scope.passwordInfo = {};
@@ -9,7 +11,8 @@ function accountController($scope, $timeout, User) {
         firstName: $scope.currentUser.firstName,
         lastName: $scope.currentUser.lastName,
         emailAddress: $scope.currentUser.emailAddress,
-        phone: $scope.currentUser.phone
+        phone: $scope.currentUser.phone,
+        role: $scope.currentUser.role
       },
       org: {
         name: $scope.currentUser.org.name,
@@ -29,14 +32,13 @@ function accountController($scope, $timeout, User) {
     User.updateMyAccount($scope.accountInfo, 
       function(response){
         $scope.setPageLoading(false);
-        $scope.usersLoading = false;
-        $scope.changeView('/account');
-        $scope.toggleAlert('success', true, 'Your account has been updated');
-
+        $scope.accountLoading = false;
+        location.reload();
       },
       function() {
         $scope.setPageLoading(false);
-        $scope.usersLoading = false;
+        $scope.accountLoading = false;
+        $scope.toggleAlert('danger', true, 'Something went wrong trying to update your profile');
       }
     );
   };
@@ -52,15 +54,12 @@ function accountController($scope, $timeout, User) {
     User.changePassword($scope.passwordInfo, 
       function(response){
         $scope.setPageLoading(false);
-        $scope.usersLoading = false;
-        $scope.changeView('/account');
+        $scope.accountLoading = false;
         $scope.toggleAlert('success', true, 'Your password has been changed');
-
       },
       function() {
         $scope.setPageLoading(false);
-        $scope.usersLoading = false;
-        $scope.changeView('/account');
+        $scope.accountLoading = false;
         $scope.toggleAlert('danger', true, 'Something went wrong trying to reset your password');
       }
     );

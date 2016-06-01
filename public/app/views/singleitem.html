@@ -31,7 +31,7 @@
       <!-- Item title -->
       <div class="col-md-12">
         <label for="title"><strong>Title:</strong></label>
-        <input ng-disabled="selectedItemSubmitting" type="text" class="form-control defaultInput" placeholder="Title" value="" ng-model="selectedItem.title" size="20"/>
+        <input ng-disabled="selectedItemSubmitting || collections[selectedItem.collectionName].fields[1].readonly" type="text" class="form-control defaultInput" placeholder="Title" value="" ng-model="selectedItem.title" size="20"/>
       </div>
 
 
@@ -51,13 +51,13 @@
         <label for="{{ field.name }}"><strong>{{ field.label }}:</strong></label>
 
         <!-- Short text input -->
-        <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'text' || field.displayType == 'boolean'" type="text" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" size="20"/>
+        <input ng-disabled="selectedItemSubmitting || field.readonly" ng-if="field.displayType == 'text' || field.displayType == 'boolean'" type="text" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" size="20"/>
         
         <!-- Textarea -->
-        <textarea ng-disabled="selectedItemSubmitting || currentAction == 'preview'" style="resize:vertical;" ng-if="field.displayType == 'textarea'" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" rows="5" size="20"></textarea>
+        <textarea ng-disabled="selectedItemSubmitting || field.readonly" style="resize:vertical;" ng-if="field.displayType == 'textarea'" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" rows="5" size="20"></textarea>
 
         <!-- Choice list -->
-        <ui-select ng-model="selectedItem[field.name]" ng-if="field.displayType == 'choice'" ng-required="field.required" theme="bootstrap">
+        <ui-select ng-disabled="selectedItemSubmitting || field.readonly" ng-model="selectedItem[field.name]" ng-if="field.displayType == 'choice'" ng-required="field.required" theme="bootstrap">
           <ui-select-match placeholder="Select or search an option">{{$select.selected}}</ui-select-match>
           <ui-select-choices repeat="choice in field.choices | filter: $select.search">
               <div ng-bind-html="choice | highlight: $select.search"></div>
@@ -67,31 +67,31 @@
 
         <!-- Date Time Picker -->
         <div ng-if="field.displayType == 'datetime'" class='input-group date'>
-          <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" date-time-picker="{{field.name}}"/>
+          <input ng-disabled="selectedItemSubmitting || field.readonly" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" date-time-picker="{{field.name}}"/>
           <span class="input-group-addon">
               <span class="glyphicon glyphicon-calendar"></span>
           </span>
         </div>
 
         <!-- Number & Decimal -->
-        <input ng-if="field.displayType == 'number' || field.displayType == 'decimal'" ng-required="field.required" type="number" class="form-control defaultNumberInput" ng-model="selectedItem[field.name]" >
+        <input ng-if="field.displayType == 'number' || field.displayType == 'decimal'" ng-disabled="selectedItemSubmitting || field.readonly" ng-required="field.required" type="number" class="form-control defaultNumberInput" ng-model="selectedItem[field.name]" >
 
         <!-- Currency -->
-        <input ng-disabled="selectedItemSubmitting" ng-if="field.displayType == 'currency'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" currency-field/>
+        <input ng-if="field.displayType == 'currency'" ng-disabled="selectedItemSubmitting || field.readonly" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" currency-field/>
 
          <!-- Phone Number -->
-        <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'phone'" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" ng-intl-tel-input/>
+        <input ng-if="field.displayType == 'phone'" ng-disabled="selectedItemSubmitting || field.readonly" ng-required="field.required" type='text' class="form-control defaultInput" ng-model="selectedItem[field.name]" ng-intl-tel-input/>
 
         <!-- Phone number -->
-        <input ng-if="field.displayType == 'phone'" ng-disabled="selectedItemSubmitting" type="text" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" size="20" ng-intl-tel-input required/>
+        <input ng-if="field.displayType == 'phone'" ng-disabled="selectedItemSubmitting || field.readonly" type="text" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]" size="20" ng-intl-tel-input required/>
 
         <!-- Checkbox -->
-        <input ng-disabled="selectedItemSubmitting || currentAction == 'preview'" ng-if="field.displayType == 'checkbox' || field.displayType == 'boolean'" type="checkbox" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]"/>
+        <input ng-if="field.displayType == 'checkbox' || field.displayType == 'boolean'" type="checkbox" ng-disabled="selectedItemSubmitting || field.readonly" ng-required="field.required" class="form-control defaultInput" value="" ng-model="selectedItem[field.name]"/>
 
 
         <!-- Item Reference List (No quantity)-->          
         <span ng-if="field.displayType == 'itemReferenceList' && collections[field.referenceTo].collectionType != 'inventorial' && collections[field.referenceTo].collectionType != 'inventorial_bundle'" ng-init="getRefItems(field.referenceTo)">
-          <ui-select multiple ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refItems[field.referenceTo].totalCount == 0 || refItems[field.referenceTo].totalCount == -1" sortable="true" close-on-select="false" class="defaultInput" style="padding:5px;">
+          <ui-select ng-disabled="selectedItemSubmitting || field.readonly" multiple ng-model="selectedItem[field.name]" theme="bootstrap" ng-disabled="refItems[field.referenceTo].totalCount == 0 || refItems[field.referenceTo].totalCount == -1" sortable="true" close-on-select="false" class="defaultInput" style="padding:5px;">
              <ui-select-match placeholder="Select {{collections[field.referenceTo].pluralLabel}}">
                 <small class="fa" ng-class="collections[field.referenceTo].icon"></small> {{$item.number}}
               </ui-select-match>
@@ -123,11 +123,11 @@
               <div ng-if="!refItemsLoading" ng-repeat="referenceItem in selectedItem[field.name] track by $index" class="row refListRow noSpace fadeInOut" ng-class="getRefListRowClass($index, selectedItem[field.name].length-1)">
                 <!-- Remove item button -->
                 <div class="col-md-1 text-right">
-                  <span ng-click="removeReference(field.name, $index, referenceItem._id)" class="refRemoveIcon fa fa-remove"></span>
+                  <span ng-if="!field.readonly" ng-click="removeReference(field.name, $index, referenceItem._id)" class="refRemoveIcon fa fa-remove"></span>
                 </div>
                 <div class="col-md-2"><a ng-href="#/{{field.referenceTo}}/view/{{refItems[field.referenceTo].itemObjects[referenceItem._id].number}}">{{ refItems[field.referenceTo].itemObjects[referenceItem._id].number }}</a></div>
                 <div class="col-md-7"><a ng-href="#/{{field.referenceTo}}/view/{{refItems[field.referenceTo].itemObjects[referenceItem._id].number}}">{{ refItems[field.referenceTo].itemObjects[referenceItem._id].title }}</a></div>
-                <div class="col-md-2 text-center"><input class="form-control defaultInput" type="number" style="padding:3px;text-align:center;" ng-model="referenceItem.qty"/></div>
+                <div class="col-md-2 text-center"><input ng-disabled="field.readonly" class="form-control defaultInput" type="number" style="padding:3px;text-align:center;" ng-model="referenceItem.qty"/></div>
               </div>
 
               <!-- If there are no items -->
@@ -148,7 +148,7 @@
               <!-- Select Items Button -->
               <div class="row noSpace">
                 <div class="col-md-12 text-right noSpace" style="padding:5px;">
-                  <button type="button" ng-click="showRefListSelector(field.referenceTo, field.name)" class="btn btn-success"><span class="fa fa-search"></span> Select {{ collections[field.referenceTo].pluralLabel }}</button>
+                  <button ng-disabled="field.readonly" type="button" ng-click="showRefListSelector(field.referenceTo, field.name)" class="btn btn-success"><span class="fa fa-search"></span> Select {{ collections[field.referenceTo].pluralLabel }}</button>
                 </div>
               </div>
 
@@ -179,10 +179,10 @@
               <div ng-if="!refItemsLoading" ng-repeat="referenceItem in selectedItem[field.name] track by $index" class="clearfix row noSpace fadeInOut" ng-class="getRefListRowClass($index, selectedItem[field.name].length-1)">
                 <!-- Visible info -->
                 <div class="col-md-1 text-right">
-                  <span ng-click="removeReference(field.name, $index, referenceItem._id)" class="refRemoveIcon hideInMobile fa fa-remove"></span>
+                  <span ng-if="!field.readonly" ng-click="removeReference(field.name, $index, referenceItem._id)" class="refRemoveIcon hideInMobile fa fa-remove"></span>
                 </div>
                 <div class="col-md-2">
-                  <span ng-click="removeReference(field.name, $index, referenceItem._id)" class="refRemoveIcon fa fa-remove hideInDesktop"></span>
+                  <span ng-if="!field.readonly" ng-click="removeReference(field.name, $index, referenceItem._id)" class="refRemoveIcon fa fa-remove hideInDesktop"></span>
                   <a ng-href="#/{{field.referenceTo}}/view/{{refItems[field.referenceTo].itemObjects[referenceItem._id].number}}">{{ refItems[field.referenceTo].itemObjects[referenceItem._id].number }}</a>
                 </div>
                 <div class="col-md-6"><a ng-href="#/{{field.referenceTo}}/view/{{refItems[field.referenceTo].itemObjects[referenceItem._id].number}}">{{ refItems[field.referenceTo].itemObjects[referenceItem._id].title }}</a></div>
@@ -372,7 +372,6 @@
     <!-- Modal Inventory Control -->
     <span ng-include="'views/includes/inventorycontrol.html'"></span>
 
-
     <!-- Modal Reference Selector -->
     <div id="refListSelector" class="modal fade" role="dialog" >
       <div class="modal-dialog">
@@ -383,25 +382,25 @@
           </div>
 
           <!-- Modal body for inventorial items -->
-          <div ng-if="collections[refListCollection].collectionType == 'inventorial'" class="modal-body">
-            <div class="row refListHeader text-center">
+          <div ng-if="collections[refListCollection].collectionType == 'inventorial'" class="modal-body" style="border: 5px solid #cbe1d8;margin-bottom:10px;padding:0px 0px 5px 0px;border-radius:10px;">
+            <div class="row refListHeader">
               <div class="col-md-1">&nbsp;</div>
               <div class="col-md-3">Number</div>
-              <div class="col-md-4">Title</div>
-              <div class="col-md-2">In stock</div>
+              <div class="col-md-6">Title</div>
+              <div class="col-md-2 text-center">In stock</div>
             </div>
             <div style="max-height:500px;overflow-y:scroll;">
               <div ng-repeat="item in refItems[refListCollection].items track by $index" class="row" ng-class="getRefListRowClass($index, refItems[refListCollection].items.length-1)">
                 <div class="col-md-1"><input ng-attr-id="{{item._id}}" ng-checked="selectedReferences[item._id]" type="checkbox" name="checkbox" class="refListCheckbox"/></div>
                 <div class="col-md-3">{{ item.number }}</div>
-                <div class="col-md-4">{{ item.title }}</div>
-                <div class="col-md-2">{{ item.quantity }}</div>
+                <div class="col-md-6">{{ item.title }}</div>
+                <div class="col-md-2 text-center">{{ item.instock }}</div>
               </div>
             </div>
           </div>
 
           <!-- Modal body for bundle items -->
-          <div ng-if="collections[refListCollection].collectionType == 'inventorial_bundle'" class="modal-body">
+          <div ng-if="collections[refListCollection].collectionType == 'inventorial_bundle'" class="modal-body" style="border: 5px solid #cbe1d8;margin-bottom:10px;padding:0px 0px 5px 0px;border-radius:10px;">
             <div class="row refListHeader text-center">
               <div class="col-md-1">&nbsp;</div>
               <div class="col-md-3 text-left">Number</div>
@@ -428,15 +427,20 @@
     <!-- Modal Reference Selector -->
 
     <!-- Footer (with controls) -->
-    <div class="controlFooter">
+    <div ng-if="!collections[selectedItem.collectionName].sysProvided || canEditSys()" class="controlFooter">
       <div class="container-fluid">
         <!-- Configure button -->
-        <div class="col-md-1 text-left hideInMobile" style="padding:7px;">
+        <div ng-if="canEditCollections()" class="col-md-1 text-left hideInMobile" style="padding:7px;">
           <button type="button" ng-click="changeView('account/collections/view/' + selectedItem.collectionName)" class="btn btn-success btn-lg"><span class="fa fa-cog"></span></a>
         </div>
+
         <div ng-if="currentAction == 'update'" class="col-md-2 text-left hideInMobile" style="padding:7px;">
-          <button type="button" ng-click="changeView(selectedItem.collectionName + '/new')" class="btn btn-lg btn-success btn-block"><span class="fa fa-plus"></span> New {{ collections[selectedItem.collectionName].singleLabel }}</a>
+          <button type="button" ng-click="changeView(selectedItem.collectionName + '/new')" class="btn btn-lg btn-success btn-block"><span class="fa fa-plus"></span> New</a>
         </div>
+
+        <!-- Spacer if they cannot edit collections -->
+        <div ng-if="!canEditCollections()" class="col-md-1 text-left hideInMobile" style="padding:7px;"></div>
+
         <!-- Alerts -->
         <div class="col-md-5 text-center">
           <span ng-include="'views/includes/alerts.html'"></span>

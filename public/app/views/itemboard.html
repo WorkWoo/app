@@ -41,11 +41,11 @@
 <div ng-if="!itemsLoading" class="container-fluid noSpace fadeInOut">
 
   <!-- Message if they have not setup their primary collection -->
-  <div ng-if="!itemsLoading && loadedItems.length == 0" class="container-fluid text-center" style="margin-top:50px;">
-    <div class="col-md-12">
-      <h2 ng-if="!queryCriteria" class="pageHeading">No {{ collections[baseCollection].pluralLabel }} found!</h2>
-      <h2 ng-if="queryCriteria" class="pageHeading">No matching {{ collections[baseCollection].pluralLabel }} found!</h2>
-      <a class="btn btn-success" ng-href="#/{{baseCollection}}/new"><h3 class="noSpace">Create one now</h3></a>
+  <div ng-if="!itemsLoading && loadedItems.length == 0" class="container-fluid" style="margin-top:50px;">
+    <div class="col-md-12 text-center">
+      <h2 ng-if="!queryCriteria">No {{ collections[baseCollection].pluralLabel }} found!</h2>
+      <h2 ng-if="queryCriteria">No matching {{ collections[baseCollection].pluralLabel }} found!</h2>
+      <a ng-if="!collections[baseCollection].sysProvided || canEditSys()" class="btn btn-success" ng-href="#/{{baseCollection}}/new"><h3 class="noSpace">Create one now</h3></a>
     </div>
   </div>
   <!-- Page Header -->
@@ -82,7 +82,7 @@
   <div class="container-fluid">
     <!-- Configure button -->
     <div class="col-md-2 text-left hideInMobile" style="padding:7px;">
-      <button type="button" ng-click="changeView('account/collections/view/' + baseCollection)" class="btn btn-lg btn-success"><span class="fa fa-cog"></span></a>
+      <button ng-if="canEditCollections()" type="button" ng-click="changeView('account/collections/view/' + baseCollection)" class="btn btn-lg btn-success"><span class="fa fa-cog"></span></a>
     </div>
     <!-- Alerts -->
     <div class="col-md-8 text-center">

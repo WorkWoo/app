@@ -10,19 +10,19 @@
 <!-- Page Content -->
 <div class="container-fluid" style="margin-top:25px;">
 
-  <div ng-repeat="collection in workableCollections" ng-init="columnClass = (workableCollections.length == 1) ? 'col-md-12' : 'col-md-6'" ng-class="columnClass">
+  <div ng-repeat="collection in workableCollections" ng-init="columnClass = (workableCollections.length == 2) ? 'col-md-6' : 'col-md-12'" ng-class="columnClass">
     <div class="collectionReport">
       
       <!-- Collection icon & title -->
-      <div class="row noSpace">
+      <div class="row noSpace clearFix">
         <div class="col-md-10">
           <h2 class="collectionReportTitle">
             <span class="mainColor fa" ng-class="collection.icon"></span>
             <a ng-href="#/{{collection.name}}"><span> {{ collection.pluralLabel }}</span></a>
           </h2>
         </div>
-        <div class="col-md-2 text-right">
-          <a ng-href="#/account/collections/view/{{collection.name}}" class="collectionStatusSettingsIcon hideInMobile fa fa-cog"></a>
+        <div ng-if="canEditCollections()" lass="col-md-2 text-right">
+          <a ng-href="#/account/collections/view/{{collection.name}}" class="collectionStatusSettingsIcon hideInMobile pull-right fa fa-cog"></a>
         </div>
       </div>
 
@@ -38,6 +38,13 @@
               <span><strong>{{ state }}</strong></span>
             </a>
           </div>
+        </div>
+      </div>
+
+      <!-- Create new button -->
+      <div class="row noSpace">
+        <div class="col-md-12">
+          <a style="width:200px;margin-top:10px;" ng-href="#/{{collection.name}}/new" type="button" class="btn btn-success pull-right"><span class="fa fa-plus"></span> New {{ collection.singleLabel }} </a>
         </div>
       </div>
 
