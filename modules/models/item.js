@@ -391,9 +391,12 @@ itemSchema.statics.updateInventory = function(org, collectionName, itemID, updat
 				log.error('|Item.updateInventory| Unknown -> ' + error, widget);
 				return callback(error, false);
 			} else {
-				log.info('Qty: ' + item.instock);
+				var currentStock = item.instock;
+				if(!currentStock) {
+					currentStock = 0;
+				}
 
-				item.instock = parseInt(item.instock,10) + parseInt(updateQty,10);
+				item.instock = parseInt(currentStock,10) + parseInt(updateQty,10);
 
 				item.save(function(error, updatedItem){
 					return callback(null, updatedItem);

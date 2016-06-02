@@ -193,7 +193,6 @@ function mainController($scope, $location, $route, $sce, User, $filter) {
     $scope.currentUser = userObject;
   };
 
-
   $scope.canEditCollections = function() {
     return ($scope.currentUser.role == 'Owner' || $scope.currentUser.role == 'Admin' || $scope.currentUser.role == 'Superuser');
   };

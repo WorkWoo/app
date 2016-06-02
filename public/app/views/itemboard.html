@@ -20,7 +20,7 @@
     <h4 class="centerInMobile" ng-repeat="(key, value) in queryCriteria">
       Showing items where 
       <span class="mainColor"><strong><i>{{ collections[baseCollection].fieldsObject[key].label }}</i></strong></span> is 
-      <span ng-if="value == 'null'" class="mainColor"><strong><i>Empty</i></strong></span>
+      <span ng-if="value == 'null'" class="mainColor"><strong><i>(empty)</i></strong></span>
       <span ng-if="value != 'null'" class="mainColor"><strong><i>{{ value }}</i></strong></span>
     </h4>
 
@@ -92,7 +92,7 @@
     <div class="col-md-2" style="padding:7px;">
       <a ng-if="!itemsLoading && loadedItems.length > 0" ng-disabled="itemsLoading" class="btn btn-success btn-block btn-lg" ng-href="#/{{baseCollection}}/new">
         <span class="fa fa-plus"></span>
-        <span>New {{ collections[baseCollection].singleLabel }}</span>
+        <span> New</span>
       </a>
     </div>
   </div>

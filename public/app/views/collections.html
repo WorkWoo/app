@@ -29,7 +29,7 @@
       </div>
     </div>
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in workableCollections" class="col-md-12 text-center fadeInOutStagger">
+    <div ng-repeat="(collectionIndex, collection) in workableCollections" ng-if="!collection.sysProvided || canEditSys()" class="col-md-12 text-center fadeInOutStagger">
       <div class="itemCard" style="padding-top:15px;margin-bottom:5px;">
         <a ng-attr-id="{{collectionIndex}}_workSettings" ng-href="#/account/collections/view/{{collection.name}}">
           <div class="col-md-12">
@@ -54,7 +54,7 @@
       </div>
     </div>
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in inventoryCollections" class="col-md-12 text-center fadeInOut">
+    <div ng-repeat="(collectionIndex, collection) in inventoryCollections" ng-if="!collection.sysProvided || canEditSys()" class="col-md-12 text-center fadeInOut">
       <div class="itemCard" style="padding-top:15px;margin-bottom:5px;">
         <a ng-attr-id="{{collectionIndex}}_workSettings" ng-href="#/account/collections/view/{{collection.name}}">
           <div class="col-md-12">
@@ -79,7 +79,7 @@
       </div>
     </div>
     <!-- Each collection -->
-    <div ng-repeat="(collectionIndex, collection) in basicCollections" class="col-md-12 text-center fadeInOutStagger">
+    <div ng-repeat="(collectionIndex, collection) in basicCollections" ng-if="!collection.sysProvided || canEditSys()" class="col-md-12 text-center fadeInOutStagger">
       <div class="itemCard" style="padding-top:15px;margin-bottom:5px;">
         <a ng-attr-id="{{collectionIndex}}_workSettings" ng-href="#/account/collections/view/{{collection.name}}">
           <div class="col-md-12">

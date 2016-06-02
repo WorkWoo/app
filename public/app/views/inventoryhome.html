@@ -1,24 +1,18 @@
 <div class="container-fluid" style="margin-top:25px;">
-  <div ng-repeat="collection in inventoryCollections" ng-init="columnClass = (inventoryCollections.length == 2) ? 'col-md-6' : 'col-md-12'" ng-class="columnClass">
+  <div ng-repeat="collection in inventoryCollections" ng-if="!collection.sysProvided || canEditSys()" ng-init="columnClass = (inventoryCollections.length == 2) ? 'col-md-6' : 'col-md-6'" ng-class="columnClass">
     <div class="collectionReport">
 
       <!-- Collection icon & title -->
       <div class="row noSpace">
-        <div class="col-md-10">
+        <div class="col-md-11">
           <h2>
             <span class="mainColor fa" ng-class="collection.icon"></span>
             <a ng-href="#/{{collection.name}}"><span> {{ collection.pluralLabel }}</span></a>
+            <span class="badge badgeDark">{{ collectionCounts[collection.name].totalItems }}</span>
           </h2>
         </div>
-        <div ng-if="canEditCollections()" lass="col-md-2 text-right">
+        <div ng-if="canEditCollections()" lass="col-md-1 text-right">
           <a ng-href="#/account/collections/view/{{collection.name}}" class="collectionStatusSettingsIcon hideInMobile pull-right fa fa-cog"></a>
-        </div>
-      </div>
-
-      <!-- Total -->
-      <div class="row noSpace">
-        <div class="col-md-12">
-          <h4 class="noSpace"><a ng-href="#/{{collection.name}}">Total {{ collection.pluralLabel }}: {{ collectionCounts[collection.name].totalItems }}</a></h4>
         </div>
       </div>
 
@@ -36,7 +30,7 @@
           <div ng-if="field.displayType == 'choice'">
             <h4 class="mainColor">By {{ field.label }}:</h4>
 
-            <div class="col-md-2" ng-repeat="choice in field.choices" style="padding:5px;">
+            <div ng-repeat="choice in field.choices" style="padding:5px;">
               <a style="font-size:20px;text-align:left;padding-left:50px;" ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}">
                 <span class="badge badgeLight">
                   <span ng-if="!countsCompleted" class="fa fa-refresh spinCustom fadeInOut"></span>
@@ -48,10 +42,10 @@
             
             <!-- Empty (no choice selected) -->
             
-            <div class="col-md-2" ng-if="collection.collectionType != 'inventory_activity'" style="padding:5px;">
+            <div ng-if="collection.collectionType != 'inventory_activity'" style="padding:5px;">
               <a style="font-size:20px;text-align:left;padding-left:50px;" ng-href="#/{{collection.name}}/search?{{field.name}}=null">
                 <span class="badge badgeLight">{{ collectionCounts[collection.name][field.name]['empty'] }}</span>
-                <span><strong>Empty</strong></span>
+                <span><strong>(empty)</strong></span>
               </a>
             </div>
 
@@ -62,7 +56,7 @@
       <!-- Create new button -->
       <div class="row noSpace">
         <div class="col-md-12">
-          <a style="width:200px;margin-top:10px;" ng-href="#/{{collection.name}}/new" type="button" class="btn btn-success pull-right"><span class="fa fa-plus"></span> New {{ collection.singleLabel }} </a>
+          <a style="width:200px;margin-top:10px;" ng-href="#/{{collection.name}}/new" type="button" class="btn btn-success btn-lg pull-right"><span class="fa fa-plus"></span> New {{ collection.singleLabel }} </a>
         </div>
       </div>
 

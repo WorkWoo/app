@@ -101,12 +101,12 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
 
   $scope.getItemFieldClass = function(item, field) {
     if (field.displayType == 'itemReferenceList' && field.referenceType == 'inventorial') {
-      return 'col-md-9';
+      return 'col-md-12';
     } else if (field.displayType == 'itemReferenceList' && field.referenceType == 'inventorial_bundle') {
       return 'col-md-12';
     } else if(field.displayType == 'textarea') {
       return 'col-md-12';
-    } else if (field.displayType == 'userReferenceList' || field.displayType == 'itemReferenceList') {
+    } else if (field.displayType == 'userReferenceList' || field.displayType == 'itemReferenceList' || field.displayType == 'choice') {
       return 'col-md-6';
     } else if (field.name == $scope.collections[item.collectionName].displayField) {
       return 'col-md-9';
@@ -504,6 +504,11 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     var activityTitle = 'Manual ' + $scope.inventoryAction + ' for ' + $scope.selectedItem.title;
 
     var activityType = '';
+
+    if(!$scope.selectedItem.instock) {
+      $scope.selectedItem.instock = 0;
+    }
+
     if($scope.inventoryAction == 'pull') {
       activityType = 'Pull from stock';
       $scope.selectedItem.instock = parseInt($scope.selectedItem.instock, 10) - parseInt(amount, 10);
@@ -563,7 +568,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
           function(newActivity){
             log.info('Pulling inventory: pass');
             $scope.selectedItemSubmitting = false;
-            $scope.toggleAlert('success', true,' Inventory pulled');
+            $scope.toggleAlert('success', true, type + ' complete');
             $scope.setPageLoading(false);
             $scope.reloadRoute();
           },
@@ -874,7 +879,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
     var collectionType = $scope.collections[collectionName].collectionType;
     if(collectionType == 'workable') {
       $scope.setActiveSection('work');
-    } else if(collectionType == 'inventorial' || collectionType == 'inventorial_bundle') {
+    } else if(collectionType == 'inventorial' || collectionType == 'inventorial_bundle' || collectionType == 'inventory_activity') {
       $scope.setActiveSection('inventory');
     } else if(collectionType == 'basic') {
       $scope.setActiveSection('other');
@@ -915,6 +920,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
       currentURL = currentURL.slice(1); // Remove the slash
       $scope.loadedItems = [];
       $scope.baseCollection = currentURL;
+      $scope.setActiveCollection($scope.baseCollection);
       $scope.queryCriteria = $routeParams;
       $routeParams = {};
 
@@ -930,6 +936,7 @@ function itemController($scope, $location, $routeParams, $timeout, Item, User) {
       // Now, extract the collection name
       currentURL = currentURL.slice(0, currentURL.indexOf('/new'));
       $scope.baseCollection = currentURL.slice(1);
+      $scope.setActiveCollection($scope.baseCollection);
       $scope.currentAction = 'create';
       $scope.selectedItem = { collectionName: $scope.baseCollection };
       $scope.itemsLoading = false;
