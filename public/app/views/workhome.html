@@ -1,55 +1,44 @@
-<!-- Page header if they have not setup their primary collection -->
-<div ng-if="!currentUser.org.primaryCollection" class="container-fluid text-center">
-  <div class="col-md-12">
-    <h2 class="pageHeading">You haven't set up your business yet</h2>
-    <a class="btn btn-success" href="#/account/collections/getstarted"><h3 class="noSpace">Get started now</h3></a>
-  </div>
-</div>
-<!-- Page Header -->
-
-<!-- Page Content -->
 <div class="container-fluid" style="margin-top:25px;">
-
-  <div ng-repeat="collection in workableCollections" ng-init="columnClass = (workableCollections.length == 2) ? 'col-md-6' : 'col-md-12'" ng-class="columnClass">
+  <div ng-repeat="collection in workableCollections" ng-if="!collection.sysProvided || canEditSys()" ng-init="columnClass = (workableCollections.length == 2) ? 'col-md-12' : 'col-md-12'" ng-class="columnClass">
     <div class="collectionReport">
-      
+
       <!-- Collection icon & title -->
-      <div class="row noSpace clearFix">
-        <div class="col-md-10">
-          <h2 class="collectionReportTitle">
-            <span class="mainColor fa" ng-class="collection.icon"></span>
+      <div class="row noSpace">
+        <div class="col-md-6 centerInMobile">
+          <h2>
+            <span class="darkGrayColor fa" ng-class="collection.icon"></span>
             <a ng-href="#/{{collection.name}}"><span> {{ collection.pluralLabel }}</span></a>
           </h2>
         </div>
-        <div ng-if="canEditCollections()" lass="col-md-2 text-right">
-          <a ng-href="#/account/collections/view/{{collection.name}}" class="collectionStatusSettingsIcon hideInMobile pull-right fa fa-cog"></a>
+        <div class="col-md-6 centerInMobile">
+          <a ng-if="canEditCollections()" ng-href="#/account/collections/view/{{collection.name}}" class="collectionStatusSettingsIcon hideInMobile pull-right fa fa-cog"></a>
+          <a style="margin-top:10px;" ng-href="#/{{collection.name}}/new" type="button" class="btn btn-success btn-lg pull-right blockInMobile"><span class="fa fa-plus"></span> New {{ collection.singleLabel }} </a>
         </div>
       </div>
 
-      <!-- Breakdown by state -->
+      <!-- Breakdown by each field -->
       <div class="row noSpace">
-        <div class="col-md-12">
-          <div ng-repeat="state in collection.stateChoices" style="padding: 5px;">
-            <a class="text-left" style="font-size:20px;text-align:left;padding-left:20px;" ng-href="#/{{collection.name}}/search?state={{state}}">
-              <span class="badge badgeLight">
-                <span ng-if="!countsCompleted" class="fa fa-refresh spinCustom fadeInOut"></span>
-                <span ng-if="countsCompleted" class="fadeInOut">{{ collectionCounts[collection.name].state[state] }}</span>
-              </span>
-              <span><strong>{{ state }}</strong></span>
-            </a>
+        <div ng-repeat="field in collection.fields" ng-if="field.displayType == 'currency' || field.displayType == 'choice' || field.displayType == 'state'" class="col-md-6">
+
+          <!-- Dropdown choices field -->
+          <div ng-if="field.displayType == 'choice' || field.displayType == 'state'">
+            <h3 class="centerInMobile">By {{ field.label }}:</h3>
+
+            <div ng-repeat="choice in field.choices" style="padding:0px;">
+              <a style="font-size:20px;text-align:left;padding-left:50px;" ng-href="#/{{collection.name}}/search?{{field.name}}={{choice}}">
+                <span class="badge badgeLight">
+                  <span ng-if="!countsCompleted" class="fa fa-refresh spinCustom fadeInOut"></span>
+                  <span ng-if="countsCompleted" class="fadeInOut">{{ collectionCounts[collection.name][field.name][choice] }}</span>
+                </span>
+                <span><strong>{{ choice }}</strong></span>
+              </a>
+            </div>
+
           </div>
         </div>
       </div>
 
-      <!-- Create new button -->
-      <div class="row noSpace">
-        <div class="col-md-12">
-          <a style="width:200px;margin-top:10px;" ng-href="#/{{collection.name}}/new" type="button" class="btn btn-lg pull-right btn-success"><span class="fa fa-plus"></span> New {{ collection.singleLabel }} </a>
-        </div>
-      </div>
 
     </div>
   </div>
-
 </div>
-<!-- Page Content -->

@@ -43,12 +43,12 @@
 
   </head>
   
-  <body ng-controller="mainController" style="margin:0px;padding:0px;color:#777;position:relative;opacity:1;">
+  <body ng-controller="mainController" style="margin:0px;padding:0px;color:#555;position:relative;opacity:1;">
 
     <div ng-if="startMainTour" id="mainTour" ng-joy-ride="startMainTour" config="mainTourConfig" on-finish="finishMainTour()" on-skip="skipMainTour()"></div>
     
     <!-- Desktop Header -->
-    <div class="header hideInMobile">
+    <div class="mainColorDarkBackground header hideInMobile">
       <span class="headerTitle">
         <i class="fa fa-coffee fa-1x"></i>&nbsp;&nbsp;WorkWoo
       </span>
@@ -62,14 +62,14 @@
           <li ng-if="basicCollections.length > 0"><a href="#/other/home"><span class="fa fa-inbox"></span> Other Items</a></li>
 
           <!-- For admins -->
-          <li ng-if="canEditAccount()" style="border-top:5px solid #508c72;"><a href="#/account"> <span class="fa fa-cogs"></span> Settings</a></li>
+          <li ng-if="canEditAccount()" style="border-top:5px solid #2ea6ae;"><a href="#/account"> <span class="fa fa-cogs"></span> Settings</a></li>
           
           <!-- For non admins -->
-          <li ng-if="!canEditAccount()" style="border-top:5px solid #508c72;"><a href="#/account/summary"> <span class="fa fa-user"></span> My Profile</a></li>
+          <li ng-if="!canEditAccount()" style="border-top:5px solid #2ea6ae;"><a href="#/account/summary"> <span class="fa fa-user"></span> My Profile</a></li>
           
           <li><a href="#/support"><span class="fa fa-question-circle"></span> Get Help</a></li>
           <li><a href="#" class="hideInMobile" ng-click="tiggerMainTour()"><span class="fa fa-road"></span> Take the tour</a></li>
-          <li style="border-top:5px solid #508c72;"><a href="/logout"><span class="fa fa-sign-out"></span> Logout</a></li>
+          <li style="border-top:5px solid #2ea6ae;"><a href="/logout"><span class="fa fa-sign-out"></span> Logout</a></li>
         </ul>
       </div>
     </div>
@@ -100,21 +100,20 @@
     <!-- Mobile Header -->
 
     <!-- Left Menu icons (Desktop) -->
-    <a href="#/work/home" id="workMenuItem" class="fa fa-home leftMenuIcon hideInMobile" style="top:25px;">
+    <a href="#/work/home" id="workMenuItem" class="fa fa-home mainColorBackground leftMenuIcon hideInMobile" style="top:25px;">
       <span class="leftMenuText">My Work</span>
     </a>
 
-    <a href="#/inventory/home" id="inventoryMenuItem" ng-if="inventoryCollections.length > 0" class="fa fa-cubes leftMenuIcon hideInMobile" style="top:100px;">
+    <a href="#/inventory/home" id="inventoryMenuItem" ng-if="inventoryCollections.length > 0" class="fa fa-cubes mainColorBackground leftMenuIcon hideInMobile" style="top:100px;">
       <span class="leftMenuText">Inventory</span>
     </a>
 
-    <a href="#/other/home" id="otherMenuItem" ng-if="basicCollections.length > 0" class="fa fa-inbox leftMenuIcon hideInMobile" ng-style="getLeftMenuIconOffset('basic')">
+    <a href="#/other/home" id="otherMenuItem" ng-if="basicCollections.length > 0" class="fa fa-inbox mainColorBackground leftMenuIcon hideInMobile" ng-style="getLeftMenuIconOffset('basic')">
       <span class="leftMenuText">Other Items</span>
     </a>
 
     <!-- Bottom portion of the nav that makes it appear as a solid bar -->
-    <span id="leftMenuContainer" class="leftMenuContainer hideInMobile" ng-style="getLeftMenuContainerOffset()">
-      
+    <span id="leftMenuContainer" class="mainColorBackground leftMenuContainer hideInMobile" ng-style="getLeftMenuContainerOffset()">
 
       <!-- Settings icon (for admins) -->
       <a ng-if="canEditAccount()" href="#/account" id="settingsMenuItem" class="fa fa-cogs leftMenuIcon" style="top:0px;position:relative;">

@@ -14,33 +14,33 @@
       
       <!-- Title -->
       <div class="row noSpace">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
           <h3 class="text-center">
-            <span class="fa fa-question-circle mainColor"></span>
+            <span class="fa fa-question-circle mainColorDark"></span>
             <span> Get Help</span>
           </h3>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-3"></div>
       </div>
 
       <!-- Message -->
       <div class="row noSpace">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
           <div class="inputContainer">
             <label for="Field1">What can we help you with?</label>
             <textarea id="Field1" name="Field1" value="" ng-model="formSubmission.description" class="form-control defaultInput" style="resize:vertical;" spellcheck="true" rows="8" required></textarea>
           </div>
         </div>
-        <div class="col-md-2"></div>
+        <div class="col-md-3"></div>
       </div>
 
       <!-- Urgency -->
       <div class="row noSpace">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-          <div class="inputContainer">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="inputontainer">
             <label for="Field2">How urgent is this?</label>
             <select id="Field2" name="Field2" ng-disabled="formSubmitting" class="form-control defaultInput" value="" ng-model="helpSubmission.urgency">
               <option value="Right now" selected="selected">Right now</option>
@@ -49,18 +49,18 @@
             </select>
           </div>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-3"></div>
       </div>
 
       <!-- Submit button -->
       <div class="row noSpace">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
           <button  id="saveForm" name="saveForm" type="submit" ng-disabled="formSubmitting || helpSubmissionForm.$invalid" class="btn btn-success btn-lg btn-block" style="margin: 10px 0px 5px 0px">
             <span ng-if="formSubmitting"><i class="fa fa-refresh fa-spin"></i> Submitting</span>
             <span ng-if="!formSubmitting">Submit</span>
           </button>          </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-3"></div>
       </div>
 
     </div>

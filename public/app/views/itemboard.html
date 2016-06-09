@@ -2,10 +2,10 @@
 <div class="container-fluid" style="margin-top:25px;">
   <!-- Title -->
   <div class="col-md-8">
-    <h3 class="pageHeading">
-      <span class="mainColor fa" ng-class="collections[baseCollection].icon"></span>
+    <h2 class="pageHeading">
+      <span class="fa" ng-class="collections[baseCollection].icon"></span>
       <span> {{ collections[baseCollection].pluralLabel }}</span>
-    </h3>
+    </h2>
   </div>
   <!-- Search -->
   <div class="col-md-4 text-right noSpaceMobile">
@@ -18,7 +18,7 @@
   <!-- Query indicator -->
   <div class="col-md-12 text-left">
     <h4 class="centerInMobile" ng-repeat="(key, value) in queryCriteria">
-      Showing items where 
+      Showing {{ collections[baseCollection].pluralLabel }} where 
       <span class="mainColor"><strong><i>{{ collections[baseCollection].fieldsObject[key].label }}</i></strong></span> is 
       <span ng-if="value == 'null'" class="mainColor"><strong><i>(empty)</i></strong></span>
       <span ng-if="value != 'null'" class="mainColor"><strong><i>{{ value }}</i></strong></span>
@@ -53,9 +53,9 @@
   <!-- Create a card for each item -->
   <div ng-repeat="item in loadedItems" class="col-md-4 noSpaceMobile fadeInOutStagger">
     <div class="itemCard">
-      <a class="noUnderline" style="color:#508c72;" ng-href="#/{{baseCollection}}/view/{{item.number}}">
+      <a class="noUnderline" ng-href="#/{{baseCollection}}/view/{{item.number}}">
         <div class="col-md-6 text-left">
-          <h4 class="noSpace">{{ item.number }}</h4>
+          <h4 class="noSpace" style="color:#777;">{{ item.number }}</h4>
         </div>
         <div class="col-md-6 text-right">
           <h4 class="noSpace mainColor">{{ item.state }}</h4>
